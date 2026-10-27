@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>낙찰 영업 레이더 · 공공 공사 낙찰 검색</title>
+<meta name="description" content="조달청 나라장터 공공데이터를 지역·공종·업체별로 정리해 매일 아침 갱신합니다.">
+<meta name="theme-color" content="#0a0d11">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d11;--panel:#0f141a;--panel2:#151c24;--line:#1e2630;--line2:#2c3845;--tx:#eef1f5;--sub:#aab4bf;--mut:#8f9ba7;--ac:#ffc400;--acx:#151100}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.5;-webkit-text-size-adjust:100%}
+a{color:var(--ac)}
+button,input,select{font-family:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid #1a222b}
+header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 28px;padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--tx);text-decoration:none}
+.logo{width:26px;height:26px;display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.logo i{background:var(--tx);border-radius:3px}.logo i:last-child{background:var(--ac)}
+nav.gnb{display:flex;flex-wrap:wrap;gap:0 4px;flex-grow:1}
+.gnb button{min-height:44px;padding:0 12px;border:0;background:none;color:var(--sub);font-size:15px;font-weight:700;cursor:pointer;border-bottom:2px solid transparent}
+.gnb button[aria-current=true]{color:var(--tx);border-bottom-color:var(--ac)}
+.gnb button:hover{color:var(--tx)}
+.hero{padding:56px 0 36px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ac);border:1px solid #3a3210;border-radius:99px;padding:8px 14px}
+.pill b{width:8px;height:8px;border-radius:50%;background:var(--ac)}
+h1{margin:24px auto 0;max-width:900px;font-size:clamp(34px,5.4vw,64px);line-height:1.12;font-weight:800;letter-spacing:-.035em;text-wrap:balance}
+h1 em{font-style:normal;color:var(--ac)}
+.lead{margin:20px auto 0;max-width:620px;font-size:clamp(16px,2vw,19px);line-height:1.65;color:var(--sub);text-wrap:pretty}
+form.search{margin:32px auto 0;max-width:900px;background:var(--panel);border:1px solid var(--line2);border-radius:20px;padding:10px;display:flex;flex-wrap:wrap;gap:10px;text-align:left}
+.fld{background:var(--panel2);border-radius:12px;padding:8px 14px;min-width:0}
+.fld label{display:block;font-size:12px;color:var(--mut)}
+.fld select,.fld input{width:100%;border:0;background:transparent;color:var(--tx);color-scheme:dark;font-size:17px;font-weight:700;min-height:32px;padding:0;outline:none}
+.fld input{font-weight:500}
+.fld.q{flex:1 1 260px}.fld.s{flex:0 1 150px;min-width:120px}
+.go{flex:0 0 auto;min-height:60px;padding:0 34px;border:0;border-radius:12px;background:var(--ac);color:var(--acx);font-size:17px;font-weight:800;cursor:pointer}
+.go:hover{filter:brightness(1.08)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:40px;padding:0 16px;border-radius:99px;border:1px solid var(--line2);background:var(--panel2);color:#c4ccd5;font-size:14px;font-weight:500;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:var(--acx);font-weight:700}
+.src{margin:28px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 28px;font-size:14px;color:var(--mut)}
+.src b{color:#c4ccd5}
+.banner{margin:0 0 16px;border:1px dashed #5a4a10;background:#17140a;color:#e8d38a;border-radius:12px;padding:12px 16px;font-size:14px}
+section.res{padding:8px 0 72px}
+.bar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:16px}
+.bar h2{margin:0;font-size:28px;font-weight:800;letter-spacing:-.025em}
+.bar .meta{font-size:14px;color:var(--mut);margin-top:4px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tools select{min-height:44px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--tx);color-scheme:dark;font-size:15px;padding:0 12px}
+.board{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden}
+.hd,.row{display:grid;grid-template-columns:64px 64px minmax(0,1fr) 170px 130px;gap:6px 16px;align-items:center;padding:16px 22px}
+.hd{font-size:13px;color:var(--mut);border-bottom:1px solid var(--line2);padding-top:12px;padding-bottom:12px}
+.row{border-bottom:1px solid #1a222b}
+.row:last-child{border-bottom:0}
+.rg{font-size:13px;font-weight:800;color:var(--acx);background:var(--ac);padding:3px 0;border-radius:6px;text-align:center}
+.kd{font-size:14px;color:var(--mut)}
+.nm{font-size:16px;font-weight:700;min-width:0}
+.nm small{display:block;font-size:13px;font-weight:400;color:var(--mut);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;margin-left:8px;font-size:12px;font-weight:700;color:#c4ccd5;background:#1a222b;border-radius:6px;padding:1px 7px;vertical-align:2px}
+.co{font-size:15px;color:#d5dbe2;min-width:0;overflow-wrap:anywhere}
+.am{text-align:right;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--ac)}
+.am small{display:block;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:400;color:var(--mut)}
+.more{display:flex;justify-content:center;padding:20px}
+.more button{min-height:48px;padding:0 28px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);color:var(--tx);font-size:15px;font-weight:700;cursor:pointer}
+.empty{padding:48px 22px;text-align:center;color:var(--sub)}
+.crow{display:grid;grid-template-columns:minmax(0,1fr) 90px 150px 150px;gap:6px 16px;align-items:center;padding:16px 22px;border-bottom:1px solid #1a222b}
+.chd{display:grid;grid-template-columns:minmax(0,1fr) 90px 150px 150px;gap:6px 16px;padding:12px 22px;font-size:13px;color:var(--mut);border-bottom:1px solid var(--line2)}
+.soon{padding:56px 22px;text-align:center}
+.soon b{font-size:20px}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:13px;color:#7d8a97;line-height:1.7}
+footer a{color:var(--sub)}
+.err{padding:32px 22px;text-align:center;color:#ffb4a8}
+@media (max-width:760px){
+.hd,.chd{display:none}
+.row{grid-template-columns:minmax(0,1fr) auto;padding:16px;gap:8px 12px}
+.row .rg{grid-column:1;grid-row:1;width:56px}
+.row .kd{grid-column:2;grid-row:1;justify-self:end}
+.row .nm{grid-column:1 / -1;grid-row:2}
+.row .co{grid-column:1;grid-row:3}
+.row .am{grid-column:2;grid-row:3;text-align:right}
+.crow{grid-template-columns:minmax(0,1fr) auto;padding:16px}
+.crow .c2,.crow .c3{display:none}
+.crow .c4{text-align:right}
+.go{width:100%}
+.gnb button{padding:0 10px}
+}
+.gnb button.soonTab{opacity:.65}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="#top"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>낙찰 영업 레이더</a>
+<nav class="gnb" aria-label="데이터 메뉴" id="gnb"></nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+<div class="pill"><b></b>매일 오전 7시 업데이트</div>
+<h1>공공 공사의 낙찰,<br><em>한 곳에서 검색</em>하세요.</h1>
+<p class="lead">조달청 나라장터 데이터를 지역, 공종, 업체별로 정리했습니다. 어제 어디가 누구에게 낙찰됐는지 바로 찾아보세요.</p>
+<form class="search" id="form" role="search">
+<div class="fld s"><label for="fRegion">지역</label><select id="fRegion"></select></div>
+<div class="fld s"><label for="fKind">공종</label><select id="fKind"></select></div>
+<div class="fld q"><label for="fQ">현장명, 업체명</label><input id="fQ" type="search" placeholder="예: 청사 신축, 업체명" autocomplete="off"></div>
+<button class="go" type="submit">검색</button>
+</form>
+<div class="src"><span>데이터 출처 <b>조달청 나라장터 · 공공데이터포털</b></span><span id="upd"></span></div>
+</div></section>
+
+<section class="res" id="res"><div class="wrap">
+<div id="banner"></div>
+<div class="bar">
+<div><h2 id="title">낙찰 검색 결과</h2><div class="meta" id="meta" aria-live="polite"></div></div>
+<div class="tools">
+<div class="chips" id="regionChips" role="group" aria-label="지역 빠른 선택"></div>
+<label class="sr" for="fSort" style="position:absolute;left:-9999px">정렬</label>
+<select id="fSort"><option value="d">최신순</option><option value="amt">금액 큰 순</option></select>
+</div>
+</div>
+<div class="board" id="board"></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+<div>본 서비스는 공공데이터를 가공해 제공하며, 데이터의 정확성과 완전성을 보장하지 않습니다. 영업 및 거래 판단의 책임은 이용자에게 있으며, 나라장터 원본 공고를 함께 확인하시기 바랍니다.</div>
+</div></footer>
+
+<script src="app.js"></script>
+</body>
+</html>
