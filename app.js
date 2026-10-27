@@ -5,7 +5,8 @@
     { id: 'win', label: '낙찰', ready: true },
     { id: 'co', label: '업체', ready: true },
     { id: 'bid', label: '입찰', ready: false },
-    { id: 'con', label: '계약', ready: false }
+    { id: 'con', label: '계약', ready: false },
+    { id: 'market', label: '장터', href: 'market/' }
   ];
   var PAGE = 30;
   var S = { tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', shown: PAGE, items: [], sample: false };
@@ -37,10 +38,14 @@
   function renderGnb() {
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
-      var b = el('button', t.ready ? null : 'soonTab', t.label);
-      b.type = 'button';
-      b.setAttribute('aria-current', String(S.tab === t.id));
-      b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; render(); });
+      var b;
+      if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
+      else {
+        b = el('button', t.ready ? null : 'soonTab', t.label);
+        b.type = 'button';
+        b.setAttribute('aria-current', String(S.tab === t.id));
+        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; render(); });
+      }
       g.appendChild(b);
     });
   }
@@ -68,11 +73,18 @@
     });
   }
 
+  function act(r) {
+    var body = '현장: ' + r.nm + '\n지역: ' + (r.rg || '') + (r.kind ? ' · ' + r.kind : '') + '\n';
+    var a = el('a', 'act', '이 현장으로 글쓰기');
+    a.href = 'market/?type=sell&title=' + encodeURIComponent(r.nm.slice(0, 70)) + '&body=' + encodeURIComponent(body);
+    return a;
+  }
+
   function renderWin(list) {
     var board = $('board'); board.textContent = '';
     if (!list.length) { board.appendChild(el('div', 'empty', '조건에 맞는 낙찰이 없습니다. 지역이나 검색어를 바꿔 보세요.')); return; }
     var hd = el('div', 'hd');
-    ['지역', '공종', '현장명 · 발주처', '낙찰 업체', '낙찰 금액'].forEach(function (t, i) {
+    ['지역', '공종', '현장명 · 발주처', '낙찰 업체', '낙찰 금액', ''].forEach(function (t, i) {
       var s = el('span', null, t); if (i === 4) s.style.textAlign = 'right'; hd.appendChild(s);
     });
     board.appendChild(hd);
@@ -89,6 +101,7 @@
       var am = el('div', 'am', money(r.amt));
       am.appendChild(el('small', null, dshort(r.d) + (r.np ? ' · ' + r.np + '개사 참여' : '')));
       row.appendChild(am);
+      row.appendChild(act(r));
       board.appendChild(row);
     });
     if (list.length > S.shown) {
