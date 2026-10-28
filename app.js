@@ -2,14 +2,14 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'win', label: '낙찰', ready: true },
+    { id: 'win', label: '오늘의 낙찰', ready: true },
     { id: 'co', label: '업체', ready: true },
     { id: 'bid', label: '입찰', ready: false },
     { id: 'con', label: '계약', ready: false },
     { id: 'market', label: '장터', href: 'market/' }
   ];
   var PAGE = 30;
-  var S = { tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', shown: PAGE, items: [], sample: false };
+  var S = { tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'last', shown: PAGE, items: [], sample: false, maxD: '' };
 
   function el(tag, cls, text) {
     var e = document.createElement(tag);
@@ -25,9 +25,16 @@
   }
   function dshort(d) { return d ? d.slice(5).replace('-', '.') : ''; }
 
+  function ago(days) {
+    var d = new Date(S.maxD + 'T00:00:00'); d.setDate(d.getDate() - days);
+    return d.toISOString().slice(0, 10);
+  }
   function filtered() {
     var q = S.q.trim().toLowerCase();
+    var from = '';
+    if (S.tab === 'win' && S.maxD) from = S.period === 'last' ? S.maxD : S.period === 'week' ? ago(6) : '';
     return S.items.filter(function (r) {
+      if (from && (r.d || '') < from) return false;
       if (S.region !== '전체' && r.rg !== S.region) return false;
       if (S.kind !== '전체' && r.kind !== S.kind) return false;
       if (q && (r.nm + ' ' + r.co + ' ' + r.dm).toLowerCase().indexOf(q) < 0) return false;
@@ -145,7 +152,8 @@
     renderGnb(); renderChips();
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
-    $('title').textContent = tab.label + ' 검색 결과';
+    $('title').textContent = tab.id === 'win' ? '오늘의 낙찰' : tab.label + ' 검색 결과';
+    $('fPeriod').hidden = tab.id !== 'win';
     if (!tab.ready) {
       board.textContent = '';
       var s = el('div', 'soon'); s.appendChild(el('b', null, tab.label + ' 데이터는 준비 중입니다.'));
@@ -154,12 +162,13 @@
     }
     var list = filtered().slice();
     list.sort(function (a, b) { return S.sort === 'amt' ? (b.amt - a.amt) : (b.d < a.d ? -1 : b.d > a.d ? 1 : b.amt - a.amt); });
-    if (S.tab === 'win') { renderWin(list); $('meta').textContent = '총 ' + list.length + '건'; }
+    if (S.tab === 'win') { renderWin(list); $('meta').textContent = '총 ' + list.length + '건' + (S.period === 'last' && S.maxD ? ' · ' + S.maxD.slice(5).replace('-', '월 ') + '일 기준' : ''); }
     else { var n = renderCo(list); $('meta').textContent = '낙찰 업체 ' + (n || 0) + '곳 · 아래 조건 기준'; }
   }
 
   function boot(data) {
     S.items = data.items || []; S.sample = !!data.sample;
+    S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
     fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), S.region);
     fillSelect($('fKind'), ['전체'].concat(uniq('kind')), S.kind);
     if (data.updated) $('upd').textContent = '갱신 ' + data.updated.replace('T', ' ');
@@ -175,6 +184,7 @@
   $('fRegion').addEventListener('change', function () { S.region = this.value; S.shown = PAGE; render(); });
   $('fKind').addEventListener('change', function () { S.kind = this.value; S.shown = PAGE; render(); });
   $('fSort').addEventListener('change', function () { S.sort = this.value; render(); });
+  $('fPeriod').addEventListener('change', function () { S.period = this.value; S.shown = PAGE; render(); });
 
   renderGnb();
   fetch('data/public.json', { cache: 'no-cache' }).then(function (r) {

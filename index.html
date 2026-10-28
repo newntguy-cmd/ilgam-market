@@ -53,6 +53,7 @@ section.res{padding:8px 0 72px}
 .bar h2{margin:0;font-size:28px;font-weight:800;letter-spacing:-.025em}
 .bar .meta{font-size:14px;color:var(--mut);margin-top:4px}
 .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tools select[hidden]{display:none}
 .tools select{min-height:44px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--tx);color-scheme:dark;font-size:15px;padding:0 12px}
 .board{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden}
 .hd,.row{display:grid;grid-template-columns:64px 64px minmax(0,1fr) 160px 120px 150px;gap:6px 16px;align-items:center;padding:16px 22px}
@@ -119,9 +120,11 @@ footer a{color:var(--sub)}
 <section class="res" id="res"><div class="wrap">
 <div id="banner"></div>
 <div class="bar">
-<div><h2 id="title">낙찰 검색 결과</h2><div class="meta" id="meta" aria-live="polite"></div></div>
+<div><h2 id="title">오늘의 낙찰</h2><div class="meta" id="meta" aria-live="polite"></div></div>
 <div class="tools">
 <div class="chips" id="regionChips" role="group" aria-label="지역 빠른 선택"></div>
+<label class="sr" for="fPeriod" style="position:absolute;left:-9999px">기간</label>
+<select id="fPeriod"><option value="last">가장 최근 낙찰일</option><option value="week">최근 7일</option><option value="all">전체 30일</option></select>
 <label class="sr" for="fSort" style="position:absolute;left:-9999px">정렬</label>
 <select id="fSort"><option value="d">최신순</option><option value="amt">금액 큰 순</option></select>
 </div>
