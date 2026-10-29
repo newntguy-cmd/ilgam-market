@@ -106,7 +106,11 @@ function needLogin(){
   if(S.user&&S.profile)return false;
   toast('로그인이 필요합니다');S.authMode='login';go('me');return true;
 }
-function updateWho(){$('who').textContent=S.profile?S.profile.nick+' 님':'필요한 건 구하고, 남는 건 팝니다';}
+function updateWho(){
+  $('who').textContent=S.profile?'':'필요한 건 구하고, 남는 건 팝니다';
+  const t=$('tme');if(t){t.textContent=S.user?(S.profile?S.profile.nick+' 님':'내 정보'):'로그인';}
+}
+$('tme').addEventListener('click',()=>{if(!S.user)S.authMode='login';go('me');});
 
 /* ---------- 장터(목록) ---------- */
 async function loadFeed(){
