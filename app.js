@@ -106,8 +106,13 @@
       nm.appendChild(document.createTextNode(r.nm));
       if (r.s === '낙찰예정') nm.appendChild(el('span', 'tag', '낙찰 예정'));
       nm.appendChild(el('small', null, r.dm));
-      if (r.u && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(r.u)) {
-        var o = el('a', 'orig', '나라장터 원문 ↗'); o.href = r.u; o.target = '_blank'; o.rel = 'noopener noreferrer';
+      var src = r.u;
+      if (!src && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) {
+        var pr = r.id.split('-');
+        src = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + pr[0] + '&bidPbancOrd=' + pr[1];
+      }
+      if (src && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(src)) {
+        var o = el('a', 'orig', '나라장터 원문 ↗'); o.href = src; o.target = '_blank'; o.rel = 'noopener noreferrer';
         nm.appendChild(o);
       }
       row.appendChild(nm);
