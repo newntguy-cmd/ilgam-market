@@ -93,7 +93,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':'산업장터';
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':'일감마켓 장터';
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();

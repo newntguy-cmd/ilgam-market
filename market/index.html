@@ -3,34 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<title>산업장터</title>
+<meta name="color-scheme" content="dark"><meta name="theme-color" content="#0a0d11">
+<title>일감마켓 장터</title>
 <!-- build 6 -->
 <style>
 /* 배치: 상단 앱바 -> 올리기 카드 -> 구분 탭 -> 검색/필터 -> 품목 카드 목록 -> 하단 선택 바 -> 요청서 시트.
-   콘크리트 회색 바탕에 청록 강조, 안전모 노랑은 선택·알림 한 점에만 씁니다. */
+   일감마켓 홈페이지와 같은 검정 바탕에 노랑 강조를 씁니다. */
 :root{
-  --bg:#eceff1;--surface:#fff;--ink:#162027;--mute:#566371;--line:#d3d9de;--soft:#e3e8ec;--tint:#e4f1f4;
-  --accent:#0f5c73;--accent-ink:#fff;--hi:#f2b705;--hi-ink:#2a2100;--ok:#1b7a4b;
-  --kind-m:#0f5c73;--kind-r:#8a5a00;--kind-s:#566371;
+  --bg:#0a0d11;--surface:#0f141a;--ink:#eef1f5;--mute:#8f9ba7;--line:#2c3845;--soft:#151c24;--tint:#241f08;
+  --accent:#ffc400;--accent-ink:#151100;--hi:#ffc400;--hi-ink:#151100;--ok:#58c58e;
+  --kind-m:#ffc400;--kind-r:#ff8a50;--kind-s:#8f9ba7;
   --sans:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
   --mono:ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
 }
-@media (prefers-color-scheme:dark){:root{
-  --bg:#12171b;--surface:#1b2227;--ink:#e8ecef;--mute:#9ba7b1;--line:#2e3840;--soft:#252d34;--tint:#17323b;
-  --accent:#5bbcd6;--accent-ink:#06222b;--hi:#f2b705;--hi-ink:#2a2100;--ok:#58c58e;
-  --kind-m:#5bbcd6;--kind-r:#f0b84a;--kind-s:#9ba7b1}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
-.appbar{position:sticky;top:0;z-index:6;background:var(--accent);color:var(--accent-ink);
+.appbar{position:sticky;top:0;z-index:6;background:var(--bg);color:var(--ink);border-bottom:1px solid #1a222b;
   padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
 .appbar .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:10px}
 .logo{width:28px;height:28px;display:grid;grid-template-columns:1fr 1fr;gap:3px;flex:none}
-.logo i{background:#fff;border-radius:4px}.logo i:last-child{background:var(--hi)}
+.logo i{background:var(--ink);border-radius:4px}.logo i:last-child{background:var(--hi)}
 .appbar h1{font-size:18px;margin:0;font-weight:700;letter-spacing:-.01em}
 .appbar small{opacity:.85;font-size:13px;margin-left:auto}
-.appbar .tme{min-height:38px;padding:0 16px;border:0;border-radius:99px;background:var(--accent-ink);color:var(--accent);font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap}
+.appbar .tme{min-height:38px;padding:0 16px;border:0;border-radius:99px;background:var(--accent);color:var(--accent-ink);font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap}
 .appbar small+.tme{margin-left:8px}
 .appbar small:empty{display:none}.appbar small:empty+.tme{margin-left:auto}
 @media (max-width:520px){.appbar small{display:none}.appbar small+.tme{margin-left:auto}}
@@ -148,7 +144,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .attach button{margin-left:auto;min-height:36px;font-size:13px;padding:0 12px}
 .ghost{border-style:dashed;color:var(--accent);font-weight:600}
 .danger{color:#c62828;border-color:#c62828}
-@media (prefers-color-scheme:dark){.danger{color:#ff8a80;border-color:#ff8a80}}
+.danger{color:#ff8a80;border-color:#ff8a80}
 .tip{font-size:13px;color:var(--mute);line-height:1.5}
 .page{position:fixed;inset:0;z-index:15;background:var(--bg);display:flex;flex-direction:column}
 .page[hidden]{display:none}
@@ -177,7 +173,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;background:var(--ink);color:var(--surface);padding:11px 18px;border-radius:99px;font-size:14px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 .opt{width:100%;text-align:left;min-height:50px}
-iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12px;background:#fff}
+iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12px;background:#0a0d11}
 .menu{display:flex;flex-direction:column}
 .menu button{border:0;border-top:1px solid var(--line);border-radius:0;text-align:left;min-height:52px;background:transparent;display:flex;justify-content:space-between;align-items:center}
 .menu button:first-child{border-top:0}
@@ -197,7 +193,7 @@ iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12p
 .pw input{padding-right:78px}
 .pw button{position:absolute;right:6px;top:6px;min-height:36px;height:36px;padding:0 12px;border:0;background:none;color:var(--accent);font-weight:600;font-size:14px}
 .err{color:#c62828;font-size:13.5px;min-height:0}
-@media (prefers-color-scheme:dark){.err{color:#ff8a80}}
+.err{color:#ff8a80}
 .err:empty{display:none}
 .photos{display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px}
 .f .ph{position:relative;width:84px;height:84px;flex:none;border-radius:12px;overflow:hidden;background:var(--soft);padding:0;min-height:0;border:1px solid var(--line)}
@@ -205,7 +201,7 @@ iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12p
 .ph.add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border-style:dashed;color:var(--accent);background:var(--surface)}
 .ph.add b{font-size:26px;line-height:1;font-weight:500}.ph.add span{font-size:12px;color:var(--mute)}
 .ph .x{position:absolute;top:4px;right:4px;width:26px;height:26px;min-height:0;padding:0;border:0;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:13px;line-height:1}
-.ph .mn{position:absolute;left:0;bottom:0;right:0;background:rgba(15,92,115,.9);color:#fff;font-size:11.5px;text-align:center;padding:1px 0}
+.ph .mn{position:absolute;left:0;bottom:0;right:0;background:rgba(10,13,17,.88);color:var(--accent);font-size:11.5px;text-align:center;padding:1px 0}
 .gal{position:relative;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));}
 .gs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;aspect-ratio:4/3;background:var(--soft);scrollbar-width:none}
 .gs::-webkit-scrollbar{display:none}
@@ -225,7 +221,7 @@ iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12p
 <div class="appbar"><div class="in">
   <button class="back" id="tback" type="button" hidden aria-label="뒤로">←</button>
   <div class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-  <h1 id="ttl">산업장터</h1><small id="who">필요한 건 구하고, 남는 건 팝니다</small>
+  <h1 id="ttl">일감마켓 장터</h1><small id="who">필요한 건 구하고, 남는 건 팝니다</small>
   <button type="button" id="tme" class="tme">로그인</button>
 </div></div>
 
