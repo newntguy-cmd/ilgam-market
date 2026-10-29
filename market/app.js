@@ -93,7 +93,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':'일감마켓 장터';
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':'장터';
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -107,7 +107,7 @@ function needLogin(){
   toast('로그인이 필요합니다');S.authMode='login';go('me');return true;
 }
 function updateWho(){
-  $('who').textContent=S.profile?'':'필요한 건 구하고, 남는 건 팝니다';
+  $('who').textContent='';
   const t=$('tme');if(t){t.textContent=S.user?(S.profile?S.profile.nick+' 님':'내 정보'):'로그인';}
 }
 $('tme').addEventListener('click',()=>{if(!S.user)S.authMode='login';go('me');});

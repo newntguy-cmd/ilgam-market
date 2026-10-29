@@ -11,6 +11,9 @@
   var PAGE = 30;
   var S = { tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'last', shown: PAGE, items: [], sample: false, maxD: '' };
 
+  var HT = (location.hash || '').slice(1);
+  if (['win', 'co', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
+
   function el(tag, cls, text) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -51,7 +54,7 @@
         b = el('button', t.ready ? null : 'soonTab', t.label);
         b.type = 'button';
         b.setAttribute('aria-current', String(S.tab === t.id));
-        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; render(); });
+        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
       g.appendChild(b);
     });
