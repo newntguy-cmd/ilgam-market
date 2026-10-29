@@ -193,6 +193,14 @@
   $('fSort').addEventListener('change', function () { S.sort = this.value; render(); });
   $('fPeriod').addEventListener('change', function () { S.period = this.value; S.shown = PAGE; render(); });
 
+  document.querySelector('.brand').addEventListener('click', function (e) {
+    e.preventDefault();
+    S.tab = 'win'; S.region = '전체'; S.kind = '전체'; S.q = ''; S.sort = 'd'; S.period = 'last'; S.shown = PAGE;
+    $('fRegion').value = '전체'; $('fKind').value = '전체'; $('fQ').value = ''; $('fSort').value = 'd'; $('fPeriod').value = 'last';
+    try { history.replaceState(null, '', location.pathname); } catch (x) {}
+    render(); window.scrollTo(0, 0);
+  });
+
   renderGnb();
   fetch('data/public.json', { cache: 'no-cache' }).then(function (r) {
     if (!r.ok) throw new Error(r.status); return r.json();
