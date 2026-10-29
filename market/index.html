@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="color-scheme" content="dark"><meta name="theme-color" content="#0a0d11">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#0f2342">
 <title>일감마켓 · 장터</title>
 <!-- build 6 -->
 <style>
 /* 배치: 상단 앱바 -> 올리기 카드 -> 구분 탭 -> 검색/필터 -> 품목 카드 목록 -> 하단 선택 바 -> 요청서 시트.
-   일감마켓 홈페이지와 같은 검정 바탕에 노랑 강조를 씁니다. */
+   일감마켓 홈페이지와 같은 딥네이비 + 황동 디자인을 씁니다. */
 :root{
-  --bg:#0a0d11;--surface:#0f141a;--ink:#eef1f5;--mute:#8f9ba7;--line:#2c3845;--soft:#151c24;--tint:#241f08;
-  --accent:#ffc400;--accent-ink:#151100;--hi:#ffc400;--hi-ink:#151100;--ok:#58c58e;
-  --kind-m:#ffc400;--kind-r:#ff8a50;--kind-s:#8f9ba7;
+  --bg:#eef0f3;--surface:#fff;--ink:#0f2342;--mute:#6b788e;--line:#dde1e8;--soft:#e8ecf2;--tint:#f7efdc;
+  --accent:#0f2342;--accent-ink:#fff;--hi:#c9a45c;--hi-ink:#0f2342;--ok:#2e7d5b;
+  --navy:#0f2342;--brass:#c9a45c;
+  --kind-m:#8a6a28;--kind-r:#b4540a;--kind-s:#6b788e;
   --sans:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
   --mono:ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
 }
@@ -183,7 +184,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;background:var(--ink);color:var(--surface);padding:11px 18px;border-radius:99px;font-size:14px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 .opt{width:100%;text-align:left;min-height:50px}
-iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12px;background:#0a0d11}
+iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12px;background:#fff}
 .menu{display:flex;flex-direction:column}
 .menu button{border:0;border-top:1px solid var(--line);border-radius:0;text-align:left;min-height:52px;background:transparent;display:flex;justify-content:space-between;align-items:center}
 .menu button:first-child{border-top:0}
@@ -225,6 +226,44 @@ iframe.pol{width:100%;height:60vh;border:1px solid var(--line);border-radius:12p
 .vx{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;background:rgba(255,255,255,.18);color:#fff;border:0}
 .skel{height:92px;border-radius:14px;background:linear-gradient(90deg,var(--soft),var(--surface),var(--soft));background-size:200% 100%;animation:sk 1.2s infinite}
 @keyframes sk{to{background-position:-200% 0}}
+
+/* 일감마켓 딥네이비 */
+header.top{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
+header.top .brand{color:#fff;white-space:nowrap}
+header.top .logo i{background:#fff;border-radius:2px}header.top .logo i:last-child{background:var(--brass)}
+.tag-line{color:#8fa0bd;white-space:nowrap}
+.gnb{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.gnb::-webkit-scrollbar{display:none}
+.gnb a{flex:none;color:#aebbd1;font-weight:500;white-space:nowrap}
+.gnb a:hover{color:#fff}
+.gnb a[aria-current=true]{color:#fff;font-weight:700;border-bottom-color:var(--brass)}
+@media (max-width:760px){.tag-line{display:none}}
+.appbar{background:#fff;border-bottom:1px solid var(--line)}
+.appbar .tme{background:var(--navy);color:#fff;border-radius:3px;font-weight:600}
+.appbar .back{color:var(--navy)}
+.card,.post,.it,.tools input,.tools select,.search,.f input,.f textarea,.f select,.panel input[type=text],.panel textarea,.cbox textarea,iframe.pol,.attach,.note{border-radius:3px}
+button{border-radius:3px}
+.seg,.auth-tabs{border-radius:3px}.seg button,.auth-tabs button{border-radius:2px}
+.chips button{border-radius:2px;color:var(--mute);background:#fff}
+.chips button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.primary{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.nav .plus span.c{background:var(--navy)}.nav .plus span.c svg{stroke:#fff}
+.nav button[aria-current="page"]{color:var(--navy)}
+.nav{border-top:1px solid var(--line)}
+.steps b,.attach b,.seg button[aria-pressed="true"] .n{color:var(--kind-m)}
+.seg3 button[aria-pressed="true"],.auth-tabs button[aria-pressed="true"]{color:var(--navy)}
+.tag.need{background:var(--tint);color:var(--kind-m)}
+.tag.sell{background:var(--navy);color:#fff}
+.tag.end{background:var(--mute)}
+.it.sel{border-color:var(--brass);background:var(--tint)}
+.post{box-shadow:none;border:1px solid var(--line);border-left:3px solid var(--brass)}
+.post h3{color:var(--navy);font-weight:600}
+.k{border-radius:2px}
+.ghost{color:var(--kind-m);border-color:var(--brass)}
+.danger{color:#b3261e;border-color:#b3261e}.err{color:#b3261e}
+.ph .mn{background:rgba(15,35,66,.88);color:#fff}
+.sh-bg{background:rgba(15,35,66,.55)}
+.panel{border-radius:4px 4px 0 0}
+button:focus-visible,input:focus-visible,select:focus-visible{outline-color:var(--brass)}
 </style>
 </head>
 <body>
