@@ -120,6 +120,22 @@ form.search{margin-top:20px}
 .go{width:100%}
 form.search{margin-bottom:-30px}
 }
+.cwrap{border-bottom:1px solid var(--line)}.cwrap:last-child{border-bottom:0}
+button.crow{width:100%;border:0;background:none;text-align:left;font:inherit;color:inherit;cursor:pointer;border-bottom:0}
+button.crow:hover{background:#fafbfd}button.crow .nm::after{content:" ▾";color:var(--mut);font-weight:400}button.crow[aria-expanded=true] .nm::after{content:" ▴"}
+button.crow[aria-expanded=true]{background:#f7f3e9}
+.cdet{padding:6px 22px 20px;background:#fbfaf6;border-top:1px solid var(--line)}
+.cinfo{padding:10px 0 4px}.cl{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:5px 0;font-size:15px}
+.cl .k{width:90px;flex:none;color:var(--mut);font-size:13px}.cl .v{color:var(--navy);font-weight:500}.cl a{color:var(--brass-d);font-weight:700;text-decoration:none}
+.cp{min-height:30px;padding:0 10px;border:1px solid var(--line2);background:#fff;border-radius:3px;font-size:12.5px;color:var(--sub);cursor:pointer}
+.ext{display:inline-block;margin-top:8px;font-size:13px;color:var(--brass-d);text-decoration:none}.ext:hover{text-decoration:underline}
+.note{margin-top:8px;font-size:12.5px;color:var(--mut)}
+.chist{margin:16px 0 6px;font-weight:700;color:var(--navy);font-size:14px}
+.hrow{display:grid;grid-template-columns:52px minmax(0,1fr) 70px auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.hrow .hd1{color:var(--mut)}.hrow .hn{color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hrow .hm{text-align:right;font-weight:600;color:var(--navy)}.hrow .orig{margin:0}
+button.colink{border:0;background:none;padding:0;text-align:left;font:inherit;font-size:15px;color:var(--sub);cursor:pointer;text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+button.colink:hover{color:var(--navy);text-decoration-color:var(--brass)}
+@media (max-width:760px){.cdet{padding:6px 16px 18px}.hrow{grid-template-columns:44px minmax(0,1fr) 60px}.hrow .orig{grid-column:2/-1}.cl .k{width:80px}}
 .gnb button.soonTab{opacity:.6}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.row{transition:none}}
 </style>
