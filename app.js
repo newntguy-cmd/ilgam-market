@@ -2,14 +2,14 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'win', label: '오늘의 낙찰', ready: true },
+    { id: 'win', label: '최근 낙찰', ready: true },
     { id: 'co', label: '업체', ready: true },
     { id: 'bid', label: '입찰', ready: false },
     { id: 'con', label: '계약', ready: false },
     { id: 'market', label: '장터', href: 'market/' }
   ];
   var PAGE = 30;
-  var S = { tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'last', shown: PAGE, items: [], sample: false, maxD: '' };
+  var S = { tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
 
   var HT = (location.hash || '').slice(1);
   if (['win', 'co', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
@@ -35,7 +35,7 @@
   function filtered() {
     var q = S.q.trim().toLowerCase();
     var from = '';
-    if (S.tab === 'win' && S.maxD) from = S.period === 'last' ? S.maxD : S.period === 'week' ? ago(6) : '';
+    if (S.tab === 'win' && S.maxD) from = S.period === 'last' ? S.maxD : S.period === 'd3' ? ago(2) : S.period === 'week' ? ago(6) : '';
     return S.items.filter(function (r) {
       if (from && (r.d || '') < from) return false;
       if (S.region !== '전체' && r.rg !== S.region) return false;
@@ -164,7 +164,7 @@
     renderGnb(); renderChips();
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
-    $('title').textContent = tab.id === 'win' ? '오늘의 낙찰' : tab.label + ' 검색 결과';
+    $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.label + ' 검색 결과';
     $('fPeriod').hidden = tab.id !== 'win';
     if (!tab.ready) {
       board.textContent = '';
@@ -174,7 +174,7 @@
     }
     var list = filtered().slice();
     list.sort(function (a, b) { return S.sort === 'amt' ? (b.amt - a.amt) : (b.d < a.d ? -1 : b.d > a.d ? 1 : b.amt - a.amt); });
-    if (S.tab === 'win') { renderWin(list); $('meta').textContent = '총 ' + list.length + '건' + (S.period === 'last' && S.maxD ? ' · ' + S.maxD.slice(5).replace('-', '월 ') + '일 기준' : ''); }
+    if (S.tab === 'win') { renderWin(list); $('meta').textContent = '총 ' + list.length + '건' + (S.maxD ? ' · ' + S.maxD.slice(5).replace('-', '월 ') + '일 기준' : ''); }
     else { var n = renderCo(list); $('meta').textContent = '낙찰 업체 ' + (n || 0) + '곳 · 아래 조건 기준'; }
   }
 
@@ -200,8 +200,8 @@
 
   document.querySelector('.brand').addEventListener('click', function (e) {
     e.preventDefault();
-    S.tab = 'win'; S.region = '전체'; S.kind = '전체'; S.q = ''; S.sort = 'd'; S.period = 'last'; S.shown = PAGE;
-    $('fRegion').value = '전체'; $('fKind').value = '전체'; $('fQ').value = ''; $('fSort').value = 'd'; $('fPeriod').value = 'last';
+    S.tab = 'win'; S.region = '전체'; S.kind = '전체'; S.q = ''; S.sort = 'd'; S.period = 'd3'; S.shown = PAGE;
+    $('fRegion').value = '전체'; $('fKind').value = '전체'; $('fQ').value = ''; $('fSort').value = 'd'; $('fPeriod').value = 'd3';
     try { history.replaceState(null, '', location.pathname); } catch (x) {}
     render(); window.scrollTo(0, 0);
   });
