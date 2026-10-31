@@ -54,7 +54,7 @@
         b = el('button', t.ready ? null : 'soonTab', t.label);
         b.type = 'button';
         b.setAttribute('aria-current', String(S.tab === t.id));
-        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
+        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); var r = $('res'); if (r && r.getBoundingClientRect().top > 120) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       }
       g.appendChild(b);
     });
@@ -164,7 +164,7 @@
     renderGnb(); renderChips();
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
-    $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.label + ' 검색 결과';
+    $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.id === 'co' ? '낙찰 업체' : tab.label;
     $('fPeriod').hidden = tab.id !== 'win';
     if (!tab.ready) {
       board.textContent = '';
