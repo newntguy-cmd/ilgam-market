@@ -10,7 +10,7 @@
     { id: 'market', label: '장터', href: 'market/' }
   ];
   var PAGE = 30;
-  var S = { corp: {}, openCo: '', tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
+  var S = { corp: {}, openCo: '', openWin: '', tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
 
   var HT = (location.hash || '').slice(1);
   if (['win', 'co', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
@@ -209,7 +209,9 @@
       }
       row.appendChild(nm);
       var cob = el('button', 'co colink', r.co); cob.type = 'button'; cob.title = '업체 정보 보기';
-      cob.addEventListener('click', function () { S.tab = 'co'; S.q = r.co; S.openCo = r.co; S.period = 'all'; S.shown = PAGE; $('fQ').value = r.co; $('fPeriod').value = 'all'; try { history.replaceState(null, '', '#co'); } catch (e) {} render(); var rs = $('res'); if (rs) rs.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      var key = (r.id || '') + '|' + r.co, isOpen = S.openWin === key;
+      cob.setAttribute('aria-expanded', String(isOpen));
+      cob.addEventListener('click', function () { S.openWin = isOpen ? '' : key; render(); });
       var cw = el('div', 'co cowrap'); cob.className = 'colink';
       cw.appendChild(cob); cw.appendChild(starBtn(r.co, r.b));
       row.appendChild(cw);
@@ -218,6 +220,12 @@
       row.appendChild(am);
       row.appendChild(act(r));
       board.appendChild(row);
+      if (isOpen) {
+        var rows = S.items.filter(function (x) { return x.co === r.co; }).sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : 0; });
+        var biz = ''; rows.forEach(function (x) { if (x.b) biz = x.b; });
+        var dd = coDetail({ co: r.co, biz: biz, rows: rows }); dd.className += ' wdet';
+        board.appendChild(dd);
+      }
     });
     if (list.length > S.shown) {
       var m = el('div', 'more'); var b = el('button', null, '더 보기 (' + (list.length - S.shown) + '건 남음)'); b.type = 'button';

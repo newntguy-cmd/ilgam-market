@@ -137,11 +137,13 @@ button.crow[aria-expanded=true]{background:#f7f3e9}
 .hrow{display:grid;grid-template-columns:52px minmax(0,1fr) 70px auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
 .hrow .hd1{color:var(--mut)}.hrow .hn{color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hrow .hm{text-align:right;font-weight:600;color:var(--navy)}.hrow .orig{margin:0}
 button.colink{border:0;background:none;padding:0;text-align:left;font:inherit;font-size:15px;color:var(--sub);cursor:pointer;text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+button.colink[aria-expanded=true]{color:var(--navy);font-weight:700;text-decoration-color:var(--brass)}
+.wdet{background:#f7f3e9;border-bottom:1px solid var(--line);border-left:3px solid var(--brass)}
 button.colink:hover{color:var(--navy);text-decoration-color:var(--brass)}
 @media (max-width:760px){.cdet{padding:6px 16px 18px}.hrow{grid-template-columns:44px minmax(0,1fr) 60px}.hrow .orig{grid-column:2/-1}.cl .k{width:80px}}
 .gnb button.soonTab{opacity:.6}
 /* 관심 업체 */
-.cowrap{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.cowrap{display:flex;align-items:flex-start;gap:2px;flex-wrap:nowrap}.cowrap button.colink{flex:0 1 auto;min-width:0;margin-top:5px}
 button.star{flex:none;width:32px;height:32px;border:0;border-radius:4px;background:none;color:var(--line2);font-size:20px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:color .15s,transform .15s}
 button.star:hover{color:var(--brass);background:rgba(201,164,92,.12)}
 button.star[aria-pressed=true]{color:var(--brass)}
