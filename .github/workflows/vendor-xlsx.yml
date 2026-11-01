@@ -1,0 +1,27 @@
+name: vendor-xlsx
+# 장터의 엑셀 올리기 기능에 쓰는 라이브러리(SheetJS 0.18.5)를 공식 npm 패키지에서 받아 market/ 에 넣습니다.
+on:
+  push:
+    paths:
+      - ".github/workflows/vendor-xlsx.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: |
+          mkdir /tmp/v && cd /tmp/v && npm init -y >/dev/null && npm i xlsx@0.18.5
+          cp node_modules/xlsx/dist/xlsx.full.min.js "$GITHUB_WORKSPACE/market/xlsx.full.min.js"
+      - run: |
+          git config user.name "bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add market/xlsx.full.min.js
+          git diff --cached --quiet || git commit -m "엑셀 라이브러리 추가"
+          git pull --rebase
+          git push

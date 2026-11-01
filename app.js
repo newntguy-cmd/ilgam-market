@@ -263,8 +263,10 @@
     render(); window.scrollTo(0, 0);
   });
 
+  // 앱(안드로이드)에서는 파일이 기기 안에 들어 있으므로 데이터만 홈페이지에서 받아 옵니다.
+  var DATA_URL = (location.hostname === 'localhost' || location.protocol === 'capacitor:') ? 'https://ilgammarket.co.kr/data/public.json' : 'data/public.json';
   renderGnb();
-  fetch('data/public.json', { cache: 'no-cache' }).then(function (r) {
+  fetch(DATA_URL, { cache: 'no-cache' }).then(function (r) {
     if (!r.ok) throw new Error(r.status); return r.json();
   }).then(boot).catch(function () {
     $('board').appendChild(el('div', 'err', '데이터를 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.'));
