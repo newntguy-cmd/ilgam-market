@@ -19,7 +19,7 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',sy
 a{color:var(--brass-d)}
 button,input,select{font-family:inherit}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1360px;margin:0 auto;padding:0 20px}
 header.top{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
 header.top .wrap{display:flex;align-items:center;gap:0 28px;padding-top:8px;padding-bottom:8px}
 .brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;letter-spacing:-.01em;color:#fff;text-decoration:none;white-space:nowrap}
@@ -42,7 +42,7 @@ nav.gnb::-webkit-scrollbar{display:none}
 .pill b{width:6px;height:6px;background:var(--brass);transform:rotate(45deg)}
 h1{margin:24px 0 0;max-width:900px;font-size:clamp(36px,6vw,72px);line-height:1.12;font-weight:300;letter-spacing:-.045em;text-wrap:balance;color:#fff}
 .lead{margin:22px 0 0;max-width:600px;font-size:clamp(16px,2vw,18px);line-height:1.7;font-weight:300;color:var(--on);text-wrap:pretty}
-form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:960px;background:var(--navy2);border:1px solid var(--navy3);border-radius:4px;padding:10px;display:flex;flex-wrap:wrap;gap:10px;box-shadow:0 28px 60px rgba(6,14,30,.38)}
+form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:none;background:var(--navy2);border:1px solid var(--navy3);border-radius:4px;padding:10px;display:flex;flex-wrap:wrap;gap:10px;box-shadow:0 28px 60px rgba(6,14,30,.38)}
 .fld{background:var(--navy);border-radius:3px;padding:8px 14px;min-width:0;border:1px solid transparent}
 .fld:focus-within{border-color:var(--brass)}
 .fld label{display:block;font-size:12px;color:#8fa0bd}
@@ -67,7 +67,7 @@ section.res{padding:100px 0 80px}
 .tools select[hidden],.tools [hidden]{display:none}
 .tools select{min-height:42px;border-radius:3px;border:1px solid var(--line2);background:#fff;color:var(--tx);font-size:15px;padding:0 12px}
 .board{border:1px solid var(--line);border-top:2px solid var(--navy);border-radius:0 0 4px 4px;background:var(--panel);overflow:hidden;box-shadow:0 1px 0 var(--line)}
-.hd,.row{display:grid;grid-template-columns:72px 64px minmax(0,1fr) 160px 120px 150px;gap:6px 16px;align-items:center;padding:17px 22px}
+.hd,.row{display:grid;grid-template-columns:72px 96px minmax(0,1fr) 250px 130px 150px;gap:6px 16px;align-items:center;padding:17px 22px}
 .hd{font-size:12.5px;color:var(--mut);border-bottom:1px solid var(--line);padding-top:12px;padding-bottom:12px;background:#f8f9fb}
 .row{border-bottom:1px solid var(--line);transition:background .15s}
 .row:hover{background:#fafbfd}
@@ -203,6 +203,21 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 .acc .menu button{display:block;width:100%;padding:11px 12px;border:0;background:none;text-align:left;font-size:15px;color:var(--navy);cursor:pointer;border-radius:4px}
 .acc .menu button:hover{background:#f7f3e9}
 @media (max-width:760px){.acc{order:2}}
+
+.hstat{position:absolute;right:20px;top:0;width:400px;padding:22px 24px;background:rgba(22,48,90,.72);border:1px solid var(--navy3);border-top:3px solid var(--brass);border-radius:4px;backdrop-filter:blur(4px)}
+.hstat[hidden]{display:none}
+.hstat .hl{font-size:13px;color:var(--on)}
+.hstat .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 16px}
+.hstat .nums b{display:block;font-size:30px;font-weight:600;letter-spacing:-.03em;color:#fff;line-height:1.1}
+.hstat .nums b small{font-size:14px;font-weight:400;color:var(--on);margin-left:2px}
+.hstat .nums span{font-size:12.5px;color:var(--on)}
+.hstat ol{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.12)}
+.hstat li button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;width:100%;padding:11px 0;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:none;text-align:left;cursor:pointer;color:#fff;font:inherit}
+.hstat li button:hover .t{color:var(--brass)}
+.hstat .t{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hstat .a{font-size:15px;font-weight:700;color:var(--brass);grid-row:span 2;align-self:center}
+.hstat .c{font-size:12.5px;color:var(--on);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:1100px){.hstat{display:none}}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.row{transition:none}}
@@ -221,6 +236,7 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 <div class="pill"><b></b>매일 아침 업데이트</div>
 <h1>오늘 새로 생긴 일감,<br>한눈에 보세요.</h1>
 <p class="lead">공공 공사 낙찰 소식부터 자재·장비 거래까지. 낙찰된 현장을 지역과 공종별로 정리해 매일 아침 보여 드립니다.</p>
+<aside class="hstat" id="hstat" aria-label="최근 낙찰 요약" hidden></aside>
 <form class="search" id="form" role="search">
 <div class="fld s"><label for="fRegion">지역</label><select id="fRegion"></select></div>
 <div class="fld s"><label for="fKind">공종</label><select id="fKind"></select></div>

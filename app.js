@@ -388,6 +388,29 @@
     else { var n = renderCo(list); $('meta').textContent = '낙찰 업체 ' + (n || 0) + '곳 · 아래 조건 기준'; }
   }
 
+  function renderStat() {
+    var box = $('hstat'); if (!S.maxD || !S.items.length) return;
+    var day = S.items.filter(function (r) { return r.d === S.maxD; });
+    var sum = 0, cos = {}; day.forEach(function (r) { sum += r.amt || 0; cos[r.co] = 1; });
+    var top = day.slice().sort(function (a, b) { return (b.amt || 0) - (a.amt || 0); }).slice(0, 3);
+    box.textContent = '';
+    box.appendChild(el('div', 'hl', S.maxD.slice(5).replace('-', '월 ') + '일 낙찰 요약'));
+    var n = el('div', 'nums');
+    [[String(day.length), '건', '낙찰'], [money(sum).replace(/[억만]$/, ''), money(sum).slice(-1), '낙찰 금액'], [String(Object.keys(cos).length), '곳', '업체']].forEach(function (x) {
+      var d = el('div'); var b = el('b', null, x[0]); b.appendChild(el('small', null, x[1])); d.appendChild(b); d.appendChild(el('span', null, x[2])); n.appendChild(d);
+    });
+    box.appendChild(n);
+    var ol = el('ol');
+    top.forEach(function (r) {
+      var li = el('li'), b = el('button'); b.type = 'button';
+      b.appendChild(el('span', 't', r.nm)); b.appendChild(el('span', 'a', money(r.amt)));
+      b.appendChild(el('span', 'c', (r.rg || '') + ' · ' + r.co));
+      b.addEventListener('click', function () { S.tab = 'win'; S.period = 'last'; S.sort = 'amt'; $('fPeriod').value = 'last'; $('fSort').value = 'amt'; S.shown = PAGE; render(); $('res').scrollIntoView({ behavior: 'auto' }); });
+      li.appendChild(b); ol.appendChild(li);
+    });
+    box.appendChild(ol); box.hidden = false;
+  }
+
   function boot(data) {
     S.items = data.items || []; S.corp = data.corp || {}; S.sample = !!data.sample;
     S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
@@ -396,7 +419,7 @@
     if (data.updated) $('upd').textContent = '갱신 ' + data.updated.replace('T', ' ');
     if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰 정보가 아닙니다.'); $('banner').appendChild(b); }
     Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
-    render(); cloudSync();
+    renderStat(); render(); cloudSync();
   }
 
   $('form').addEventListener('submit', function (e) {
