@@ -146,7 +146,7 @@
         if (t.id === 'wl') { b.textContent = '★ 관심'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
         b.type = 'button';
         b.setAttribute('aria-current', String(S.tab === t.id));
-        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); var r = $('res'); if (r && r.getBoundingClientRect().top > 120) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
       g.appendChild(b);
     });
