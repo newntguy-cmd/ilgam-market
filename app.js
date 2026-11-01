@@ -4,16 +4,17 @@
   var TABS = [
     { id: 'win', label: '최근 낙찰', ready: true },
     { id: 'co', label: '업체', ready: true },
+    { id: 'st', label: '통계', ready: true },
     { id: 'wl', label: '관심', ready: true },
     { id: 'bid', label: '입찰', ready: false },
     { id: 'con', label: '계약', ready: false },
     { id: 'market', label: '장터', href: 'market/' }
   ];
   var PAGE = 30;
-  var S = { corp: {}, openCo: '', openWin: '', tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
+  var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
 
   var HT = (location.hash || '').slice(1);
-  if (['win', 'co', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
+  if (['win', 'co', 'st', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
 
   // 관심 업체: 이 기기에 저장합니다. { 업체명: { b: 사업자번호, seen: 마지막으로 확인한 낙찰일 } }
   var WL = {};
@@ -130,6 +131,7 @@
   function money(n) {
     if (!n) return '-';
     var eok = n / 1e8;
+    if (eok >= 10000) return (eok / 1e4).toFixed(1) + '조';
     if (eok >= 1) return (eok >= 100 ? eok.toFixed(0) : eok.toFixed(1)) + '억';
     return Math.round(n / 1e4).toLocaleString('ko-KR') + '만';
   }
@@ -354,17 +356,113 @@
     return arr.length;
   }
 
+
+  // ---- 통계 ----
+  var BANDS = [['전체 금액', 0, 1e18], ['1억 미만', 0, 1e8], ['1억~3억', 1e8, 3e8], ['3억~10억', 3e8, 1e9], ['10억~50억', 1e9, 5e9], ['50억 이상', 5e9, 1e18]];
+  function quant(a, p) { if (!a.length) return 0; var i = (a.length - 1) * p, lo = Math.floor(i), hi = Math.ceil(i); return a[lo] + (a[hi] - a[lo]) * (i - lo); }
+  function pct(n) { return n.toFixed(2) + '%'; }
+  function scard(title, sub, wide) { var c = el('section', 'scard' + (wide ? ' wide' : '')); c.appendChild(el('h3', null, title)); if (sub) c.appendChild(el('p', 'ssub', sub)); return c; }
+  function hbars(rows, fmt, onClick) {
+    var box = el('div', 'hbars'), mx = rows.reduce(function (m, r) { return Math.max(m, r.v); }, 0) || 1;
+    rows.forEach(function (r, i) {
+      var row = el(onClick ? 'button' : 'div', 'hb'); if (onClick) { row.type = 'button'; row.addEventListener('click', function () { onClick(r); }); }
+      row.appendChild(el('span', 'hn', (r.rank ? (i + 1) + '  ' : '') + r.k));
+      var tr = el('span', 'tr'), f = el('i'); f.style.width = Math.max(2, r.v / mx * 100) + '%'; tr.appendChild(f); row.appendChild(tr);
+      row.appendChild(el('span', 'hv', fmt(r))); box.appendChild(row);
+    });
+    return box;
+  }
+  function renderStats(list) {
+    var board = $('board'); board.textContent = '';
+    var b = BANDS[S.band];
+    var inBand = list.filter(function (r) { return (r.amt || 0) >= b[1] && (r.amt || 0) < b[2]; });
+    if (!inBand.length) { board.appendChild(el('div', 'empty', '조건에 맞는 낙찰이 없습니다. 지역이나 금액대를 바꿔 보세요.')); return; }
+    var rates = inBand.map(function (r) { return parseFloat(r.rate); }).filter(function (x) { return x >= 50 && x <= 110; }).sort(function (a, b2) { return a - b2; });
+    var npA = inBand.map(function (r) { return parseInt(r.np, 10) || 0; }).filter(Boolean);
+    var sum = inBand.reduce(function (a, r) { return a + (r.amt || 0); }, 0);
+    var wrap = el('div', 'stats');
+
+    // 금액대 선택
+    var bar = el('div', 'bandbar'); bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', '금액대');
+    BANDS.forEach(function (x, i) { var c = el('button', 'chip', x[0]); c.type = 'button'; c.setAttribute('aria-pressed', String(S.band === i)); c.addEventListener('click', function () { S.band = i; render(); }); bar.appendChild(c); });
+    wrap.appendChild(bar);
+
+    // 핵심 숫자
+    var kp = el('div', 'kpis');
+    [[inBand.length.toLocaleString('ko-KR') + '건', '낙찰'], [rates.length ? pct(quant(rates, .5)) : '-', '낙찰률 중앙값'], [npA.length ? Math.round(npA.reduce(function (a, x) { return a + x; }, 0) / npA.length).toLocaleString('ko-KR') + '개사' : '-', '평균 참여 업체'], [money(sum), '낙찰 금액 합계']].forEach(function (k) {
+      var d = el('div', 'kpi'); d.appendChild(el('b', null, k[0])); d.appendChild(el('span', null, k[1])); kp.appendChild(d);
+    });
+    wrap.appendChild(kp);
+
+    var grid = el('div', 'sgrid'); wrap.appendChild(grid);
+    var colL = el('div', 'scol'), colR = el('div', 'scol');
+
+    // 낙찰률 분포
+    var h = scard('낙찰률 분포', rates.length ? '낙찰된 업체 중 절반이 ' + pct(quant(rates, .25)) + ' ~ ' + pct(quant(rates, .75)) + ' 사이에 썼습니다.' : '낙찰률 자료가 없습니다.', true);
+    if (rates.length) {
+      var LO = 86, HI = 96, STEP = .5, N = (HI - LO) / STEP, bins = []; for (var i = 0; i < N; i++) bins.push(0);
+      var out = 0; rates.forEach(function (x) { if (x < LO || x >= HI) out++; else bins[Math.floor((x - LO) / STEP)]++; });
+      var mx = Math.max.apply(null, bins) || 1, med = quant(rates, .5), p25 = quant(rates, .25), p75 = quant(rates, .75);
+      var hist = el('div', 'hist');
+      bins.forEach(function (c, i) {
+        var from = LO + i * STEP, col = el('div', 'col'); var f = el('i'); f.style.height = Math.max(c ? 3 : 0, Math.sqrt(c / mx) * 100) + '%';
+        if (from + STEP > p25 && from <= p75) f.className = 'mid';
+        col.title = from.toFixed(1) + '~' + (from + STEP).toFixed(1) + '% · ' + c + '건'; col.appendChild(f); hist.appendChild(col);
+      });
+      h.appendChild(hist);
+      var ax = el('div', 'axis'); [86, 88, 90, 92, 94, 96].forEach(function (v) { ax.appendChild(el('span', null, v + '%')); }); h.appendChild(ax);
+      h.appendChild(el('p', 'snote', '진한 막대가 가운데 50%입니다. 막대 높이는 건수의 제곱근이라 적은 구간도 보입니다. 중앙값 ' + pct(med) + ' · ' + LO + '~' + HI + '% 밖 ' + out + '건은 그래프에서 뺐습니다. 낙찰률은 같은 공사의 예정가격 대비 낙찰 금액 비율입니다.'));
+    }
+    grid.appendChild(h);
+
+    // 금액대별 경쟁 강도 (금액대 선택과 무관하게 비교)
+    var cp = scard('금액대별 경쟁 강도', '평균 몇 개 업체가 참여했는지 비교합니다.');
+    var crow = BANDS.slice(1).map(function (x) {
+      var ps = list.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).map(function (r) { return parseInt(r.np, 10) || 0; }).filter(Boolean);
+      return { k: x[0], v: ps.length ? ps.reduce(function (a, y) { return a + y; }, 0) / ps.length : 0, n: ps.length };
+    });
+    cp.appendChild(hbars(crow, function (r) { return r.n ? Math.round(r.v).toLocaleString('ko-KR') + '개사' : '-'; }));
+    colL.appendChild(cp);
+
+    // 업체 TOP
+    function agg(key, keyFn) {
+      var m = {}; inBand.forEach(function (r) { var k = keyFn(r); if (!k) return; var o = m[k] || (m[k] = { k: k, v: 0, n: 0 }); o.v += r.amt || 0; o.n++; });
+      return Object.keys(m).map(function (k) { m[k].rank = true; return m[k]; }).sort(function (a, b2) { return b2.v - a.v; }).slice(0, 10);
+    }
+    var tc = scard('낙찰 업체 TOP 10', '낙찰 금액 합계 기준입니다. 눌러서 업체 정보를 봅니다.');
+    tc.appendChild(hbars(agg('co', function (r) { return r.co; }), function (r) { return money(r.v) + ' · ' + r.n + '건'; }, function (r) { S.tab = 'co'; S.q = r.k; S.openCo = r.k; S.period = 'all'; S.shown = PAGE; $('fQ').value = r.k; try { history.replaceState(null, '', '#co'); } catch (e) {} render(); }));
+    colR.appendChild(tc);
+    var td = scard('공사를 많이 내는 발주처 TOP 10', '낙찰 금액 합계 기준입니다.');
+    td.appendChild(hbars(agg('dm', function (r) { return r.dm; }), function (r) { return money(r.v) + ' · ' + r.n + '건'; }));
+    colL.appendChild(td);
+
+    // 일별 추이
+    var days = {}; inBand.forEach(function (r) { if (r.d) days[r.d] = (days[r.d] || 0) + 1; });
+    var dk = Object.keys(days).sort(), dm = Math.max.apply(null, dk.map(function (k) { return days[k]; })) || 1;
+    var dc = scard('일별 낙찰 건수', dk.length ? dshort(dk[0]) + ' ~ ' + dshort(dk[dk.length - 1]) + ' · 하루 최대 ' + dm + '건' : '');
+    var dh = el('div', 'hist days'); dk.forEach(function (k) { var col = el('div', 'col'); var f = el('i'); f.style.height = Math.max(3, days[k] / dm * 100) + '%'; col.title = dshort(k) + ' · ' + days[k] + '건'; col.appendChild(f); dh.appendChild(col); });
+    dc.appendChild(dh); colR.appendChild(dc); grid.appendChild(colL); grid.appendChild(colR);
+    wrap.appendChild(el('p', 'snote', '조달청 나라장터 공공데이터 기준이며 위의 지역·공종·검색 조건이 함께 적용됩니다.'));
+    board.appendChild(wrap);
+  }
+
   function render() {
     renderGnb(); renderChips(); renderAcc();
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
     $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.id === 'co' ? '낙찰 업체' : tab.label;
-    $('fPeriod').hidden = tab.id !== 'win';
+    $('fPeriod').hidden = tab.id !== 'win'; $('fSort').hidden = false;
     if (!tab.ready) {
       board.textContent = '';
       var s = el('div', 'soon'); s.appendChild(el('b', null, tab.label + ' 데이터는 준비 중입니다.'));
       s.appendChild(el('p', null, '지금은 낙찰과 업체를 먼저 열었습니다.')); board.appendChild(s);
       $('meta').textContent = ''; return;
+    }
+    if (S.tab === 'st') {
+      $('regionChips').hidden = false; $('fSort').hidden = true; $('fPeriod').hidden = true;
+      var sl = filtered(); renderStats(sl); $('title').textContent = '입찰 통계';
+      $('meta').textContent = '최근 60일 · ' + sl.length.toLocaleString('ko-KR') + '건 기준';
+      return;
     }
     if (S.tab === 'wl') {
       $('fPeriod').hidden = true;
