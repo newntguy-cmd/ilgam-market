@@ -179,6 +179,9 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 #lg label{display:grid;gap:6px;font-size:13px;color:var(--mut)}
 #lg input{height:46px;padding:0 12px;border:1px solid var(--line2);border-radius:4px;font-size:16px;color:var(--navy)}
 #lg input:focus{outline:2px solid var(--brass);outline-offset:-1px;border-color:var(--brass)}
+#lg .pitch{padding:12px 14px;border-left:3px solid var(--brass);background:#f7f3e9;border-radius:0 4px 4px 0;word-break:keep-all}
+#lg .pitch b{display:block;font-size:15px;margin-bottom:3px}
+#lg .pitch span{font-size:13.5px;color:var(--sub);line-height:1.5}
 #lg .go{height:48px;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-size:16px;font-weight:700;cursor:pointer}
 #lg .go:disabled{opacity:.6}
 #lg .row2{display:flex;justify-content:space-between;gap:10px}
@@ -262,6 +265,7 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 <dialog id="lg" aria-labelledby="lgTitle">
 <div class="lh"><h3 id="lgTitle">로그인</h3><button type="button" id="lgClose" aria-label="닫기">×</button></div>
 <form id="lgForm">
+<div class="pitch"><b>로그인하면 새 낙찰을 메일로 알려 드립니다</b><span>담은 업체에 새 낙찰이 생기면 아침에 한 통으로 보내고, 폰과 PC에서 같은 목록을 봅니다. 무료입니다.</span></div>
 <label>이메일<input id="lgEm" type="email" autocomplete="email" inputmode="email" required placeholder="name@example.com"></label>
 <label>비밀번호<input id="lgPw" type="password" autocomplete="current-password" minlength="6" required placeholder="6자 이상"></label>
 <p class="err" id="lgErr" role="alert"></p>
