@@ -162,6 +162,7 @@
       if (!ct || (!ct.a && !ct.t)) line('연락처', '등록된 정보가 없습니다');
       var bz = el('a', 'ext', '비즈노에서 전화·팩스 확인 ↗'); bz.href = 'https://bizno.net/article/' + c.biz; bz.target = '_blank'; bz.rel = 'noopener noreferrer';
       info.appendChild(bz);
+      var pg = el('a', 'ext', '이 업체 전용 페이지 (공유용) ↗'); pg.href = 'c/' + c.biz + '/'; pg.style.marginLeft = '16px'; info.appendChild(pg);
       info.appendChild(el('div', 'note', '※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.'));
     } else {
       info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다. 공고 원문에서 확인해 주세요.'));
