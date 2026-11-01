@@ -541,6 +541,7 @@ async function delAccount(){
         }
         const b=await getDocs(collection(db,'users',u.uid,'blocks'));
         for(const d of b.docs)await deleteDoc(d.ref);
+        try{await deleteDoc(doc(db,'watch',u.uid));}catch(e){}
         await deleteDoc(doc(db,'users',u.uid));
         await deleteUser(u);
         back();toast('탈퇴했습니다');loadFeed();

@@ -21,6 +21,14 @@ jobs:
           cp /tmp/p.json data/public.json
       - name: 업체별 전용 페이지·사이트맵 만들기
         run: python3 tools/gen_pages.py
+      - name: 관심 업체 새 낙찰 이메일 알림
+        env:
+          FB_BOT_EMAIL: ${{ secrets.FB_BOT_EMAIL }}
+          FB_BOT_PASSWORD: ${{ secrets.FB_BOT_PASSWORD }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: python3 tools/send_alerts.py
+        continue-on-error: true
       - name: Commit
         run: |
           git config user.name "data-bot"

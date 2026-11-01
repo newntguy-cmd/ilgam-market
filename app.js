@@ -19,6 +19,22 @@
   var WL = {};
   try { WL = JSON.parse(localStorage.getItem('ilgam_wl') || '{}') || {}; } catch (e) { WL = {}; }
   function wlSave() { try { localStorage.setItem('ilgam_wl', JSON.stringify(WL)); } catch (e) {} }
+  var NOTIFY = true;            // 이메일 알림 켜짐 여부(로그인 시 클라우드와 동기화)
+  var syncT = 0;
+  function cloudPush() {
+    if (!window.IGAUTH || !window.IGAUTH.user) return;
+    clearTimeout(syncT);
+    syncT = setTimeout(function () { window.IGAUTH.push(Object.keys(WL), NOTIFY).catch(function () {}); }, 400);
+  }
+  function cloudSync() {
+    var A = window.IGAUTH; if (!A || !A.user) return;
+    A.pull().then(function (r) {
+      if (r) { (r.cos || []).forEach(function (k) { if (!WL[k]) WL[k] = { b: bizOf(k), seen: S.maxD }; }); NOTIFY = r.notify !== false; }
+      wlSave(); render(); return A.push(Object.keys(WL), NOTIFY);
+    }).catch(function () {});
+  }
+  function bizOf(name) { for (var i = 0; i < S.items.length; i++) if (S.items[i].co === name && S.items[i].b) return S.items[i].b; return ''; }
+  window.addEventListener('ig-auth', function () { render(); if (window.IGAUTH.user && S.items.length) cloudSync(); });
   function wlCount() { return Object.keys(WL).length; }
   function starBtn(name, biz, cls) {
     var b = el('button', 'star' + (cls ? ' ' + cls : ''), WL[name] ? '★' : '☆');
@@ -29,9 +45,64 @@
     b.addEventListener('click', function (e) {
       e.stopPropagation();
       if (WL[name]) delete WL[name]; else WL[name] = { b: biz || '', seen: S.maxD };
-      wlSave(); render();
+      wlSave(); cloudPush(); render();
+      if (WL[name] && !(window.IGAUTH && window.IGAUTH.user)) hint();
     });
     return b;
+  }
+
+  var toastT = 0;
+  function hint() {
+    if (sessionStorage.getItem('ig_hint')) return;
+    try { sessionStorage.setItem('ig_hint', '1'); } catch (e) {}
+    var t = $('toast'); t.textContent = '';
+    t.appendChild(el('span', null, '담았습니다. 로그인하면 새 낙찰을 메일로 받아요.'));
+    var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', function () { t.classList.remove('on'); openLogin(); });
+    t.appendChild(b); t.classList.add('on');
+    clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 6000);
+  }
+  var mode = 'login';
+  function openLogin() { setMode('login'); $('lgErr').textContent = ''; var d = $('lg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); $('lgEm').focus(); }
+  function setMode(m) {
+    mode = m;
+    $('lgTitle').textContent = m === 'login' ? '로그인' : '무료 가입';
+    $('lgGo').textContent = m === 'login' ? '로그인' : '가입하고 시작';
+    $('lgSwap').textContent = m === 'login' ? '처음이세요? 무료 가입' : '이미 계정이 있어요';
+    $('lgPw').autocomplete = m === 'login' ? 'current-password' : 'new-password';
+    $('lgReset').hidden = m !== 'login';
+  }
+  $('lgSwap').addEventListener('click', function () { setMode(mode === 'login' ? 'signup' : 'login'); $('lgErr').textContent = ''; });
+  $('lgClose').addEventListener('click', function () { $('lg').close(); });
+  $('lgReset').addEventListener('click', function () {
+    var em = $('lgEm').value.trim(); if (!em) { $('lgErr').textContent = '위에 이메일을 먼저 적어 주세요.'; return; }
+    window.IGAUTH.reset(em).then(function () { $('lgErr').textContent = '재설정 메일을 보냈습니다. 메일함을 확인해 주세요.'; }, function (e) { $('lgErr').textContent = e.message; });
+  });
+  $('lgForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var A = window.IGAUTH; if (!A) { $('lgErr').textContent = '잠시 뒤 다시 시도해 주세요.'; return; }
+    var btn = $('lgGo'); btn.disabled = true; $('lgErr').textContent = '';
+    A[mode === 'login' ? 'login' : 'signup']($('lgEm').value.trim(), $('lgPw').value).then(function () {
+      $('lg').close(); $('lgPw').value = '';
+    }, function (er) { $('lgErr').textContent = er.message; }).then(function () { btn.disabled = false; });
+  });
+  function accountCard() {
+    var A = window.IGAUTH, box = el('div', 'acct');
+    if (!A || !A.user) {
+      var l = el('div', 'at'); l.appendChild(el('b', null, '로그인하면 새 낙찰을 메일로 알려 드립니다'));
+      l.appendChild(el('span', null, '담은 업체에 새 낙찰이 생기면 아침에 한 통으로 보내고, 폰과 PC에서 같은 목록을 봅니다. 무료입니다.'));
+      box.appendChild(l);
+      var b = el('button', 'btn', '로그인 · 무료 가입'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b);
+      return box;
+    }
+    var l2 = el('div', 'at'); l2.appendChild(el('b', null, '새 낙찰 이메일 알림'));
+    l2.appendChild(el('span', null, A.user.email + ' 로 매일 아침, 담은 업체에 새 낙찰이 있을 때만 보냅니다.'));
+    box.appendChild(l2);
+    var sw = el('button', 'sw'); sw.type = 'button'; sw.setAttribute('role', 'switch'); sw.setAttribute('aria-checked', String(NOTIFY));
+    sw.setAttribute('aria-label', '새 낙찰 이메일 알림'); sw.appendChild(el('i'));
+    sw.addEventListener('click', function () { NOTIFY = !NOTIFY; sw.setAttribute('aria-checked', String(NOTIFY)); cloudPush(); });
+    box.appendChild(sw);
+    var lo = el('button', 'lo', '로그아웃'); lo.type = 'button'; lo.addEventListener('click', function () { A.logout(); }); box.appendChild(lo);
+    return box;
   }
 
   function el(tag, cls, text) {
@@ -278,7 +349,8 @@
       wlist.sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : 0; });
       var seenBefore = JSON.stringify(WL);
       var cn = renderCo(wlist, true);
-      $('meta').textContent = wlCount() ? '관심 업체 ' + wlCount() + '곳 · 이 기기에 저장됩니다' : '';
+      $('board').insertBefore(accountCard(), $('board').firstChild);
+      $('meta').textContent = wlCount() ? '관심 업체 ' + wlCount() + '곳' + (window.IGAUTH && window.IGAUTH.user ? '' : ' · 이 기기에 저장됩니다') : '';
       $('title').textContent = '관심 업체';
       // 이번에 보여 준 낙찰은 확인한 것으로 기록합니다 (다음 방문부터 NEW가 사라집니다)
       Object.keys(WL).forEach(function (k) { WL[k].seen = S.maxD; });
@@ -299,7 +371,8 @@
     fillSelect($('fKind'), ['전체'].concat(uniq('kind')), S.kind);
     if (data.updated) $('upd').textContent = '갱신 ' + data.updated.replace('T', ' ');
     if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰 정보가 아닙니다.'); $('banner').appendChild(b); }
-    render();
+    Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
+    render(); cloudSync();
   }
 
   $('form').addEventListener('submit', function (e) {

@@ -152,6 +152,39 @@ button.star:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
 .new{display:inline-block;margin-left:8px;padding:1px 6px;border-radius:3px;background:var(--brass);color:var(--navy);font-size:11px;font-weight:700;vertical-align:2px;letter-spacing:.02em}
 .soon .btn{margin-top:14px;padding:11px 20px;border:0;border-radius:4px;background:var(--navy);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
 .soon .btn:hover{background:var(--navy2)}
+
+.acct{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 22px;background:linear-gradient(90deg,#f7f3e9,#fff);border-bottom:1px solid var(--line)}
+.acct .at{flex:1 1 280px;min-width:0;word-break:keep-all}
+.acct .at b{display:block;font-size:16px;color:var(--navy);margin-bottom:3px}
+.acct .at span{font-size:14px;color:var(--sub);overflow-wrap:anywhere}
+.acct .btn{margin:0;padding:11px 18px;border:0;border-radius:4px;background:var(--navy);color:#fff;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap}
+.acct .btn:hover{background:var(--navy2)}
+.acct .lo{border:0;background:none;color:var(--mut);font-size:13px;text-decoration:underline;cursor:pointer;padding:6px}
+button.sw{flex:none;width:52px;height:30px;border:0;border-radius:15px;background:var(--line2);position:relative;cursor:pointer;transition:background .2s}
+button.sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(15,35,66,.3);transition:transform .2s}
+button.sw[aria-checked=true]{background:var(--brass)}
+button.sw[aria-checked=true] i{transform:translateX(22px)}
+button.sw:focus-visible,.acct .btn:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+dialog#lg{width:min(400px,calc(100vw - 32px));padding:0;border:0;border-radius:6px;background:#fff;color:var(--navy);box-shadow:0 24px 60px rgba(15,35,66,.45)}
+dialog#lg::backdrop{background:rgba(10,22,44,.62)}
+#lg .lh{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--navy);color:#fff;border-bottom:3px solid var(--brass)}
+#lg .lh h3{margin:0;font-size:18px;font-weight:600}
+#lg .lh button{border:0;background:none;color:var(--on);font-size:24px;line-height:1;cursor:pointer}
+#lg form{padding:22px;display:grid;gap:14px}
+#lg label{display:grid;gap:6px;font-size:13px;color:var(--mut)}
+#lg input{height:46px;padding:0 12px;border:1px solid var(--line2);border-radius:4px;font-size:16px;color:var(--navy)}
+#lg input:focus{outline:2px solid var(--brass);outline-offset:-1px;border-color:var(--brass)}
+#lg .go{height:48px;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-size:16px;font-weight:700;cursor:pointer}
+#lg .go:disabled{opacity:.6}
+#lg .row2{display:flex;justify-content:space-between;gap:10px}
+#lg .row2 button{border:0;background:none;color:var(--sub);font-size:13.5px;text-decoration:underline;cursor:pointer;padding:4px 0}
+#lg .err{min-height:18px;margin:0;font-size:13.5px;color:#a33}
+#lg .fine{margin:0;font-size:12px;color:var(--mut);line-height:1.5}
+#lg .fine a{color:var(--sub)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);display:flex;align-items:center;gap:14px;max-width:calc(100vw - 32px);padding:12px 14px 12px 18px;border-radius:6px;background:var(--navy);color:#fff;font-size:14.5px;box-shadow:0 10px 30px rgba(15,35,66,.4);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}
+#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#toast button{flex:none;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-weight:700;padding:7px 12px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){#toast,button.sw,button.sw i{transition:none}}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.row{transition:none}}
@@ -209,6 +242,19 @@ button.star:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
 <div class="fbot"><span class="copy">© 2026 일감마켓 (겟잇타운). All rights reserved.</span><span class="fl"><a href="market/policy.html">이용약관</a><a href="market/policy.html#privacy">개인정보처리방침</a></span></div>
 </div></footer>
 
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="lg" aria-labelledby="lgTitle">
+<div class="lh"><h3 id="lgTitle">로그인</h3><button type="button" id="lgClose" aria-label="닫기">×</button></div>
+<form id="lgForm">
+<label>이메일<input id="lgEm" type="email" autocomplete="email" inputmode="email" required placeholder="name@example.com"></label>
+<label>비밀번호<input id="lgPw" type="password" autocomplete="current-password" minlength="6" required placeholder="6자 이상"></label>
+<p class="err" id="lgErr" role="alert"></p>
+<button class="go" id="lgGo" type="submit">로그인</button>
+<div class="row2"><button type="button" id="lgSwap">처음이세요? 무료 가입</button><button type="button" id="lgReset">비밀번호를 잊었어요</button></div>
+<p class="fine">가입하면 <a href="market/policy.html#privacy" target="_blank" rel="noopener">개인정보 처리방침</a>에 동의하는 것으로 봅니다. 장터와 같은 계정입니다.</p>
+</form>
+</dialog>
+<script type="module" src="auth.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
