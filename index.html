@@ -14,7 +14,6 @@
 <style>
 :root{--navy:#0f2342;--navy2:#16305a;--navy3:#29467a;--brass:#c9a45c;--brass-d:#8a6a28;--bg:#eef0f3;--panel:#fff;--line:#e3e7ed;--line2:#cfd6e0;--tx:#0f2342;--sub:#46556d;--mut:#6b788e;--on:#aebbd1}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.5;-webkit-text-size-adjust:100%;font-feature-settings:'tnum'}
 a{color:var(--brass-d)}
 button,input,select{font-family:inherit}
@@ -212,8 +211,7 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 .hstat .nums b small{font-size:14px;font-weight:400;color:var(--on);margin-left:2px}
 .hstat .nums span{font-size:12.5px;color:var(--on)}
 .hstat ol{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.12)}
-.hstat li button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;width:100%;padding:11px 0;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:none;text-align:left;cursor:pointer;color:#fff;font:inherit}
-.hstat li button:hover .t{color:var(--brass)}
+.hstat li .it{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;width:100%;padding:11px 0;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:none;text-align:left;color:#fff;font:inherit}
 .hstat .t{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hstat .a{font-size:15px;font-weight:700;color:var(--brass);grid-row:span 2;align-self:center}
 .hstat .c{font-size:12.5px;color:var(--on);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -250,7 +248,7 @@ button.hb{cursor:pointer}button.hb:hover{background:#f7f3e9}
 @media (max-width:760px){.stats{padding:16px}.kpi b{font-size:23px}.hb{grid-template-columns:minmax(0,1fr) auto}.hb .tr{grid-column:1/-1;grid-row:2}.hb .hv{grid-row:1;grid-column:2}}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.row{transition:none}}
+@media (prefers-reduced-motion:reduce){.row{transition:none}}
 </style>
 </head>
 <body>

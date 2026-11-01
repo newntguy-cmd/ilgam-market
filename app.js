@@ -500,10 +500,9 @@
     box.appendChild(n);
     var ol = el('ol');
     top.forEach(function (r) {
-      var li = el('li'), b = el('button'); b.type = 'button';
+      var li = el('li'), b = el('div', 'it');
       b.appendChild(el('span', 't', r.nm)); b.appendChild(el('span', 'a', money(r.amt)));
       b.appendChild(el('span', 'c', (r.rg || '') + ' · ' + r.co));
-      b.addEventListener('click', function () { S.tab = 'win'; S.period = 'last'; S.sort = 'amt'; $('fPeriod').value = 'last'; $('fSort').value = 'amt'; S.shown = PAGE; render(); $('res').scrollIntoView({ behavior: 'auto' }); });
       li.appendChild(b); ol.appendChild(li);
     });
     box.appendChild(ol); box.hidden = false;
@@ -523,7 +522,7 @@
   $('form').addEventListener('submit', function (e) {
     e.preventDefault();
     S.region = $('fRegion').value; S.kind = $('fKind').value; S.q = $('fQ').value; S.shown = PAGE;
-    render(); $('res').scrollIntoView();
+    render();
   });
   $('fRegion').addEventListener('change', function () { S.region = this.value; S.shown = PAGE; render(); });
   $('fKind').addEventListener('change', function () { S.kind = this.value; S.shown = PAGE; render(); });
