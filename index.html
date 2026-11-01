@@ -61,7 +61,7 @@ section.res{padding:100px 0 80px}
 .bar h2{margin:0;font-size:30px;font-weight:500;letter-spacing:-.03em;color:var(--navy)}
 .bar .meta{font-size:14px;color:var(--mut);margin-top:4px}
 .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.tools select[hidden]{display:none}
+.tools select[hidden],.tools [hidden]{display:none}
 .tools select{min-height:42px;border-radius:3px;border:1px solid var(--line2);background:#fff;color:var(--tx);font-size:15px;padding:0 12px}
 .board{border:1px solid var(--line);border-top:2px solid var(--navy);border-radius:0 0 4px 4px;background:var(--panel);overflow:hidden;box-shadow:0 1px 0 var(--line)}
 .hd,.row{display:grid;grid-template-columns:72px 64px minmax(0,1fr) 160px 120px 150px;gap:6px 16px;align-items:center;padding:17px 22px}
@@ -137,6 +137,23 @@ button.colink{border:0;background:none;padding:0;text-align:left;font:inherit;fo
 button.colink:hover{color:var(--navy);text-decoration-color:var(--brass)}
 @media (max-width:760px){.cdet{padding:6px 16px 18px}.hrow{grid-template-columns:44px minmax(0,1fr) 60px}.hrow .orig{grid-column:2/-1}.cl .k{width:80px}}
 .gnb button.soonTab{opacity:.6}
+/* 관심 업체 */
+.cowrap{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+button.star{flex:none;width:32px;height:32px;border:0;border-radius:4px;background:none;color:var(--line2);font-size:20px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:color .15s,transform .15s}
+button.star:hover{color:var(--brass);background:rgba(201,164,92,.12)}
+button.star[aria-pressed=true]{color:var(--brass)}
+button.star:active{transform:scale(1.25)}
+button.star:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
+.cwrap{position:relative;border-bottom:1px solid var(--line)}
+.cwrap:last-child{border-bottom:0}
+.cwrap button.crow{padding-left:56px}
+.cwrap button.star.abs{position:absolute;left:14px;top:12px;width:36px;height:36px;z-index:1}
+.gnb .cnt{font-style:normal;margin-left:6px;min-width:18px;padding:0 5px;border-radius:9px;background:var(--brass);color:var(--navy);font-size:12px;font-weight:700;line-height:18px;text-align:center}
+.new{display:inline-block;margin-left:8px;padding:1px 6px;border-radius:3px;background:var(--brass);color:var(--navy);font-size:11px;font-weight:700;vertical-align:2px;letter-spacing:.02em}
+.soon .btn{margin-top:14px;padding:11px 20px;border:0;border-radius:4px;background:var(--navy);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.soon .btn:hover{background:var(--navy2)}
+@media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
+
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.row{transition:none}}
 </style>
 </head>
