@@ -190,6 +190,16 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 #toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 #toast button{flex:none;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-weight:700;padding:7px 12px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){#toast,button.sw,button.sw i{transition:none}}
+
+.acc{position:relative;margin-left:auto;flex:none}
+.acc>button{height:36px;padding:0 16px;border:1px solid var(--brass);border-radius:4px;background:none;color:var(--brass);font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.acc>button:hover{background:var(--brass);color:var(--navy)}
+.acc .menu{position:absolute;right:0;top:44px;min-width:220px;padding:6px;background:#fff;border-radius:6px;box-shadow:0 14px 40px rgba(15,35,66,.35);z-index:40}
+.acc .menu[hidden]{display:none}
+.acc .menu .em{padding:10px 12px;font-size:13px;color:var(--mut);border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.acc .menu button{display:block;width:100%;padding:11px 12px;border:0;background:none;text-align:left;font-size:15px;color:var(--navy);cursor:pointer;border-radius:4px}
+.acc .menu button:hover{background:#f7f3e9}
+@media (max-width:760px){.acc{order:2}}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.row{transition:none}}
@@ -200,6 +210,7 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 <a class="brand" href="./"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>일감마켓</a>
 <span class="tag-line">공공 공사 낙찰 · 자재 장터</span>
 <nav class="gnb" aria-label="데이터 메뉴" id="gnb"></nav>
+<div class="acc" id="acc"></div>
 </div></header>
 
 <main id="top">

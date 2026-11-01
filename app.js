@@ -85,6 +85,22 @@
       $('lg').close(); $('lgPw').value = '';
     }, function (er) { $('lgErr').textContent = er.message; }).then(function () { btn.disabled = false; });
   });
+  function renderAcc() {
+    var A = window.IGAUTH, box = $('acc'); box.textContent = '';
+    if (!A || !A.user) {
+      var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b); return;
+    }
+    var b2 = el('button', null, '내 계정 ▾'); b2.type = 'button'; b2.setAttribute('aria-haspopup', 'true');
+    var m = el('div', 'menu'); m.hidden = true;
+    m.appendChild(el('div', 'em', A.user.email));
+    var w = el('button', null, '★ 내 관심 업체'); w.type = 'button';
+    w.addEventListener('click', function () { m.hidden = true; S.tab = 'wl'; try { history.replaceState(null, '', '#wl'); } catch (e) {} render(); });
+    var o = el('button', null, '로그아웃'); o.type = 'button'; o.addEventListener('click', function () { m.hidden = true; A.logout(); });
+    m.appendChild(w); m.appendChild(o);
+    b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
+    box.appendChild(b2); box.appendChild(m);
+  }
+  document.addEventListener('click', function (e) { var m = document.querySelector('#acc .menu'); if (m && !m.contains(e.target)) m.hidden = true; });
   function accountCard() {
     var A = window.IGAUTH, box = el('div', 'acct');
     if (!A || !A.user) {
@@ -339,7 +355,7 @@
   }
 
   function render() {
-    renderGnb(); renderChips();
+    renderGnb(); renderChips(); renderAcc();
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
     $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.id === 'co' ? '낙찰 업체' : tab.label;
