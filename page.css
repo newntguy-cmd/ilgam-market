@@ -13,4 +13,3 @@ table{width:100%;border-collapse:collapse}td{padding:10px 8px 10px 0;border-top:
 .more{text-align:center;margin:26px 0}.btn{display:inline-block;padding:13px 26px;background:#0f2342;color:#fff;border-radius:3px;text-decoration:none;font-weight:600}
 footer{background:#0f2342;color:#8fa0bd;padding:24px 0 36px;font-size:13px;margin-top:40px}footer a{color:#aebbd1}footer p{margin:4px 0}
 @media (max-width:620px){.l span{width:100%}.dt{width:44px}}
-.tl{font-size:13px;color:#8fa0bd}@media (max-width:760px){.tl{display:none}}
