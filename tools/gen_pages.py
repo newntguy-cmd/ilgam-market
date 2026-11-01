@@ -86,7 +86,7 @@ for biz, rows in by.items():
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(name)} · 낙찰 {len(rows)}건 {money(total)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(name)} · 낙찰 {len(rows)}건 {money(total)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ilgammarket.co.kr/og.png">
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
 <body><header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
