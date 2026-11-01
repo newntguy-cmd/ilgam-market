@@ -81,7 +81,9 @@ def main():
                 last = (datetime.date.fromisoformat(last) - datetime.timedelta(days=1)).isoformat()
             except Exception:
                 last = max_d
-        rows = [r for c in cos for r in by_co.get(c, []) if (r.get("d") or "") > last]
+        test = os.path.exists("tools/alert_test.flag")   # 시험용: 기준일을 무시하고 최근 낙찰 몇 건을 보냅니다
+        rows = [r for c in cos for r in by_co.get(c, []) if test or (r.get("d") or "") > last]
+        if test: rows = sorted(rows, key=lambda r: r.get("d") or "", reverse=True)[:3]
         rows.sort(key=lambda r: (r.get("d") or "", r.get("amt") or 0), reverse=True)
         if email and rows:
             m = MIMEMultipart("alternative")
@@ -94,7 +96,7 @@ def main():
                 smtp.sendmail(FROM, [email], m.as_string()); sent += 1
             except Exception as e:
                 print("발송 실패", type(e).__name__); continue
-        if max_d and max_d != f.get("lastSent", {}).get("stringValue", ""):
+        if not test and max_d and max_d != f.get("lastSent", {}).get("stringValue", ""):
             try:
                 call(f"https://firestore.googleapis.com/v1/{d['name']}?updateMask.fieldPaths=lastSent",
                      {"fields": {"lastSent": {"stringValue": max_d}}}, method="PATCH", headers=auth)
