@@ -15,16 +15,28 @@ function cors(req) {
 }
 const J = (req, obj, st = 200) => new Response(JSON.stringify(obj), { status: st, headers: { 'Content-Type': 'application/json', ...cors(req) } });
 
+const PROJECT = 'sanup-jangter';
+const b64 = (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
+let JWKS = null, JWKS_AT = 0;
+async function keys() {
+  if (JWKS && Date.now() - JWKS_AT < 3600000) return JWKS;
+  const r = await fetch('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com');
+  JWKS = (await r.json()).keys; JWKS_AT = Date.now(); return JWKS;
+}
+// 로그인 토큰을 서버에서 직접 검증 (서명·발급처·만료)
 async function whoami(req) {
-  const t = (req.headers.get('Authorization') || '').replace(/^Bearer /, '');
-  if (!t) return null;
-  const r = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + FB_KEY, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken: t })
-  });
-  if (!r.ok) return null;
-  const d = await r.json();
-  const u = d.users && d.users[0];
-  return u ? { uid: u.localId, email: u.email } : null;
+  try {
+    const t = (req.headers.get('Authorization') || '').replace(/^Bearer /, '');
+    const p = t.split('.'); if (p.length !== 3) return null;
+    const head = JSON.parse(new TextDecoder().decode(b64(p[0])));
+    const pay = JSON.parse(new TextDecoder().decode(b64(p[1])));
+    const jwk = (await keys()).find((k) => k.kid === head.kid); if (!jwk || head.alg !== 'RS256') return null;
+    const key = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
+    const ok = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, b64(p[2]), new TextEncoder().encode(p[0] + '.' + p[1]));
+    const now = Date.now() / 1000;
+    if (!ok || pay.aud !== PROJECT || pay.iss !== 'https://securetoken.google.com/' + PROJECT || pay.exp < now || !pay.sub) return null;
+    return { uid: pay.sub, email: pay.email || '' };
+  } catch (e) { return null; }
 }
 
 async function status(env, uid) {
