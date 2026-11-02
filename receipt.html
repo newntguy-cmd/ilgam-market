@@ -34,14 +34,14 @@
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function draw(o){
     var rows=row('상품','일감마켓 프로 '+o.plan+'일 이용권')+row('결제일시',when(o.approvedAt||o.at))+row('결제수단','신용·체크카드');
-    if(o.card&&o.card.approveNo)rows+=row('승인번호',esc(o.card.approveNo));
-    if(o.card)rows+=row('할부',o.card.months>1?o.card.months+'개월':'일시불');
+    if(o.card&&o.card.months>1)rows+=row('할부',o.card.months+'개월');
+    if(o.card&&o.card.approveNo&&!/^0+$/.test(o.card.approveNo))rows+=row('승인번호',esc(o.card.approveNo));
     rows+=row('주문번호','<span style="font-size:13px">'+esc(o.orderId)+'</span>');
-    var off=(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt))?'<a class="btn ghost" target="_blank" rel="noopener" href="'+o.receipt+'">카드사 공식 매출전표 보기</a>':'';
-    box.innerHTML='<h1>결제 영수증</h1><p class="sub">일감마켓 이용권 결제 내역입니다.</p><div class="amt">'+Number(o.amount).toLocaleString('ko-KR')+'원</div><dl>'+rows+'</dl>'
-     +'<div class="seller"><b>판매자</b> 겟잇타운 (서비스명 일감마켓)<br>대표 신상헌 · 사업자등록번호 594-06-03620<br>통신판매업 신고번호 제2026-용인기흥-01348호 · help@ilgammarket.co.kr</div>'
-     +'<div class="act"><button type="button" class="btn go" id="pr">인쇄 / PDF로 저장</button>'+off+'</div>'
-     +(off?'<p class="fine">공식 매출전표는 카드사 기준 서식이며, 본인 확인을 위해 카드번호를 입력해야 열립니다.</p>':'');
+    var off=(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt))?'<a href="'+o.receipt+'" target="_blank" rel="noopener">카드사 매출전표</a>':'';
+    box.innerHTML='<h1>결제 영수증</h1><p class="sub">일감마켓 프로 이용권</p><div class="amt">'+Number(o.amount).toLocaleString('ko-KR')+'원</div><dl>'+rows+'</dl>'
+     +'<div class="seller"><b>판매자</b> 겟잇타운 (일감마켓) · 대표 신상헌 · 사업자등록번호 594-06-03620<br>help@ilgammarket.co.kr</div>'
+     +'<div class="act"><button type="button" class="btn go" id="pr">PDF로 저장</button></div>'
+     +(off?'<p class="fine">카드사 서식이 필요하면 '+off+'(카드번호로 본인 확인)</p>':'');
     document.getElementById('pr').onclick=function(){window.print();};
   }
   function go(){
