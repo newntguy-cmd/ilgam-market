@@ -43,7 +43,7 @@
     }).then(function(r){return r.json();}).then(function(d){
       if(!d.ok){show('결제를 확인하지 못했습니다',d.message||'잠시 뒤 다시 시도해 주세요. 문제가 계속되면 help@ilgammarket.co.kr 로 알려 주세요.');return;}
       show('결제가 완료되었습니다','프로 이용이 시작되었습니다.',
-        '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true);
+        '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true,d.receipt);
     }).catch(function(){show('서버에 연결하지 못했습니다','잠시 뒤 이 화면을 새로고침해 주세요. 같은 결제는 중복되지 않습니다.');});
   }
   if(!W){show('결제 서버를 준비하고 있습니다','곧 열립니다.');return;}
