@@ -1,7 +1,7 @@
 // 이용권 구매 (토스페이먼츠 결제창)
 (function(){
   var CLIENT_KEY='test_ck_yL0qZ4G1VO5PBqDwzm2o8oWb2MQY';
-  window.IGPAY={WORKER:'',CLIENT_KEY:CLIENT_KEY,
+  window.IGPAY={WORKER:'https://ilgam-pay.newntguy.workers.dev',CLIENT_KEY:CLIENT_KEY,
     plans:{'30':{amount:49900,name:'일감마켓 프로 30일 이용권'},'90':{amount:129900,name:'일감마켓 프로 90일 이용권'}}};
   var $=function(i){return document.getElementById(i);};
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
