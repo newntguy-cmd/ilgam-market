@@ -55,6 +55,13 @@ export default {
 
     if (url.pathname === '/status') return J(req, { ok: true, ...(await status(env, me.uid)) });
 
+    if (url.pathname === '/orders') {
+      const l = await env.PRO.list({ prefix: 'ord:' + me.uid + ':', limit: 50 });
+      const rows = [];
+      for (const k of l.keys) { const v = await env.PRO.get(k.name); if (v) { const o = JSON.parse(v); rows.push({ orderId: o.orderId, plan: o.plan, amount: o.amount, at: o.at, receipt: o.receipt }); } }
+      return J(req, { ok: true, orders: rows.reverse() });
+    }
+
     if (url.pathname === '/confirm' && req.method === 'POST') {
       let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: '요청이 올바르지 않습니다.' }, 400); }
       const { paymentKey, orderId } = b; const amount = Number(b.amount);
@@ -64,7 +71,8 @@ export default {
       const plan = PLANS[m[1]];
       if (amount !== plan.amount || m[2] !== me.uid.slice(0, 8))
         return J(req, { ok: false, message: '주문 금액이나 계정이 맞지 않습니다.' }, 400);
-      if (await env.PRO.get('order:' + orderId)) return J(req, { ok: true, again: true, ...(await status(env, me.uid)) });
+      const prev = await env.PRO.get('order:' + orderId);
+      if (prev) { let o = {}; try { o = JSON.parse(prev); } catch (e) {} return J(req, { ok: true, again: true, receipt: o.receipt || '', ...(await status(env, me.uid)) }); }
 
       const r = await fetch('https://api.tosspayments.com/v1/payments/confirm', {
         method: 'POST',
@@ -78,8 +86,11 @@ export default {
       const cur = (await status(env, me.uid)).until;
       const until = Math.max(Date.now(), cur) + plan.days * 86400000;
       await env.PRO.put('pro:' + me.uid, String(until));
-      await env.PRO.put('order:' + orderId, JSON.stringify({ uid: me.uid, email: me.email, paymentKey, amount, plan: m[1], at: Date.now() }));
-      return J(req, { ok: true, pro: true, until });
+      const receipt = (d.receipt && d.receipt.url) || '';
+      const rec = { uid: me.uid, email: me.email, orderId, paymentKey, amount, plan: m[1], method: d.method || '', receipt, at: Date.now() };
+      await env.PRO.put('order:' + orderId, JSON.stringify(rec));
+      await env.PRO.put('ord:' + me.uid + ':' + String(rec.at).padStart(14, '0'), JSON.stringify(rec));
+      return J(req, { ok: true, pro: true, until, receipt });
     }
     return J(req, { ok: false, message: 'not found' }, 404);
   }

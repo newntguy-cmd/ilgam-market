@@ -10,7 +10,7 @@
 .res h1{font-size:26px;font-weight:700}.res p{margin:12px 0 0;color:#46556d}
 .res .big{font-size:15px;color:#0f2342;background:#f8f9fb;border:1px solid #e3e7ed;border-radius:3px;padding:12px 14px;margin-top:18px;text-align:left}
 .res .big div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}.res .big span{color:#6b788e}
-.res .btn{margin-top:22px}
+.res .btn{margin-top:22px}.res .btn.ghost{background:#fff;color:#0f2342;border:1px solid #cfd6e0}.res .fine{font-size:13px;color:#6b788e}
 </style></head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
@@ -21,9 +21,13 @@
 <script>
 (function(){
   var q=new URLSearchParams(location.search),res=document.getElementById('res');
-  function show(h,p,rows,ok){
-    res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')+'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'프로 요금으로 돌아가기')+'</a>';
+  function show(h,p,rows,ok,receipt){
+    res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')
+      +(ok&&receipt?'<a class="btn ghost" id="rc" target="_blank" rel="noopener">영수증(카드 매출전표) 보기</a> ':'')
+      +'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'프로 요금으로 돌아가기')+'</a>'
+      +(ok?'<p class="fine">영수증과 지난 결제 내역은 <a href="/pro.html">프로 요금 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
     res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
+    if(ok&&receipt){var a=document.getElementById('rc');if(/^https:\/\/[\w.-]*tosspayments\.com\//.test(receipt))a.href=receipt;else a.remove();}
   }
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
   if(q.get('code')){show('결제가 완료되지 않았습니다',q.get('message')||'결제가 취소되었거나 실패했습니다. 카드에서 금액이 빠져나가지 않았습니다.');return;}

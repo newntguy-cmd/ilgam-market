@@ -11,13 +11,31 @@
     var A=window.IGAUTH,box=$('buybox');if(!A||!A.ready){return;}
     var on=!!A.user;
     $('bin').hidden=on;$('bout').hidden=!on;
-    if(on){$('who').textContent=A.user.email;checkStatus();}
+    if(on){$('who').textContent=A.user.email;checkStatus();orders();}
   }
   function checkStatus(){
     var A=window.IGAUTH;if(!window.IGPAY.WORKER||!A.user)return;
     A.token().then(function(t){return fetch(IGPAY.WORKER+'/status',{headers:{Authorization:'Bearer '+t}});})
      .then(function(r){return r.json();}).then(function(d){
        if(d.pro){$('until').textContent='프로 이용 중 · '+fmt(d.until)+'까지. 지금 결제하면 이어서 더해집니다.';$('until').hidden=false;}
+     }).catch(function(){});
+  }
+  function won(n){return Number(n).toLocaleString('ko-KR')+'원';}
+  function orders(){
+    var A=window.IGAUTH,box=$('myo');if(!box||!IGPAY.WORKER||!A.user)return;
+    A.token().then(function(t){return fetch(IGPAY.WORKER+'/orders',{headers:{Authorization:'Bearer '+t}});})
+     .then(function(r){return r.json();}).then(function(d){
+       var L=$('mylist');if(!d.ok){return;}box.hidden=false;
+       if(!d.orders.length){L.textContent='아직 결제한 내역이 없습니다.';return;}
+       L.innerHTML='';
+       d.orders.forEach(function(o){
+         var r=document.createElement('div');r.className='ord';
+         var dt=new Date(o.at);
+         var s=document.createElement('span');s.textContent=dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+' · 프로 '+o.plan+'일 이용권 · '+won(o.amount);
+         r.appendChild(s);
+         if(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt)){var a=document.createElement('a');a.href=o.receipt;a.target='_blank';a.rel='noopener';a.textContent='영수증 보기';r.appendChild(a);}
+         L.appendChild(r);
+       });
      }).catch(function(){});
   }
   function buy(plan){
