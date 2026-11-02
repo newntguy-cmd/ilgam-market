@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>결제 결과 · 일감마켓</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<style>
+.res{max-width:560px;margin:48px auto;background:#fff;border:1px solid #e3e7ed;border-top:3px solid #c9a45c;border-radius:0 0 4px 4px;padding:30px 28px;text-align:center}
+.res h1{font-size:26px;font-weight:700}.res p{margin:12px 0 0;color:#46556d}
+.res .big{font-size:15px;color:#0f2342;background:#f8f9fb;border:1px solid #e3e7ed;border-radius:3px;padding:12px 14px;margin-top:18px;text-align:left}
+.res .big div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}.res .big span{color:#6b788e}
+.res .btn{margin-top:22px}
+</style></head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
+<main class="wrap"><div class="res" id="res"><h1>결제를 확인하는 중입니다</h1><p>잠시만 기다려 주세요. 이 화면을 닫지 마세요.</p></div></main>
+<footer><div class="wrap"><p>상호 겟잇타운 (서비스명 일감마켓) · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호</p><p>문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html#refund">환불규정</a></p></div></footer>
+<script src="/pay.js"></script>
+<script type="module" src="/auth.js"></script>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search),res=document.getElementById('res');
+  function show(h,p,rows,ok){
+    res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')+'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'프로 요금으로 돌아가기')+'</a>';
+    res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
+  }
+  function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
+  if(q.get('code')){show('결제가 완료되지 않았습니다',q.get('message')||'결제가 취소되었거나 실패했습니다. 카드에서 금액이 빠져나가지 않았습니다.');return;}
+  var pk=q.get('paymentKey'),oid=q.get('orderId'),amt=q.get('amount');
+  if(!pk||!oid||!amt){show('결제 정보가 없습니다','요금 안내 페이지에서 다시 시작해 주세요.');return;}
+  var W=window.IGPAY.WORKER,tries=0;
+  function go(){
+    var A=window.IGAUTH;
+    if(!A||!A.ready){if(++tries>60){show('로그인 확인이 늦어지고 있습니다','페이지를 새로고침해 주세요. 결제는 아직 확정되지 않았습니다.');return;}setTimeout(go,250);return;}
+    if(!A.user){show('로그인이 필요합니다','로그인한 뒤 요금 안내에서 다시 시도해 주세요. 카드 승인은 확정되지 않아 금액이 빠져나가지 않습니다.');return;}
+    A.token().then(function(t){
+      return fetch(W+'/confirm',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify({paymentKey:pk,orderId:oid,amount:Number(amt)})});
+    }).then(function(r){return r.json();}).then(function(d){
+      if(!d.ok){show('결제를 확인하지 못했습니다',d.message||'잠시 뒤 다시 시도해 주세요. 문제가 계속되면 help@ilgammarket.co.kr 로 알려 주세요.');return;}
+      show('결제가 완료되었습니다','프로 이용이 시작되었습니다.',
+        '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true);
+    }).catch(function(){show('서버에 연결하지 못했습니다','잠시 뒤 이 화면을 새로고침해 주세요. 같은 결제는 중복되지 않습니다.');});
+  }
+  if(!W){show('결제 서버를 준비하고 있습니다','곧 열립니다.');return;}
+  go();
+})();
+</script>
+</body></html>

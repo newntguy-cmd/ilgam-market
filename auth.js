@@ -31,6 +31,7 @@ const api={
   async signup(em,pw){try{await createUserWithEmailAndPassword(auth,em,pw);}catch(e){throw new Error(msg(e));}},
   async reset(em){try{await sendPasswordResetEmail(auth,em);}catch(e){throw new Error(msg(e));}},
   async logout(){await signOut(auth);},
+  async token(){return auth.currentUser?auth.currentUser.getIdToken():null;},
   async pull(){
     if(!auth.currentUser)return null;
     const s=await getDoc(doc(db,'watch',auth.currentUser.uid));
