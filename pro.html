@@ -24,17 +24,45 @@
 .opt b{display:block;font-size:16px}.opt span{font-size:22px;font-weight:800}.opt small{display:block;color:#6b788e;margin-top:2px}
 .state{margin:18px 0;padding:16px 20px;background:#fff;border:1px solid #e3e7ed;border-left:3px solid #c9a45c;border-radius:3px}
 .state b{display:block;margin-bottom:4px}
+
+.hero2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:44px;align-items:center;margin:26px 0 30px}
+.hero2 h1{font-size:clamp(32px,4.4vw,56px);line-height:1.14;font-weight:300;letter-spacing:-.04em}
+.hero2 .hl p{margin:18px 0 0;color:#46556d;max-width:560px;font-size:16.5px;line-height:1.75}
+.hero2 .hl p b{color:#0f2342}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn.go{background:#c9a45c;color:#0f2342;font-weight:700}.btn.go:hover{background:#d6b36f}
+.btn.ghost{background:#fff;color:#0f2342;border:1px solid #cfd6e0}.btn.ghost:hover{border-color:#0f2342}
+.hero2 .fine{margin-top:12px;font-size:13px;color:#6b788e}
+.pv{background:#0f2342;border-top:3px solid #c9a45c;border-radius:0 0 4px 4px;padding:18px 20px 14px;color:#fff;box-shadow:0 24px 50px rgba(15,35,66,.28)}
+.pvh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.pvh b{font-size:16px}.pvh span{font-size:13px;color:#8fa0bd}
+.pvr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;padding:11px 0;border-top:1px solid rgba(255,255,255,.1)}
+.pvr .n{font-size:14.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pvr .a{font-size:15px;font-weight:700;color:#c9a45c;text-align:right}
+.pvr .c{font-size:13px;color:#aebbd1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pvr .t{font-size:13px;color:#aebbd1;text-align:right;font-variant-numeric:tabular-nums}.pvr .t i{font-style:normal;color:#c9a45c;letter-spacing:.08em}
+.pvf{margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;color:#8fa0bd;text-align:center}
+@media (max-width:900px){.hero2{grid-template-columns:1fr;gap:26px}}
 .fn{font-size:13.5px;color:#46556d}.fn li{margin:4px 0}
 </style></head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
 <main class="wrap">
 <div class="crumb"><a href="/">홈</a> › 프로 요금 안내</div>
-<div class="hd">
+<section class="hero2">
+<div class="hl">
 <span class="badge">지금은 무료 체험 중</span>
-<h1>낙찰된 현장, 가장 먼저 연락하세요</h1>
-<p><b>공공 공사 현장에 자재·장비·렌탈·시공을 공급하는 업체</b>의 영업 담당자를 위한 이용권입니다. 방금 낙찰된 업체의 연락처와 주소를 지역별 엑셀로 받고, 내 영업 지역에 새 낙찰이 생기면 아침에 메일로 알려 드립니다. 낙찰·업체 조회와 통계는 앞으로도 무료입니다.</p>
+<h1>낙찰된 현장,<br>가장 먼저 연락하세요</h1>
+<p>공공 공사 현장에 <b>자재·장비·렌탈·시공을 공급하는 업체</b>의 영업 담당자를 위한 이용권입니다. 방금 낙찰된 업체의 연락처와 주소를 지역별 엑셀로 받고, 내 영업 지역에 새 낙찰이 생기면 아침에 메일로 알려 드립니다.</p>
+<div class="cta"><a class="btn go" href="/#wl">내 지역 알림 켜기</a><a class="btn ghost" href="/#win">낙찰 목록에서 엑셀 받아 보기</a></div>
+<p class="fine">낙찰·업체 조회와 통계는 앞으로도 무료입니다.</p>
 </div>
+<aside class="pv" id="pv" aria-label="오늘 낙찰된 현장 미리보기" hidden>
+<div class="pvh"><b id="pvt">오늘 낙찰된 현장</b><span id="pvs"></span></div>
+<div class="pvl" id="pvl"></div>
+<div class="pvf">이 목록 전체를 지역별 엑셀로 한 번에 받는 것이 프로입니다</div>
+</aside>
+</section>
 
 <div class="plans">
 <section class="plan"><h2>무료</h2><div class="pr">0원</div><p class="sub">로그인 없이도 쓸 수 있습니다</p>
@@ -60,4 +88,27 @@
 <div class="more"><a class="btn" href="/#wl">지역 알림 설정하기</a></div>
 </main>
 <footer><div class="wrap"><p>상호 겟잇타운 (서비스명 일감마켓) · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호</p><p>문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html">이용약관</a> · <a href="/market/policy.html#refund">환불규정</a> · <a href="/market/policy.html#privacy">개인정보처리방침</a></p></div></footer>
+<script>
+(function(){
+  function money(n){if(!n)return'-';var e=n/1e8;return e>=1?(e>=100?e.toFixed(0):e.toFixed(1))+'억':Math.round(n/1e4).toLocaleString('ko-KR')+'만';}
+  var host=(location.hostname==='localhost'||location.protocol==='capacitor:')?'https://ilgammarket.co.kr/':'';
+  fetch(host+'data/public.json').then(function(r){return r.json();}).then(function(d){
+    var items=d.items||[],corp=d.corp||{},mx='';items.forEach(function(r){if(r.d>mx)mx=r.d;});
+    var day=items.filter(function(r){return r.d===mx;}),sum=0,cos={};day.forEach(function(r){sum+=r.amt||0;cos[r.co]=1;});
+    var rows=day.filter(function(r){var c=r.b&&corp[r.b];return c&&c.t;}).sort(function(a,b){return(b.amt||0)-(a.amt||0);}).slice(0,6);
+    if(!rows.length)return;
+    document.getElementById('pvt').textContent=mx.slice(5).replace('-','월 ')+'일 낙찰된 현장';
+    document.getElementById('pvs').textContent=day.length+'건 · '+money(sum)+' · '+Object.keys(cos).length+'곳';
+    var box=document.getElementById('pvl');
+    rows.forEach(function(r){
+      var c=corp[r.b],row=document.createElement('div');row.className='pvr';
+      row.innerHTML='<span class="n"></span><span class="a"></span><span class="c"></span><span class="t"></span>';
+      row.children[0].textContent=r.co;row.children[1].textContent=money(r.amt);
+      row.children[2].textContent=(r.rg||'')+' · '+(r.nm||'');row.children[3].textContent=c.t;
+      box.appendChild(row);
+    });
+    document.getElementById('pv').hidden=false;
+  }).catch(function(){});
+})();
+</script>
 </body></html>
