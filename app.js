@@ -451,7 +451,7 @@
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
     $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.id === 'co' ? '낙찰 업체' : tab.label;
-    $('fPeriod').hidden = tab.id !== 'win'; $('fSort').hidden = false;
+    $('fPeriod').hidden = tab.id !== 'win'; $('fSort').hidden = false; $('dl').hidden = true;
     if (!tab.ready) {
       board.textContent = '';
       var s = el('div', 'soon'); s.appendChild(el('b', null, tab.label + ' 데이터는 준비 중입니다.'));
@@ -479,7 +479,7 @@
       if (JSON.stringify(WL) !== seenBefore) wlSave();
       return;
     }
-    $('regionChips').hidden = false; $('fSort').hidden = false;
+    $('regionChips').hidden = false; $('fSort').hidden = false; $('dl').hidden = false;
     var list = filtered().slice();
     list.sort(function (a, b) { return S.sort === 'amt' ? (b.amt - a.amt) : (b.d < a.d ? -1 : b.d > a.d ? 1 : b.amt - a.amt); });
     if (S.tab === 'win') { renderWin(list); $('meta').textContent = '총 ' + list.length + '건' + (S.maxD ? ' · ' + S.maxD.slice(5).replace('-', '월 ') + '일 기준' : ''); }
@@ -526,6 +526,25 @@
   });
   $('fRegion').addEventListener('change', function () { S.region = this.value; S.shown = PAGE; render(); });
   $('fKind').addEventListener('change', function () { S.kind = this.value; S.shown = PAGE; render(); });
+
+  // 지금 화면 조건 그대로 엑셀(CSV, 한글 깨짐 방지 BOM)로 저장
+  function csvCell(v) { v = v == null ? '' : String(v); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function downloadList() {
+    var list = filtered().slice();
+    list.sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : b.amt - a.amt; });
+    var head = ['낙찰일', '공고명', '발주기관', '지역', '공종', '낙찰업체', '낙찰금액(원)', '낙찰률(%)', '사업자번호', '대표전화', '업체 주소', '공고 링크'];
+    var out = [head.map(csvCell).join(',')];
+    list.forEach(function (r) {
+      var ct = r.b ? S.corp[r.b] : null;
+      out.push([r.d, r.nm, r.dm, r.rg, r.kind, r.co, r.amt || '', r.rate || '', r.b || '', ct && ct.t ? ct.t : '', ct && ct.a ? ct.a : '', r.u || ''].map(csvCell).join(','));
+    });
+    var blob = new Blob(['\ufeff' + out.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = '일감마켓_낙찰_' + (S.maxD || 'data') + '.csv'; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    var tt = $('toast'); tt.textContent = list.length.toLocaleString('ko-KR') + '건을 엑셀 파일로 저장했습니다'; tt.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { tt.classList.remove('on'); }, 2600);
+  }
+  $('dl').addEventListener('click', downloadList);
   $('fSort').addEventListener('change', function () { S.sort = this.value; render(); });
   $('fPeriod').addEventListener('change', function () { S.period = this.value; S.shown = PAGE; render(); });
 
