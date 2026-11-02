@@ -21,13 +21,12 @@
 <script>
 (function(){
   var q=new URLSearchParams(location.search),res=document.getElementById('res');
-  function show(h,p,rows,ok,receipt){
+  function show(h,p,rows,ok,oid2){
     res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')
-      +(ok&&receipt?'<a class="btn ghost" id="rc" target="_blank" rel="noopener">영수증(카드 매출전표) 보기</a> ':'')
+      +(ok&&oid2?'<a class="btn ghost" target="_blank" rel="noopener" href="/receipt.html?o='+encodeURIComponent(oid2)+'">영수증 보기</a> ':'')
       +'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'프로 요금으로 돌아가기')+'</a>'
-      +(ok?'<p class="fine">영수증은 결제하신 카드번호로 본인 확인 후 열립니다. 영수증과 지난 결제 내역은 <a href="/pro.html">프로 요금 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
+      +(ok?'<p class="fine">영수증과 지난 결제 내역은 <a href="/pro.html">프로 요금 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
     res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
-    if(ok&&receipt){var a=document.getElementById('rc');if(/^https:\/\/[\w.-]*tosspayments\.com\//.test(receipt))a.href=receipt;else a.remove();}
   }
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
   if(q.get('code')){show('결제가 완료되지 않았습니다',q.get('message')||'결제가 취소되었거나 실패했습니다. 카드에서 금액이 빠져나가지 않았습니다.');return;}
@@ -43,7 +42,7 @@
     }).then(function(r){return r.json();}).then(function(d){
       if(!d.ok){show('결제를 확인하지 못했습니다',d.message||'잠시 뒤 다시 시도해 주세요. 문제가 계속되면 help@ilgammarket.co.kr 로 알려 주세요.');return;}
       show('결제가 완료되었습니다','프로 이용이 시작되었습니다.',
-        '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true,d.receipt);
+        '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true,oid);
     }).catch(function(){show('서버에 연결하지 못했습니다','잠시 뒤 이 화면을 새로고침해 주세요. 같은 결제는 중복되지 않습니다.');});
   }
   if(!W){show('결제 서버를 준비하고 있습니다','곧 열립니다.');return;}

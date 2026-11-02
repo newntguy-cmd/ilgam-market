@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>결제 영수증 · 일감마켓</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<style>
+.rc{max-width:560px;margin:36px auto;background:#fff;border:1px solid #e3e7ed;border-top:3px solid #c9a45c;border-radius:0 0 4px 4px;padding:28px 30px}
+.rc h1{font-size:24px;font-weight:700;margin:0 0 4px}.rc .sub{margin:0 0 18px;color:#6b788e;font-size:14px}
+.rc .amt{font-size:34px;font-weight:800;letter-spacing:-.03em;margin:6px 0 18px}
+.rc dl{margin:0}.rc .r{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid #e3e7ed;font-size:15px}
+.rc dt{color:#6b788e}.rc dd{margin:0;font-weight:600;text-align:right}
+.rc .seller{margin-top:18px;padding:14px 16px;background:#f8f9fb;border-radius:3px;font-size:13.5px;color:#46556d}
+.rc .seller b{color:#0f2342}
+.rc .act{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.rc .btn{border:0;font:inherit;font-weight:700;cursor:pointer}.rc .btn.ghost{background:#fff;color:#0f2342;border:1px solid #cfd6e0}
+.rc .fine{margin-top:14px;font-size:12.5px;color:#6b788e}
+@media print{header.top,footer,.act{display:none}body{background:#fff}.rc{border:0;margin:0}}
+</style></head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
+<main class="wrap"><div class="rc" id="rc"><h1>영수증을 불러오는 중입니다</h1><p class="sub">잠시만 기다려 주세요.</p></div></main>
+<footer><div class="wrap"><p>상호 겟잇타운 (서비스명 일감마켓) · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호</p><p>문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html#refund">환불규정</a></p></div></footer>
+<script src="/pay.js"></script>
+<script type="module" src="/auth.js"></script>
+<script>
+(function(){
+  var box=document.getElementById('rc'),oid=new URLSearchParams(location.search).get('o'),tries=0;
+  function msg(h,p){box.innerHTML='<h1></h1><p class="sub"></p><div class="act"><a class="btn ghost" href="/pro.html">프로 요금으로 돌아가기</a></div>';box.querySelector('h1').textContent=h;box.querySelector('.sub').textContent=p;}
+  function two(n){return n<10?'0'+n:''+n;}
+  function when(t){var d=new Date(t);return d.getFullYear()+'.'+two(d.getMonth()+1)+'.'+two(d.getDate())+' '+two(d.getHours())+':'+two(d.getMinutes());}
+  function row(k,v){return '<div class="r"><dt>'+k+'</dt><dd>'+v+'</dd></div>';}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function draw(o){
+    var rows=row('상품','일감마켓 프로 '+o.plan+'일 이용권')+row('결제일시',when(o.approvedAt||o.at))+row('결제수단',o.card?'신용·체크카드'+(o.card.last4?' (끝 4자리 '+esc(o.card.last4)+')':''):'신용·체크카드');
+    if(o.card&&o.card.approveNo)rows+=row('승인번호',esc(o.card.approveNo));
+    if(o.card)rows+=row('할부',o.card.months>1?o.card.months+'개월':'일시불');
+    rows+=row('주문번호','<span style="font-size:13px">'+esc(o.orderId)+'</span>');
+    var off=(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt))?'<a class="btn ghost" target="_blank" rel="noopener" href="'+o.receipt+'">카드사 공식 매출전표 보기</a>':'';
+    box.innerHTML='<h1>결제 영수증</h1><p class="sub">일감마켓 이용권 결제 내역입니다.</p><div class="amt">'+Number(o.amount).toLocaleString('ko-KR')+'원</div><dl>'+rows+'</dl>'
+     +'<div class="seller"><b>판매자</b> 겟잇타운 (서비스명 일감마켓)<br>대표 신상헌 · 사업자등록번호 594-06-03620<br>통신판매업 신고번호 제2026-용인기흥-01348호 · help@ilgammarket.co.kr</div>'
+     +'<div class="act"><button type="button" class="btn go" id="pr">인쇄 / PDF로 저장</button>'+off+'</div>'
+     +(off?'<p class="fine">공식 매출전표는 카드사 기준 서식이며, 본인 확인을 위해 카드번호를 입력해야 열립니다.</p>':'');
+    document.getElementById('pr').onclick=function(){window.print();};
+  }
+  function go(){
+    var A=window.IGAUTH,W=window.IGPAY.WORKER;
+    if(!A||!A.ready){if(++tries>60){msg('로그인 확인이 늦어지고 있습니다','페이지를 새로고침해 주세요.');return;}setTimeout(go,250);return;}
+    if(!A.user){msg('로그인이 필요합니다','결제하신 계정으로 로그인한 뒤 프로 요금 페이지의 ‘내 결제 내역’에서 열어 주세요.');return;}
+    A.token().then(function(t){return fetch(W+'/orders',{headers:{Authorization:'Bearer '+t}});}).then(function(r){return r.json();}).then(function(d){
+      var o=(d.orders||[]).filter(function(x){return x.orderId===oid;})[0];
+      if(!o){msg('영수증을 찾지 못했습니다','주문번호를 확인하거나 help@ilgammarket.co.kr로 문의해 주세요.');return;}
+      draw(o);
+    }).catch(function(){msg('영수증을 불러오지 못했습니다','잠시 뒤 다시 시도해 주세요.');});
+  }
+  if(!oid){msg('주문 정보가 없습니다','프로 요금 페이지의 ‘내 결제 내역’에서 열어 주세요.');return;}
+  go();
+})();
+</script>
+</body></html>

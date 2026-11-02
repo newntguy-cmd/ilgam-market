@@ -58,7 +58,7 @@ export default {
     if (url.pathname === '/orders') {
       const l = await env.PRO.list({ prefix: 'ord:' + me.uid + ':', limit: 50 });
       const rows = [];
-      for (const k of l.keys) { const v = await env.PRO.get(k.name); if (v) { const o = JSON.parse(v); rows.push({ orderId: o.orderId, plan: o.plan, amount: o.amount, at: o.at, receipt: o.receipt }); } }
+      for (const k of l.keys) { const v = await env.PRO.get(k.name); if (v) { const o = JSON.parse(v); rows.push({ orderId: o.orderId, plan: o.plan, amount: o.amount, at: o.at, receipt: o.receipt, method: o.method, approvedAt: o.approvedAt, card: o.card ? { last4: String(o.card.number || '').slice(-4), approveNo: o.card.approveNo, months: o.card.months } : null }); } }
       return J(req, { ok: true, orders: rows.reverse() });
     }
 
@@ -87,7 +87,8 @@ export default {
       const until = Math.max(Date.now(), cur) + plan.days * 86400000;
       await env.PRO.put('pro:' + me.uid, String(until));
       const receipt = (d.receipt && d.receipt.url) || '';
-      const rec = { uid: me.uid, email: me.email, orderId, paymentKey, amount, plan: m[1], method: d.method || '', receipt, at: Date.now() };
+      const card = d.card ? { number: d.card.number || '', approveNo: d.card.approveNo || '', months: d.card.installmentPlanMonths || 0 } : null;
+      const rec = { uid: me.uid, email: me.email, orderId, paymentKey, amount, plan: m[1], method: d.method || '', receipt, card, approvedAt: d.approvedAt || '', at: Date.now() };
       await env.PRO.put('order:' + orderId, JSON.stringify(rec));
       await env.PRO.put('ord:' + me.uid + ':' + String(rec.at).padStart(14, '0'), JSON.stringify(rec));
       return J(req, { ok: true, pro: true, until, receipt });

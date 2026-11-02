@@ -33,7 +33,7 @@
          var dt=new Date(o.at);
          var s=document.createElement('span');s.textContent=dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+' · 프로 '+o.plan+'일 이용권 · '+won(o.amount);
          r.appendChild(s);
-         if(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt)){var a=document.createElement('a');a.href=o.receipt;a.target='_blank';a.rel='noopener';a.textContent='영수증 보기';r.appendChild(a);}
+         var a=document.createElement('a');a.href='/receipt.html?o='+encodeURIComponent(o.orderId);a.target='_blank';a.rel='noopener';a.textContent='영수증 보기';r.appendChild(a);
          L.appendChild(r);
        });
      }).catch(function(){});
