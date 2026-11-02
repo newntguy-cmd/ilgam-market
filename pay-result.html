@@ -25,7 +25,7 @@
     res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')
       +(ok&&receipt?'<a class="btn ghost" id="rc" target="_blank" rel="noopener">영수증(카드 매출전표) 보기</a> ':'')
       +'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'프로 요금으로 돌아가기')+'</a>'
-      +(ok?'<p class="fine">영수증과 지난 결제 내역은 <a href="/pro.html">프로 요금 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
+      +(ok?'<p class="fine">영수증은 결제하신 카드번호로 본인 확인 후 열립니다. 영수증과 지난 결제 내역은 <a href="/pro.html">프로 요금 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
     res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
     if(ok&&receipt){var a=document.getElementById('rc');if(/^https:\/\/[\w.-]*tosspayments\.com\//.test(receipt))a.href=receipt;else a.remove();}
   }
