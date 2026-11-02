@@ -33,7 +33,7 @@
   function row(k,v){return '<div class="r"><dt>'+k+'</dt><dd>'+v+'</dd></div>';}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function draw(o){
-    var rows=row('상품','일감마켓 프로 '+o.plan+'일 이용권')+row('결제일시',when(o.approvedAt||o.at))+row('결제수단',o.card?'신용·체크카드'+(o.card.last4?' (끝 4자리 '+esc(o.card.last4)+')':''):'신용·체크카드');
+    var rows=row('상품','일감마켓 프로 '+o.plan+'일 이용권')+row('결제일시',when(o.approvedAt||o.at))+row('결제수단','신용·체크카드');
     if(o.card&&o.card.approveNo)rows+=row('승인번호',esc(o.card.approveNo));
     if(o.card)rows+=row('할부',o.card.months>1?o.card.months+'개월':'일시불');
     rows+=row('주문번호','<span style="font-size:13px">'+esc(o.orderId)+'</span>');
