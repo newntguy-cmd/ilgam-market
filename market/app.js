@@ -108,7 +108,7 @@ function needLogin(){
 }
 function updateWho(){
   $('who').textContent='';
-  const t=$('tme');if(t){t.textContent=S.user?(S.profile?S.profile.nick+' 님':'내 정보'):'로그인';}
+  const t=$('tme');if(t){t.textContent=S.user?'내 계정':'로그인';}
 }
 $('tme').addEventListener('click',()=>{if(!S.user)S.authMode='login';go('me');});
 
