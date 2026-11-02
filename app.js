@@ -20,18 +20,28 @@
   var WL = {};
   try { WL = JSON.parse(localStorage.getItem('ilgam_wl') || '{}') || {}; } catch (e) { WL = {}; }
   function wlSave() { try { localStorage.setItem('ilgam_wl', JSON.stringify(WL)); } catch (e) {} }
+  var RG = [];                  // 지역 알림: 고른 지역 이름들
+  try { RG = JSON.parse(localStorage.getItem('ilgam_rg') || '[]') || []; } catch (e) { RG = []; }
+  function rgSave() { try { localStorage.setItem('ilgam_rg', JSON.stringify(RG)); } catch (e) {} }
+  function cloudList() { return Object.keys(WL).concat(RG.map(function (r) { return '@지역:' + r; })); }
   var NOTIFY = true;            // 이메일 알림 켜짐 여부(로그인 시 클라우드와 동기화)
   var syncT = 0;
   function cloudPush() {
     if (!window.IGAUTH || !window.IGAUTH.user) return;
     clearTimeout(syncT);
-    syncT = setTimeout(function () { window.IGAUTH.push(Object.keys(WL), NOTIFY).catch(function () {}); }, 400);
+    syncT = setTimeout(function () { window.IGAUTH.push(cloudList(), NOTIFY).catch(function () {}); }, 400);
   }
   function cloudSync() {
     var A = window.IGAUTH; if (!A || !A.user) return;
     A.pull().then(function (r) {
-      if (r) { (r.cos || []).forEach(function (k) { if (!WL[k]) WL[k] = { b: bizOf(k), seen: S.maxD }; }); NOTIFY = r.notify !== false; }
-      wlSave(); render(); return A.push(Object.keys(WL), NOTIFY);
+      if (r) {
+        (r.cos || []).forEach(function (k) {
+          if (k.indexOf('@지역:') === 0) { var g = k.slice(4); if (RG.indexOf(g) < 0) RG.push(g); }
+          else if (!WL[k]) WL[k] = { b: bizOf(k), seen: S.maxD };
+        });
+        NOTIFY = r.notify !== false;
+      }
+      wlSave(); rgSave(); render(); return A.push(cloudList(), NOTIFY);
     }).catch(function () {});
   }
   function bizOf(name) { for (var i = 0; i < S.items.length; i++) if (S.items[i].co === name && S.items[i].b) return S.items[i].b; return ''; }
@@ -119,6 +129,28 @@
     sw.addEventListener('click', function () { NOTIFY = !NOTIFY; sw.setAttribute('aria-checked', String(NOTIFY)); cloudPush(); });
     box.appendChild(sw);
     var lo = el('button', 'lo', '로그아웃'); lo.type = 'button'; lo.addEventListener('click', function () { A.logout(); }); box.appendChild(lo);
+    return box;
+  }
+
+  function regionCard() {
+    var A = window.IGAUTH, logged = !!(A && A.user);
+    var box = el('div', 'acct rgc');
+    var l = el('div', 'at'); l.appendChild(el('b', null, '지역 알림 · 업체를 고르지 않아도 됩니다'));
+    l.appendChild(el('span', null, logged
+      ? '고른 지역의 새 낙찰을 매일 아침 한 통으로 보내 드립니다. 여러 지역을 고를 수 있습니다.'
+      : '지역을 고른 뒤 위에서 로그인하면 그 지역의 새 낙찰을 메일로 받습니다. 무료입니다.'));
+    box.appendChild(l);
+    var chips = el('div', 'chips rgchips'); chips.setAttribute('role', 'group'); chips.setAttribute('aria-label', '알림 받을 지역');
+    uniq('rg').filter(function (g) { return g !== '미분류'; }).forEach(function (g) {
+      var b = el('button', 'chip', g); b.type = 'button';
+      b.setAttribute('aria-pressed', String(RG.indexOf(g) > -1));
+      b.addEventListener('click', function () {
+        var i = RG.indexOf(g); if (i > -1) RG.splice(i, 1); else if (RG.length < 20) RG.push(g);
+        rgSave(); cloudPush(); render();
+      });
+      chips.appendChild(b);
+    });
+    box.appendChild(chips);
     return box;
   }
 
@@ -471,6 +503,7 @@
       wlist.sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : 0; });
       var seenBefore = JSON.stringify(WL);
       var cn = renderCo(wlist, true);
+      $('board').insertBefore(regionCard(), $('board').firstChild);
       $('board').insertBefore(accountCard(), $('board').firstChild);
       $('meta').textContent = wlCount() ? '관심 업체 ' + wlCount() + '곳' + (window.IGAUTH && window.IGAUTH.user ? '' : ' · 이 기기에 저장됩니다') : '';
       $('title').textContent = '관심 업체';
