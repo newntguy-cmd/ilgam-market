@@ -36,6 +36,7 @@ async function status(env, uid) {
 export default {
   async fetch(req, env) {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(req) });
+    env = { ...env, PRO: env.PRO || env.PR0 }; // 이름 철자(O/0) 어느 쪽이든 동작
     const url = new URL(req.url);
     const me = await whoami(req);
     if (!me) return J(req, { ok: false, message: '로그인이 필요합니다.' }, 401);
