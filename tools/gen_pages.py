@@ -96,7 +96,7 @@ for biz, rows in by.items():
 <section class="card"><h2>업체 정보</h2>{info}<p class="note">※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.</p></section>
 <section class="card"><h2>낙찰 이력</h2><table><tbody>{hist}</tbody></table></section>
 <p class="more"><a class="btn" href="/#co">홈페이지에서 다른 업체 보기</a></p></main>
-<footer><div class="wrap"><p>데이터 출처 조달청 나라장터 · 공공데이터포털. 공공데이터를 가공해 제공하며 정확성과 완전성을 보장하지 않습니다.</p><p>상호 겟잇타운 · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호 · 문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html">이용약관</a> · <a href="/market/policy.html#refund">환불규정</a> · <a href="/market/policy.html#privacy">개인정보처리방침</a></p></div></footer></body></html>
+<footer><div class="wrap"><p>데이터 출처 조달청 나라장터 · 공공데이터포털. 공공데이터를 가공해 제공하며 정확성과 완전성을 보장하지 않습니다.</p><p>상호 겟잇타운 · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호 · 문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html">이용약관</a> · <a href="/pro.html">프로 요금</a> · <a href="/market/policy.html#refund">환불규정</a> · <a href="/market/policy.html#privacy">개인정보처리방침</a></p></div></footer></body></html>
 '''
     made[biz] = (page, latest)
 
@@ -112,7 +112,7 @@ for name in os.listdir(cdir):  # 60일 창에서 빠진 업체는 지웁니다
     if re.fullmatch(r"\d{10}", name) and name not in made:
         shutil.rmtree(os.path.join(cdir, name))
 
-urls = [f"  <url><loc>{SITE}/</loc></url>"] + [
+urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>"] + [
     f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)
 ]
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
