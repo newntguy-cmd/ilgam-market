@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light"><meta name="theme-color" content="#0f2342">
-<title>일감마켓 · 매입·판매</title>
+<title>일감마켓 · 물건 사기·팔기</title>
 <!-- build 6 -->
 <style>
 /* 배치: 상단 앱바 -> 올리기 카드 -> 구분 탭 -> 검색/필터 -> 품목 카드 목록 -> 하단 선택 바 -> 요청서 시트.
@@ -278,13 +278,13 @@ body>.appbar{display:none}body[data-tool] >.appbar{display:block}
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="../"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>일감마켓</a>
-<span class="tag-line">공공 공사 낙찰 · 자재 매입·판매</span>
-<nav class="gnb" aria-label="메뉴"><a href="../#win">최근 낙찰</a><a href="../#co">업체</a><a href="../#st">통계</a><a href="../#wl">★ 관심</a><a href="../#bid">입찰</a><a href="../#con">계약</a><a href="./?c=need" id="gb-need">매입</a><a href="./?c=sell" id="gb-sell">판매</a></nav>
+<span class="tag-line">공공 공사 낙찰 · 자재 사고팔기</span>
+<nav class="gnb" aria-label="메뉴"><a href="../#win">최근 낙찰</a><a href="../#co">업체</a><a href="../#st">통계</a><a href="../#wl">★ 관심</a><a href="../#bid">입찰</a><a href="../#con">계약</a><a href="./?c=buy">물건 사기</a><a href="./?c=sell">물건 팔기</a></nav>
 <div class="acc" id="acc"><button type="button" id="tme">로그인</button></div>
 </div></header>
 <div class="appbar"><div class="in">
   <button class="back" id="tback" type="button" hidden aria-label="뒤로">←</button>
-  <h1 id="ttl">매입 · 판매</h1><small id="who"></small>
+  <h1 id="ttl">사고 싶은 물건 고르세요</h1><small id="who"></small>
 </div></div>
 
 <section class="view" id="v-feed">
@@ -335,7 +335,7 @@ body>.appbar{display:none}body[data-tool] >.appbar{display:block}
     <header><h3>견적 요청서</h3><button type="button" id="shclose">닫기</button></header>
     <div><label for="site">현장명</label><input type="text" id="site" value="신갈오거리 도시재생 공유플랫폼 건립사업"></div>
     <div><label for="out" id="outl"></label><textarea id="out" readonly></textarea></div>
-    <button type="button" class="primary big" id="topost">이 품목으로 매입 글 쓰기</button>
+    <button type="button" class="primary big" id="topost">이 품목으로 사려는 글 쓰기</button>
     <button type="button" class="big" id="copy">견적 요청서 복사</button>
     <div class="hint">복사한 내용은 엑셀이나 메일, 카카오톡에 붙여넣을 수 있습니다. 단가 칸은 업체가 채웁니다.</div>
   </div>
