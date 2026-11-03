@@ -60,27 +60,21 @@ for biz, rows in by.items():
     for r in rows:
         regs[r["rg"]] = regs.get(r["rg"], 0) + 1
     top = sorted(regs, key=lambda k: -regs[k])[0]
-    c = corp.get(biz) or {}
-    addr, tel = clean_addr(c.get("a")), (c.get("t") or "").strip()
+    # 전화·주소는 정적 페이지에 싣지 않습니다. 로그인한 사용자에게만 서버에서 내려줍니다.
     latest = rows[0]["d"]
     title = f"{name} 낙찰 이력 · 일감마켓"
-    desc = f"{name}의 최근 공공 공사 낙찰 {len(rows)}건, 합계 {money(total)}. 주로 {top} 지역. 사업자번호 {fmt_biz(biz)}" + (f", 대표 전화 {tel}" if tel else "") + ". 조달청 나라장터 공공데이터 기준."
+    desc = f"{name}의 최근 공공 공사 낙찰 {len(rows)}건, 합계 {money(total)}. 주로 {top} 지역. 사업자번호 {fmt_biz(biz)}" + ". 조달청 나라장터 공공데이터 기준."
     url = f"{SITE}/c/{biz}/"
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": name, "taxID": fmt_biz(biz), "url": url}
-    if addr:
-        ld["address"] = addr
-    if tel:
-        ld["telephone"] = tel
     hist = "".join(
         f'<tr><td class="dt">{e(r["d"][5:].replace("-", "."))}</td><td><b>{e(r["nm"])}</b><small>{e(r["dm"])}</small></td>'
         f'<td class="amt">{money(r["amt"])}</td><td class="lk">' + (f'<a href="{e(src(r))}" target="_blank" rel="noopener noreferrer">원문 ↗</a>' if src(r) else "") + "</td></tr>"
         for r in rows[:50]
     )
     info = f'<div class="l"><span>사업자번호</span><b>{fmt_biz(biz)}</b></div>'
-    if addr:
-        info += f'<div class="l"><span>주소</span><b>{e(addr)}</b></div>'
-    if tel:
-        info += f'<div class="l"><span>대표 전화</span><a href="tel:{re.sub(r"[^0-9+]", "", tel)}">{e(tel)}</a></div>'
+    info += (f'<div class="l" id="ct" data-biz="{biz}"><span>대표 전화</span>'
+             f'<a class="lock" href="/?join=1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
+             f'<span class="dots">031-•••-••••</span> 가입하면 보입니다</a></div>')
     page = f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title>
