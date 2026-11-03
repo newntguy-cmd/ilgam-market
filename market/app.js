@@ -144,6 +144,7 @@ function postCard(p){
   return b;
 }
 function renderFeed(){
+  document.querySelectorAll('[data-door=buy]').forEach(b=>b.setAttribute('aria-pressed',String(S.type==='sell')));
   const t=$('ftype');t.textContent='';
   [['all','전체'],['sell','팝니다'],['need','삽니다']].forEach(([k,l])=>{
     const b=btn(l,null,()=>{S.type=k;renderFeed();});b.setAttribute('aria-pressed',String(S.type===k));t.append(b);});
@@ -156,10 +157,10 @@ function renderFeed(){
     const e=el('div','empty card');e.append(el('div',null,'글을 불러오지 못했습니다.'),el('br'),btn('다시 시도','primary',loadFeed));
     ls.append(e);$('fcnt').textContent='';$('fmore').hidden=true;return;
   }
-  const v=visible();$('fcnt').textContent=v.length+'개의 글';
+  const v=visible();$('fcnt').textContent=v.length?v.length+'개의 글':'';
   if(!v.length){
     const e=el('div','empty card');
-    e.append(el('div',null,S.q||S.cat||S.type!=='all'?'조건에 맞는 글이 없습니다.':'아직 올라온 글이 없습니다.'),el('br'),btn('첫 글 올리기','primary',()=>go('write')));
+    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 물건이 없습니다.'),el('br'),btn('팔고 싶은 물건 올리기','primary',()=>{S.wtype='sell';go('write');}));
     ls.append(e);
   }
   v.forEach(p=>ls.append(postCard(p)));
@@ -356,8 +357,9 @@ async function prep(file){
 function renderWrite(){
   const f=$('wform');
   if(!S.user||!S.profile){
-    f.textContent='';f.append(el('h2',null,'글쓰기'),el('div','tip','글을 올리려면 로그인이 필요합니다. 둘러보기는 로그인 없이 됩니다.'),
-      btn('로그인 / 회원가입','primary big',()=>{S.authMode='login';go('me');}));
+    f.textContent='';f.append(el('h2',null,'가입하면 바로 올릴 수 있습니다'),el('div','tip','이메일과 비밀번호만 있으면 됩니다. 올린 물건은 낙찰 업체와 납품 업체에게 바로 보입니다.'),
+      btn('무료 가입하고 올리기','primary big',()=>{S.authMode='signup';go('me');}),
+      btn('이미 계정이 있어요 · 로그인',null,()=>{S.authMode='login';go('me');}));
     return;
   }
   const keep={title:($('wt')||{}).value,body:($('wb')||{}).value,cat:($('wc')||{}).value};
