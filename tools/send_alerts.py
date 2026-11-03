@@ -47,7 +47,7 @@ def build(rows, total=None):
 <tr><td style="padding:18px 20px 6px;font-size:15px;color:#0f2342">담아 두신 업체와 지역에 새 낙찰 <b>{total}건</b>이 있습니다.{f' 금액이 큰 순서로 {len(rows)}건만 보여 드립니다.' if total > len(rows) else ''}</td></tr>
 {cards}
 <tr><td style="padding:20px;text-align:center"><a href="{SITE}/#wl" style="display:inline-block;padding:12px 22px;background:#c9a45c;color:#0f2342;font-weight:700;text-decoration:none;border-radius:4px">일감마켓에서 보기</a></td></tr>
-<tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내 드렸습니다. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 대표 신상헌 · 통신판매업 신고 완료</td></tr>
+<tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내 드렸습니다. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 통신판매업 신고 완료</td></tr>
 </table></div>"""
 
 def main():

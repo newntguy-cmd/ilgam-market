@@ -96,6 +96,7 @@ footer a{color:var(--on);text-decoration:none}footer a:hover{color:#fff;text-dec
 .fcols b{display:block;color:#fff;font-weight:500;margin-bottom:6px}.fcols a,.fcols .src{display:block;margin-top:12px;font-size:12.5px}.fcols .src span{display:block;padding:0}.fcols .d{display:block;padding:2px 0}.fcols p{margin:6px 0 0}.fbrand{color:#fff;font-size:17px;font-weight:700}
 .fcols .d{font-size:12px;color:#6f83a6;margin-top:4px}
 .fcard{display:grid;grid-template-columns:1.6fr 1fr;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:4px;margin-bottom:18px}
+.biz{margin:0 0 4px}.biz summary{cursor:pointer;color:#8fa0bd;font-size:13px;padding:6px 0;list-style:none}.biz summary::-webkit-details-marker{display:none}.biz summary::after{content:" ▾"}.biz[open] summary::after{content:" ▴"}.biz summary:hover{color:#fff}.biz .fcard{margin-top:8px}
 .fcard b{display:block;color:#fff;font-weight:500;margin-bottom:8px}.fc1,.fc2{padding:18px 22px}.fc2{border-left:1px solid rgba(255,255,255,.12)}
 .fcard dl{margin:0}.fcard dl>div{display:flex;gap:16px;padding:6px 0;border-top:1px solid rgba(255,255,255,.08)}.fcard dt{width:150px;flex:none;color:#8fa0bd}.fcard dd{margin:0;color:var(--on)}.fc2 p{margin:0}
 .fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}.fbot .copy{margin:0}.fl{display:flex;gap:18px}
@@ -308,11 +309,13 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <div><b>바로가기</b><a href="#top">최근 낙찰</a><a href="#co">업체</a><a href="market/">장터</a></div>
 <div><b>고객 문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><span class="d">이메일로 접수합니다. 글 신고·삭제와 회원 탈퇴 요청도 이 메일로 받습니다.</span></div>
 </div>
+<details class="biz" id="biz"><summary>사업자 정보</summary>
 <div class="fcard">
-<div class="fc1"><b>사업자 정보</b>
+<div class="fc1">
 <dl><div><dt>상호</dt><dd>겟잇타운</dd></div><div><dt>대표</dt><dd>신상헌</dd></div><div><dt>사업자등록번호</dt><dd>594-06-03620</dd></div><div><dt>통신판매업 신고번호</dt><dd>제2026-용인기흥-01348호</dd></div></dl></div>
-<div class="fc2"><b>개인정보보호 책임자</b><p>신상헌 · <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a></p></div>
+<div class="fc2"><b>개인정보 보호 담당</b><p><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a></p></div>
 </div>
+</details>
 <p class="disc">본 서비스는 공공데이터를 가공해 제공하며, 데이터의 정확성과 완전성을 보장하지 않습니다. 영업 및 거래 판단의 책임은 이용자에게 있으며, 나라장터 원본 공고를 함께 확인하시기 바랍니다. 장터의 거래는 이용자 사이에서 직접 이루어지며 일감마켓은 거래의 당사자가 아닙니다.</p>
 <div class="fbot"><span class="copy">© 2026 일감마켓 (겟잇타운). All rights reserved.</span><span class="fl"><a href="market/policy.html">이용약관</a><a href="pro.html">일감 마스터</a><a href="market/policy.html#refund">환불규정</a><a href="market/policy.html#privacy">개인정보처리방침</a></span></div>
 </div></footer>
@@ -332,5 +335,6 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 </dialog>
 <script type="module" src="auth.js"></script>
 <script src="app.js"></script>
+<script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 </body>
 </html>
