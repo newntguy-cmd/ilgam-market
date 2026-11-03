@@ -21,6 +21,7 @@
       } else if ((r.locked || []).indexOf(biz) >= 0) {
         var p = document.createElement('a'); p.href = '/pro.html'; p.textContent = '오늘 ' + r.limit + '곳을 모두 확인하셨습니다 · 일감 마스터 보기'; rows.push(line('대표 전화', p));
       } else rows.push(line('연락처', txt('등록된 정보가 없습니다')));
+      var c0 = document.getElementById('ct0'); if (c0) c0.parentNode.removeChild(c0);
       rows.forEach(function (n) { parent.insertBefore(n, box); }); parent.removeChild(box);
     }).catch(function () { busy = false; });
   }

@@ -141,11 +141,11 @@
     else t.textContent = '무료 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
   }
   var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
-  function lockLine(box, label, why, btnText, onBtn) {
+  function lockLine(box, label, why, btnText, onBtn, dots) {
     var l = el('div', 'cl lockline'); l.appendChild(el('span', 'k', label));
-    var v = el('span', 'v lockv'); v.innerHTML = LOCK_SVG; v.appendChild(el('span', 'dots', '031-•••-••••')); l.appendChild(v);
+    var v = el('span', 'v lockv'); v.innerHTML = LOCK_SVG; v.appendChild(el('span', 'dots', dots || '031-•••-••••')); l.appendChild(v);
     l.appendChild(el('span', 'why', why));
-    var b = el('button', 'cp unlock', btnText); b.type = 'button'; b.addEventListener('click', function (e) { e.stopPropagation(); onBtn(); }); l.appendChild(b);
+    if (btnText) { var b = el('button', 'cp unlock', btnText); b.type = 'button'; b.addEventListener('click', function (e) { e.stopPropagation(); onBtn(); }); l.appendChild(b); }
     box.appendChild(l);
   }
   function paintContact(box, biz) {
@@ -156,7 +156,7 @@
       l.appendChild(sp); if (extra) l.appendChild(extra); box.appendChild(l);
     }
     var A = window.IGAUTH;
-    if (!A || !A.user) { lockLine(box, '대표 전화', '가입하면 보입니다', '무료 가입', function () { openLogin('signup'); }); return; }
+    if (!A || !A.user) { lockLine(box, '주소', '가입하면 보입니다', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하면 보입니다', '무료 가입', function () { openLogin('signup'); }); return; }
     var ct = CT[biz];
     if (ct) {
       if (ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); row('주소', ad, copyBtn(ad)); }
