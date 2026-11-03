@@ -88,7 +88,9 @@ function openPolicy(){
 }
 
 /* ---------- 화면 전환 ---------- */
+function ensureBack(v){const sec=$('v-'+v);let b=sec.querySelector(':scope>.vback');if(!b)b=btn('← 돌아가기','vback',()=>go(v==='write'?'feed':(S.prevView&&S.prevView!=='me'?S.prevView:'feed')));sec.prepend(b);}
 function go(v){
+  if(v!==S.view)S.prevView=S.view;
   S.view=v;
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
@@ -98,6 +100,7 @@ function go(v){
   scrollTo(0,0);
   if(v==='write')renderWrite();
   if(v==='me')renderMe();
+  if(v==='write'||v==='me')ensureBack(v);
   if(v==='tool')document.body.dataset.tool='1';else delete document.body.dataset.tool;
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.v)));
