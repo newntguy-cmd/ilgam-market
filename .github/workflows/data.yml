@@ -19,6 +19,11 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/newntguy-cmd/remarket-bids/main/docs/public.json -o /tmp/p.json
           python3 -c "import json;d=json.load(open('/tmp/p.json'));assert d.get('items') is not None"
           cp /tmp/p.json data/public.json
+      - name: 연락처를 서버(D1)에 올리기
+        env:
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+        run: python3 tools/push_contacts.py
+        continue-on-error: true
       - name: 업체별 전용 페이지·사이트맵 만들기
         run: python3 tools/gen_pages.py
       - name: 관심 업체 새 낙찰 이메일 알림
