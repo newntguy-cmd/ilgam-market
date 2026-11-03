@@ -37,3 +37,9 @@
     else if (h.indexOf('pro.html') > -1) { e.preventDefault(); parent.postMessage({ ig: 'pro' }, location.origin); }
   });
 })();
+
+// 팝업에서는 업체 정보만 보여 줍니다(낙찰 내역은 앞 화면에서 이미 보였습니다).
+(function () {
+  if (location.search.indexOf('embed') < 0) return;
+  document.querySelectorAll('section.card').forEach(function (s) { var h = s.querySelector('h2'); if (h && h.textContent.indexOf('낙찰 이력') > -1) s.style.display = 'none'; });
+})();

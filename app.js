@@ -317,10 +317,11 @@
       var row = el('div', 'row');
       row.appendChild(el('span', 'rg', r.rg || '-'));
       row.appendChild(el('span', 'kd', r.kind || ''));
-      var nm = el('div', 'nm');
-      nm.appendChild(document.createTextNode(r.nm));
+      var nm = el('div', 'nm'), mem = !!(window.IGAUTH && window.IGAUTH.user);
+      nm.appendChild(document.createTextNode(mem ? r.nm : maskText(r.nm)));
+      if (!mem) nm.classList.add('locked');
       if (r.s === '낙찰예정') nm.appendChild(el('span', 'tag', '낙찰 예정'));
-      nm.appendChild(el('small', null, r.dm));
+      nm.appendChild(el('small', null, mem ? r.dm : maskText(r.dm)));
       var src = r.u;
       if (!src && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) {
         var pr = r.id.split('-');
@@ -330,11 +331,7 @@
       var cob = el('button', 'co colink', r.co); cob.type = 'button'; cob.title = '업체 정보 보기';
       var key = (r.id || '') + '|' + r.co, isOpen = S.openWin === key;
       cob.setAttribute('aria-expanded', String(isOpen));
-      cob.addEventListener('click', function () {
-        var bz = ''; S.items.forEach(function (x) { if (x.co === r.co && x.b) bz = x.b; });
-        if (bz) { openShare({ co: r.co, biz: bz }); return; }
-        S.openWin = isOpen ? '' : key; render();
-      });
+      cob.addEventListener('click', function () { S.openWin = isOpen ? '' : key; render(); });
       var cw = el('div', 'co cowrap'); cob.className = 'colink';
       cw.appendChild(cob); cw.appendChild(starBtn(r.co, r.b));
       row.appendChild(cw);
@@ -383,7 +380,7 @@
     }
     var url = location.origin + '/c/' + c.biz + '/';
     d.setAttribute('data-url', url); $('shName').textContent = c.co || ''; $('shCopy').textContent = '링크 복사';
-    $('shFrame').src = src || ('/c/' + c.biz + '/?embed=1'); $('shCopy').hidden = !!src;
+    $('shFrame').src = src || ('/c/' + c.biz + '/?embed=1'); $('shCopy').hidden = !!src; d.classList.toggle('doc', !!src);
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function openDoc(title, href) {
@@ -404,32 +401,66 @@
     });
     return b;
   }
+  function maskText(t) { t = String(t || ''); return t.length <= 3 ? '•••' : t.slice(0, 3) + ' •••••'; }
+  var RANK = null, RANKN = -1;
+  function coStats(name, rows, tot) {
+    if (!RANK || RANKN !== S.items.length) {
+      var m = {}; S.items.forEach(function (r) { m[r.co] = (m[r.co] || 0) + (r.amt || 0); });
+      RANK = Object.keys(m).sort(function (a, b) { return m[b] - m[a]; }); RANKN = S.items.length;
+    }
+    var pos = RANK.indexOf(name) + 1, kinds = {}, np = 0, nn = 0;
+    rows.forEach(function (r) { if (r.kind) kinds[r.kind] = (kinds[r.kind] || 0) + 1; if (r.np) { np += r.np; nn++; } });
+    var kk = Object.keys(kinds).sort(function (a, b) { return kinds[b] - kinds[a]; })[0];
+    return [['낙찰 금액 순위', pos ? RANK.length + '곳 중 ' + pos + '위' : '-'],
+      ['평균 낙찰 금액', rows.length ? money(Math.round(tot / rows.length)) : '-'],
+      ['주요 공종', kk || '-'],
+      ['평균 경쟁', nn ? Math.round(np / nn) + '개사 참여' : '-']];
+  }
   function coDetail(c) {
+    var A = window.IGAUTH, member = !!(A && A.user);
     var d = el('div', 'cdet');
-    var info = el('div', 'cinfo');
-    function line(k, v, extra) {
-      var l = el('div', 'cl'); l.appendChild(el('span', 'k', k));
-      var s = el('span', 'v'); if (typeof v === 'string') s.textContent = v; else s.appendChild(v);
-      l.appendChild(s); if (extra) l.appendChild(extra); info.appendChild(l);
-    }
+    var tot = 0; c.rows.forEach(function (r) { tot += r.amt || 0; });
+    var top = el('div', 'dtop');
+    var sm = el('div', 'dsum');
+    sm.appendChild(el('b', null, '낙찰 ' + c.rows.length + '건'));
+    sm.appendChild(document.createTextNode(' · 합계 ' + money(tot) + (c.top ? ' · 주요 지역 ' + c.top : '')));
+    top.appendChild(sm);
     if (c.biz) {
-      line('사업자번호', fmtBiz(c.biz), copyBtn(fmtBiz(c.biz)));
-      var cbox = el('div', 'cbox'); info.appendChild(cbox); paintContact(cbox, c.biz);
-      var pg = el('button', 'sbtn', '업체 페이지 보기'); pg.type = 'button'; pg.addEventListener('click', function () { openShare(c); }); info.appendChild(pg);
-      info.appendChild(el('div', 'note', '※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.'));
-    } else {
-      info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다.'));
+      var pg = el('button', 'sbtn', '업체 정보 보기'); pg.type = 'button';
+      pg.addEventListener('click', function () { openShare(c); }); top.appendChild(pg);
     }
-    d.appendChild(info);
-    d.appendChild(el('div', 'chist', '최근 낙찰 ' + c.rows.length + '건'));
+    d.appendChild(top);
+    var st = coStats(c.co, c.rows, tot);
+    var sg = el('div', 'dstats');
+    st.filter(function (x) { return x[1] !== '-'; }).forEach(function (x) { var i = el('div', 'st'); i.appendChild(el('small', null, x[0])); i.appendChild(el('b', null, x[1])); sg.appendChild(i); });
+    d.appendChild(sg);
+    var tb = el('div', 'wtab');
+    var hd = el('div', 'wr wh');
+    ['날짜', '지역 · 공종', '현장', '낙찰 금액'].forEach(function (t, i) { var x = el('span', null, t); if (i === 3) x.style.textAlign = 'right'; hd.appendChild(x); });
+    tb.appendChild(hd);
     c.rows.slice(0, 8).forEach(function (r) {
-      var h = el('div', 'hrow');
-      h.appendChild(el('span', 'hd1', dshort(r.d)));
-      var nm = el('span', 'hn', r.nm); h.appendChild(nm);
-      h.appendChild(el('span', 'hm', money(r.amt)));
-      var u = srcOf(r);
-      d.appendChild(h);
+      var w = el('div', 'wr');
+      w.appendChild(el('span', 'wd', dshort(r.d)));
+      w.appendChild(el('span', 'wk', (r.rg || '-') + (r.kind ? ' · ' + r.kind : '')));
+      var site = el('span', 'ws');
+      if (member) { site.appendChild(document.createTextNode(r.nm)); if (r.dm) site.appendChild(el('small', null, r.dm)); }
+      else {
+        site.classList.add('locked'); site.appendChild(document.createTextNode(maskText(r.nm)));
+        if (r.dm) site.appendChild(el('small', null, maskText(r.dm)));
+      }
+      w.appendChild(site);
+      var am = el('span', 'wa', money(r.amt));
+      if (r.np) am.appendChild(el('small', null, r.np + '개사 참여'));
+      w.appendChild(am);
+      tb.appendChild(w);
     });
+    d.appendChild(tb);
+    if (!member) {
+      var cta = el('div', 'wcta');
+      cta.appendChild(el('span', null, '가입하면 현장명 · 발주처 · 대표 전화가 모두 보입니다'));
+      var jb = el('button', 'go', '무료 가입'); jb.type = 'button'; jb.addEventListener('click', function () { openLogin('signup'); });
+      cta.appendChild(jb); d.appendChild(cta);
+    }
     return d;
   }
 
@@ -474,7 +505,7 @@
       row.appendChild(el('span', 'kd c2', c.top));
       row.appendChild(el('span', 'co c3', c.n ? c.n + '건' : '낙찰 없음'));
       row.appendChild(el('span', 'am c4', money(c.sum)));
-      row.addEventListener('click', function () { if (c.biz) { openShare(c); return; } S.openCo = open ? '' : c.co; render(); });
+      row.addEventListener('click', function () { S.openCo = open ? '' : c.co; render(); });
       wrap.appendChild(row);
       wrap.appendChild(starBtn(c.co, c.biz, 'abs'));
       if (open) wrap.appendChild(coDetail(c));
@@ -634,7 +665,7 @@
     var ol = el('ol');
     top.forEach(function (r) {
       var li = el('li'), b = el('div', 'it');
-      b.appendChild(el('span', 't', r.nm)); b.appendChild(el('span', 'a', money(r.amt)));
+      b.appendChild(el('span', 't', (window.IGAUTH && window.IGAUTH.user) ? r.nm : maskText(r.nm))); b.appendChild(el('span', 'a', money(r.amt)));
       b.appendChild(el('span', 'c', (r.rg || '') + ' · ' + r.co));
       li.appendChild(b); ol.appendChild(li);
     });
