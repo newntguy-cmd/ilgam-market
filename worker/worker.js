@@ -1,6 +1,8 @@
 // 일감마켓 결제 확인 서버 (Cloudflare Workers, 무료)
-// 환경변수: TOSS_SECRET (토스 시크릿 키), 저장소: KV 바인딩 PRO
-const FB_KEY = 'AIzaSyC7txkoe-zROxqJ5rrbHsdDTuHrFrAy450'; // Firebase 웹 키(공개용)
+// 환경변수: TOSS_SECRET (토스 시크릿 키), ADMIN_SECRET (연락처 적재용 비밀값)
+// 저장소: KV 바인딩 PRO (프로 기간·결제), D1 바인딩 DB (사용자 첫 접속일·법인 연락처·하루 열람 기록)
+const TRIAL_DAYS = 14;   // 가입 후 무료체험(전체 연락처 공개) 일수
+const FREE_DAILY = 3;    // 체험 이후 무료 이용자의 하루 연락처 열람 건수
 const PLANS = { '30': { amount: 49900, days: 30 }, '90': { amount: 129900, days: 90 } };
 const ORIGINS = ['https://ilgammarket.co.kr', 'https://www.ilgammarket.co.kr', 'http://localhost:8077', 'capacitor://localhost', 'https://localhost'];
 
@@ -8,7 +10,7 @@ function cors(req) {
   const o = req.headers.get('Origin') || '';
   return {
     'Access-Control-Allow-Origin': ORIGINS.includes(o) ? o : ORIGINS[0],
-    'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+    'Access-Control-Allow-Headers': 'Authorization, Content-Type, X-Admin',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Vary': 'Origin'
   };
@@ -45,15 +47,101 @@ async function status(env, uid) {
   return { pro: until > Date.now(), until };
 }
 
+// ---- D1: 계정 상태·연락처 -------------------------------------------------
+let READY = false;
+async function init(env) {
+  if (READY) return;
+  await env.DB.batch([
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS users(uid TEXT PRIMARY KEY, first_seen INTEGER NOT NULL)'),
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS contacts(biz TEXT PRIMARY KEY, tel TEXT, addr TEXT)'),
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS opens(uid TEXT NOT NULL, day TEXT NOT NULL, biz TEXT NOT NULL, PRIMARY KEY(uid, day, biz))')
+  ]);
+  READY = true;
+}
+const today = () => new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10); // 한국 날짜
+const qs = (n) => Array(n).fill('?').join(',');
+
+// 이 계정이 지금 어떤 상태인지: pro(프로) · trial(무료체험) · free(무료)
+async function account(env, me) {
+  const now = Date.now();
+  await env.DB.prepare('INSERT OR IGNORE INTO users(uid, first_seen) VALUES(?, ?)').bind(me.uid, now).run();
+  const u = await env.DB.prepare('SELECT first_seen FROM users WHERE uid = ?').bind(me.uid).first();
+  const st = await status(env, me.uid);
+  const trialUntil = u.first_seen + TRIAL_DAYS * 86400000;
+  const trial = !st.pro && now < trialUntil;
+  const day = today();
+  const used = (await env.DB.prepare('SELECT COUNT(*) n FROM opens WHERE uid = ? AND day = ?').bind(me.uid, day).first()).n;
+  return { ...st, trial, trialUntil, tier: st.pro ? 'pro' : trial ? 'trial' : 'free', limit: FREE_DAILY, used };
+}
+
+// 연락처 요청. open=false 는 "이미 열린 것만 보여 달라"(열람 건수를 쓰지 않음), open=true 는 "열어 달라".
+async function contacts(env, me, bizs, open) {
+  const A = await account(env, me);
+  const day = today();
+  const got = await env.DB.prepare('SELECT biz, tel, addr FROM contacts WHERE biz IN (' + qs(bizs.length) + ')').bind(...bizs).all();
+  const have = {}; for (const r of got.results) have[r.biz] = r;
+  const out = {};
+  if (A.tier !== 'free') {                       // 프로·체험: 전부 공개
+    const ins = [];
+    for (const b of bizs) if (have[b]) { out[b] = { t: have[b].tel || '', a: have[b].addr || '' }; if (open) ins.push(env.DB.prepare('INSERT OR IGNORE INTO opens(uid, day, biz) VALUES(?, ?, ?)').bind(me.uid, day, b)); }
+    if (ins.length) await env.DB.batch(ins);
+  } else {                                       // 무료: 하루 FREE_DAILY 건
+    const prev = await env.DB.prepare('SELECT biz FROM opens WHERE uid = ? AND day = ? AND biz IN (' + qs(bizs.length) + ')').bind(me.uid, day, ...bizs).all();
+    const was = new Set(prev.results.map((r) => r.biz));
+    let used = A.used; const ins = [];
+    for (const b of bizs) {
+      if (!have[b]) continue;
+      if (was.has(b)) out[b] = { t: have[b].tel || '', a: have[b].addr || '' };
+      else if (open && used < FREE_DAILY) { used++; ins.push(env.DB.prepare('INSERT OR IGNORE INTO opens(uid, day, biz) VALUES(?, ?, ?)').bind(me.uid, day, b)); out[b] = { t: have[b].tel || '', a: have[b].addr || '' }; }
+    }
+    if (ins.length) await env.DB.batch(ins);
+  }
+  const fresh = await account(env, me);
+  return { ok: true, tier: fresh.tier, used: fresh.used, limit: FREE_DAILY, trialUntil: fresh.trialUntil, contacts: out, locked: bizs.filter((b) => have[b] && !out[b]) };
+}
+
+// 관리자 전용: 매일 최신 연락처를 채워 넣습니다.
+async function admin(req, env, url) {
+  const key = req.headers.get('X-Admin') || '';
+  if (!env.ADMIN_SECRET || key.length !== env.ADMIN_SECRET.length) return J(req, { ok: false, message: 'forbidden' }, 403);
+  let diff = 0; for (let i = 0; i < key.length; i++) diff |= key.charCodeAt(i) ^ env.ADMIN_SECRET.charCodeAt(i);
+  if (diff) return J(req, { ok: false, message: 'forbidden' }, 403);
+  await init(env);
+  if (url.pathname === '/admin/contacts' && req.method === 'POST') {
+    let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: 'bad json' }, 400); }
+    const rows = (b.rows || []).filter((r) => /^\d{10}$/.test(r[0])).slice(0, 500);
+    const st = env.DB.prepare('INSERT INTO contacts(biz, tel, addr) VALUES(?, ?, ?) ON CONFLICT(biz) DO UPDATE SET tel = excluded.tel, addr = excluded.addr WHERE tel IS NOT excluded.tel OR addr IS NOT excluded.addr');
+    if (rows.length) await env.DB.batch(rows.map((r) => st.bind(r[0], String(r[1] || '').slice(0, 40), String(r[2] || '').slice(0, 200))));
+    return J(req, { ok: true, n: rows.length });
+  }
+  if (url.pathname === '/admin/count') {
+    const c = await env.DB.prepare('SELECT COUNT(*) n FROM contacts').first();
+    const u = await env.DB.prepare('SELECT COUNT(*) n FROM users').first();
+    return J(req, { ok: true, contacts: c.n, users: u.n });
+  }
+  return J(req, { ok: false, message: 'not found' }, 404);
+}
+
 export default {
   async fetch(req, env) {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(req) });
     env = { ...env, PRO: env.PRO || env.PR0 }; // 이름 철자(O/0) 어느 쪽이든 동작
     const url = new URL(req.url);
+    if (url.pathname.startsWith('/admin/')) { if (!env.DB) return J(req, { ok: false, message: 'DB 연결이 없습니다.' }, 500); return admin(req, env, url); }
     const me = await whoami(req);
     if (!me) return J(req, { ok: false, message: '로그인이 필요합니다.' }, 401);
 
     if (url.pathname === '/status') return J(req, { ok: true, ...(await status(env, me.uid)) });
+
+    if (url.pathname === '/me' || url.pathname === '/contacts') {
+      if (!env.DB) return J(req, { ok: false, message: 'DB 연결이 없습니다.' }, 500);
+      await init(env);
+      if (url.pathname === '/me') return J(req, { ok: true, ...(await account(env, me)) });
+      let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: '요청이 올바르지 않습니다.' }, 400); }
+      const bizs = [...new Set((b.bizs || []).filter((x) => /^\d{10}$/.test(x)))].slice(0, 60);
+      if (!bizs.length) return J(req, { ok: true, contacts: {}, locked: [] });
+      return J(req, await contacts(env, me, bizs, !!b.open));
+    }
 
     if (url.pathname === '/orders') {
       const l = await env.PRO.list({ prefix: 'ord:' + me.uid + ':', limit: 50 });
