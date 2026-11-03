@@ -93,7 +93,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물건 올리세요':'팔고 싶은 물건 올리세요'):v==='me'?'내 정보':'사고팔기');
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물건 올리세요':'팔고 싶은 물건 올리세요'):v==='me'?'내 정보':'사고 싶은 물건 고르세요');
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -160,7 +160,7 @@ function renderFeed(){
   const v=visible();$('fcnt').textContent=v.length?v.length+'개의 글':'';
   if(!v.length){
     const e=el('div','empty card');
-    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 물건이 없습니다.'),el('br'),btn('팔고 싶은 물건 올리기','primary',()=>{S.wtype='sell';go('write');}));
+    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 물건이 없습니다. 팔고 싶은 물건을 올리세요.'),el('br'),btn('물건 올리기','primary',()=>{S.wtype='sell';go('write');}));
     ls.append(e);
   }
   v.forEach(p=>ls.append(postCard(p)));
