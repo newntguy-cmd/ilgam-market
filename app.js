@@ -326,10 +326,6 @@
         var pr = r.id.split('-');
         src = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + pr[0] + '&bidPbancOrd=' + pr[1];
       }
-      if (src && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(src)) {
-        var o = el('a', 'orig', '나라장터 원문 ↗'); o.href = src; o.target = '_blank'; o.rel = 'noopener noreferrer';
-        nm.appendChild(o);
-      }
       row.appendChild(nm);
       var cob = el('button', 'co colink', r.co); cob.type = 'button'; cob.title = '업체 정보 보기';
       var key = (r.id || '') + '|' + r.co, isOpen = S.openWin === key;
@@ -367,17 +363,23 @@
     var d = $('sh');
     if (!d) {
       d = document.createElement('dialog'); d.id = 'sh';
-      d.innerHTML = '<div class="lh"><h3>업체 링크 공유</h3><button type="button" aria-label="닫기">×</button></div><div class="sb"><b id="shName"></b><input id="shUrl" readonly aria-label="업체 페이지 주소"><div class="sa"><button type="button" class="go" id="shCopy">링크 복사</button></div><p>업체명·낙찰 내역·금액이 보이는 페이지입니다. 연락처는 가입한 분께만 보입니다.</p></div>';
+      d.innerHTML = '<div class="lh"><h3 id="shName"></h3><button type="button" class="cp" id="shCopy">링크 복사</button><button type="button" class="x" aria-label="닫기">×</button></div><iframe id="shFrame" title="업체 페이지"></iframe>';
       document.body.appendChild(d);
-      d.querySelector('.lh button').addEventListener('click', function () { d.close(); });
+      d.querySelector('.x').addEventListener('click', function () { d.close(); });
       d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
       $('shCopy').addEventListener('click', function () {
-        var b = this, u = $('shUrl'); u.select();
-        try { navigator.clipboard.writeText(u.value).then(function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '링크 복사'; }, 1500); }); } catch (x) { b.textContent = '길게 눌러 복사하세요'; }
+        var b = this, u = d.getAttribute('data-url');
+        try { navigator.clipboard.writeText(u).then(function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '링크 복사'; }, 1500); }); } catch (x) { b.textContent = '복사 실패'; }
+      });
+      window.addEventListener('message', function (e) {
+        if (e.origin !== location.origin || !e.data || !e.data.ig) return;
+        if (e.data.ig === 'join') { d.close(); openLogin('signup'); }
+        else if (e.data.ig === 'pro') location.href = 'pro.html';
       });
     }
     var url = location.origin + '/c/' + c.biz + '/';
-    $('shName').textContent = c.co || ''; $('shUrl').value = url; $('shCopy').textContent = '링크 복사';
+    d.setAttribute('data-url', url); $('shName').textContent = c.co || ''; $('shCopy').textContent = '링크 복사';
+    $('shFrame').src = '/c/' + c.biz + '/?embed=1';
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function copyBtn(text) {
@@ -402,7 +404,7 @@
       var pg = el('a', 'ext', '이 업체 링크 공유'); pg.href = 'c/' + c.biz + '/'; pg.addEventListener('click', function (e) { e.preventDefault(); openShare(c); }); info.appendChild(pg);
       info.appendChild(el('div', 'note', '※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.'));
     } else {
-      info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다. 공고 원문에서 확인해 주세요.'));
+      info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다.'));
     }
     d.appendChild(info);
     d.appendChild(el('div', 'chist', '최근 낙찰 ' + c.rows.length + '건'));
@@ -412,7 +414,6 @@
       var nm = el('span', 'hn', r.nm); h.appendChild(nm);
       h.appendChild(el('span', 'hm', money(r.amt)));
       var u = srcOf(r);
-      if (u) { var o = el('a', 'orig', '원문 ↗'); o.href = u; o.target = '_blank'; o.rel = 'noopener noreferrer'; h.appendChild(o); }
       d.appendChild(h);
     });
     return d;

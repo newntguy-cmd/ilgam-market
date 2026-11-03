@@ -68,7 +68,7 @@ for biz, rows in by.items():
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": name, "taxID": fmt_biz(biz), "url": url}
     hist = "".join(
         f'<tr><td class="dt">{e(r["d"][5:].replace("-", "."))}</td><td><b>{e(r["nm"])}</b><small>{e(r["dm"])}</small></td>'
-        f'<td class="amt">{money(r["amt"])}</td><td class="lk">' + (f'<a href="{e(src(r))}" target="_blank" rel="noopener noreferrer">원문 ↗</a>' if src(r) else "") + "</td></tr>"
+        f'<td class="amt">{money(r["amt"])}</td><td class="lk"></td></tr>'
         for r in rows[:50]
     )
     info = f'<div class="l"><span>사업자번호</span><b>{fmt_biz(biz)}</b></div>'
@@ -82,6 +82,7 @@ for biz, rows in by.items():
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(name)} · 낙찰 {len(rows)}건 {money(total)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ilgammarket.co.kr/og.png">
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}">
+<script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
 <body><header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>

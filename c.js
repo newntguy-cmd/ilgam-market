@@ -26,3 +26,14 @@
   }
   window.addEventListener('ig-auth', paint); paint();
 })();
+
+// 팝업 안에서 열린 경우: 링크를 눌러도 이 창이 바뀌지 않고, 바깥 화면이 처리합니다.
+(function () {
+  if (location.search.indexOf('embed') < 0 || window.parent === window) return;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a'); if (!a) return;
+    var h = a.getAttribute('href') || '';
+    if (a.classList.contains('lock') || h.indexOf('join=1') > -1) { e.preventDefault(); parent.postMessage({ ig: 'join' }, location.origin); }
+    else if (h.indexOf('pro.html') > -1) { e.preventDefault(); parent.postMessage({ ig: 'pro' }, location.origin); }
+  });
+})();

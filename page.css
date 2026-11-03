@@ -16,3 +16,6 @@ footer{background:#0f2342;color:#8fa0bd;padding:24px 0 36px;font-size:13px;margi
 .l a.lock{display:inline-flex;align-items:center;gap:8px;color:#6b788e;font-size:14px;text-decoration:none;min-height:44px}
 .l a.lock .dots{letter-spacing:.12em}
 .l a.lock:hover{color:#0f2342;text-decoration:underline}
+
+html.embed header.top,html.embed footer,html.embed .crumb,html.embed .more{display:none}html.embed body{background:#fff}html.embed main.wrap{padding-top:14px;padding-bottom:18px}
+.l a.lock{white-space:nowrap}

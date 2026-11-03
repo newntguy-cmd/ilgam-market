@@ -172,18 +172,14 @@ button.sw[aria-checked=true]{background:var(--brass)}
 button.sw[aria-checked=true] i{transform:translateX(22px)}
 button.sw:focus-visible,.acct .btn:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
 dialog#lg{width:min(400px,calc(100vw - 32px));padding:0;border:0;border-radius:6px;background:#fff;color:var(--navy);box-shadow:0 24px 60px rgba(15,35,66,.45)}
-dialog#sh{width:min(420px,calc(100vw - 32px));padding:0;border:0;border-radius:6px;background:#fff;color:var(--navy);box-shadow:0 24px 60px rgba(15,35,66,.45)}
+dialog#sh{width:min(760px,calc(100vw - 24px));height:min(86vh,820px);padding:0;border:0;border-radius:6px;background:#fff;color:var(--navy);box-shadow:0 24px 60px rgba(15,35,66,.45);overflow:hidden}
+dialog#sh[open]{display:flex;flex-direction:column}
 dialog#sh::backdrop{background:rgba(10,22,44,.62)}
-#sh .lh{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--navy);color:#fff;border-bottom:3px solid var(--brass)}
-#sh .lh h3{margin:0;font-size:18px;font-weight:600}
-#sh .lh button{border:0;background:none;color:var(--on);font-size:24px;line-height:1;cursor:pointer}
-#sh .sb{padding:22px;display:grid;gap:12px;word-break:keep-all}
-#sh .sb b{font-size:16px}
-#sh input{height:44px;padding:0 12px;border:1px solid var(--line2);border-radius:4px;font-size:14px;color:var(--navy);background:#f7f8fa}
-#sh .sa{display:flex;align-items:center;gap:16px}
-#sh .go{height:46px;padding:0 22px;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-size:15px;font-weight:700;cursor:pointer}
-#sh .sa a{color:var(--navy);font-size:14px;text-decoration:underline;cursor:pointer}
-#sh p{margin:0;font-size:13px;color:var(--mut);line-height:1.6}
+#sh .lh{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--navy);color:#fff;border-bottom:3px solid var(--brass);flex:none}
+#sh .lh h3{margin:0;font-size:17px;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sh .lh .cp{height:34px;padding:0 14px;border:1px solid var(--brass);border-radius:4px;background:none;color:var(--brass);font-size:13.5px;font-weight:600;cursor:pointer;flex:none}
+#sh .lh .x{border:0;background:none;color:var(--on);font-size:26px;line-height:1;cursor:pointer;flex:none}
+#sh iframe{flex:1;width:100%;border:0;background:#fff}
 dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 #lg .lh{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--navy);color:#fff;border-bottom:3px solid var(--brass)}
 #lg .lh h3{margin:0;font-size:18px;font-weight:600}
