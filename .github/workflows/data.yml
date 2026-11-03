@@ -26,6 +26,16 @@ jobs:
         continue-on-error: true
       - name: 업체별 전용 페이지·사이트맵 만들기
         run: python3 tools/gen_pages.py
+      - name: 연락처 묶음을 공개 파일에서 빼기 (번호는 서버에만 둡니다)
+        run: |
+          python3 - <<'PY'
+          import json
+          p = "data/public.json"
+          d = json.load(open(p, encoding="utf-8"))
+          n = len(d.pop("corp", None) or {})
+          json.dump(d, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+          print("공개 파일에서 뺀 연락처", n, "건")
+          PY
       - name: 관심 업체 새 낙찰 이메일 알림
         env:
           FB_BOT_EMAIL: ${{ secrets.FB_BOT_EMAIL }}
