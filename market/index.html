@@ -297,6 +297,21 @@ header.top .brand{color:#fff}
 .acc>button:hover{background:var(--brass);color:var(--navy)}
 @media (max-width:760px){header.top .wrap{flex-wrap:wrap}.gnb{order:3;flex:1 0 100%;margin:0 -8px}.gnb a{padding:0 11px;font-size:14.5px;min-height:44px}}
 body>.appbar{display:none}body[data-tool] >.appbar{display:block}
+
+/* 넓은 화면: 홈페이지와 같은 1200px 폭, 글 카드는 격자로 */
+#v-feed{max-width:1200px;padding-left:24px;padding-right:24px;gap:18px}
+#v-write,#v-me,#v-tool{max-width:760px}
+#v-feed .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+#v-feed .post{height:100%}
+#v-feed .empty{grid-column:1/-1;padding:56px 20px}
+#v-feed .search{min-height:56px;font-size:17px}
+#v-feed .chips button{min-height:44px;padding:0 18px;font-size:15px}
+.corner{padding:38px 40px;gap:26px;border-radius:8px}
+.corner .ci{width:84px;height:84px;font-size:44px;border-radius:18px}
+.corner h2{font-size:38px}
+.corner p{font-size:18px;margin-top:8px}
+.corner button{height:58px;padding:0 38px;font-size:17px}
+@media (max-width:760px){#v-feed{padding-left:16px;padding-right:16px}.corner{padding:22px 20px;gap:16px}.corner .ci{width:54px;height:54px;font-size:28px}.corner h2{font-size:24px}.corner p{font-size:15px}.corner button{height:50px;font-size:16px;padding:0 24px}}
 </style>
 </head>
 <body>
