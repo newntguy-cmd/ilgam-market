@@ -101,7 +101,7 @@ function go(v){
   if(v==='tool')document.body.dataset.tool='1';else delete document.body.dataset.tool;
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.v)));
-document.querySelectorAll('[data-door]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.door==='sell'){S.wtype='sell';go('write');}else{S.type='sell';go('feed');renderFeed();}}));
+document.querySelectorAll('[data-door]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.door==='sell'){S.wtype='sell';go('write');}else{S.type='all';go('feed');renderFeed();}}));
 $('tback').addEventListener('click',()=>go('write'));
 function needLogin(){
   if(S.user&&S.profile)return false;
@@ -144,7 +144,7 @@ function postCard(p){
   return b;
 }
 function renderFeed(){
-  document.querySelectorAll('[data-door=buy]').forEach(b=>b.setAttribute('aria-pressed',String(S.type==='sell')));
+  document.querySelectorAll('[data-door=buy]').forEach(b=>b.setAttribute('aria-pressed','true'));
   const t=$('ftype');t.textContent='';
   [['all','전체'],['sell','팝니다'],['need','삽니다']].forEach(([k,l])=>{
     const b=btn(l,null,()=>{S.type=k;renderFeed();});b.setAttribute('aria-pressed',String(S.type===k));t.append(b);});
@@ -586,7 +586,7 @@ onAuthStateChanged(auth,async u=>{
 });
 
 /* 낙찰 사이트에서 넘어온 글쓰기: 제목과 내용만 채워 주고, 올리기 전에 직접 고치고 고릅니다 */
-const QP=new URLSearchParams(location.search);{const c=QP.get('c');if(c==='buy'){S.type='sell';}else if(c==='sell'){S.wtype='sell';S.corner='sell';}}
+const QP=new URLSearchParams(location.search);{const c=QP.get('c');if(c==='buy'){S.type='all';}else if(c==='sell'){S.wtype='sell';S.corner='sell';}}
 if(QP.get('title')||QP.get('body')){S.pre={title:(QP.get('title')||'').slice(0,80),body:(QP.get('body')||'').slice(0,3000)};if(QP.get('type')==='sell')S.wtype='sell';}
 go(S.pre||S.corner==='sell'?'write':'feed');
 loadFeed();
