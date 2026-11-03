@@ -24,8 +24,8 @@
   function show(h,p,rows,ok,oid2){
     res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')
       +(ok&&oid2?'<a class="btn ghost" target="_blank" rel="noopener" href="/receipt.html?o='+encodeURIComponent(oid2)+'">영수증 보기</a> ':'')
-      +'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'프로 요금으로 돌아가기')+'</a>'
-      +(ok?'<p class="fine">영수증과 지난 결제 내역은 <a href="/pro.html">프로 요금 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
+      +'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'일감 마스터 안내로 돌아가기')+'</a>'
+      +(ok?'<p class="fine">영수증과 지난 결제 내역은 <a href="/pro.html">일감 마스터 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
     res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
   }
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
@@ -41,7 +41,7 @@
       return fetch(W+'/confirm',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify({paymentKey:pk,orderId:oid,amount:Number(amt)})});
     }).then(function(r){return r.json();}).then(function(d){
       if(!d.ok){show('결제를 확인하지 못했습니다',d.message||'잠시 뒤 다시 시도해 주세요. 문제가 계속되면 help@ilgammarket.co.kr 로 알려 주세요.');return;}
-      show('결제가 완료되었습니다','프로 이용이 시작되었습니다.',
+      show('결제가 완료되었습니다','일감 마스터 이용이 시작되었습니다.',
         '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true,oid);
     }).catch(function(){show('서버에 연결하지 못했습니다','잠시 뒤 이 화면을 새로고침해 주세요. 같은 결제는 중복되지 않습니다.');});
   }

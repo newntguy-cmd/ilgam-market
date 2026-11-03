@@ -132,13 +132,13 @@
   function daysLeft(ms) { return Math.max(0, Math.ceil((ms - Date.now()) / 86400000)); }
   function paintTier() {
     var t = $('tier'), dl = $('dl'), A = window.IGAUTH;
-    if (dl) { var locked = !!(A && A.user && ME && ME.tier === 'free'); dl.textContent = locked ? '엑셀로 받기 · 프로' : '엑셀로 받기'; dl.classList.toggle('locked', locked); }
+    if (dl) { var locked = !!(A && A.user && ME && ME.tier === 'free'); dl.textContent = locked ? '엑셀로 받기 · 일감 마스터' : '엑셀로 받기'; dl.classList.toggle('locked', locked); }
     if (!t) return;
     if (!A || !A.user || !ME) { t.hidden = true; return; }
     t.hidden = false; t.className = 'tier ' + ME.tier;
     if (ME.tier === 'trial') t.textContent = '무료체험 ' + daysLeft(ME.trialUntil) + '일 남음';
-    else if (ME.tier === 'pro') { var d = new Date(ME.until); t.textContent = '프로 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
-    else t.textContent = '무료 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
+    else if (ME.tier === 'pro') { var d = new Date(ME.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
+    else t.textContent = '일감 맛보기 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
   }
   var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
   function lockLine(box, label, why, btnText, onBtn) {
@@ -165,7 +165,7 @@
       return;
     }
     if (CTNONE[biz]) { row('연락처', '등록된 정보가 없습니다'); return; }
-    if (CTLOCK[biz]) { lockLine(box, '대표 전화', '오늘 ' + (ME ? ME.limit : 3) + '곳을 모두 확인하셨습니다', '프로 보기', function () { location.href = 'pro.html'; }); return; }
+    if (CTLOCK[biz]) { lockLine(box, '대표 전화', '오늘 ' + (ME ? ME.limit : 3) + '곳을 모두 확인하셨습니다', '일감 마스터 보기', function () { location.href = 'pro.html'; }); return; }
     row('연락처', '불러오는 중…');
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
   }

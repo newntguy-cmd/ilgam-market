@@ -27,18 +27,18 @@
 <script>
 (function(){
   var box=document.getElementById('rc'),oid=new URLSearchParams(location.search).get('o'),tries=0;
-  function msg(h,p){box.innerHTML='<h1></h1><p class="sub"></p><div class="act"><a class="btn ghost" href="/pro.html">프로 요금으로 돌아가기</a></div>';box.querySelector('h1').textContent=h;box.querySelector('.sub').textContent=p;}
+  function msg(h,p){box.innerHTML='<h1></h1><p class="sub"></p><div class="act"><a class="btn ghost" href="/pro.html">일감 마스터 안내로 돌아가기</a></div>';box.querySelector('h1').textContent=h;box.querySelector('.sub').textContent=p;}
   function two(n){return n<10?'0'+n:''+n;}
   function when(t){var d=new Date(t);return d.getFullYear()+'.'+two(d.getMonth()+1)+'.'+two(d.getDate())+' '+two(d.getHours())+':'+two(d.getMinutes());}
   function row(k,v){return '<div class="r"><dt>'+k+'</dt><dd>'+v+'</dd></div>';}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function draw(o){
-    var rows=row('상품','일감마켓 프로 '+o.plan+'일 이용권')+row('결제일시',when(o.approvedAt||o.at))+row('결제수단','신용·체크카드');
+    var rows=row('상품','일감 마스터 '+o.plan+'일 이용권')+row('결제일시',when(o.approvedAt||o.at))+row('결제수단','신용·체크카드');
     if(o.card&&o.card.months>1)rows+=row('할부',o.card.months+'개월');
     if(o.card&&o.card.approveNo&&!/^0+$/.test(o.card.approveNo))rows+=row('승인번호',esc(o.card.approveNo));
     rows+=row('주문번호','<span style="font-size:13px">'+esc(o.orderId)+'</span>');
     var off=(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt))?'<a href="'+o.receipt+'" target="_blank" rel="noopener">카드사 매출전표</a>':'';
-    box.innerHTML='<h1>결제 영수증</h1><p class="sub">일감마켓 프로 이용권</p><div class="amt">'+Number(o.amount).toLocaleString('ko-KR')+'원</div><dl>'+rows+'</dl>'
+    box.innerHTML='<h1>결제 영수증</h1><p class="sub">일감 마스터 이용권</p><div class="amt">'+Number(o.amount).toLocaleString('ko-KR')+'원</div><dl>'+rows+'</dl>'
      +'<div class="seller"><b>판매자</b> 겟잇타운 (일감마켓) · 대표 신상헌 · 사업자등록번호 594-06-03620<br>help@ilgammarket.co.kr</div>'
      +'<div class="act"><button type="button" class="btn go" id="pr">PDF로 저장</button></div>'
      +(off?'<p class="fine">카드사 서식이 필요하면 '+off+'(카드번호로 본인 확인)</p>':'');
@@ -47,14 +47,14 @@
   function go(){
     var A=window.IGAUTH,W=window.IGPAY.WORKER;
     if(!A||!A.ready){if(++tries>60){msg('로그인 확인이 늦어지고 있습니다','페이지를 새로고침해 주세요.');return;}setTimeout(go,250);return;}
-    if(!A.user){msg('로그인이 필요합니다','결제하신 계정으로 로그인한 뒤 프로 요금 페이지의 ‘내 결제 내역’에서 열어 주세요.');return;}
+    if(!A.user){msg('로그인이 필요합니다','결제하신 계정으로 로그인한 뒤 일감 마스터 페이지의 ‘내 결제 내역’에서 열어 주세요.');return;}
     A.token().then(function(t){return fetch(W+'/orders',{headers:{Authorization:'Bearer '+t}});}).then(function(r){return r.json();}).then(function(d){
       var o=(d.orders||[]).filter(function(x){return x.orderId===oid;})[0];
       if(!o){msg('영수증을 찾지 못했습니다','주문번호를 확인하거나 help@ilgammarket.co.kr로 문의해 주세요.');return;}
       draw(o);
     }).catch(function(){msg('영수증을 불러오지 못했습니다','잠시 뒤 다시 시도해 주세요.');});
   }
-  if(!oid){msg('주문 정보가 없습니다','프로 요금 페이지의 ‘내 결제 내역’에서 열어 주세요.');return;}
+  if(!oid){msg('주문 정보가 없습니다','일감 마스터 페이지의 ‘내 결제 내역’에서 열어 주세요.');return;}
   go();
 })();
 </script>

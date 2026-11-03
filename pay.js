@@ -2,7 +2,7 @@
 (function(){
   var CLIENT_KEY='test_ck_yL0qZ4G1VO5PBqDwzm2o8oWb2MQY';
   window.IGPAY={WORKER:'https://ilgam-pay.newntguy.workers.dev',CLIENT_KEY:CLIENT_KEY,
-    plans:{'30':{amount:49900,name:'일감마켓 프로 30일 이용권'},'90':{amount:129900,name:'일감마켓 프로 90일 이용권'}}};
+    plans:{'30':{amount:49900,name:'일감 마스터 30일 이용권'},'90':{amount:129900,name:'일감 마스터 90일 이용권'}}};
   var $=function(i){return document.getElementById(i);};
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
   function say(t,bad){var e=$('bmsg');e.textContent=t;e.className='bmsg'+(bad?' bad':'');}
@@ -17,7 +17,7 @@
     var A=window.IGAUTH;if(!window.IGPAY.WORKER||!A.user)return;
     A.token().then(function(t){return fetch(IGPAY.WORKER+'/status',{headers:{Authorization:'Bearer '+t}});})
      .then(function(r){return r.json();}).then(function(d){
-       if(d.pro){$('until').textContent='프로 이용 중 · '+fmt(d.until)+'까지. 지금 결제하면 이어서 더해집니다.';$('until').hidden=false;}
+       if(d.pro){$('until').textContent='일감 마스터 이용 중 · '+fmt(d.until)+'까지. 지금 결제하면 이어서 더해집니다.';$('until').hidden=false;}
      }).catch(function(){});
   }
   function won(n){return Number(n).toLocaleString('ko-KR')+'원';}
@@ -31,7 +31,7 @@
        d.orders.forEach(function(o){
          var r=document.createElement('div');r.className='ord';
          var dt=new Date(o.at);
-         var s=document.createElement('span');s.textContent=dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+' · 프로 '+o.plan+'일 이용권 · '+won(o.amount);
+         var s=document.createElement('span');s.textContent=dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+' · 일감 마스터 '+o.plan+'일 이용권 · '+won(o.amount);
          r.appendChild(s);
          var a=document.createElement('a');a.href='/receipt.html?o='+encodeURIComponent(o.orderId);a.target='_blank';a.rel='noopener';a.textContent='영수증 보기';r.appendChild(a);
          L.appendChild(r);

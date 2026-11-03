@@ -19,7 +19,7 @@
         if (ct.t) { var a = document.createElement('a'); a.textContent = ct.t; a.href = 'tel:' + ct.t.replace(/[^0-9+]/g, ''); rows.push(line('대표 전화', a)); }
         if (!rows.length) rows.push(line('연락처', txt('등록된 정보가 없습니다')));
       } else if ((r.locked || []).indexOf(biz) >= 0) {
-        var p = document.createElement('a'); p.href = '/pro.html'; p.textContent = '오늘 ' + r.limit + '곳을 모두 확인하셨습니다 · 프로 보기'; rows.push(line('대표 전화', p));
+        var p = document.createElement('a'); p.href = '/pro.html'; p.textContent = '오늘 ' + r.limit + '곳을 모두 확인하셨습니다 · 일감 마스터 보기'; rows.push(line('대표 전화', p));
       } else rows.push(line('연락처', txt('등록된 정보가 없습니다')));
       rows.forEach(function (n) { parent.insertBefore(n, box); }); parent.removeChild(box);
     }).catch(function () { busy = false; });
