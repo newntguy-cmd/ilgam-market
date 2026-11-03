@@ -39,8 +39,25 @@
   });
 })();
 
-// 팝업에서는 업체 정보만 보여 줍니다(낙찰 내역은 앞 화면에서 이미 보였습니다).
+// 팝업: 낙찰 내역을 보여 줍니다. 비회원에게는 현장명·발주처를 흐리게 가립니다(마지막 단어만 보임).
 (function () {
   if (location.search.indexOf('embed') < 0) return;
-  document.querySelectorAll('section.card').forEach(function (s) { var h = s.querySelector('h2'); if (h && h.textContent.indexOf('낙찰 이력') > -1) s.style.display = 'none'; });
+  var cells = [];
+  document.querySelectorAll('section.card').forEach(function (s) {
+    var h = s.querySelector('h2'); if (!h || h.textContent.indexOf('낙찰 이력') < 0) return;
+    s.querySelectorAll('td b, td small').forEach(function (n) { cells.push({ n: n, t: n.textContent }); });
+  });
+  function apply() {
+    var A = window.IGAUTH; if (!A) return;
+    var mem = !!A.user;
+    cells.forEach(function (c) {
+      c.n.textContent = '';
+      if (mem) { c.n.textContent = c.t; return; }
+      var i = c.t.trim().lastIndexOf(' ');
+      if (i < 0) { var w = document.createElement('span'); w.className = 'bl'; w.textContent = c.t; c.n.appendChild(w); return; }
+      var p = document.createElement('span'); p.className = 'bl'; p.textContent = c.t.slice(0, i + 1);
+      c.n.appendChild(p); c.n.appendChild(document.createTextNode(c.t.slice(i + 1)));
+    });
+  }
+  window.addEventListener('ig-auth', apply); apply();
 })();

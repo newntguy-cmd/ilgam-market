@@ -312,8 +312,8 @@
     var board = $('board'); board.textContent = '';
     if (!list.length) { board.appendChild(el('div', 'empty', '조건에 맞는 낙찰이 없습니다. 지역이나 검색어를 바꿔 보세요.')); return; }
     var hd = el('div', 'hd');
-    ['지역', '공종', (window.IGAUTH && window.IGAUTH.user) ? '현장명 · 발주처' : '현장명 · 발주처 (가입하면 보임)', '낙찰 업체', '낙찰 금액', ''].forEach(function (t, i) {
-      var s = el('span', null, t); if (i === 4) s.style.textAlign = 'right'; hd.appendChild(s);
+    ['지역', '공종', (window.IGAUTH && window.IGAUTH.user) ? '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보)' : '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보 · 현장은 가입하면 보임)', '낙찰 금액'].forEach(function (t, i) {
+      var s = el('span', null, t); if (i === 3) s.style.textAlign = 'right'; hd.appendChild(s);
     });
     board.appendChild(hd);
     list.slice(0, S.shown).forEach(function (r) {
@@ -329,25 +329,25 @@
         var pr = r.id.split('-');
         src = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + pr[0] + '&bidPbancOrd=' + pr[1];
       }
+      var wn = el('div', 'wn');
+      wn.appendChild(el('span', 'wlab', '낙찰'));
+      wn.appendChild(el('b', null, r.co));
+      wn.appendChild(starBtn(r.co, r.b));
+      nm.appendChild(wn);
       row.appendChild(nm);
-      var cob = el('button', 'co colink', r.co); cob.type = 'button'; cob.title = '업체 정보 보기';
-      var key = (r.id || '') + '|' + r.co, isOpen = S.openWin === key;
-      cob.setAttribute('aria-expanded', String(isOpen));
-      cob.addEventListener('click', function () { S.openWin = isOpen ? '' : key; render(); });
-      var cw = el('div', 'co cowrap'); cob.className = 'colink';
-      cw.appendChild(cob); cw.appendChild(starBtn(r.co, r.b));
-      row.appendChild(cw);
       var am = el('div', 'am', money(r.amt));
       am.appendChild(el('small', null, dshort(r.d) + (r.np ? ' · ' + r.np + '개사 참여' : '')));
       row.appendChild(am);
-      row.appendChild(act(r));
+      row.classList.add('click');
+      row.tabIndex = 0; row.setAttribute('role', 'button');
+      row.setAttribute('aria-label', r.co + ' 업체 정보 보기');
+      var openCo = function () {
+        var bz = r.b || ''; if (!bz) S.items.forEach(function (x) { if (x.co === r.co && x.b) bz = x.b; });
+        if (bz) openShare({ co: r.co, biz: bz });
+      };
+      row.addEventListener('click', function (e) { if (e.target.closest('button,a')) return; openCo(); });
+      row.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); openCo(); } });
       board.appendChild(row);
-      if (isOpen) {
-        var rows = S.items.filter(function (x) { return x.co === r.co; }).sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : 0; });
-        var biz = ''; rows.forEach(function (x) { if (x.b) biz = x.b; });
-        var dd = coDetail({ co: r.co, biz: biz, rows: rows }); dd.className += ' wdet';
-        board.appendChild(dd);
-      }
     });
     if (list.length > S.shown) {
       var m = el('div', 'more'); var b = el('button', null, '더 보기 (' + (list.length - S.shown) + '건 남음)'); b.type = 'button';
