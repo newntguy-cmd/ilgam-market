@@ -330,7 +330,11 @@
       var cob = el('button', 'co colink', r.co); cob.type = 'button'; cob.title = '업체 정보 보기';
       var key = (r.id || '') + '|' + r.co, isOpen = S.openWin === key;
       cob.setAttribute('aria-expanded', String(isOpen));
-      cob.addEventListener('click', function () { S.openWin = isOpen ? '' : key; render(); });
+      cob.addEventListener('click', function () {
+        var bz = ''; S.items.forEach(function (x) { if (x.co === r.co && x.b) bz = x.b; });
+        if (bz) { openShare({ co: r.co, biz: bz }); return; }
+        S.openWin = isOpen ? '' : key; render();
+      });
       var cw = el('div', 'co cowrap'); cob.className = 'colink';
       cw.appendChild(cob); cw.appendChild(starBtn(r.co, r.b));
       row.appendChild(cw);
@@ -411,7 +415,7 @@
     if (c.biz) {
       line('사업자번호', fmtBiz(c.biz), copyBtn(fmtBiz(c.biz)));
       var cbox = el('div', 'cbox'); info.appendChild(cbox); paintContact(cbox, c.biz);
-      var pg = el('a', 'ext', '이 업체 링크 공유'); pg.href = 'c/' + c.biz + '/'; pg.addEventListener('click', function (e) { e.preventDefault(); openShare(c); }); info.appendChild(pg);
+      var pg = el('button', 'sbtn', '업체 페이지 보기'); pg.type = 'button'; pg.addEventListener('click', function () { openShare(c); }); info.appendChild(pg);
       info.appendChild(el('div', 'note', '※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.'));
     } else {
       info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다.'));
@@ -470,7 +474,7 @@
       row.appendChild(el('span', 'kd c2', c.top));
       row.appendChild(el('span', 'co c3', c.n ? c.n + '건' : '낙찰 없음'));
       row.appendChild(el('span', 'am c4', money(c.sum)));
-      row.addEventListener('click', function () { S.openCo = open ? '' : c.co; render(); });
+      row.addEventListener('click', function () { if (c.biz) { openShare(c); return; } S.openCo = open ? '' : c.co; render(); });
       wrap.appendChild(row);
       wrap.appendChild(starBtn(c.co, c.biz, 'abs'));
       if (open) wrap.appendChild(coDetail(c));
