@@ -96,6 +96,8 @@ footer a{color:var(--on);text-decoration:none}footer a:hover{color:#fff;text-dec
 .fcols b{display:block;color:#fff;font-weight:500;margin-bottom:6px}.fcols a,.fcols .src{display:block;margin-top:12px;font-size:12.5px}.fcols .src span{display:block;padding:0}.fcols .d{display:block;padding:2px 0}.fcols p{margin:6px 0 0}.fbrand{color:#fff;font-size:17px;font-weight:700}
 .fcols .d{font-size:12px;color:#6f83a6;margin-top:4px}
 .fcard{display:grid;grid-template-columns:1.6fr 1fr;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:4px;margin-bottom:18px}
+.fcols .src b{display:inline;margin:0;font-weight:600}.fsay{margin:10px 0 2px;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.01em;word-break:keep-all}.fsub{margin:0 0 12px;color:#9fb0cc;font-size:14px;word-break:keep-all}
+.fcta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 26px;padding:16px 20px;border:1px solid rgba(201,164,92,.5);border-radius:6px;background:rgba(201,164,92,.08);color:#fff;font-size:16px;word-break:keep-all}.fcta b{color:var(--brass)}.fcta button{height:42px;padding:0 22px;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-size:15px;font-weight:700;cursor:pointer}
 .biz{margin:0 0 4px}.biz summary{cursor:pointer;color:#8fa0bd;font-size:13px;padding:6px 0;list-style:none}.biz summary::-webkit-details-marker{display:none}.biz summary::after{content:" ▾"}.biz[open] summary::after{content:" ▴"}.biz summary:hover{color:#fff}.biz .fcard{margin-top:8px}
 .fcard b{display:block;color:#fff;font-weight:500;margin-bottom:8px}.fc1,.fc2{padding:18px 22px}.fc2{border-left:1px solid rgba(255,255,255,.12)}
 .fcard dl{margin:0}.fcard dl>div{display:flex;gap:16px;padding:6px 0;border-top:1px solid rgba(255,255,255,.08)}.fcard dt{width:150px;flex:none;color:#8fa0bd}.fcard dd{margin:0;color:var(--on)}.fc2 p{margin:0}
@@ -320,11 +322,12 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 </main>
 
 <footer><div class="wrap">
+<div class="fcta" id="fcta" hidden><span><b>낙찰된 현장의 연락처,</b> 가입하면 바로 보입니다.</span><button type="button" id="fctab">무료 가입</button></div>
 <div class="fcols">
-<div><div class="fbrand">일감마켓</div><p>공공 공사 낙찰 정보와 자재·장비 사고팔기를 한곳에서 보는 서비스입니다.</p>
-<div class="src"><span>데이터 출처 <b>조달청 나라장터 · 공공데이터포털</b></span><span id="upd"></span></div></div>
+<div><div class="fbrand">일감마켓</div><p class="fsay">낙찰된 현장, 가장 먼저 연락하세요.</p><p class="fsub">공공 공사 낙찰 정보와 자재·장비 사고팔기를 한곳에서.</p>
+<div class="src"><span>출처 <b>조달청 나라장터 · 공공데이터포털</b></span> <span id="upd"></span></div></div>
 <div><b>바로가기</b><a href="#top">최근 낙찰</a><a href="#co">업체</a><a href="market/?c=buy">물건 사기</a><a href="market/?c=sell">물건 팔기</a></div>
-<div><b>고객 문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><span class="d">이메일로 접수합니다. 글 신고·삭제와 회원 탈퇴 요청도 이 메일로 받습니다.</span></div>
+<div><b>문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><span class="d">글 신고·삭제, 회원 탈퇴도 이 메일로 접수합니다.</span></div>
 </div>
 <details class="biz" id="biz"><summary>사업자 정보</summary>
 <div class="fcard">
@@ -333,7 +336,7 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <div class="fc2"><b>개인정보 보호 담당</b><p><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a></p></div>
 </div>
 </details>
-<p class="disc">본 서비스는 공공데이터를 가공해 제공하며, 데이터의 정확성과 완전성을 보장하지 않습니다. 영업 및 거래 판단의 책임은 이용자에게 있습니다. 물건 사기·팔기의 거래는 이용자 사이에서 직접 이루어지며 일감마켓은 거래의 당사자가 아닙니다.</p>
+<p class="disc">공공데이터를 가공해 제공하며 정확성과 완전성을 보장하지 않습니다. 영업 판단의 책임은 이용자에게 있습니다. 물건 사기·팔기는 이용자끼리 직접 거래하며, 일감마켓은 거래 당사자가 아닙니다.</p>
 <div class="fbot"><span class="copy">© 2026 일감마켓 (겟잇타운). All rights reserved.</span><span class="fl"><a href="market/policy.html">이용약관</a><a href="pro.html">일감 마스터</a><a href="market/policy.html#refund">환불규정</a><a href="market/policy.html#privacy">개인정보처리방침</a></span></div>
 </div></footer>
 

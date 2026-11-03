@@ -172,6 +172,7 @@
   }
   function renderAcc() {
     var A = window.IGAUTH, box = $('acc'); box.textContent = '';
+    var fc = $('fcta'); if (fc) { fc.hidden = !!(A && A.user); if (!fc.getAttribute('data-b')) { fc.setAttribute('data-b', '1'); $('fctab').addEventListener('click', function () { openLogin('signup'); }); } }
     if (!A || !A.user) {
       var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b); return;
     }
@@ -664,7 +665,7 @@
     S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
     fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), S.region);
     fillSelect($('fKind'), ['전체'].concat(uniq('kind')), S.kind);
-    if (data.updated) $('upd').textContent = '갱신 ' + data.updated.replace('T', ' ');
+    if (data.updated) $('upd').textContent = data.updated.replace('T', ' ').replace(/(\d{2}:\d{2}).*$/, '$1') + ' 갱신';
     if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰 정보가 아닙니다.'); $('banner').appendChild(b); }
     Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
     renderStat(); render(); cloudSync();
