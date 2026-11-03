@@ -21,7 +21,7 @@ const $=id=>document.getElementById(id);
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
 const btn=(text,cls,fn)=>{const b=el('button',cls,text);b.type='button';if(fn)b.addEventListener('click',fn);return b;};
 const CATS=['자재','장비·공구','가설·임대','공사·서비스','기타'];
-const TYPE={need:'구해요',sell:'팝니다'};
+const TYPE={need:'삽니다',sell:'팝니다'};
 const S={user:null,profile:null,blocks:new Map(),posts:[],limit:40,more:false,type:'all',cat:'',q:'',closed:false,view:'feed',attach:null,loading:true,loadErr:false,signingUp:false,authMode:'login',wtype:'need',photos:[]};
 
 /* ---------- 공통 ---------- */
@@ -93,7 +93,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':'장터';
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(S.type==='need'?'매입 코너':S.type==='sell'?'판매 코너':'매입 · 판매');
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -144,7 +144,7 @@ function postCard(p){
 }
 function renderFeed(){
   const t=$('ftype');t.textContent='';
-  [['all','전체'],['need','구해요'],['sell','팝니다']].forEach(([k,l])=>{
+  [['all','전체'],['need','매입 · 삽니다'],['sell','판매 · 팝니다']].forEach(([k,l])=>{
     const b=btn(l,null,()=>{S.type=k;renderFeed();});b.setAttribute('aria-pressed',String(S.type===k));t.append(b);});
   const c=$('fcat');c.textContent='';
   ['',...CATS].forEach(k=>{const b=btn(k||'모든 분류',null,()=>{S.cat=k;renderFeed();});b.setAttribute('aria-pressed',String(S.cat===k));c.append(b);});
@@ -364,7 +364,7 @@ function renderWrite(){
   f.textContent='';
   f.append(el('h2',null,'글쓰기'));
   const seg=el('div','seg seg3');seg.style.gridTemplateColumns='1fr 1fr';
-  [['need','구해요','필요한 물건'],['sell','팝니다','팔 물건']].forEach(([k,l,s])=>{
+  [['need','매입 · 삽니다','사려는 물건'],['sell','판매 · 팝니다','팔 물건']].forEach(([k,l,s])=>{
     const b=btn(l+' · '+s,null,()=>{S.wtype=k;renderWrite();});b.setAttribute('aria-pressed',String(S.wtype===k));seg.append(b);});
   f.append(seg);
   const pl=el('div');pl.append(el('label',null,'사진 (선택, 최대 '+MAXP+'장)'));
@@ -583,7 +583,7 @@ onAuthStateChanged(auth,async u=>{
 });
 
 /* 낙찰 사이트에서 넘어온 글쓰기: 제목과 내용만 채워 주고, 올리기 전에 직접 고치고 고릅니다 */
-const QP=new URLSearchParams(location.search);
+const QP=new URLSearchParams(location.search);{const c=QP.get('c');if(c==='need'||c==='sell'){S.type=c;S.wtype=c;}}
 if(QP.get('title')||QP.get('body')){S.pre={title:(QP.get('title')||'').slice(0,80),body:(QP.get('body')||'').slice(0,3000)};if(QP.get('type')==='sell')S.wtype='sell';}
 go(S.pre?'write':'feed');
 loadFeed();

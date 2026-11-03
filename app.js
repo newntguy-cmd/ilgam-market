@@ -8,7 +8,8 @@
     { id: 'wl', label: '관심', ready: true },
     { id: 'bid', label: '입찰', ready: false },
     { id: 'con', label: '계약', ready: false },
-    { id: 'market', label: '장터', href: 'market/' }
+    { id: 'buy', label: '매입', href: 'market/?c=need' },
+    { id: 'sell', label: '판매', href: 'market/?c=sell' }
   ];
   var PAGE = 30;
   var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };

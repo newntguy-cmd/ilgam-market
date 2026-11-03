@@ -85,7 +85,7 @@ for biz, rows in by.items():
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
-<body><header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/">장터</a></nav></div></header>
+<body><header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">최근 낙찰</a><a href="/#co">업체</a><a href="/market/?c=need">매입</a><a href="/market/?c=sell">판매</a></nav></div></header>
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>
 <h1>{e(name)}</h1>
 <p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p>
