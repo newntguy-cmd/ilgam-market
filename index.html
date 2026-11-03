@@ -253,6 +253,12 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
 @media (prefers-reduced-motion:reduce){.row{transition:none}}
+.tier{margin-left:auto;flex:none;font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;color:var(--brass);padding:6px 4px}.tier[hidden]{display:none}.tier+.acc{margin-left:14px}
+.tier.free{color:#aebbd1}.tier.pro{color:#9fd8b6}
+.lockline .lockv{display:inline-flex;align-items:center;gap:8px;color:var(--mut);font-weight:500}.lockline .dots{letter-spacing:.12em}.lockline .why{color:var(--sub);font-size:14px}
+.cp.unlock{background:var(--brass);border-color:var(--brass);color:var(--navy);font-weight:700}
+.tools .dl.locked{background:#f3f4f7;border-color:#cfd6e0;color:#6b788e}
+@media (max-width:760px){.tier{order:2;margin-left:auto}.tier+.acc{margin-left:10px}}
 </style>
 </head>
 <body>
@@ -260,6 +266,7 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <a class="brand" href="./"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>일감마켓</a>
 <span class="tag-line">공공 공사 낙찰 · 자재 장터</span>
 <nav class="gnb" aria-label="데이터 메뉴" id="gnb"></nav>
+<a class="tier" id="tier" href="pro.html" hidden></a>
 <div class="acc" id="acc"></div>
 </div></header>
 

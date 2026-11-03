@@ -45,7 +45,12 @@
     }).catch(function () {});
   }
   function bizOf(name) { for (var i = 0; i < S.items.length; i++) if (S.items[i].co === name && S.items[i].b) return S.items[i].b; return ''; }
-  window.addEventListener('ig-auth', function () { render(); if (window.IGAUTH.user && S.items.length) cloudSync(); });
+  var joinShown = false;
+  window.addEventListener('ig-auth', function () {
+    if (window.IGAUTH.user) loadMe(); else { ME = null; CT = {}; CTLOCK = {}; CTNONE = {}; paintTier(); }
+    render(); if (window.IGAUTH.user && S.items.length) cloudSync();
+    if (!window.IGAUTH.user && !joinShown && /[?&]join=1/.test(location.search)) { joinShown = true; openLogin('signup'); }
+  });
   function wlCount() { return Object.keys(WL).length; }
   function starBtn(name, biz, cls) {
     var b = el('button', 'star' + (cls ? ' ' + cls : ''), WL[name] ? '★' : '☆');
@@ -73,7 +78,7 @@
     clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 6000);
   }
   var mode = 'login';
-  function openLogin() { setMode('login'); $('lgErr').textContent = ''; var d = $('lg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); $('lgEm').focus(); }
+  function openLogin(m) { setMode(m === 'signup' ? 'signup' : 'login'); $('lgErr').textContent = ''; var d = $('lg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); $('lgEm').focus(); }
   function setMode(m) {
     mode = m;
     $('lgTitle').textContent = m === 'login' ? '로그인' : '무료 가입';
@@ -96,6 +101,74 @@
       $('lg').close(); $('lgPw').value = '';
     }, function (er) { $('lgErr').textContent = er.message; }).then(function () { btn.disabled = false; });
   });
+
+  // ---- 이용 상태·연락처: 번호는 서버가 가입 상태를 확인한 뒤에만 내려 줍니다 ----
+  var API = 'https://ilgam-pay.newntguy.workers.dev';
+  var ME = null, CT = {}, CTLOCK = {}, CTNONE = {};
+  function srv(path, body) {
+    var A = window.IGAUTH;
+    if (!A || !A.user) return Promise.reject(new Error('login'));
+    return A.token().then(function (t) {
+      return fetch(API + path, { method: body ? 'POST' : 'GET', headers: { 'Authorization': 'Bearer ' + t, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }).then(function (r) { return r.json(); });
+    });
+  }
+  function loadMe() {
+    return srv('/me').then(function (r) { ME = r && r.ok ? r : null; paintTier(); return ME; }, function () { ME = null; paintTier(); return null; });
+  }
+  // 업체 번호를 요청합니다. open=true 는 "열어 주세요"(무료는 하루 3곳까지 소진)
+  function getContacts(bizs, open) {
+    var need = bizs.filter(function (b) { return !CT[b] && !CTLOCK[b] && !CTNONE[b]; });
+    if (!need.length) return Promise.resolve();
+    return srv('/contacts', { bizs: need, open: !!open }).then(function (r) {
+      if (!r || !r.ok) throw new Error('fail');
+      need.forEach(function (b) {
+        if (r.contacts && r.contacts[b]) CT[b] = r.contacts[b];
+        else if ((r.locked || []).indexOf(b) >= 0) CTLOCK[b] = true;
+        else CTNONE[b] = true;
+      });
+      if (ME) { ME.tier = r.tier; ME.used = r.used; ME.limit = r.limit; } paintTier();
+    });
+  }
+  function daysLeft(ms) { return Math.max(0, Math.ceil((ms - Date.now()) / 86400000)); }
+  function paintTier() {
+    var t = $('tier'), dl = $('dl'), A = window.IGAUTH;
+    if (dl) { var locked = !!(A && A.user && ME && ME.tier === 'free'); dl.textContent = locked ? '엑셀로 받기 · 프로' : '엑셀로 받기'; dl.classList.toggle('locked', locked); }
+    if (!t) return;
+    if (!A || !A.user || !ME) { t.hidden = true; return; }
+    t.hidden = false; t.className = 'tier ' + ME.tier;
+    if (ME.tier === 'trial') t.textContent = '무료체험 ' + daysLeft(ME.trialUntil) + '일 남음';
+    else if (ME.tier === 'pro') { var d = new Date(ME.until); t.textContent = '프로 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
+    else t.textContent = '무료 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
+  }
+  var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  function lockLine(box, label, why, btnText, onBtn) {
+    var l = el('div', 'cl lockline'); l.appendChild(el('span', 'k', label));
+    var v = el('span', 'v lockv'); v.innerHTML = LOCK_SVG; v.appendChild(el('span', 'dots', '031-•••-••••')); l.appendChild(v);
+    l.appendChild(el('span', 'why', why));
+    var b = el('button', 'cp unlock', btnText); b.type = 'button'; b.addEventListener('click', function (e) { e.stopPropagation(); onBtn(); }); l.appendChild(b);
+    box.appendChild(l);
+  }
+  function paintContact(box, biz) {
+    box.textContent = '';
+    function row(k, v, extra) {
+      var l = el('div', 'cl'); l.appendChild(el('span', 'k', k));
+      var sp = el('span', 'v'); if (typeof v === 'string') sp.textContent = v; else sp.appendChild(v);
+      l.appendChild(sp); if (extra) l.appendChild(extra); box.appendChild(l);
+    }
+    var A = window.IGAUTH;
+    if (!A || !A.user) { lockLine(box, '대표 전화', '가입하면 보입니다', '무료 가입', function () { openLogin('signup'); }); return; }
+    var ct = CT[biz];
+    if (ct) {
+      if (ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); row('주소', ad, copyBtn(ad)); }
+      if (ct.t) { var ta = el('a', null, ct.t); ta.href = 'tel:' + ct.t.replace(/[^0-9+]/g, ''); row('대표 전화', ta, copyBtn(ct.t)); }
+      if (!ct.a && !ct.t) row('연락처', '등록된 정보가 없습니다');
+      return;
+    }
+    if (CTNONE[biz]) { row('연락처', '등록된 정보가 없습니다'); return; }
+    if (CTLOCK[biz]) { lockLine(box, '대표 전화', '오늘 ' + (ME ? ME.limit : 3) + '곳을 모두 확인하셨습니다', '프로 보기', function () { location.href = 'pro.html'; }); return; }
+    row('연락처', '불러오는 중…');
+    getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
+  }
   function renderAcc() {
     var A = window.IGAUTH, box = $('acc'); box.textContent = '';
     if (!A || !A.user) {
@@ -301,7 +374,6 @@
   function coDetail(c) {
     var d = el('div', 'cdet');
     var info = el('div', 'cinfo');
-    var ct = c.biz ? S.corp[c.biz] : null;
     function line(k, v, extra) {
       var l = el('div', 'cl'); l.appendChild(el('span', 'k', k));
       var s = el('span', 'v'); if (typeof v === 'string') s.textContent = v; else s.appendChild(v);
@@ -309,12 +381,8 @@
     }
     if (c.biz) {
       line('사업자번호', fmtBiz(c.biz), copyBtn(fmtBiz(c.biz)));
-      if (ct && ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); line('주소', ad, copyBtn(ad)); }
-      if (ct && ct.t) { var ta = el('a', null, ct.t); ta.href = 'tel:' + ct.t.replace(/[^0-9+]/g, ''); line('대표 전화', ta, copyBtn(ct.t)); }
-      if (!ct || (!ct.a && !ct.t)) line('연락처', '등록된 정보가 없습니다');
-      var bz = el('a', 'ext', '비즈노에서 전화·팩스 확인 ↗'); bz.href = 'https://bizno.net/article/' + c.biz; bz.target = '_blank'; bz.rel = 'noopener noreferrer';
-      info.appendChild(bz);
-      var pg = el('a', 'ext', '이 업체 전용 페이지 (공유용) ↗'); pg.href = 'c/' + c.biz + '/'; pg.style.marginLeft = '16px'; info.appendChild(pg);
+      var cbox = el('div', 'cbox'); info.appendChild(cbox); paintContact(cbox, c.biz);
+      var pg = el('a', 'ext', '이 업체 전용 페이지 (공유용) ↗'); pg.href = 'c/' + c.biz + '/'; info.appendChild(pg);
       info.appendChild(el('div', 'note', '※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.'));
     } else {
       info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다. 공고 원문에서 확인해 주세요.'));
@@ -562,20 +630,32 @@
 
   // 지금 화면 조건 그대로 엑셀(CSV, 한글 깨짐 방지 BOM)로 저장
   function csvCell(v) { v = v == null ? '' : String(v); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function say(msg) { var tt = $('toast'); tt.textContent = msg; tt.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { tt.classList.remove('on'); }, 2600); }
   function downloadList() {
+    var A = window.IGAUTH;
+    if (!A || !A.user) { openLogin('signup'); return; }
+    if (!ME) { say('잠시 뒤 다시 눌러 주세요'); loadMe(); return; }
+    if (ME.tier === 'free') { location.href = 'pro.html'; return; }
     var list = filtered().slice();
     list.sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : b.amt - a.amt; });
-    var head = ['낙찰일', '공고명', '발주기관', '지역', '공종', '낙찰업체', '낙찰금액(원)', '낙찰률(%)', '사업자번호', '대표전화', '업체 주소', '공고 링크'];
-    var out = [head.map(csvCell).join(',')];
-    list.forEach(function (r) {
-      var ct = r.b ? S.corp[r.b] : null;
-      out.push([r.d, r.nm, r.dm, r.rg, r.kind, r.co, r.amt || '', r.rate || '', r.b || '', ct && ct.t ? ct.t : '', ct && ct.a ? ct.a : '', r.u || ''].map(csvCell).join(','));
-    });
-    var blob = new Blob(['\ufeff' + out.join('\r\n')], { type: 'text/csv;charset=utf-8' });
-    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = '일감마켓_낙찰_' + (S.maxD || 'data') + '.csv'; document.body.appendChild(a); a.click();
-    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-    var tt = $('toast'); tt.textContent = list.length.toLocaleString('ko-KR') + '건을 엑셀 파일로 저장했습니다'; tt.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { tt.classList.remove('on'); }, 2600);
+    var bizs = []; list.forEach(function (r) { if (r.b && bizs.indexOf(r.b) < 0) bizs.push(r.b); });
+    say('연락처를 불러오는 중입니다');
+    var chain = Promise.resolve();
+    for (var k = 0; k < bizs.length; k += 60) (function (part) { chain = chain.then(function () { return getContacts(part, true); }); })(bizs.slice(k, k + 60));
+    chain.then(function () {
+      var head = ['낙찰일', '공고명', '발주기관', '지역', '공종', '낙찰업체', '낙찰금액(원)', '낙찰률(%)', '사업자번호', '대표전화', '업체 주소', '공고 링크'];
+      var out = [head.map(csvCell).join(',')];
+      list.forEach(function (r) {
+        var ct = r.b ? CT[r.b] : null;
+        out.push([r.d, r.nm, r.dm, r.rg, r.kind, r.co, r.amt || '', r.rate || '', r.b || '', ct && ct.t ? ct.t : '', ct && ct.a ? ct.a : '', r.u || ''].map(csvCell).join(','));
+      });
+      out.push(''); out.push(csvCell('출처: 일감마켓(ilgammarket.co.kr) · 조달청 나라장터 공공데이터'));
+      var blob = new Blob(['﻿' + out.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = '일감마켓_낙찰_' + (S.maxD || 'data') + '.csv'; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      say(list.length.toLocaleString('ko-KR') + '건을 엑셀 파일로 저장했습니다');
+    }, function () { say('연락처를 불러오지 못했습니다. 잠시 뒤 다시 눌러 주세요'); });
   }
   $('dl').addEventListener('click', downloadList);
   $('fSort').addEventListener('change', function () { S.sort = this.value; render(); });
