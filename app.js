@@ -359,7 +359,7 @@
     if (!u && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) { var p = r.id.split('-'); u = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + p[0] + '&bidPbancOrd=' + p[1]; }
     return u && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(u) ? u : '';
   }
-  function openShare(c) {
+  function openShare(c, src) {
     var d = $('sh');
     if (!d) {
       d = document.createElement('dialog'); d.id = 'sh';
@@ -379,9 +379,19 @@
     }
     var url = location.origin + '/c/' + c.biz + '/';
     d.setAttribute('data-url', url); $('shName').textContent = c.co || ''; $('shCopy').textContent = '링크 복사';
-    $('shFrame').src = '/c/' + c.biz + '/?embed=1';
+    $('shFrame').src = src || ('/c/' + c.biz + '/?embed=1'); $('shCopy').hidden = !!src;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
+  function openDoc(title, href) {
+    openShare({ biz: '', co: title }, href);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="policy.html"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    var h = a.getAttribute('href'), t = /#refund/.test(h) ? '환불규정' : /#privacy/.test(h) ? '개인정보 처리방침' : '이용약관';
+    openDoc(t, h);
+  });
   function copyBtn(text) {
     var b = el('button', 'cp', '복사'); b.type = 'button';
     b.addEventListener('click', function (e) {
