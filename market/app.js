@@ -93,7 +93,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물건 올리세요':'팔고 싶은 물건 올리세요'):v==='me'?'내 정보':'사고 싶은 물건 고르세요');
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물건 올리세요':'팔고 싶은 물건 올리세요'):v==='me'?'내 정보':'사고팔기');
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -101,6 +101,7 @@ function go(v){
   if(v==='tool')document.body.dataset.tool='1';else delete document.body.dataset.tool;
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.v)));
+document.querySelectorAll('[data-door]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.door==='sell'){S.wtype='sell';go('write');}else{S.type='sell';go('feed');renderFeed();}}));
 $('tback').addEventListener('click',()=>go('write'));
 function needLogin(){
   if(S.user&&S.profile)return false;
