@@ -318,9 +318,9 @@
       row.appendChild(el('span', 'rg', r.rg || '-'));
       row.appendChild(el('span', 'kd', r.kind || ''));
       var nm = el('div', 'nm'), mem = !!(window.IGAUTH && window.IGAUTH.user);
-      nm.appendChild(mem ? document.createTextNode(r.nm) : el('span', 'bl', r.nm));
+      nm.appendChild(mem ? document.createTextNode(r.nm) : lockSplit(r.nm));
       if (r.s === '낙찰예정') nm.appendChild(el('span', 'tag', '낙찰 예정'));
-      var sm2 = el('small', null); if (mem) sm2.textContent = r.dm; else sm2.appendChild(el('span', 'bl', r.dm)); nm.appendChild(sm2);
+      var sm2 = el('small', null); if (mem) sm2.textContent = r.dm; else sm2.appendChild(lockSplit(r.dm)); nm.appendChild(sm2);
       var src = r.u;
       if (!src && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) {
         var pr = r.id.split('-');
@@ -400,37 +400,26 @@
     });
     return b;
   }
+  function lockSplit(t, wrap) {
+    var f = document.createDocumentFragment(), w = String(t || '').trim().split(/\s+/);
+    if (w.length < 2) { f.appendChild(el('span', 'bl', t || '')); return f; }
+    var last = w.pop();
+    f.appendChild(el('span', 'bl', w.join(' '))); f.appendChild(document.createTextNode(' ' + last));
+    return f;
+  }
   function maskText(t) {
     return String(t || '').split(/\s+/).filter(Boolean).map(function (w) {
       var core = w.replace(/[()（）\[\],]/g, '');
       return core.length <= 1 ? '•' : core.charAt(0) + new Array(Math.min(core.length - 1, 5) + 1).join('•');
     }).join(' ');
   }
-  var RANK = null, RANKN = -1;
-  function coStats(name, rows, tot) {
-    if (!RANK || RANKN !== S.items.length) {
-      var m = {}; S.items.forEach(function (r) { m[r.co] = (m[r.co] || 0) + (r.amt || 0); });
-      RANK = Object.keys(m).sort(function (a, b) { return m[b] - m[a]; }); RANKN = S.items.length;
-    }
-    var pos = RANK.indexOf(name) + 1, kinds = {}, np = 0, nn = 0;
-    rows.forEach(function (r) { if (r.kind) kinds[r.kind] = (kinds[r.kind] || 0) + 1; if (r.np) { np += r.np; nn++; } });
-    var kk = Object.keys(kinds).sort(function (a, b) { return kinds[b] - kinds[a]; })[0];
-    return [['낙찰 금액 순위', pos ? RANK.length + '곳 중 ' + pos + '위' : '-'],
-      ['평균 낙찰 금액', rows.length ? money(Math.round(tot / rows.length)) : '-'],
-      ['주요 공종', kk || '-'],
-      ['평균 경쟁', nn ? Math.round(np / nn) + '개사 참여' : '-']];
-  }
   function coDetail(c) {
     var A = window.IGAUTH, member = !!(A && A.user);
     var d = el('div', 'cdet');
     var tot = 0; c.rows.forEach(function (r) { tot += r.amt || 0; });
-    var st = coStats(c.co, c.rows, tot), facts = {};
-    st.forEach(function (x) { facts[x[0]] = x[1]; });
     var top = el('div', 'dtop');
     var sm = el('div', 'dsum');
     sm.appendChild(el('b', null, '낙찰 ' + c.rows.length + '건 · 합계 ' + money(tot)));
-    var f = []; if (facts['낙찰 금액 순위']) f.push(facts['낙찰 금액 순위'] + ' 금액 순위'); if (facts['평균 경쟁']) f.push('평균 ' + facts['평균 경쟁']);
-    if (f.length) sm.appendChild(el('span', 'dfacts', f.join(' · ')));
     top.appendChild(sm);
     if (c.biz) {
       var pg = el('button', 'sbtn', '업체 정보 보기'); pg.type = 'button';
@@ -441,10 +430,10 @@
     c.rows.slice(0, 8).forEach(function (r) {
       var w = el('div', 'wi');
       var l = el('div', 'wl');
-      var site = el('div', 'wsite' + (member ? '' : ' bl'), r.nm); l.appendChild(site);
+      var site = el('div', 'wsite'); if (member) site.textContent = r.nm; else site.appendChild(lockSplit(r.nm)); l.appendChild(site);
       var sub = [r.dm, (r.rg || '') + (r.kind ? ' · ' + r.kind : '')].filter(Boolean);
-      var ds = el('div', 'wsub'); var dm = el('span', member ? '' : 'bl', r.dm || ''); if (r.dm) ds.appendChild(dm);
-      ds.appendChild(document.createTextNode((r.dm ? '  ' : '') + (r.rg || '') + (r.kind ? ' · ' + r.kind : '') + (r.np ? ' · ' + r.np + '개사 참여' : '')));
+      var ds = el('div', 'wsub'); var dm = el('span', null); if (member) dm.textContent = r.dm || ''; else dm.appendChild(lockSplit(r.dm)); if (r.dm) ds.appendChild(dm);
+      ds.appendChild(document.createTextNode((r.dm ? '  ' : '') + (r.rg || '') + (r.kind ? ' · ' + r.kind : '')));
       l.appendChild(ds);
       w.appendChild(l);
       var rt = el('div', 'wr2'); rt.appendChild(el('b', null, money(r.amt))); rt.appendChild(el('small', null, dshort(r.d) + ' 낙찰')); w.appendChild(rt);
