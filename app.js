@@ -136,9 +136,9 @@
     if (!t) return;
     if (!A || !A.user || !ME) { t.hidden = true; return; }
     t.hidden = false; t.className = 'tier ' + ME.tier;
-    if (ME.tier === 'trial') t.textContent = '무료체험 ' + daysLeft(ME.trialUntil) + '일 남음';
+    if (ME.tier === 'trial') t.textContent = '일감 맛보기 ' + daysLeft(ME.trialUntil) + '일 남음';
     else if (ME.tier === 'pro') { var d = new Date(ME.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
-    else t.textContent = '일감 맛보기 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
+    else t.textContent = '무료 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
   }
   var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
   function lockLine(box, label, why, btnText, onBtn) {

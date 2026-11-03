@@ -1,7 +1,7 @@
 // 일감마켓 결제 확인 서버 (Cloudflare Workers, 무료)
 // 환경변수: TOSS_SECRET (토스 시크릿 키), ADMIN_SECRET (연락처 적재용 비밀값)
 // 저장소: KV 바인딩 PRO (프로 기간·결제), D1 바인딩 DB (사용자 첫 접속일·법인 연락처·하루 열람 기록)
-const TRIAL_DAYS = 14;   // 가입 후 무료체험(전체 연락처 공개) 일수
+const TRIAL_DAYS = 14;   // 가입 후 일감 맛보기(전체 연락처 공개) 일수
 const FREE_DAILY = 3;    // 체험 이후 무료 이용자의 하루 연락처 열람 건수
 const PLANS = { '30': { amount: 49900, days: 30 }, '90': { amount: 129900, days: 90 } };
 const ORIGINS = ['https://ilgammarket.co.kr', 'https://www.ilgammarket.co.kr', 'http://localhost:8077', 'capacitor://localhost', 'https://localhost'];
@@ -61,7 +61,7 @@ async function init(env) {
 const today = () => new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10); // 한국 날짜
 const qs = (n) => Array(n).fill('?').join(',');
 
-// 이 계정이 지금 어떤 상태인지: pro(프로) · trial(무료체험) · free(무료)
+// 이 계정이 지금 어떤 상태인지: pro(일감 마스터) · trial(일감 맛보기) · free(무료)
 async function account(env, me) {
   const now = Date.now();
   await env.DB.prepare('INSERT OR IGNORE INTO users(uid, first_seen) VALUES(?, ?)').bind(me.uid, now).run();
