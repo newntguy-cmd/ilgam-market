@@ -2,12 +2,12 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'win', label: '최근 낙찰', ready: true },
-    { id: 'co', label: '업체', ready: true },
+    { id: 'win', label: '새 일감', ready: true },
+    { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'st', label: '통계', ready: true },
     { id: 'wl', label: '관심', ready: true },
-    { id: 'bid', label: '입찰', ready: false },
-    { id: 'con', label: '계약', ready: false },
+    { id: 'bid', label: '입찰', ready: false, hidden: true },
+    { id: 'con', label: '계약', ready: false, hidden: true },
     { id: 'sell', label: '내 물건 팔기', href: 'market/?c=sell' },
     { id: 'need', label: '필요한 물품 구해요', href: 'market/?c=need' }
   ];
@@ -265,12 +265,13 @@
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
       var b;
+      if (t.hidden) return;
       if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
       else {
         b = el('button', t.ready ? null : 'soonTab', t.label);
-        if (t.id === 'wl') { b.textContent = '★ 관심'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
+        if (t.id === 'wl') { b.textContent = '★ 관심 업체'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
         b.type = 'button';
-        b.setAttribute('aria-current', String(S.tab === t.id));
+        b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
       g.appendChild(b);
@@ -601,7 +602,7 @@
     renderGnb(); renderChips(); renderAcc();
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
-    $('title').textContent = tab.id === 'win' ? '최근 낙찰' : tab.id === 'co' ? '낙찰 업체' : tab.label;
+    $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '새 일감' : tab.label;
     $('fPeriod').hidden = tab.id !== 'win'; $('fSort').hidden = false; $('dl').hidden = true;
     if (!tab.ready) {
       board.textContent = '';
