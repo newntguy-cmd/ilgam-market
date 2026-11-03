@@ -261,19 +261,21 @@
     });
   }
 
+  var EMO = { win: '🏗️', st: '📊', wl: '⭐', sell: '🏷️', need: '🔎' };
   function renderGnb() {
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
-      var b;
+      var b, ic = EMO[t.id] || '';
       if (t.hidden) return;
       if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
       else {
         b = el('button', t.ready ? null : 'soonTab', t.label);
-        if (t.id === 'wl') { b.textContent = '★ 관심 업체'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
+        if (t.id === 'wl') { b.textContent = '관심 업체'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
         b.type = 'button';
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
+      if (ic) { var sp = el('span', 'em', ic); sp.setAttribute('aria-hidden', 'true'); b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);
     });
   }
