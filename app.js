@@ -8,8 +8,8 @@
     { id: 'wl', label: '관심', ready: true },
     { id: 'bid', label: '입찰', ready: false },
     { id: 'con', label: '계약', ready: false },
-    { id: 'buy', label: '물건 사기', href: 'market/?c=buy' },
-    { id: 'sell', label: '물건 팔기', href: 'market/?c=sell' }
+    { id: 'sell', label: '내 물건 팔기', href: 'market/?c=sell' },
+    { id: 'need', label: '필요한 물품 구해요', href: 'market/?c=need' }
   ];
   var PAGE = 30;
   var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };

@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light"><meta name="theme-color" content="#0f2342">
-<title>일감마켓 · 물건 사기·팔기</title>
+<title>일감마켓 · 내 물건 팔기 · 필요한 물품 구해요</title>
 <!-- build 6 -->
 <style>
 .view>#ftype{display:none}
+.corner{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:18px 20px;border-radius:6px;background:var(--navy);color:#fff}.corner h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.02em;word-break:keep-all}.corner p{margin:4px 0 0;color:#b9c4d6;font-size:14px;word-break:keep-all}.corner button{height:44px;padding:0 22px;border:0;border-radius:4px;background:var(--hi);color:var(--navy);font:inherit;font-weight:800;cursor:pointer}
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px}
 .door{display:grid;gap:4px;justify-items:start;text-align:left;border:1px solid var(--line);border-radius:6px;padding:18px 18px 16px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;word-break:keep-all;transition:border-color .15s,box-shadow .15s}
 .door .em{font-size:30px;line-height:1;margin-bottom:6px}
@@ -291,20 +292,17 @@ body>.appbar{display:none}body[data-tool] >.appbar{display:block}
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="../"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>일감마켓</a>
-<span class="tag-line">공공 공사 낙찰 · 자재 사고팔기</span>
-<nav class="gnb" aria-label="메뉴"><a href="../#win">최근 낙찰</a><a href="../#co">업체</a><a href="../#st">통계</a><a href="../#wl">★ 관심</a><a href="../#bid">입찰</a><a href="../#con">계약</a><a href="./?c=buy">물건 사기</a><a href="./?c=sell">물건 팔기</a></nav>
+<span class="tag-line">공공 공사 낙찰 · 자재 팔기·구해요</span>
+<nav class="gnb" aria-label="메뉴"><a href="../#win">최근 낙찰</a><a href="../#co">업체</a><a href="../#st">통계</a><a href="../#wl">★ 관심</a><a href="../#bid">입찰</a><a href="../#con">계약</a><a href="./?c=sell">내 물건 팔기</a><a href="./?c=need">필요한 물품 구해요</a></nav>
 <div class="acc" id="acc"><button type="button" id="tme">로그인</button></div>
 </div></header>
 <div class="appbar"><div class="in">
   <button class="back" id="tback" type="button" hidden aria-label="뒤로">←</button>
-  <h1 id="ttl">사고팔기</h1><small id="who"></small>
+  <h1 id="ttl">내 물건 팔기</h1><small id="who"></small>
 </div></div>
 
 <section class="view" id="v-feed">
-  <div class="doors" role="group" aria-label="사고팔기">
-    <button type="button" class="door buy" data-door="buy"><span class="em" aria-hidden="true">🛒</span><b>사고 싶은 물건 고르세요</b><small>올라온 물건을 보고 바로 연락하세요</small></button>
-    <button type="button" class="door sell" data-door="sell"><span class="em" aria-hidden="true">📦</span><b>팔고 싶은 물건 올리세요</b><small>사진 한 장, 1분이면 올라갑니다</small></button>
-  </div>
+  <div class="corner" id="corner"></div>
   <div class="seg seg3" id="ftype" role="group" aria-label="글 종류"></div>
   <input class="search" type="search" id="fq" placeholder="찾는 물건을 검색하세요" aria-label="검색" enterkeyhint="search">
   <div class="chips" id="fcat" role="group" aria-label="분류"></div>

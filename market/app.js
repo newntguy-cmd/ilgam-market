@@ -21,7 +21,7 @@ const $=id=>document.getElementById(id);
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
 const btn=(text,cls,fn)=>{const b=el('button',cls,text);b.type='button';if(fn)b.addEventListener('click',fn);return b;};
 const CATS=['자재','장비·공구','가설·임대','공사·서비스','기타'];
-const TYPE={need:'삽니다',sell:'팝니다'};
+const TYPE={need:'구해요',sell:'팝니다'};
 const S={user:null,profile:null,blocks:new Map(),posts:[],limit:40,more:false,type:'all',cat:'',q:'',closed:false,view:'feed',attach:null,loading:true,loadErr:false,signingUp:false,authMode:'login',wtype:'need',photos:[]};
 
 /* ---------- 공통 ---------- */
@@ -93,7 +93,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물건 올리세요':'팔고 싶은 물건 올리세요'):v==='me'?'내 정보':'사고팔기');
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물품 구해요':'내 물건 팔기'):v==='me'?'내 정보':(CORNER[S.corner]||CORNER.sell)[0]);
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -101,7 +101,6 @@ function go(v){
   if(v==='tool')document.body.dataset.tool='1';else delete document.body.dataset.tool;
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.v)));
-document.querySelectorAll('[data-door]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.door==='sell'){S.wtype='sell';go('write');}else{S.type='all';go('feed');renderFeed();}}));
 $('tback').addEventListener('click',()=>go('write'));
 function needLogin(){
   if(S.user&&S.profile)return false;
@@ -143,8 +142,10 @@ function postCard(p){
   b.addEventListener('click',()=>openPost(p.id));
   return b;
 }
+const CORNER={sell:['내 물건 팔기','팔고 싶은 물건을 올리면, 필요한 업체가 연락합니다.','물건 올리기'],need:['필요한 물품 구해요','필요한 물품을 올리면, 파는 업체가 연락합니다.','구해요 올리기']};
+function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const d=el('div');d.append(el('h2',null,k[0]),el('p',null,k[1]));c.append(d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
 function renderFeed(){
-  document.querySelectorAll('[data-door=buy]').forEach(b=>b.setAttribute('aria-pressed','true'));
+  renderCorner();
   const t=$('ftype');t.textContent='';
   [['all','전체'],['sell','팝니다'],['need','삽니다']].forEach(([k,l])=>{
     const b=btn(l,null,()=>{S.type=k;renderFeed();});b.setAttribute('aria-pressed',String(S.type===k));t.append(b);});
@@ -160,7 +161,7 @@ function renderFeed(){
   const v=visible();$('fcnt').textContent=v.length?v.length+'개의 글':'';
   if(!v.length){
     const e=el('div','empty card');
-    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 물건이 없습니다.'),el('br'),btn('팔고 싶은 물건 올리기','primary',()=>{S.wtype='sell';go('write');}));
+    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 글이 없습니다.'),el('br'),btn(S.corner==='need'?'구해요 올리기':'물건 올리기','primary',()=>{S.wtype=S.corner;go('write');}));
     ls.append(e);
   }
   v.forEach(p=>ls.append(postCard(p)));
@@ -357,7 +358,7 @@ async function prep(file){
 function renderWrite(){
   const f=$('wform');
   if(!S.user||!S.profile){
-    f.textContent='';f.append(el('h2',null,'가입하면 바로 올릴 수 있습니다'),el('div','tip','이메일과 비밀번호만 있으면 됩니다. 올린 물건은 낙찰 업체와 납품 업체에게 바로 보입니다.'),
+    f.textContent='';f.append(el('h2',null,'가입하면 바로 올릴 수 있습니다'),el('div','tip','이메일과 비밀번호만 있으면 됩니다.'),
       btn('무료 가입하고 올리기','primary big',()=>{S.authMode='signup';go('me');}),
       btn('이미 계정이 있어요 · 로그인',null,()=>{S.authMode='login';go('me');}));
     return;
@@ -365,11 +366,7 @@ function renderWrite(){
   const keep={title:($('wt')||{}).value,body:($('wb')||{}).value,cat:($('wc')||{}).value};
   if(S.pre){keep.title=S.pre.title;keep.body=S.pre.body;S.pre=null;}
   f.textContent='';
-  f.append(el('h2',null,'글쓰기'));
-  const seg=el('div','seg seg3');seg.style.gridTemplateColumns='1fr 1fr';
-  [['sell','팝니다','팔 물건'],['need','삽니다','사려는 물건']].forEach(([k,l,s])=>{
-    const b=btn(l+' · '+s,null,()=>{S.wtype=k;renderWrite();});b.setAttribute('aria-pressed',String(S.wtype===k));seg.append(b);});
-  f.append(seg);
+  f.append(el('h2',null,S.wtype==='need'?'필요한 물품 구해요':'내 물건 팔기'));
   const pl=el('div');pl.append(el('label',null,'사진 (선택, 최대 '+MAXP+'장)'));
   const ph=el('div','photos');
   const add=btn('','ph add',()=>inp.click());add.append(el('b',null,'+'),el('span',null,S.photos.length+'/'+MAXP));add.setAttribute('aria-label','사진 추가');
@@ -586,7 +583,7 @@ onAuthStateChanged(auth,async u=>{
 });
 
 /* 낙찰 사이트에서 넘어온 글쓰기: 제목과 내용만 채워 주고, 올리기 전에 직접 고치고 고릅니다 */
-const QP=new URLSearchParams(location.search);{const c=QP.get('c');if(c==='buy'){S.type='all';}else if(c==='sell'){S.wtype='sell';S.corner='sell';}}
+const QP=new URLSearchParams(location.search);{const c=QP.get('c');S.corner=c==='need'?'need':'sell';S.type=S.corner;S.wtype=S.corner;}
 if(QP.get('title')||QP.get('body')){S.pre={title:(QP.get('title')||'').slice(0,80),body:(QP.get('body')||'').slice(0,3000)};if(QP.get('type')==='sell')S.wtype='sell';}
-go(S.pre||S.corner==='sell'?'write':'feed');
+go(S.pre?'write':'feed');
 loadFeed();
