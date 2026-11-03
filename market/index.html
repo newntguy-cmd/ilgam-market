@@ -8,7 +8,17 @@
 <!-- build 6 -->
 <style>
 .view>#ftype{display:none}
-.corner{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:18px 20px;border-radius:6px;background:var(--navy);color:#fff}.corner h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.02em;word-break:keep-all}.corner p{margin:4px 0 0;color:#b9c4d6;font-size:14px;word-break:keep-all}.corner button{height:44px;padding:0 22px;border:0;border-radius:4px;background:var(--hi);color:var(--navy);font:inherit;font-weight:800;cursor:pointer}
+.corner{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;padding:22px 22px 22px 20px;border-radius:6px;border-bottom:3px solid var(--hi);color:#fff;background:linear-gradient(135deg,#0f2342 0%,#16305a 100%)}
+.corner::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000);mask-image:linear-gradient(90deg,transparent 30%,#000);pointer-events:none}
+.corner>*{position:relative}
+.corner .ci{flex:none;width:54px;height:54px;display:grid;place-items:center;border-radius:12px;background:rgba(201,164,92,.16);border:1px solid rgba(201,164,92,.45);font-size:28px}
+.corner .ct{flex:1;min-width:0}
+.corner h2{margin:0;font-size:24px;font-weight:800;letter-spacing:-.025em;word-break:keep-all}
+.corner p{margin:5px 0 0;color:#b9c4d6;font-size:14.5px;line-height:1.5;word-break:keep-all}
+.corner button{flex:none;height:46px;padding:0 24px;border:0;border-radius:4px;background:var(--hi);color:var(--navy);font:inherit;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:transform .12s,background .12s}
+.corner button:hover{background:#d8b46d}.corner button:active{transform:translateY(1px)}
+.corner button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (max-width:560px){.corner{flex-wrap:wrap;padding:18px}.corner .ct{flex-basis:calc(100% - 72px)}.corner button{width:100%}.corner h2{font-size:21px}}
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px}
 .door{display:grid;gap:4px;justify-items:start;text-align:left;border:1px solid var(--line);border-radius:6px;padding:18px 18px 16px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;word-break:keep-all;transition:border-color .15s,box-shadow .15s}
 .door .em{font-size:30px;line-height:1;margin-bottom:6px}

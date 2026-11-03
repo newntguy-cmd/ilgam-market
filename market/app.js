@@ -142,8 +142,8 @@ function postCard(p){
   b.addEventListener('click',()=>openPost(p.id));
   return b;
 }
-const CORNER={sell:['내 물건 팔기','팔고 싶은 물건을 올리면, 필요한 업체가 연락합니다.','물건 올리기'],need:['필요한 물품 구해요','필요한 물품을 올리면, 파는 업체가 연락합니다.','구해요 올리기']};
-function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const d=el('div');d.append(el('h2',null,k[0]),el('p',null,k[1]));c.append(d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
+const CORNER={sell:['내 물건 팔기','팔고 싶은 물건을 올리면, 필요한 업체가 연락합니다.','물건 올리기','📦'],need:['필요한 물품 구해요','필요한 물품을 올리면, 파는 업체가 연락합니다.','구해요 올리기','🔎']};
+function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const ic=el('span','ci',k[3]);ic.setAttribute('aria-hidden','true');const d=el('div','ct');d.append(el('h2',null,k[0]),el('p',null,k[1]));c.append(ic,d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
 function renderFeed(){
   renderCorner();
   const t=$('ftype');t.textContent='';
