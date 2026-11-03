@@ -1,4 +1,4 @@
-*{box-sizing:border-box}body{margin:0;background:#eef0f3;color:#0f2342;font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.55}
+*{box-sizing:border-box}body{word-break:keep-all;overflow-wrap:break-word;margin:0;background:#eef0f3;color:#0f2342;font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.55}
 a{color:#8a6a28}.wrap{max-width:1360px;margin:0 auto;padding:0 20px}
 header.top{background:#0f2342}header.top .wrap{display:flex;align-items:center;gap:28px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;color:#fff;text-decoration:none}
