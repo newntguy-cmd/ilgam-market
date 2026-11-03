@@ -338,15 +338,14 @@
       var am = el('div', 'am', money(r.amt));
       am.appendChild(el('small', null, dshort(r.d) + (r.np ? ' · ' + r.np + '개사 참여' : '')));
       row.appendChild(am);
-      row.classList.add('click');
-      row.tabIndex = 0; row.setAttribute('role', 'button');
-      row.setAttribute('aria-label', r.co + ' 업체 정보 보기');
+      var hasBz = !!r.b; if (!hasBz) S.items.forEach(function (x) { if (x.co === r.co && x.b) hasBz = true; });
+      if (hasBz) { row.classList.add('click'); row.tabIndex = 0; row.setAttribute('role', 'button'); row.setAttribute('aria-label', r.co + ' 업체 정보 보기'); }
       var openCo = function () {
         var bz = r.b || ''; if (!bz) S.items.forEach(function (x) { if (x.co === r.co && x.b) bz = x.b; });
         if (bz) openShare({ co: r.co, biz: bz });
       };
-      row.addEventListener('click', function (e) { if (e.target.closest('button,a')) return; openCo(); });
-      row.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); openCo(); } });
+      if (hasBz) row.addEventListener('click', function (e) { if (e.target.closest('button,a')) return; openCo(); });
+      if (hasBz) row.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); openCo(); } });
       board.appendChild(row);
     });
     if (list.length > S.shown) {

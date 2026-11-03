@@ -47,7 +47,7 @@ def src(r):
 
 by = {}
 for r in d["items"]:
-    if r.get("b") and r.get("s") == "낙찰":
+    if r.get("b"):
         by.setdefault(r["b"], []).append(r)
 
 STYLE = "/page.css"
@@ -67,7 +67,7 @@ for biz, rows in by.items():
     url = f"{SITE}/c/{biz}/"
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": name, "taxID": fmt_biz(biz), "url": url}
     hist = "".join(
-        f'<tr><td class="dt">{e(r["d"][5:].replace("-", "."))}</td><td><b>{e(r["nm"])}</b><small>{e(r["dm"])}</small></td>'
+        f'<tr><td class="dt">{e(r["d"][5:].replace("-", "."))}{"<small>낙찰 예정</small>" if r.get("s") == "낙찰예정" else ""}</td><td><b>{e(r["nm"])}</b><small>{e(r["dm"])}</small></td>'
         f'<td class="amt">{money(r["amt"])}</td><td class="lk"></td></tr>'
         for r in rows[:50]
     )
