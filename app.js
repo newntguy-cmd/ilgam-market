@@ -363,6 +363,23 @@
     if (!u && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) { var p = r.id.split('-'); u = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + p[0] + '&bidPbancOrd=' + p[1]; }
     return u && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(u) ? u : '';
   }
+  function openShare(c) {
+    var d = $('sh');
+    if (!d) {
+      d = document.createElement('dialog'); d.id = 'sh';
+      d.innerHTML = '<div class="lh"><h3>업체 링크 공유</h3><button type="button" aria-label="닫기">×</button></div><div class="sb"><b id="shName"></b><input id="shUrl" readonly aria-label="업체 페이지 주소"><div class="sa"><button type="button" class="go" id="shCopy">링크 복사</button></div><p>업체명·낙찰 내역·금액이 보이는 페이지입니다. 연락처는 가입한 분께만 보입니다.</p></div>';
+      document.body.appendChild(d);
+      d.querySelector('.lh button').addEventListener('click', function () { d.close(); });
+      d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+      $('shCopy').addEventListener('click', function () {
+        var b = this, u = $('shUrl'); u.select();
+        try { navigator.clipboard.writeText(u.value).then(function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '링크 복사'; }, 1500); }); } catch (x) { b.textContent = '길게 눌러 복사하세요'; }
+      });
+    }
+    var url = location.origin + '/c/' + c.biz + '/';
+    $('shName').textContent = c.co || ''; $('shUrl').value = url; $('shCopy').textContent = '링크 복사';
+    if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+  }
   function copyBtn(text) {
     var b = el('button', 'cp', '복사'); b.type = 'button';
     b.addEventListener('click', function (e) {
@@ -382,7 +399,7 @@
     if (c.biz) {
       line('사업자번호', fmtBiz(c.biz), copyBtn(fmtBiz(c.biz)));
       var cbox = el('div', 'cbox'); info.appendChild(cbox); paintContact(cbox, c.biz);
-      var pg = el('a', 'ext', '이 업체 전용 페이지 (공유용) ↗'); pg.href = 'c/' + c.biz + '/'; info.appendChild(pg);
+      var pg = el('a', 'ext', '이 업체 링크 공유'); pg.href = 'c/' + c.biz + '/'; pg.addEventListener('click', function (e) { e.preventDefault(); openShare(c); }); info.appendChild(pg);
       info.appendChild(el('div', 'note', '※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.'));
     } else {
       info.appendChild(el('div', 'note', '개인사업자는 연락처를 공개하지 않습니다. 공고 원문에서 확인해 주세요.'));
