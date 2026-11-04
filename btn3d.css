@@ -1,0 +1,20 @@
+/* 입체(볼록) 버튼 공통 */
+:root{--lift:0 1px 0 rgba(255,255,255,.55) inset,0 -2px 0 rgba(0,0,0,.16) inset}
+.go,.fcta button,.btn.go,.corner button{background:linear-gradient(180deg,#ecd08c 0%,#d2ac62 48%,#b48f47 100%)!important;color:#0f2342;border:0;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 -2px 0 rgba(0,0,0,.18) inset,0 3px 0 #8a6a28,0 9px 16px rgba(0,0,0,.28)!important;text-shadow:0 1px 0 rgba(255,255,255,.35);transition:transform .08s,box-shadow .08s,filter .15s}
+.go:hover,.fcta button:hover,.btn.go:hover,.corner button:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.go:active,.fcta button:active,.btn.go:active,.corner button:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 -1px 0 rgba(0,0,0,.18) inset,0 0 0 #8a6a28,0 2px 4px rgba(0,0,0,.3)!important}
+.go.sub{background:linear-gradient(180deg,rgba(201,164,92,.22),rgba(201,164,92,.06))!important;color:#e6c883;border:1px solid #c9a45c;text-shadow:none;box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 3px 0 #6e5524,0 8px 14px rgba(0,0,0,.25)!important}
+.pbtn,.btn{background:linear-gradient(180deg,#27487f 0%,#173160 50%,#0f2342 100%);box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 -2px 0 rgba(0,0,0,.25) inset,0 3px 0 #050d1c,0 8px 14px rgba(8,18,40,.3);transition:transform .08s,box-shadow .08s,filter .15s}
+.pbtn:hover,.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.pbtn:active,.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 0 0 #050d1c,0 2px 4px rgba(8,18,40,.3)}
+.btn.ghost,.more button{background:linear-gradient(180deg,#fff,#e9edf3)!important;color:#0f2342;box-shadow:0 1px 0 #fff inset,0 -2px 0 rgba(0,0,0,.07) inset,0 3px 0 #b8c1cf,0 8px 12px rgba(15,35,66,.14);transition:transform .08s,box-shadow .08s}
+.btn.ghost:hover,.more button:hover{transform:translateY(-1px);color:#0f2342}
+.btn.ghost:active,.more button:active{transform:translateY(3px);box-shadow:0 1px 0 #fff inset,0 0 0 #b8c1cf}
+/* 메뉴 탭: 선택된 탭이 도톰하게 올라온 느낌 */
+.gnb button[aria-current=true],header nav a[aria-current=page],.gnb a[aria-current=true]{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(201,164,92,.10));box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 6px 10px -4px rgba(0,0,0,.45);border-radius:6px 6px 0 0}
+@media (prefers-reduced-motion:reduce){.go,.pbtn,.btn,.more button,.corner button{transition:none}}
+/* 엠보싱: 글자는 눌러 새긴 듯, 표면은 미세한 결 */
+.go,.fcta button,.btn.go,.corner button{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 1px,transparent 1px 4px),linear-gradient(180deg,#ecd08c 0%,#d2ac62 48%,#b48f47 100%)!important;text-shadow:0 1px 0 rgba(255,255,255,.65),0 -1px 0 rgba(90,60,10,.45);letter-spacing:.03em}
+.pbtn,.btn{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px),linear-gradient(180deg,#27487f 0%,#173160 50%,#0f2342 100%);text-shadow:0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.12)}
+.go.sub{text-shadow:0 -1px 0 rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.18)}
+.btn.ghost,.more button{text-shadow:0 1px 0 #fff,0 -1px 0 rgba(0,0,0,.12)}

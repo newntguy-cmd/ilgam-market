@@ -28,8 +28,8 @@ header.top .wrap{display:flex;align-items:center;gap:0 28px;padding-top:8px;padd
 span.tag-line{font-size:13px;color:#8fa0bd;white-space:nowrap}
 nav.gnb{display:flex;gap:0 4px;flex-grow:1;overflow-x:auto;scrollbar-width:none}
 nav.gnb::-webkit-scrollbar{display:none}
-.gnb button,.gnb .tablink{flex:none;display:inline-flex;align-items:center;min-height:48px;padding:0 13px;border:0;background:none;color:var(--on);font-size:15px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap}
-.gnb button[aria-current=true]{color:var(--brass);font-weight:700;border-bottom:3px solid var(--brass);background:rgba(201,164,92,.12)}
+.gnb button,.gnb .tablink{flex:none;display:inline-flex;align-items:center;min-height:48px;padding:0 13px;border:0;background:none;color:var(--on);font-size:15px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;text-decoration:none;white-space:nowrap}
+.gnb button[aria-current=true]{color:var(--brass);border-bottom:3px solid var(--brass);background:rgba(201,164,92,.12)}
 .gnb button:hover,.gnb .tablink:hover{color:#fff}
 .gnb .tablink{margin-left:0}
 .act{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;border:1px solid var(--brass);border-radius:3px;color:var(--brass-d);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;background:#fff}
@@ -321,7 +321,7 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 .tools .dl.locked{background:#f3f4f7;border-color:#cfd6e0;color:#6b788e}
 @media (max-width:760px){.tier{order:2;margin-left:auto}.tier+.acc{margin-left:10px}}
 </style>
-</head>
+<link rel="stylesheet" href="/btn3d.css"></head>
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="./"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>일감마켓</a>
