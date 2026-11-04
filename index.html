@@ -77,7 +77,7 @@ form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:none;backgr
 .bzco{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}
 .bzco button{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:13px 16px;border:0;border-radius:5px;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));color:#fff;text-align:left;cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 2px 0 rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.06);transition:transform .08s,background .15s}
 .bzco button:hover{background:rgba(201,164,92,.16);transform:translateY(-1px)}.bzco button:active{transform:translateY(2px)}
-.bzco .rk{font-size:20px;font-weight:800;color:#c9a45c}.bzco .nm{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bzco .nm.lk{filter:blur(5px);user-select:none}
+.bzco .rk{font-size:20px;font-weight:800;color:#c9a45c}.bzco .nm{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bzco .nm.lk{color:#fff;user-select:none}.bzco .nm.lk i{font-style:normal;letter-spacing:.12em;color:#e6c883;margin-left:3px}.bzco .nm.lk::after{content:'가입하면 공개';margin-left:12px;padding:2px 8px;border:1px solid rgba(201,164,92,.55);border-radius:2px;font-size:11.5px;font-weight:600;color:#c9a45c;vertical-align:2px}
 .bzco .ms{font-size:13px;color:#aebbd1;text-align:right;line-height:1.5}.bzco .ms b{display:block;color:#e6c883;font-size:15px}
 .bzrg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .bzrg div{padding:14px 16px;border-radius:5px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 0 0 1px rgba(255,255,255,.06)}
@@ -475,12 +475,13 @@ var A=null,tab='co';
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function eok(a){a=Math.round(a/1e6)/100;return a>=100?Math.round(a)+'억':a.toFixed(1)+'억'}
 function mem(){return !!(window.IGAUTH&&window.IGAUTH.user)}
+function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
 function draw(){
   if(!A||!A.week)return;var bz=document.getElementById('bz');bz.hidden=false;
   var co=document.getElementById('bzco'),rg=document.getElementById('bzrg'),s=document.getElementById('bzs');
   co.hidden=tab!=='co';rg.hidden=tab!=='rg';
   if(tab==='co'){s.textContent=A.week.from.slice(5).replace('-','/')+' ~ '+A.week.to.slice(5).replace('-','/')+' 최근 7일, 낙찰 건수가 많은 업체입니다. 새 일감이 많은 곳이 지금 물건이 필요한 곳입니다.'+(mem()?' 누르면 업체 정보가 열립니다.':' 업체명은 가입하면 보입니다.');
-    co.innerHTML=A.topco.slice(0,8).map(function(c,i){var l=!mem();return '<button type="button" data-b="'+esc(c.b)+'" data-c="'+esc(c.co)+'"><span class="rk">'+(i+1)+'</span><span class="nm'+(l?' lk':'')+'">'+esc(c.co)+'</span><span class="ms"><b>'+c.n+'건</b>'+eok(c.amt)+'</span></button>'}).join('');}
+    co.innerHTML=A.topco.slice(0,8).map(function(c,i){var l=!mem();return '<button type="button" '+(l?'':'data-b="'+esc(c.b)+'" data-c="'+esc(c.co)+'"')+'><span class="rk">'+(i+1)+'</span><span class="nm'+(l?' lk':'')+'">'+(l?mk(c.co):esc(c.co))+'</span><span class="ms"><b>'+c.n+'건</b>'+eok(c.amt)+'</span></button>'}).join('');}
   else{s.textContent='최근 7일 낙찰 건수와 지난주 대비 변화입니다.';
     rg.innerHTML=A.regw.slice(0,12).map(function(r){var d=r.cur-r.prev;return '<div><span>'+esc(r.rg)+'</span><b>'+r.cur.toLocaleString('ko-KR')+'건</b><em class="'+(d>=0?'u':'d')+'">'+(d>=0?'▲ ':'▼ ')+Math.abs(d)+'</em></div>'}).join('');}
 }
