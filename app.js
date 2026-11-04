@@ -2,14 +2,14 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'win', label: '새 일감', ready: true },
+    { id: 'win', label: '새 일감', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
-    { id: 'st', label: '통계', ready: true },
-    { id: 'wl', label: '관심', ready: true },
+    { id: 'st', label: '통계', desc: '지역·공종별 낙찰 현황', ready: true },
+    { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
-    { id: 'sell', label: '내 물건 팔기', href: 'market/?c=sell' },
-    { id: 'need', label: '필요한 물품 구해요', href: 'market/?c=need' }
+    { id: 'sell', label: '내 물건 팔기', desc: '팔고 싶은 물건 올리기', href: 'market/?c=sell' },
+    { id: 'need', label: '필요한 물품 구해요', desc: '필요한 물품 올리고 제안 받기', href: 'market/?c=need' }
   ];
   var PAGE = 30;
   var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
@@ -47,6 +47,7 @@
   }
   function bizOf(name) { for (var i = 0; i < S.items.length; i++) if (S.items[i].co === name && S.items[i].b) return S.items[i].b; return ''; }
   var joinShown = false;
+  (function () { var j = document.getElementById('hjoin'); if (!j) return; j.addEventListener('click', function () { openLogin('signup'); }); function sync() { j.hidden = !!(window.IGAUTH && window.IGAUTH.user); } window.addEventListener('ig-auth', sync); sync(); })();
   window.addEventListener('ig-auth', function () {
     if (window.IGAUTH.user) loadMe(); else { ME = null; CT = {}; CTLOCK = {}; CTNONE = {}; paintTier(); }
     render(); if (window.IGAUTH.user && S.items.length) cloudSync();
@@ -283,6 +284,7 @@
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
+      if (t.desc) b.title = t.desc;
       if (ic) { var sp = el('span', 'em', ic); sp.setAttribute('aria-hidden', 'true'); b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);
     });

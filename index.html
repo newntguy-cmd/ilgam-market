@@ -50,6 +50,8 @@ form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:none;backgr
 .fld.q{flex:1 1 260px}.fld.s{flex:0 1 150px;min-width:120px}
 .go{flex:0 0 auto;min-height:60px;padding:0 38px;border:0;border-radius:3px;background:var(--brass);color:var(--navy);font-size:17px;font-weight:700;cursor:pointer;letter-spacing:.02em}
 .go:hover{background:#d8b672}
+.go.sub{background:transparent;border:1px solid var(--brass);color:var(--brass)}.go.sub:hover{background:rgba(201,164,92,.14)}
+.go.jn[hidden]{display:none}
 .hero{padding-bottom:0}.hero .wrap{padding-bottom:0}
 .src{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:13px;color:#8fa0bd;margin-bottom:10px}
 .src b{color:var(--on);font-weight:500}
@@ -314,7 +316,8 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <div class="fld s"><label for="fRegion">지역</label><select id="fRegion"></select></div>
 <div class="fld s"><label for="fKind">공종</label><select id="fKind"></select></div>
 <div class="fld q"><label for="fQ">현장명, 업체명</label><input id="fQ" type="search" placeholder="예: 청사 신축, 업체명" autocomplete="off"></div>
-<button class="go" type="submit">검색</button>
+<button class="go sub" type="submit">검색</button>
+<button class="go jn" type="button" id="hjoin">무료 가입 · 14일 전부 열림</button>
 </form>
 </div></section>
 
