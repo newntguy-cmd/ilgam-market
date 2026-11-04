@@ -26,3 +26,9 @@ header nav a[aria-current=page]{color:#c9a45c;font-weight:700;border-bottom:3px 
 header nav a[aria-current=page] .em{filter:none;opacity:1}
 header nav a.sep{position:relative;margin-left:18px}header nav a.sep::before{content:"";position:absolute;left:-10px;top:14px;bottom:14px;width:1px;background:rgba(255,255,255,.18)}
 @media (max-width:1120px){header nav .em{display:none}}
+
+.em{display:inline-flex;align-items:center;vertical-align:middle;margin-right:8px;filter:none!important;opacity:.9!important}
+.em svg,.ie svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ie svg{width:22px;height:22px;stroke:#c9a45c}
+.ab-do .ie svg{stroke:#8a6a28}
+.gnb [aria-current=true] .em,header nav a[aria-current=page] .em{opacity:1!important}
