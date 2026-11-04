@@ -429,9 +429,9 @@
   }
   function lockSplit(t, wrap) {
     var f = document.createDocumentFragment(), w = String(t || '').trim().split(/\s+/);
-    if (w.length < 2) { f.appendChild(el('span', 'bl', t || '')); return f; }
+    if (w.length < 2) { f.appendChild(el('span', 'mx', maskText(t))); return f; }
     var last = w.pop();
-    f.appendChild(el('span', 'bl', w.join(' '))); f.appendChild(document.createTextNode(' ' + last));
+    f.appendChild(el('span', 'mx', maskText(w.join(' ')))); f.appendChild(document.createTextNode(' ' + last));
     return f;
   }
   function maskText(t) {

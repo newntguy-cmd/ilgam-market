@@ -19,6 +19,7 @@ footer{background:#0f2342;color:#8fa0bd;padding:24px 0 36px;font-size:13px;margi
 
 html.embed header.top,html.embed footer,html.embed .crumb,html.embed .more{display:none}html.embed body{background:#fff}html.embed main.wrap{padding-top:14px;padding-bottom:18px}
 .l a.lock{white-space:nowrap}
+.mx{color:#8b97ab;letter-spacing:.06em;user-select:none}
 .bl{filter:blur(5px);user-select:none;pointer-events:none}
 
 header nav .em{font-size:14px;margin-right:7px;filter:grayscale(1) brightness(1.55);opacity:.85}
