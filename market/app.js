@@ -150,8 +150,8 @@ function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner
 function renderFeed(){
   renderCorner();
   const t=$('ftype');t.textContent='';
-  [['all','전체'],['sell','팝니다'],['need','삽니다']].forEach(([k,l])=>{
-    const b=btn(l,null,()=>{S.type=k;renderFeed();});b.setAttribute('aria-pressed',String(S.type===k));t.append(b);});
+  [['sell','내 물건 팔기'],['need','필요한 물품 구해요']].forEach(([k,l])=>{
+    const b=btn(l,null,()=>{S.corner=k;S.type=k;S.wtype=k;try{history.replaceState(null,'','?c='+k)}catch(e){}renderFeed();});b.setAttribute('aria-pressed',String(S.corner===k));t.append(b);});
   const c=$('fcat');c.textContent='';
   ['',...CATS].forEach(k=>{const b=btn(k||'모든 분류',null,()=>{S.cat=k;renderFeed();});b.setAttribute('aria-pressed',String(S.cat===k));c.append(b);});
   const ls=$('flist');ls.textContent='';
