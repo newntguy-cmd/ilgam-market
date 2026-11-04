@@ -84,6 +84,28 @@ form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:none;backgr
 .bzrg span{display:block;font-size:13px;color:#aebbd1}.bzrg b{display:block;margin:2px 0;font-size:24px;font-weight:800;letter-spacing:-.02em}.bzrg em{font-style:normal;font-size:13px;font-weight:700}
 .bzrg .u{color:#ff8a7a}.bzrg .d{color:#7fb2ff}
 @media (max-width:760px){.bz{padding:20px 16px}.bzco{grid-template-columns:minmax(0,1fr)}.bzrg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pv{margin:26px 0 34px}.pv .tk{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 240px;align-items:stretch;border-radius:10px;color:#fff;background:radial-gradient(circle at 12% -20%,#2a4f8a 0,#0f2342 52%,#0a1830 100%);box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 0 0 1px rgba(201,164,92,.5),0 6px 0 #050d1c,0 24px 40px rgba(8,18,40,.35);overflow:hidden}
+.pv .tk::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:36px 36px;pointer-events:none}
+.pv .tl{position:relative;padding:34px 36px 32px}.pv .tg{display:inline-block;padding:5px 12px;border:1px solid rgba(201,164,92,.6);border-radius:2px;font-size:12.5px;color:#c9a45c}
+.pv h2{margin:14px 0 10px;font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1.25;text-shadow:0 -1px 0 rgba(0,0,0,.5)}.pv h2 em{font-style:normal;color:#e6c883}
+.pv p{margin:0 0 20px;max-width:520px;color:#b9c6dc;font-size:15.5px;line-height:1.7}.pv .go{min-height:54px;padding:0 30px;font-size:16px;font-weight:800;border-radius:4px;cursor:pointer}
+.pv .tr{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;color:#0f2342;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.16) 0 1px,transparent 1px 4px),linear-gradient(160deg,#f8e6b0,#d2ac62 55%,#a98439);border-left:2px dashed rgba(15,35,66,.45)}
+.pv .tr::before,.pv .tr::after{content:"";position:absolute;left:-13px;width:24px;height:24px;border-radius:50%;background:#eef1f6;box-shadow:inset 0 2px 3px rgba(0,0,0,.25)}.pv .tr::before{top:-13px}.pv .tr::after{bottom:-13px}
+.pv .tr b{font-size:92px;line-height:1;font-weight:800;letter-spacing:-.05em;text-shadow:0 2px 0 rgba(255,255,255,.55),0 -1px 0 rgba(90,60,10,.4)}.pv .tr b small{font-size:30px;margin-left:2px}.pv .tr span{margin-top:6px;font-size:20px;font-weight:800}.pv .tr i{margin-top:6px;font-style:normal;font-size:13px;opacity:.8}
+@media (max-width:760px){.pv .tk{grid-template-columns:minmax(0,1fr)}.pv .tr{flex-direction:row;gap:12px;border-left:0;border-top:2px dashed rgba(15,35,66,.45);padding:14px}.pv .tr b{font-size:48px}.pv h2{font-size:26px}.pv .tl{padding:26px 22px}.pv .tr::before,.pv .tr::after{display:none}}
+#bn{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,12,28,.72)}#bn.on{display:flex}
+#bn .pn{position:relative;width:min(540px,100%);padding:36px 34px 20px;border-radius:12px;color:#fff;text-align:center;overflow:hidden;background:radial-gradient(circle at 50% -10%,#27487f 0,#0f2342 55%,#0a1830 100%);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 0 0 1px rgba(201,164,92,.55),0 0 0 6px rgba(201,164,92,.12),0 30px 70px rgba(0,0,0,.6)}
+#bn .pn::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:34px 34px;pointer-events:none}#bn .pn>*{position:relative}
+#bn .lg{width:100px;height:100px;margin:-6px auto 4px;display:block}
+#bn .tg{display:inline-block;padding:5px 14px;border:1px solid rgba(201,164,92,.6);border-radius:2px;font-size:12.5px;color:#c9a45c}
+#bn h2{margin:14px 0 8px;font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1.24;text-shadow:0 -1px 0 rgba(0,0,0,.5)}#bn h2 em{font-style:normal;color:#e6c883}
+#bn p{margin:0 auto 18px;max-width:400px;color:#b9c6dc;font-size:15.5px;line-height:1.65}
+#bn .ch{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}#bn .ch div{padding:12px 6px;border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 0 0 1px rgba(255,255,255,.08)}
+#bn .ch b{display:block;font-size:22px;font-weight:800;color:#e6c883;letter-spacing:-.02em}#bn .ch span{font-size:12.5px;color:#aebbd1}
+#bn .go{width:100%;height:56px;font-size:17px;font-weight:800;border-radius:4px;cursor:pointer}
+#bn .ft{display:flex;justify-content:flex-end;margin-top:14px}#bn .ft label{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:#aebbd1;cursor:pointer;min-height:36px}#bn .ft input{width:18px;height:18px;accent-color:#c9a45c}
+#bn .x{position:absolute;right:12px;top:10px;z-index:2;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:18px;cursor:pointer}
+@media (max-width:480px){#bn .pn{padding:30px 20px 14px}#bn h2{font-size:26px}#bn .ch b{font-size:19px}}
 .mk{margin:0 0 34px;padding:34px 34px 30px;border-radius:4px;background:linear-gradient(180deg,#fff,#eef1f6);box-shadow:0 1px 0 #fff inset,0 0 0 1px #d9dee6,0 12px 28px rgba(15,35,66,.1)}
 .mkh h2{margin:0 0 8px;font-size:28px;font-weight:800;letter-spacing:-.035em;color:var(--navy)}.mkh p{margin:0;max-width:760px;color:#46556d;font-size:16px;line-height:1.7}.mkh b{color:var(--navy)}
 .mkg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}
@@ -373,6 +395,7 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 </div></section>
 
 <section class="res" id="res"><div class="wrap">
+<section class="pv" id="pv" aria-label="가입 혜택"><div class="tk"><div class="tl"><span class="tg">가입 혜택</span><h2>가입하면 14일,<br><em>연락처가 전부 열립니다</em></h2><p>카드 등록 없이 가입만 하면 됩니다. 낙찰 업체의 대표 전화와 주소를 14일 동안 제한 없이 확인하세요.</p><button type="button" class="go" id="pvjoin">무료로 14일 열어보기</button></div><div class="tr" aria-hidden="true"><b>14<small>일</small></b><span>이용권</span><i>가입하면 자동 지급</i></div></div></section>
 <section class="intro" id="intro" aria-label="일감마켓 소개"><div class="ih"><h2>낙찰된 현장, 가장 먼저 연락하세요</h2><p>일감마켓은 공공 공사에서 방금 낙찰된 현장과 업체를 매일 아침 정리해 보여 드리는 영업 도우미입니다. 자재·장비·렌탈·시공 업체의 영업 담당자를 위해 만들었습니다.</p></div>
 <ol class="is"><li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b>매일 아침 새 낙찰 확인</b><p>나라장터 낙찰 소식을 지역·공종별로 모았습니다. 아침 7시 30분에 갱신합니다.</p></li>
 <li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><b>낙찰 업체에 바로 연락</b><p>업체를 누르면 법인 대표 전화와 주소가 나옵니다. 가입하면 보입니다.</p></li>
@@ -469,6 +492,32 @@ document.getElementById('bz').addEventListener('click',function(e){
 });
 window.addEventListener('ig-auth',draw);
 fetch('data/about.json').then(function(r){return r.json()}).then(function(a){A=a;draw()}).catch(function(){});
+})();
+</script><div id="bn" role="dialog" aria-modal="true" aria-labelledby="bnt"><div class="pn"><button type="button" class="x" id="bnx" aria-label="닫기">✕</button><svg class="lg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-6 -12 76 78"><defs>
+<linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1d795"/><stop offset=".55" stop-color="#c9a45c"/><stop offset="1" stop-color="#957431"/></linearGradient>
+<linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="lq" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a5f9e"/><stop offset=".22" stop-color="#16305a"/><stop offset=".7" stop-color="#0a1830"/><stop offset="1" stop-color="#050c1a"/></linearGradient>
+<linearGradient id="gd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff0c4"/><stop offset=".35" stop-color="#d9b56a"/><stop offset=".75" stop-color="#9a7630"/><stop offset="1" stop-color="#6e5120"/></linearGradient>
+<radialGradient id="dm" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fff0c4"/><stop offset=".5" stop-color="#d0aa5a"/><stop offset="1" stop-color="#7d5f25"/></radialGradient>
+<filter id="ds" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="1.2" dy="2" stdDeviation="1.4" flood-color="#2a1a00" flood-opacity=".45"/></filter>
+</defs><rect x="2" y="22" width="60" height="39" rx="5" fill="url(#br)"/><rect x="2" y="22" width="60" height="39" rx="5" fill="url(#sh)"/><path d="M2 28L32 46L62 28" fill="none" stroke="#7a5a1c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity=".5"/><g transform="rotate(-14 32 43)"><circle cx="31" cy="42.5" r="11.5" fill="#0f2342"/><circle cx="31" cy="42.5" r="9.7" fill="none" stroke="#f0d48f" stroke-width=".8" opacity=".8"/><text x="31" y="46.4" font-family="Noto Sans CJK JP" font-weight="900" text-anchor="middle" font-size="9.6" fill="#f0d48f" letter-spacing="-.7">일감</text></g><g filter="url(#ds)"><g transform="translate(46 35) rotate(30)"><rect x="-8.2" y="-3.2" width="16.4" height="4.6" rx="1.6" fill="url(#gd)"/><rect x="-6" y="-8" width="12" height="5" fill="url(#gd)"/><path d="M-5.6 -8 L-6.2 -27 Q-6.2 -29 -4 -29 L4 -29 Q6.2 -29 6.2 -27 L5.6 -8Z" fill="url(#lq)"/><rect x="-5" y="-27" width="1.2" height="17" rx=".6" fill="#fff" opacity=".22"/><g fill="none" stroke="url(#gd)" stroke-linecap="round" stroke-linejoin="round"><path d="M-3.6 -9.6 C 4 -11.4, 4.4 -14.6, -1 -15.8 C -5.6 -17, -4.6 -20.4, 1.8 -21.4 C 5 -22, 4.4 -24.2, 1 -24.8" stroke-width="1.7"/><path d="M-3.6 -9.6 C 4 -11.4, 4.4 -14.6, -1 -15.8 C -5.6 -17, -4.6 -20.4, 1.8 -21.4 C 5 -22, 4.4 -24.2, 1 -24.8" stroke="#0a1830" stroke-width=".5" stroke-dasharray=".5 1.4"/></g><g fill="url(#gd)"><path d="M-0.6 -24.4 L-4.4 -25.4 L-3.4 -26.6 L-5.4 -27.4 L-2 -27.6 L1.6 -26.8 L2.4 -25.2Z"/><circle cx="-0.6" cy="-26.3" r=".45" fill="#c42a20"/></g><path d="M-3.2 -27.4 Q-5.6 -28.4 -5.4 -25.8" fill="none" stroke="url(#gd)" stroke-width=".5"/><g fill="url(#gd)"><path d="M3.6 -12.2 l1.7 .2 l-1.2 1Z"/><path d="M-4.2 -17.6 l-1.7 -.1 l1.2 -1Z"/><path d="M3.8 -22.6 l1.6 .3 l-1.2 .9Z"/></g><rect x="-6" y="-21" width="12" height="1.3" fill="url(#gd)"/><path d="M-6.4 -29 Q-6.4 -37 0 -37 Q6.4 -37 6.4 -29Z" fill="url(#dm)"/><ellipse cx="-2" cy="-33.6" rx="1.8" ry="1" fill="#fff" opacity=".55"/></g></g></svg><span class="tg">가입 혜택</span><h2 id="bnt">가입하면 14일,<br><em>연락처가 전부 열립니다</em></h2><p>이번 주 새로 낙찰된 현장 <b id="bnn">1,877</b>건. 낙찰 업체의 대표 전화와 주소를 카드 등록 없이 확인하세요.</p>
+<div class="ch"><div><b>14일</b><span>전부 열림</span></div><div><b>오전 7:30</b><span>낙찰 아침 메일</span></div><div><b>0원</b><span>카드 등록 없음</span></div></div>
+<button type="button" class="go" id="bnjoin">무료 가입하고 14일 열어보기</button><div class="ft"><label><input type="checkbox" id="bnck"> 하루 동안 보지 않기</label></div></div></div>
+<script>
+(function(){
+var K='ig_bn_until',bn=document.getElementById('bn'),last=null;
+function ok(){try{var u=+localStorage.getItem(K)||0;return Date.now()>u}catch(e){return true}}
+function member(){return !!(window.IGAUTH&&window.IGAUTH.user)}
+function close(){bn.classList.remove('on');try{if(document.getElementById('bnck').checked)localStorage.setItem(K,String(Date.now()+864e5))}catch(e){}if(last&&last.focus)try{last.focus({preventScroll:true})}catch(e){}}
+document.getElementById('bnx').addEventListener('click',close);
+bn.addEventListener('click',function(e){if(e.target===bn)close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&bn.classList.contains('on'))close()});
+document.getElementById('bnjoin').addEventListener('click',function(){close();var j=document.getElementById('hjoin');if(j)j.click()});
+var pj=document.getElementById('pvjoin');if(pj)pj.addEventListener('click',function(){var j=document.getElementById('hjoin');if(j)j.click()});
+function sync(){var m=member();var pv=document.getElementById('pv');if(pv)pv.hidden=m;if(m)bn.classList.remove('on')}
+window.addEventListener('ig-auth',sync);sync();
+if(!/[?&]embed=1/.test(location.search)&&ok()){setTimeout(function(){if(member())return;last=document.activeElement;bn.classList.add('on');try{document.getElementById('bnjoin').focus({preventScroll:true})}catch(e){}},900)}
+fetch('data/about.json').then(function(r){return r.json()}).then(function(a){if(a.week)document.getElementById('bnn').textContent=a.week.n.toLocaleString('ko-KR')}).catch(function(){});
 })();
 </script></body>
 </html>
