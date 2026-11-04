@@ -5,7 +5,7 @@
     { id: 'about', label: '회사 소개', desc: '일감마켓이 시작된 이야기', href: 'about.html' },
     { id: 'win', label: '새 일감', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
-    { id: 'st', label: '통계', desc: '지역·공종별 낙찰 현황', ready: true },
+    { id: 'st', label: '통계', desc: '지역·분야별 낙찰 현황', ready: true },
     { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
@@ -264,7 +264,7 @@
     return S.items.filter(function (r) {
       if (from && (r.d || '') < from) return false;
       if (S.region !== '전체' && r.rg !== S.region) return false;
-      if (S.kind !== '전체' && r.kind !== S.kind) return false;
+      if (S.kind !== '전체' && r.cat !== S.kind) return false;
       if (q && (r.nm + ' ' + r.co + ' ' + r.dm).toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
@@ -298,6 +298,17 @@
     });
   }
 
+  var CATMAP = [['조경','조경'],['전기','전기'],['토목','토목'],['건축','건축'],['정보통신','정보통신'],['소방','소방'],['기계설비','기계설비'],['산림','산림'],['국유림','산림'],['국가유산','건축'],['실내건축','건축'],['도장','건축'],['금속창호','건축'],['철근','건축'],['지반조성','토목'],['상ㆍ하수도','토목'],['구조물해체','건축'],['석면','건축'],['승강기','기계설비']];
+  var CATRULE = [['조경',/조경|식재|수목|공원|녹지|정원|놀이시설|화단|가로수|생태/],['소방',/소방|스프링클러|화재/],['전기',/전기|수배전|변전|조명|가로등|배전|태양광|발전/],['정보통신',/통신|CCTV|방송|전산|네트워크|정보화|관제|무선/],['기계설비',/기계설비|냉난방|보일러|가스|공조|급배수|환기|배관|에어컨|냉동|승강기/],['산림',/산림|숲|임도|산불|조림|사방|산지/],['토목',/도로|교량|하천|포장|토목|배수|하수|상수|옹벽|제방|준설|정비|급수|관로|농로|수로|터널|항만|매립|보도|도시계획|구거|저수|우수/],['건축',/건축|신축|증축|리모델링|개축|보수|지붕|방수|도장|외벽|창호|인테리어|실내|해체|철거|내진|어린이집|학교|청사|회관|체육관|경로당|화장실|주택|건물|시설/]];
+  var CATORDER = ['건축','토목','조경','전기','소방','정보통신','기계설비','산림','기타'];
+  function catOf(r) {
+    var k = r.kind || '', i;
+    for (i = 0; i < CATMAP.length; i++) if (k.indexOf(CATMAP[i][0]) >= 0) return CATMAP[i][1];
+    var t = r.nm || '';
+    for (i = 0; i < CATRULE.length; i++) if (CATRULE[i][1].test(t)) return CATRULE[i][0];
+    return '기타';
+  }
+
   function uniq(key) {
     var m = {};
     S.items.forEach(function (r) { if (r[key]) m[r[key]] = (m[r[key]] || 0) + 1; });
@@ -325,14 +336,14 @@
     var board = $('board'); board.textContent = '';
     if (!list.length) { board.appendChild(el('div', 'empty', '조건에 맞는 낙찰이 없습니다. 지역이나 검색어를 바꿔 보세요.')); return; }
     var hd = el('div', 'hd');
-    ['지역', '공종', (window.IGAUTH && window.IGAUTH.user) ? '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보)' : '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보 · 현장은 가입하면 보임)', '낙찰 금액'].forEach(function (t, i) {
+    ['지역', '분야', (window.IGAUTH && window.IGAUTH.user) ? '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보)' : '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보 · 현장은 가입하면 보임)', '낙찰 금액'].forEach(function (t, i) {
       var s = el('span', null, t); if (i === 3) s.style.textAlign = 'right'; hd.appendChild(s);
     });
     board.appendChild(hd);
     list.slice(0, S.shown).forEach(function (r) {
       var row = el('div', 'row');
       row.appendChild(el('span', 'rg', r.rg || '-'));
-      row.appendChild(el('span', 'kd', r.kind || ''));
+      row.appendChild(el('span', 'kd', r.cat || ''));
       var nm = el('div', 'nm'), mem = !!(window.IGAUTH && window.IGAUTH.user);
       nm.appendChild(mem ? document.createTextNode(r.nm) : lockSplit(r.nm));
       if (r.s === '낙찰예정') nm.appendChild(el('span', 'tag', '낙찰 예정'));
@@ -607,7 +618,7 @@
     var dc = scard('일별 낙찰 건수', dk.length ? dshort(dk[0]) + ' ~ ' + dshort(dk[dk.length - 1]) + ' · 하루 최대 ' + dm + '건' : '');
     var dh = el('div', 'hist days'); dk.forEach(function (k) { var col = el('div', 'col'); var f = el('i'); f.style.height = Math.max(3, days[k] / dm * 100) + '%'; col.title = dshort(k) + ' · ' + days[k] + '건'; col.appendChild(f); dh.appendChild(col); });
     dc.appendChild(dh); colR.appendChild(dc); grid.appendChild(colL); grid.appendChild(colR);
-    wrap.appendChild(el('p', 'snote', '조달청 나라장터 공공데이터 기준이며 위의 지역·공종·검색 조건이 함께 적용됩니다.'));
+    wrap.appendChild(el('p', 'snote', '조달청 나라장터 공공데이터 기준이며 위의 지역·분야·검색 조건이 함께 적용됩니다. 분야는 공종 정보나 공사명 단어로 나눈 것이라 틀릴 수 있습니다.'));
     board.appendChild(wrap);
   }
 
@@ -675,10 +686,10 @@
   }
 
   function boot(data) {
-    S.items = data.items || []; S.corp = data.corp || {}; S.sample = !!data.sample;
+    S.items = data.items || []; S.items.forEach(function (r) { r.cat = catOf(r); }); S.corp = data.corp || {}; S.sample = !!data.sample;
     S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
     fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), S.region);
-    fillSelect($('fKind'), ['전체'].concat(uniq('kind')), S.kind);
+    fillSelect($('fKind'), ['전체'].concat(CATORDER.filter(function (c) { return S.items.some(function (r) { return r.cat === c; }); })), S.kind);
     if (data.updated) $('upd').textContent = data.updated.replace('T', ' ').replace(/(\d{2}:\d{2}).*$/, '$1') + ' 갱신';
     if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰 정보가 아닙니다.'); $('banner').appendChild(b); }
     Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
@@ -708,7 +719,7 @@
     var chain = Promise.resolve();
     for (var k = 0; k < bizs.length; k += 60) (function (part) { chain = chain.then(function () { return getContacts(part, true); }); })(bizs.slice(k, k + 60));
     chain.then(function () {
-      var head = ['낙찰일', '공고명', '발주기관', '지역', '공종', '낙찰업체', '낙찰금액(원)', '낙찰률(%)', '사업자번호', '대표전화', '업체 주소', '공고 링크'];
+      var head = ['낙찰일', '공고명', '발주기관', '지역', '분야', '낙찰업체', '낙찰금액(원)', '낙찰률(%)', '사업자번호', '대표전화', '업체 주소', '공고 링크'];
       var out = [head.map(csvCell).join(',')];
       list.forEach(function (r) {
         var ct = r.b ? CT[r.b] : null;
