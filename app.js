@@ -375,6 +375,7 @@
     if (!u && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) { var p = r.id.split('-'); u = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + p[0] + '&bidPbancOrd=' + p[1]; }
     return u && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(u) ? u : '';
   }
+  window.IGOpenCo = function (c) { openShare(c); };
   function openShare(c, src) {
     var d = $('sh');
     if (!d) {

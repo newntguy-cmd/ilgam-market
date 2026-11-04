@@ -149,3 +149,13 @@ _about["up"] = [x for x in _tr if x["diff"] > 0][:4]
 _about["down"] = [x for x in _tr[::-1][:3] if x["diff"] < 0]
 _about["big"] = [{"rg": r["rg"], "nm": r["nm"], "co": r["co"], "amt": r["amt"]} for r in sorted(_cur, key=lambda r: -(r.get("amt") or 0))[:5]]
 json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+
+# 메인 '둘러보기'용: 이번 주 많이 낙찰받은 업체, 지역별 이번 주 건수
+_cn = collections.Counter(); _ca = collections.Counter(); _cb = {}
+for r in _cur:
+    if r.get("co"):
+        _cn[r["co"]] += 1; _ca[r["co"]] += r.get("amt") or 0
+        if r.get("b"): _cb[r["co"]] = r["b"]
+_about["topco"] = [{"co": k, "n": v, "amt": _ca[k], "b": _cb.get(k, "")} for k, v in sorted(_cn.items(), key=lambda kv: (-kv[1], -_ca[kv[0]]))[:10]]
+_about["regw"] = [{"rg": k, "cur": _cc[k], "prev": _pc.get(k, 0)} for k in sorted(_cc, key=lambda x: -_cc[x]) if k != "미분류"]
+json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
