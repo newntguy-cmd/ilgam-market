@@ -9,7 +9,7 @@
     { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
-    { id: 'sell', label: '물건 사고 팔아요', desc: '내 물건 팔고, 필요한 물품 구하기', href: 'market/' },
+    { id: 'sell', label: '건설자재장터', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
   ];
   var PAGE = 30;
   var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };

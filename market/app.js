@@ -21,7 +21,7 @@ const $=id=>document.getElementById(id);
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
 const btn=(text,cls,fn)=>{const b=el('button',cls,text);b.type='button';if(fn)b.addEventListener('click',fn);return b;};
 const CATS=['자재','장비·공구','가설·임대','공사·서비스','기타'];
-const TYPE={need:'구해요',sell:'팝니다'};
+const TYPE={need:'견적 요청',sell:'팝니다'};
 const S={user:null,profile:null,blocks:new Map(),posts:[],limit:40,more:false,type:'all',cat:'',q:'',closed:false,view:'feed',attach:null,loading:true,loadErr:false,signingUp:false,authMode:'login',wtype:'need',photos:[]};
 
 /* ---------- 공통 ---------- */
@@ -95,7 +95,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물품 구해요':'내 물건 팔기'):v==='me'?'내 정보':(CORNER[S.corner]||CORNER.sell)[0]);
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물품 견적받기':'내 물건 팔기'):v==='me'?'내 정보':'건설자재장터');
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -145,12 +145,12 @@ function postCard(p){
   b.addEventListener('click',()=>openPost(p.id));
   return b;
 }
-const CORNER={sell:['내 물건 팔기','팔고 싶은 물건을 올리면, 필요한 업체가 연락합니다.','물건 올리기','📦'],need:['필요한 물품 구해요','필요한 물품을 올리면, 파는 업체가 연락합니다.','구해요 올리기','🔎']};
+const CORNER={sell:['내 물건 팔기','팔고 싶은 물건을 올리면, 필요한 업체가 연락합니다.','물건 올리기','📦'],need:['필요한 물품 견적받기','필요한 물품을 올리면, 파는 업체가 연락합니다.','견적 요청 올리기','🔎']};
 function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const ic=el('span','ci',k[3]);ic.setAttribute('aria-hidden','true');const d=el('div','ct');d.append(el('h2',null,k[0]),el('p',null,k[1]));c.append(ic,d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
 function renderFeed(){
   renderCorner();
   const t=$('ftype');t.textContent='';
-  [['sell','내 물건 팔기'],['need','필요한 물품 구해요']].forEach(([k,l])=>{
+  [['sell','내 물건 팔기'],['need','필요한 물품 견적받기']].forEach(([k,l])=>{
     const b=btn(l,null,()=>{S.corner=k;S.type=k;S.wtype=k;try{history.replaceState(null,'','?c='+k)}catch(e){}renderFeed();});b.setAttribute('aria-pressed',String(S.corner===k));t.append(b);});
   const c=$('fcat');c.textContent='';
   ['',...CATS].forEach(k=>{const b=btn(k||'모든 분류',null,()=>{S.cat=k;renderFeed();});b.setAttribute('aria-pressed',String(S.cat===k));c.append(b);});
@@ -164,7 +164,7 @@ function renderFeed(){
   const v=visible();$('fcnt').textContent=v.length?v.length+'개의 글':'';
   if(!v.length){
     const e=el('div','empty card');
-    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 글이 없습니다.'),el('br'),btn(S.corner==='need'?'구해요 올리기':'물건 올리기','primary',()=>{S.wtype=S.corner;go('write');}));
+    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 글이 없습니다.'),el('br'),btn(S.corner==='need'?'견적 요청 올리기':'물건 올리기','primary',()=>{S.wtype=S.corner;go('write');}));
     ls.append(e);
   }
   v.forEach(p=>ls.append(postCard(p)));
@@ -369,7 +369,7 @@ function renderWrite(){
   const keep={title:($('wt')||{}).value,body:($('wb')||{}).value,cat:($('wc')||{}).value};
   if(S.pre){keep.title=S.pre.title;keep.body=S.pre.body;S.pre=null;}
   f.textContent='';
-  f.append(el('h2',null,S.wtype==='need'?'필요한 물품 구해요':'내 물건 팔기'));
+  f.append(el('h2',null,S.wtype==='need'?'필요한 물품 견적받기':'내 물건 팔기'));
   const pl=el('div');pl.append(el('label',null,'사진 (선택, 최대 '+MAXP+'장)'));
   const ph=el('div','photos');
   const add=btn('','ph add',()=>inp.click());add.append(el('b',null,'+'),el('span',null,S.photos.length+'/'+MAXP));add.setAttribute('aria-label','사진 추가');
