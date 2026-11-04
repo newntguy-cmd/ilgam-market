@@ -108,7 +108,7 @@ footer a{color:var(--on);text-decoration:none}footer a:hover{color:#fff;text-dec
 .fcard{display:grid;grid-template-columns:1.6fr 1fr;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:4px;margin-bottom:18px}
 .fcols .src b{display:inline;margin:0;font-weight:600}.fsay{margin:10px 0 2px;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.01em;word-break:keep-all}.fsub{margin:0 0 12px;color:#9fb0cc;font-size:14px;word-break:keep-all}
 .fcta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 26px;padding:16px 20px;border:1px solid rgba(201,164,92,.5);border-radius:6px;background:rgba(201,164,92,.08);color:#fff;font-size:16px;word-break:keep-all}.fcta b{color:var(--brass)}.fcta button{height:42px;padding:0 22px;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-size:15px;font-weight:700;cursor:pointer}
-.biz{margin:0 0 4px}.biz summary{cursor:pointer;color:#8fa0bd;font-size:13px;padding:6px 0;list-style:none}.biz summary::-webkit-details-marker{display:none}.biz summary::after{content:" ▾"}.biz[open] summary::after{content:" ▴"}.biz summary:hover{color:#fff}.biz .fcard{margin-top:8px}
+.biz{margin:0 0 6px}.biz .bh{display:block;color:#aebbd1;font-size:13px;margin-bottom:6px}.biz .bi{margin:0;color:#8fa0bd;font-size:13px;line-height:1.8}.biz .bi span{display:inline-block;margin-right:14px}.biz .bi a{color:#aebbd1}
 .fcard b{display:block;color:#fff;font-weight:500;margin-bottom:8px}.fc1,.fc2{padding:18px 22px}.fc2{border-left:1px solid rgba(255,255,255,.12)}
 .fcard dl{margin:0}.fcard dl>div{display:flex;gap:16px;padding:6px 0;border-top:1px solid rgba(255,255,255,.08)}.fcard dt{width:150px;flex:none;color:#8fa0bd}.fcard dd{margin:0;color:var(--on)}.fc2 p{margin:0}
 .fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}.fbot .copy{margin:0}.fl{display:flex;gap:18px}
@@ -349,13 +349,8 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <div><b>바로가기</b><a href="#top">새 일감</a><a href="market/?c=sell">내 물건 팔기</a><a href="market/?c=need">필요한 물품 구해요</a></div>
 <div><b>문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><span class="d">글 신고·삭제, 회원 탈퇴도 이 메일로 접수합니다.</span></div>
 </div>
-<details class="biz" id="biz"><summary>사업자 정보</summary>
-<div class="fcard">
-<div class="fc1">
-<dl><div><dt>상호</dt><dd>겟잇타운</dd></div><div><dt>대표</dt><dd>신상헌</dd></div><div><dt>사업자등록번호</dt><dd>594-06-03620</dd></div><div><dt>통신판매업 신고번호</dt><dd>제2026-용인기흥-01348호</dd></div></dl></div>
-<div class="fc2"><b>개인정보 보호 담당</b><p><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a></p></div>
-</div>
-</details>
+<div class="biz" id="biz"><b class="bh">사업자 정보</b>
+<p class="bi"><span>상호 겟잇타운</span><span>대표 신상헌</span><span>사업자등록번호 594-06-03620</span><span>통신판매업 신고번호 제2026-용인기흥-01348호</span><span>사업장 주소 경기도 용인시 기흥구 기흥로116번길 7, 105동 1501호 (신갈동, 새릉골아파트)</span><span>전화 070-8064-8210</span><span>이메일 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a></span><span>개인정보 보호 담당 help@ilgammarket.co.kr</span></p></div>
 <p class="disc">공공데이터를 가공해 제공하며 정확성과 완전성을 보장하지 않습니다. 영업 판단의 책임은 이용자에게 있습니다. 물건 팔기·구해요는 이용자끼리 직접 거래하며, 일감마켓은 거래 당사자가 아닙니다.</p>
 <div class="fbot"><span class="copy">© 2026 일감마켓 (겟잇타운). All rights reserved.</span><span class="fl"><a href="market/policy.html">이용약관</a><a href="pro.html">일감 마스터</a><a href="market/policy.html#refund">환불규정</a><a href="market/policy.html#privacy">개인정보처리방침</a></span></div>
 </div></footer>
