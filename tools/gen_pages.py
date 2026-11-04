@@ -132,3 +132,20 @@ _about = {
     "cards": [{"rg": r["rg"], "nm": r["nm"], "co": r["co"], "amt": r["amt"], "d": r["d"]} for r in _win[:18]],
 }
 json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+
+# 이번 주 동향 (최근 7일 vs 직전 7일) — 회사 소개 페이지
+import datetime as _dt
+_end = _dt.date.fromisoformat(_about["to"]) if _about["to"] else _dt.date.today()
+def _rng(a, b):  # (end-a, end-b]
+    lo, hi = (_end - _dt.timedelta(days=a)).isoformat(), (_end - _dt.timedelta(days=b)).isoformat()
+    return [r for r in _it if r.get("s") == "낙찰" and r.get("d") and hi < r["d"] <= lo]
+_cur, _prev = _rng(0, 7), _rng(7, 14)
+_cc = collections.Counter(r["rg"] for r in _cur if r.get("rg"))
+_pc = collections.Counter(r["rg"] for r in _prev if r.get("rg"))
+_tr = sorted(({"rg": k, "cur": _cc[k], "prev": _pc.get(k, 0), "diff": _cc[k] - _pc.get(k, 0)} for k in _cc), key=lambda x: -x["diff"])
+_about["week"] = {"n": len(_cur), "pn": len(_prev), "amt": sum(r.get("amt") or 0 for r in _cur), "pamt": sum(r.get("amt") or 0 for r in _prev), "from": (_end - _dt.timedelta(days=6)).isoformat(), "to": _end.isoformat()}
+_tr = [x for x in _tr if x["rg"] != "미분류"]
+_about["up"] = [x for x in _tr if x["diff"] > 0][:4]
+_about["down"] = [x for x in _tr[::-1][:3] if x["diff"] < 0]
+_about["big"] = [{"rg": r["rg"], "nm": r["nm"], "co": r["co"], "amt": r["amt"]} for r in sorted(_cur, key=lambda r: -(r.get("amt") or 0))[:5]]
+json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))

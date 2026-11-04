@@ -71,6 +71,20 @@ footer{margin-top:0}
 .ab-card small{display:block;font-size:12px;color:#c9a45c}
 .ab-card b{display:block;margin:4px 0 2px;font-size:15px;line-height:1.4;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ab-card span{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#aebbd1}.ab-card span u{text-decoration:none;color:#e6c883;font-weight:700}
+.ab-week{margin-top:34px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
+.ab-week h3{margin:0 0 16px;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em}.ab-week h3 small{margin-left:10px;font-size:13px;font-weight:400;color:#9fb0ca}
+.ab-wg{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1.3fr);gap:14px}
+.ab-wg>div{padding:18px;border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025));box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 0 0 1px rgba(255,255,255,.07)}
+.ab-wm span{font-size:13px;color:#9fb0ca}.ab-wm b{display:block;margin:6px 0 4px;font-size:36px;font-weight:800;letter-spacing:-.03em}.ab-wm em{font-style:normal;font-size:15px;font-weight:700}
+.ab-week h4{margin:0 0 8px;font-size:13px;font-weight:700;color:#c9a45c}.ab-week h4:not(:first-child){margin-top:16px}
+.ab-week ul,.ab-week ol{margin:0;padding:0;list-style:none}
+.ab-week li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;font-size:14px;color:#dbe4f2;border-bottom:1px solid rgba(255,255,255,.06)}
+.ab-week li:last-child{border:0}
+.ab-up{color:#ff8a7a;font-weight:700;font-variant-numeric:tabular-nums}.ab-dn{color:#7fb2ff;font-weight:700;font-variant-numeric:tabular-nums}
+.ab-wb ol{counter-reset:r}.ab-wb li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:baseline}
+.ab-wb li::before{counter-increment:r;content:counter(r);font-weight:800;color:#c9a45c}
+.ab-wb li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ab-wb li u{text-decoration:none;color:#e6c883;font-weight:700}
+@media (max-width:900px){.ab-wg{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){.ab-hl{display:none}.ab-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-reg{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){.ab-track,.ab-hl img,.ab-reg i::after{animation:none}.ab-belt{overflow-x:auto}}
 </style></head>
@@ -95,6 +109,14 @@ footer{margin-top:0}
 <div><b id="dR">17</b><span>전국 시·도</span></div>
 </div>
 <div class="ab-reg" id="dReg" aria-label="지역별 낙찰 현장 수"></div>
+<div class="ab-week" id="dWeek" hidden>
+<h3>이번 주 낙찰 동향 <small id="dWk"></small></h3>
+<div class="ab-wg">
+<div class="ab-wm"><span>이번 주 낙찰</span><b id="wN">–</b><em id="wD"></em></div>
+<div class="ab-wl"><h4>늘어난 지역</h4><ul id="wUp"></ul><h4>줄어든 지역</h4><ul id="wDn"></ul></div>
+<div class="ab-wb"><h4>이번 주 큰 현장 TOP 5</h4><ol id="wBig"></ol></div>
+</div></div>
+
 </div>
 <div class="ab-belt" aria-label="방금 낙찰된 현장"><div class="ab-track" id="dTrack"></div></div>
 </section>
@@ -156,6 +178,15 @@ fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
   document.getElementById('dR').textContent=a.regions.length+'곳';
   var mx=a.regions[0][1],box=document.getElementById('dReg');
   box.innerHTML=a.regions.slice(0,8).map(function(r){return '<div><span>'+esc(r[0])+'</span><i style="--w:'+Math.max(4,Math.round(r[1]/mx*100))+'%"></i><em>'+fmtN(r[1])+'</em></div>'}).join('');
+  var w=a.week;if(w){var pc=w.pn?Math.round((w.n-w.pn)/w.pn*100):0;
+    document.getElementById('dWk').textContent=w.from.slice(5).replace('-','/')+' ~ '+w.to.slice(5).replace('-','/')+', 지난주와 비교';
+    count(document.getElementById('wN'),w.n,function(v){return fmtN(Math.round(v))+'건'},1000);
+    var wd=document.getElementById('wD');wd.className=pc>=0?'ab-up':'ab-dn';wd.textContent=(pc>=0?'▲ ':'▼ ')+Math.abs(pc)+'% (지난주 '+fmtN(w.pn)+'건)';
+    function rl(x){return '<li><span>'+esc(x.rg)+'</span><span class="'+(x.diff>=0?'ab-up':'ab-dn')+'">'+(x.diff>=0?'▲ ':'▼ ')+Math.abs(x.diff)+'건</span></li>'}
+    document.getElementById('wUp').innerHTML=(a.up.length?a.up.map(rl).join(''):'<li><span>없음</span></li>');
+    document.getElementById('wDn').innerHTML=(a.down.length?a.down.map(rl).join(''):'<li><span>없음</span></li>');
+    document.getElementById('wBig').innerHTML=a.big.map(function(c){return '<li><span>'+esc(c.nm)+'</span><u>'+eok(c.amt)+'</u></li>'}).join('');
+    document.getElementById('dWeek').hidden=false;}
   var cards=a.cards.map(function(c){return '<div class="ab-card"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
   document.getElementById('dTrack').innerHTML=cards+cards;
 }).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
