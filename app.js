@@ -47,7 +47,7 @@
   }
   function bizOf(name) { for (var i = 0; i < S.items.length; i++) if (S.items[i].co === name && S.items[i].b) return S.items[i].b; return ''; }
   var joinShown = false;
-  (function () { var j = document.getElementById('hjoin'); if (!j) return; j.addEventListener('click', function () { openLogin('signup'); }); function sync() { j.hidden = !!(window.IGAUTH && window.IGAUTH.user); } window.addEventListener('ig-auth', sync); sync(); })();
+  (function () { var j = document.getElementById('hjoin'); if (!j) return; j.addEventListener('click', function () { openLogin('signup'); }); var it = document.getElementById('intro'), ij = document.getElementById('introjoin'); if (ij) ij.addEventListener('click', function () { openLogin('signup'); }); function sync() { var m = !!(window.IGAUTH && window.IGAUTH.user); j.hidden = m; if (it) it.hidden = m; } window.addEventListener('ig-auth', sync); sync(); })();
   window.addEventListener('ig-auth', function () {
     if (window.IGAUTH.user) loadMe(); else { ME = null; CT = {}; CTLOCK = {}; CTNONE = {}; paintTier(); }
     render(); if (window.IGAUTH.user && S.items.length) cloudSync();
