@@ -512,12 +512,17 @@ function close(){bn.classList.remove('on');try{if(document.getElementById('bnck'
 document.getElementById('bnx').addEventListener('click',close);
 bn.addEventListener('click',function(e){if(e.target===bn)close()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&bn.classList.contains('on'))close()});
-document.getElementById('bnjoin').addEventListener('click',function(){close();var j=document.getElementById('hjoin');if(j)j.click()});
+document.getElementById('bnjoin').addEventListener('click',function(){close();if(member())return;var j=document.getElementById('hjoin');if(j)j.click()});
 var pj=document.getElementById('pvjoin');if(pj)pj.addEventListener('click',function(){var j=document.getElementById('hjoin');if(j)j.click()});
-function sync(){var m=member();var pv=document.getElementById('pv');if(pv)pv.hidden=m;if(m)bn.classList.remove('on')}
+var N='1,877',orig={};
+function skin(){var m=member(),t=document.querySelector('#bn .tg'),h=document.getElementById('bnt'),p=document.querySelector('#bn p'),c=document.querySelector('#bn .ch'),g=document.getElementById('bnjoin');
+if(!orig.h){orig={t:t.textContent,h:h.innerHTML,p:p.innerHTML,g:g.textContent}}
+if(m){t.textContent='오늘의 낙찰';h.innerHTML='이번 주 새로 낙찰된 현장<br><em>'+N+'건</em>';p.innerHTML='낙찰 업체의 대표 전화와 주소를 지금 확인하세요.';c.style.display='none';g.textContent='낙찰 현장 보러 가기'}
+else{t.textContent=orig.t;h.innerHTML=orig.h;p.innerHTML=orig.p;c.style.display='';g.textContent=orig.g}}
+function sync(){var m=member();var pv=document.getElementById('pv');if(pv)pv.hidden=m;skin()}
 window.addEventListener('ig-auth',sync);sync();
-if(!/[?&]embed=1/.test(location.search)&&ok()){setTimeout(function(){if(member())return;last=document.activeElement;bn.classList.add('on');try{document.getElementById('bnjoin').focus({preventScroll:true})}catch(e){}},900)}
-fetch('data/about.json').then(function(r){return r.json()}).then(function(a){if(a.week)document.getElementById('bnn').textContent=a.week.n.toLocaleString('ko-KR')}).catch(function(){});
+if(!/[?&]embed=1/.test(location.search)&&ok()){setTimeout(function(){skin();last=document.activeElement;bn.classList.add('on');try{document.getElementById('bnjoin').focus({preventScroll:true})}catch(e){}},900)}
+fetch('data/about.json').then(function(r){return r.json()}).then(function(a){if(a.week){N=a.week.n.toLocaleString('ko-KR');var e=document.getElementById('bnn');if(e)e.textContent=N;if(member())skin()}}).catch(function(){});
 })();
 </script><script src="/ga.js" defer></script></body>
 </html>
