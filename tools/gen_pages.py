@@ -85,7 +85,7 @@ for biz, rows in by.items():
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
-<body><header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav><a href="/">새 일감</a><a href="/market/?c=sell">내 물건 팔기</a><a href="/market/?c=need">필요한 물품 구해요</a></nav></div></header>
+<body><header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav aria-label="메뉴"><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true">🏗️</span>새 일감</a><a href="/#st" title="지역·공종별 낙찰 현황"><span class="em" aria-hidden="true">📊</span>통계</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true">⭐</span>관심 업체</a><a class="sep" href="/market/?c=sell" title="팔고 싶은 물건 올리기"><span class="em" aria-hidden="true">🏷️</span>내 물건 팔기</a><a href="/market/?c=need" title="필요한 물품 올리고 제안 받기"><span class="em" aria-hidden="true">🔎</span>필요한 물품 구해요</a><a class="sep" href="/about.html" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true">🏢</span>회사 소개</a></nav></div></header>
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>
 <h1>{e(name)}</h1>
 <p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p>
@@ -108,7 +108,7 @@ for name in os.listdir(cdir):  # 60일 창에서 빠진 업체는 지웁니다
     if re.fullmatch(r"\d{10}", name) and name not in made:
         shutil.rmtree(os.path.join(cdir, name))
 
-urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>"] + [
+urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/about.html</loc></url>"] + [
     f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)
 ]
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(

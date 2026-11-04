@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>회사 소개 · 일감마켓</title>
+<meta name="description" content="영업하는 사람이 만든, 영업하는 사람을 위한 일감마켓. 낙찰된 현장 옆에 ‘누구에게 전화할까’를 붙인 이유와 운영 방식을 소개합니다.">
+<link rel="canonical" href="https://ilgammarket.co.kr/about.html">
+<meta name="theme-color" content="#0f2342">
+<meta property="og:title" content="회사 소개 · 일감마켓"><meta property="og:description" content="영업하는 사람이 만든, 영업하는 사람을 위한 일감마켓.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/page.css">
+<style>
+.ab-hero{position:relative;color:#fff;background:linear-gradient(180deg,#0f2342 0,#0b1c37 100%);overflow:hidden}
+.ab-hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:44px 44px}
+.ab-hero .wrap{position:relative;padding-top:84px;padding-bottom:92px}
+.ab-tag{display:inline-block;margin-bottom:22px;padding:6px 14px;border:1px solid rgba(201,164,92,.6);border-radius:2px;font-size:13px;color:#c9a45c}
+.ab-hero h1{margin:0;font-size:clamp(32px,5.4vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1.18;max-width:900px}
+.ab-hero h1 em{font-style:normal;color:#c9a45c}
+.ab-hero p{margin:26px 0 0;max-width:640px;color:#b9c6dc;font-size:18px;line-height:1.75}
+.ab-sec{padding:72px 0 8px}
+.ab-sec h2{margin:0 0 26px;font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.035em;color:#0f2342;max-width:760px;line-height:1.3}
+.ab-story{max-width:700px}
+.ab-story p{margin:0 0 20px;font-size:18px;line-height:1.85;color:#2c3a52}
+.ab-story p.k{font-size:22px;font-weight:700;color:#0f2342;line-height:1.6;letter-spacing:-.02em;padding-left:18px;border-left:4px solid #c9a45c}
+.ab-do{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.ab-do li{padding:22px 20px 20px;background:#fff;border:1px solid #e3e7ed;border-top:3px solid #0f2342;border-radius:0 0 4px 4px}
+.ab-do .ie{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;margin-bottom:14px;font-size:23px;border:1px solid #c9a45c;border-radius:3px;background:#fbf6ea}
+.ab-do b{display:block;font-size:17px;color:#0f2342;margin-bottom:6px;letter-spacing:-.02em}
+.ab-do p{margin:0;font-size:14.5px;line-height:1.65;color:#46556d}
+.ab-keep{display:grid;gap:0;border-top:2px solid #0f2342}
+.ab-keep div{display:grid;grid-template-columns:220px minmax(0,1fr);gap:8px 40px;padding:26px 0;border-bottom:1px solid #d9dee6;align-items:baseline}
+.ab-keep h3{margin:0;font-size:26px;font-weight:800;letter-spacing:-.035em;color:#0f2342}
+.ab-keep p{margin:0;font-size:16.5px;line-height:1.75;color:#2c3a52;max-width:640px}
+.ab-run{margin:0;padding:0;list-style:none;max-width:720px}
+.ab-run li{padding:14px 0 14px 22px;border-top:1px solid #e3e7ed;font-size:16.5px;line-height:1.7;color:#2c3a52;position:relative}
+.ab-run li::before{content:"";position:absolute;left:0;top:25px;width:8px;height:8px;background:#c9a45c;border-radius:1px}
+.ab-run li b{color:#0f2342}
+.ab-cta{margin:76px 0 0;padding:56px 0;color:#fff;background:linear-gradient(135deg,#0f2342,#0b1c37);border-bottom:4px solid #c9a45c}
+.ab-cta .wrap{display:flex;flex-wrap:wrap;gap:22px 40px;align-items:center;justify-content:space-between}
+.ab-cta h2{margin:0;color:#fff;font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.035em;max-width:620px;line-height:1.35}
+.ab-cta .bt{display:flex;gap:12px;flex-wrap:wrap}
+.ab-cta a{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:3px;font-size:16.5px;font-weight:700;text-decoration:none}
+.ab-cta a.p{background:#c9a45c;color:#0f2342}.ab-cta a.p:hover{background:#d8b672}
+.ab-cta a.g{border:1px solid #c9a45c;color:#c9a45c}.ab-cta a.g:hover{background:rgba(201,164,92,.14)}
+footer{margin-top:0}
+@media (max-width:900px){.ab-do{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-keep div{grid-template-columns:1fr;gap:6px}}
+@media (max-width:640px){.ab-hero .wrap{padding-top:52px;padding-bottom:56px}.ab-hero p{font-size:16.5px}.ab-sec{padding-top:52px}.ab-do{grid-template-columns:1fr}.ab-story p{font-size:16.5px}.ab-story p.k{font-size:19px}.ab-cta a{width:100%;justify-content:center}}
+</style></head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav aria-label="메뉴"><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true">🏗️</span>새 일감</a><a href="/#st" title="지역·공종별 낙찰 현황"><span class="em" aria-hidden="true">📊</span>통계</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true">⭐</span>관심 업체</a><a class="sep" href="/market/?c=sell" title="팔고 싶은 물건 올리기"><span class="em" aria-hidden="true">🏷️</span>내 물건 팔기</a><a href="/market/?c=need" title="필요한 물품 올리고 제안 받기"><span class="em" aria-hidden="true">🔎</span>필요한 물품 구해요</a><a class="sep" href="/about.html" title="일감마켓이 시작된 이야기" aria-current="page"><span class="em" aria-hidden="true">🏢</span>회사 소개</a></nav></div></header>
+<main>
+<section class="ab-hero"><div class="wrap">
+<span class="ab-tag">일감마켓 이야기</span>
+<h1>영업하는 사람이 만든,<br><em>영업하는 사람</em>을 위한 곳</h1>
+<p>낙찰된 현장 옆에 ‘누구에게 전화할까’를 붙였습니다. 일감마켓은 그 한 가지에서 시작했습니다.</p>
+</div></section>
+
+<div class="wrap">
+<section class="ab-sec"><h2>시작은 한 가지 불편이었습니다</h2>
+<div class="ab-story">
+<p>공공 공사는 낙찰이 정해지는 순간부터 영업이 시작됩니다. 현장이 열리면 자재를 대고, 장비를 빌려주고, 사무실을 채울 업체가 필요해집니다. 먼저 연락한 사람이 먼저 이야기를 시작합니다.</p>
+<p>그런데 낙찰 소식은 나라장터 곳곳에 흩어져 있습니다. 어느 현장인지, 누가 땄는지, 그 회사에 어떻게 연락하는지를 알려면 여러 화면을 오가며 한참을 찾아야 합니다. 그 사이 다른 영업 담당자가 먼저 전화를 겁니다.</p>
+<p class="k">낙찰 소식이 일감이 되는 가장 빠른 길을 만들자.</p>
+<p>일감마켓은 현장에서 영업하는 사람의 시선으로 이 불편을 풀기 위해 만들었습니다. 매일 아침, 오늘 전화할 곳을 가장 쉽게 보여 드리는 것이 전부입니다.</p>
+</div></section>
+
+<section class="ab-sec"><h2>일감마켓이 하는 일</h2>
+<ul class="ab-do">
+<li><span class="ie" aria-hidden="true">🏗️</span><b>새 낙찰을 매일 아침</b><p>나라장터 낙찰 소식을 지역·공종별로 모아 아침 7시 30분에 갱신합니다.</p></li>
+<li><span class="ie" aria-hidden="true">📞</span><b>연락처까지 한 번에</b><p>낙찰 업체를 누르면 법인 대표 전화와 주소를 확인할 수 있습니다. 가입하면 보입니다.</p></li>
+<li><span class="ie" aria-hidden="true">✉️</span><b>내 지역 알림</b><p>관심 업체나 내 영업 지역에 새 낙찰이 생기면 아침 메일로 알려 드립니다.</p></li>
+<li><span class="ie" aria-hidden="true">🏷️</span><b>물건 사고팔기</b><p>자재·장비·사무집기를 올리고 구하는 곳입니다. 거래는 이용자끼리 직접 합니다.</p></li>
+</ul></section>
+
+<section class="ab-sec"><h2>우리가 지키는 세 가지</h2>
+<div class="ab-keep">
+<div><h3>가장 먼저</h3><p>영업은 속도입니다. 낙찰 소식을 매일 아침 가장 먼저 정리해 드립니다.</p></div>
+<div><h3>필요한 것만</h3><p>순위나 평균 같은 숫자는 걷어 냈습니다. 지금 전화할 곳을 정하는 데 필요한 정보만 한눈에 보여 드립니다.</p></div>
+<div><h3>숨기지 않습니다</h3><p>출처(조달청 나라장터·공공데이터포털)를 밝히고, 정확성을 보장하지 못한다는 한계와 가격, 환불 조건을 그대로 적습니다.</p></div>
+</div></section>
+
+<section class="ab-sec"><h2>이렇게 운영합니다</h2>
+<ul class="ab-run">
+<li><b>가입은 무료입니다.</b> 가입하면 14일 동안 모든 연락처가 열립니다. 카드 등록은 필요 없습니다.</li>
+<li><b>맛보기가 끝나도 계속 무료입니다.</b> 낙찰·업체·금액 조회와 통계는 제한 없이 볼 수 있습니다.</li>
+<li><b>더 필요하시면 일감 마스터를 쓰세요.</b> 연락처 무제한, 영업 리스트 엑셀, 여러 지역 알림이 열립니다. 30일 49,900원, 한 번 결제하며 자동으로 다시 결제되지 않습니다.</li>
+<li><b>물건 거래는 이용자끼리 직접 합니다.</b> 일감마켓은 거래 당사자가 아닙니다.</li>
+</ul></section>
+</div>
+
+<section class="ab-cta"><div class="wrap"><h2>오늘 낙찰된 현장부터 확인해 보세요</h2>
+<div class="bt"><a class="p" href="/?join=1">무료 가입 · 14일 전부 열림</a><a class="g" href="/#win">낙찰 목록 보기</a></div></div></section>
+</main>
+<footer><div class="wrap"><p>상호 겟잇타운 · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호 · 사업장 주소 경기도 용인시 기흥구 기흥로116번길 7, 105동 1501호 (신갈동, 새릉골아파트) · 전화 070-8064-8210</p><p>문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html">이용약관</a> · <a href="/market/policy.html#refund">환불규정</a> · <a href="/market/policy.html#privacy">개인정보처리방침</a></p></div></footer>
+</body></html>

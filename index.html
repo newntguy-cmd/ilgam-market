@@ -198,6 +198,7 @@ button.star:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
 .cwrap button.crow{padding-left:56px}
 .cwrap button.star.abs{position:absolute;left:14px;top:12px;width:36px;height:36px;z-index:1}
 .gnb .em{font-size:14px;margin-right:7px;filter:grayscale(1) brightness(1.55) contrast(.9);opacity:.85}
+@media (min-width:761px) and (max-width:1120px){.gnb .em{display:none}.gnb button,.gnb .tablink{padding:0 10px}}
 .gnb [aria-current=true] .em{filter:none;opacity:1}
 .gnb .sep{position:relative;margin-left:18px}.gnb .sep::before{content:"";position:absolute;left:-10px;top:14px;bottom:14px;width:1px;background:rgba(255,255,255,.18)}
 .gnb .cnt{font-style:normal;margin-left:6px;min-width:18px;padding:0 5px;border-radius:9px;background:var(--brass);color:var(--navy);font-size:12px;font-weight:700;line-height:18px;text-align:center}
@@ -319,7 +320,6 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="./"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>일감마켓</a>
-<span class="tag-line">공공 공사 낙찰 · 자재 팔기·구해요</span>
 <nav class="gnb" aria-label="데이터 메뉴" id="gnb"></nav>
 <a class="tier" id="tier" href="pro.html" hidden></a>
 <div class="acc" id="acc"></div>
@@ -375,7 +375,7 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 <div class="fcols">
 <div><div class="fbrand">일감마켓</div><p class="fsay">낙찰된 현장, 가장 먼저 연락하세요.</p><p class="fsub">공공 공사 낙찰 정보와 자재·장비 팔기·구해요를 한곳에서.</p>
 <div class="src"><span>출처 <b>조달청 나라장터 · 공공데이터포털</b></span> <span id="upd"></span></div></div>
-<div><b>바로가기</b><a href="#top">새 일감</a><a href="market/?c=sell">내 물건 팔기</a><a href="market/?c=need">필요한 물품 구해요</a></div>
+<div><b>바로가기</b><a href="#top">새 일감</a><a href="market/?c=sell">내 물건 팔기</a><a href="market/?c=need">필요한 물품 구해요</a><a href="about.html">회사 소개</a></div>
 <div><b>문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><span class="d">글 신고·삭제, 회원 탈퇴도 이 메일로 접수합니다.</span></div>
 </div>
 <div class="biz" id="biz"><b class="bh">사업자 정보</b>
