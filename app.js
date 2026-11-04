@@ -284,6 +284,7 @@
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
+      if (t.id === 'sell') b.className += ' sep';
       if (t.desc) b.title = t.desc;
       if (ic) { var sp = el('span', 'em', ic); sp.setAttribute('aria-hidden', 'true'); b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);
