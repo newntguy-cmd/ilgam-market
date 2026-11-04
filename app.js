@@ -2,6 +2,7 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
+    { id: 'about', label: '회사 소개', desc: '일감마켓이 시작된 이야기', href: 'about.html' },
     { id: 'win', label: '새 일감', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'st', label: '통계', desc: '지역·공종별 낙찰 현황', ready: true },
@@ -9,8 +10,7 @@
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
     { id: 'sell', label: '내 물건 팔기', desc: '팔고 싶은 물건 올리기', href: 'market/?c=sell' },
-    { id: 'need', label: '필요한 물품 구해요', desc: '필요한 물품 올리고 제안 받기', href: 'market/?c=need' },
-    { id: 'about', label: '회사 소개', desc: '일감마켓이 시작된 이야기', href: 'about.html' }
+    { id: 'need', label: '필요한 물품 구해요', desc: '필요한 물품 올리고 제안 받기', href: 'market/?c=need' }
   ];
   var PAGE = 30;
   var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
@@ -285,7 +285,7 @@
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
       }
-      if (t.id === 'sell' || t.id === 'about') b.className += ' sep';
+      if (t.id === 'sell' || t.id === 'win') b.className += ' sep';
       if (t.desc) b.title = t.desc;
       if (ic) { var sp = el('span', 'em'); sp.setAttribute('aria-hidden', 'true'); sp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ic + '</svg>'; b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);

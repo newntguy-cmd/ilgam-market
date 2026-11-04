@@ -45,15 +45,59 @@
 footer{margin-top:0}
 @media (max-width:900px){.ab-do{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-keep div{grid-template-columns:1fr;gap:6px}}
 @media (max-width:640px){.ab-hero .wrap{padding-top:52px;padding-bottom:56px}.ab-hero p{font-size:16.5px}.ab-sec{padding-top:52px}.ab-do{grid-template-columns:1fr}.ab-story p{font-size:16.5px}.ab-story p.k{font-size:19px}.ab-cta a{width:100%;justify-content:center}}
+
+.ab-hw{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.ab-ht{min-width:0}
+.ab-hl{flex:none;width:260px;height:260px;display:flex;align-items:center;justify-content:center;border-radius:42px;background:radial-gradient(circle at 30% 20%,#1e3d70,#0b1b36 70%);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 0 0 1px rgba(201,164,92,.35),0 24px 50px rgba(0,0,0,.45)}
+.ab-hl img{width:220px;height:220px;animation:abf 5s ease-in-out infinite}
+@keyframes abf{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-1.5deg)}}
+.ab-data{background:#0b1c37;color:#fff;border-top:1px solid rgba(201,164,92,.35);padding:46px 0 0;overflow:hidden}
+.ab-dh{margin:0 0 22px;color:#b9c6dc;font-size:16px}.ab-dh b{color:#c9a45c}
+.ab-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ab-nums>div{padding:20px 20px 18px;border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 0 0 1px rgba(255,255,255,.08),0 10px 20px rgba(0,0,0,.25)}
+.ab-nums b{display:block;font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 -1px 0 rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.12)}
+.ab-nums span{display:block;margin-top:4px;font-size:14px;color:#9fb0ca}
+.ab-reg{margin-top:26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 40px}
+.ab-reg div{display:grid;grid-template-columns:74px minmax(0,1fr) 52px;gap:10px;align-items:center;font-size:14px;color:#c6d2e6}
+.ab-reg i{display:block;height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.ab-reg i::after{content:"";display:block;height:100%;width:var(--w);border-radius:4px;background:linear-gradient(90deg,#8a6a28,#e6c883);transform-origin:left;animation:abg 1s ease-out both}
+@keyframes abg{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ab-reg em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;color:#e6c883}
+.ab-belt{margin-top:34px;padding:16px 0;border-top:1px solid rgba(255,255,255,.08);background:#081428;overflow:hidden}
+.ab-track{display:flex;gap:14px;width:max-content;animation:abm 70s linear infinite}
+.ab-belt:hover .ab-track{animation-play-state:paused}
+@keyframes abm{to{transform:translateX(-50%)}}
+.ab-card{flex:none;width:280px;padding:14px 16px;border-radius:6px;background:linear-gradient(180deg,#16305a,#102549);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 0 0 1px rgba(255,255,255,.07),0 6px 12px rgba(0,0,0,.3)}
+.ab-card small{display:block;font-size:12px;color:#c9a45c}
+.ab-card b{display:block;margin:4px 0 2px;font-size:15px;line-height:1.4;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ab-card span{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#aebbd1}.ab-card span u{text-decoration:none;color:#e6c883;font-weight:700}
+@media (max-width:760px){.ab-hl{display:none}.ab-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-reg{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.ab-track,.ab-hl img,.ab-reg i::after{animation:none}.ab-belt{overflow-x:auto}}
 </style></head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav aria-label="메뉴"><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>새 일감</a><a href="/#st" title="지역·공종별 낙찰 현황"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-7M12 20V5M19 20V10"/></svg></span>통계</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심 업체</a><a class="sep" href="/market/?c=sell" title="팔고 싶은 물건 올리기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>내 물건 팔기</a><a href="/market/?c=need" title="필요한 물품 올리고 제안 받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg></span>필요한 물품 구해요</a><a class="sep" href="/about.html" title="일감마켓이 시작된 이야기" aria-current="page"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사 소개</a></nav></div></header>
+<header class="top"><div class="wrap"><a class="brand" href="/"><span class="logo"><i></i><i></i><i></i><i></i></span>일감마켓</a><nav aria-label="메뉴"><a href="/about.html" title="일감마켓이 시작된 이야기" aria-current="page"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사 소개</a><a class="sep" href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>새 일감</a><a href="/#st" title="지역·공종별 낙찰 현황"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-7M12 20V5M19 20V10"/></svg></span>통계</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심 업체</a><a class="sep" href="/market/?c=sell" title="팔고 싶은 물건 올리기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>내 물건 팔기</a><a href="/market/?c=need" title="필요한 물품 올리고 제안 받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg></span>필요한 물품 구해요</a></nav></div></header>
 <main>
-<section class="ab-hero"><div class="wrap">
+<section class="ab-hero"><div class="wrap ab-hw">
+<div class="ab-ht">
 <span class="ab-tag">일감마켓 이야기</span>
 <h1>영업하는 사람이 만든,<br><em>영업하는 사람</em>을 위한 곳</h1>
 <p>낙찰된 현장 옆에 ‘누구에게 전화할까’를 붙였습니다. 일감마켓은 그 한 가지에서 시작했습니다.</p>
+</div>
+<div class="ab-hl" aria-hidden="true"><img src="/img/logo.svg" alt="" width="260" height="260"></div>
 </div></section>
+
+<section class="ab-data" aria-label="일감마켓이 모은 낙찰 데이터"><div class="wrap">
+<p class="ab-dh"><b id="dRange">최근 두 달</b> 동안 일감마켓이 모은 공공 공사 낙찰 데이터입니다.</p>
+<div class="ab-nums">
+<div><b id="dN" data-fmt="n">–</b><span>낙찰 현장</span></div>
+<div><b id="dC" data-fmt="n">–</b><span>낙찰 업체</span></div>
+<div><b id="dA" data-fmt="jo">–</b><span>낙찰 금액 합계</span></div>
+<div><b id="dR">17</b><span>전국 시·도</span></div>
+</div>
+<div class="ab-reg" id="dReg" aria-label="지역별 낙찰 현장 수"></div>
+</div>
+<div class="ab-belt" aria-label="방금 낙찰된 현장"><div class="ab-track" id="dTrack"></div></div>
+</section>
 
 <div class="wrap">
 <section class="ab-sec"><h2>시작은 한 가지 불편이었습니다</h2>
@@ -92,4 +136,29 @@ footer{margin-top:0}
 <div class="bt"><a class="p" href="/?join=1">무료 가입 · 14일 전부 열림</a><a class="g" href="/#win">낙찰 목록 보기</a></div></div></section>
 </main>
 <footer><div class="wrap"><p>상호 겟잇타운 · 대표 신상헌 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호 · 사업장 주소 경기도 용인시 기흥구 기흥로116번길 7, 105동 1501호 (신갈동, 새릉골아파트) · 전화 070-8064-8210</p><p>문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html">이용약관</a> · <a href="/market/policy.html#refund">환불규정</a> · <a href="/market/policy.html#privacy">개인정보처리방침</a></p></div></footer>
+<script>
+(function(){
+function fmtN(n){return n.toLocaleString('ko-KR')}
+function fmtJo(a){var jo=a/1e12;return jo>=1?jo.toFixed(1)+'조원':Math.round(a/1e8).toLocaleString('ko-KR')+'억원'}
+function eok(a){a=Math.round(a/1e6)/100;return a>=100?Math.round(a)+'억':a.toFixed(1)+'억'}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function count(el,to,fmt,ms){
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(rm){el.textContent=fmt(to);return}
+  var t0=null;function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/ms);p=1-Math.pow(1-p,3);el.textContent=fmt(to*p);if(p<1)requestAnimationFrame(f);else el.textContent=fmt(to)}
+  requestAnimationFrame(f)}
+fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
+  var d0=new Date(a.from),d1=new Date(a.to);var days=Math.max(1,Math.round((d1-d0)/864e5)+1);
+  document.getElementById('dRange').textContent='최근 '+days+'일';
+  count(document.getElementById('dN'),a.n,function(v){return fmtN(Math.round(v))+'건'},1400);
+  count(document.getElementById('dC'),a.cos,function(v){return fmtN(Math.round(v))+'곳'},1400);
+  count(document.getElementById('dA'),a.amt,function(v){return fmtJo(v)},1400);
+  document.getElementById('dR').textContent=a.regions.length+'곳';
+  var mx=a.regions[0][1],box=document.getElementById('dReg');
+  box.innerHTML=a.regions.slice(0,8).map(function(r){return '<div><span>'+esc(r[0])+'</span><i style="--w:'+Math.max(4,Math.round(r[1]/mx*100))+'%"></i><em>'+fmtN(r[1])+'</em></div>'}).join('');
+  var cards=a.cards.map(function(c){return '<div class="ab-card"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
+  document.getElementById('dTrack').innerHTML=cards+cards;
+}).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
+})();
+</script>
 </body></html>
