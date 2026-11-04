@@ -519,5 +519,5 @@ window.addEventListener('ig-auth',sync);sync();
 if(!/[?&]embed=1/.test(location.search)&&ok()){setTimeout(function(){if(member())return;last=document.activeElement;bn.classList.add('on');try{document.getElementById('bnjoin').focus({preventScroll:true})}catch(e){}},900)}
 fetch('data/about.json').then(function(r){return r.json()}).then(function(a){if(a.week)document.getElementById('bnn').textContent=a.week.n.toLocaleString('ko-KR')}).catch(function(){});
 })();
-</script></body>
+</script><script src="/ga.js" defer></script></body>
 </html>
