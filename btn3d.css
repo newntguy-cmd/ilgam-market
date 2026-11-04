@@ -33,3 +33,5 @@
 /* 메뉴 고정: 위에 붙어 따라오고, 스크롤바 유무로 화면이 좌우로 흔들리지 않게 */
 html{scrollbar-gutter:stable;overflow-y:scroll}
 header.top{position:sticky;top:0;z-index:60}
+/* 모바일: 메뉴가 옆으로 밀리는 폭이라, 강조 메뉴를 맨 앞에 둬서 바로 보이게 */
+@media (max-width:760px){.gnb a.hot,header nav a.hot{order:-1;margin-left:0}.gnb a.hot+*,header nav a.hot+*{margin-left:0}}
