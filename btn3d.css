@@ -18,7 +18,7 @@
 .pbtn,.btn{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px),linear-gradient(180deg,#27487f 0%,#173160 50%,#0f2342 100%);text-shadow:0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.12)}
 .go.sub{text-shadow:0 -1px 0 rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.18)}
 .btn.ghost,.more button{text-shadow:0 1px 0 #fff,0 -1px 0 rgba(0,0,0,.12)}
-/* 장터 메뉴 강조: 건설자재장터 */
+/* 장터 메뉴 강조: 건설자재 사고팔기 */
 .gnb a.hot,header nav a.hot{margin:6px 3px;min-height:36px!important;padding:0 16px!important;border-radius:20px;color:#0f2342!important;font-weight:700!important;border-bottom:0!important;background-image:linear-gradient(180deg,#f1d795,#c9a45c 55%,#b08c44)!important;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 2px 0 #8a6a28,0 6px 12px rgba(0,0,0,.3);text-shadow:0 1px 0 rgba(255,255,255,.4);animation:hotp 2.8s ease-in-out 1.2s 3}
 .gnb a.hot:hover,header nav a.hot:hover{transform:translateY(-1px);filter:brightness(1.06)}
 .gnb a.hot .em,header nav a.hot .em{filter:none!important;opacity:1!important;color:#0f2342}
@@ -35,3 +35,7 @@ html{scrollbar-gutter:stable;overflow-y:scroll}
 header.top{position:sticky;top:0;z-index:60}
 /* 모바일: 메뉴가 옆으로 밀리는 폭이라, 강조 메뉴를 맨 앞에 둬서 바로 보이게 */
 @media (max-width:760px){.gnb a.hot,header nav a.hot{order:-1;margin-left:0}.gnb a.hot+*,header nav a.hot+*{margin-left:0}}
+/* 건설자재 사고팔기 메뉴: 도톰한 엠보싱 금속 알약 */
+.gnb a.hot,header nav a.hot{padding:0 20px!important;font-size:16px!important;font-weight:800!important;letter-spacing:.01em;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.14) 0 1px,transparent 1px 4px),linear-gradient(180deg,#fbe7ae 0%,#e0bd70 38%,#c9a45c 62%,#a98439 100%)!important;text-shadow:0 1px 0 rgba(255,255,255,.75),0 -1px 0 rgba(90,60,10,.5)!important;box-shadow:0 2px 0 rgba(255,255,255,.8) inset,0 -3px 0 rgba(100,70,15,.35) inset,0 0 0 1px #8a6a28,0 3px 0 #6e5524,0 10px 18px rgba(0,0,0,.4)!important}
+.gnb a.hot:active,header nav a.hot:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(255,255,255,.6) inset,0 -2px 0 rgba(100,70,15,.3) inset,0 0 0 1px #8a6a28,0 0 0 #6e5524,0 3px 6px rgba(0,0,0,.4)!important}
+.mkh h2{text-shadow:0 1px 0 #fff,0 -1px 0 rgba(15,35,66,.18)}
