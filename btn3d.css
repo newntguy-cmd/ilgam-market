@@ -49,7 +49,7 @@ header.top .brand{color:#0f2342}
 .gnb a.hot,header nav a.hot{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 0 0 1px #8a6a28!important}
 .gnb .em{filter:none!important;opacity:.8!important}
 .gnb .sep::before{background:#d5cbb4!important}
-.tier{color:#8a6a28!important}.tier.free{color:#6b788e!important}.tier.pro{color:#1f7a4a!important}
+.tier{color:#8a6a28!important}.tier.free{color:#6b788e!important}.tier.pro{color:#1fd69a!important;background:#0f2342;padding:6px 12px;border-radius:20px}
 .acc>button{background:transparent!important;color:#0f2342!important;border:1px solid #cdbf9f!important}
 
 /* 메뉴: 오른쪽 정렬, 직거래 장터가 맨 앞 */
