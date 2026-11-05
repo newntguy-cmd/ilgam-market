@@ -175,7 +175,7 @@
     var A = window.IGAUTH, box = $('acc'); box.textContent = '';
     var fc = $('fcta'); if (fc) { fc.hidden = !!(A && A.user); if (!fc.getAttribute('data-b')) { fc.setAttribute('data-b', '1'); $('fctab').addEventListener('click', function () { openLogin('signup'); }); } }
     if (!A || !A.user) {
-      var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b); return;
+      var b0 = el('button', 'jn', '가입하기'); b0.type = 'button'; b0.addEventListener('click', function () { openLogin('signup'); }); box.appendChild(b0); var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', function () { openLogin(); }); box.appendChild(b); return;
     }
     var b2 = el('button', null, '내 계정 ▾'); b2.type = 'button'; b2.setAttribute('aria-haspopup', 'true');
     var m = el('div', 'menu'); m.hidden = true;

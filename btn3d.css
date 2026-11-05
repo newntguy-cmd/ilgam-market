@@ -55,3 +55,5 @@ header.top .brand{color:#0f2342}
 /* 메뉴: 오른쪽 정렬, 직거래 장터가 맨 앞 */
 @media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-end}}
 .gnb a.hot,header nav a.hot{order:-1}
+.acc>button.jn{background:#c9a45c!important;color:#0f2342!important;border-color:#8a6a28!important;margin-right:8px;font-weight:800}
+@media (max-width:760px){.acc>button.jn{display:none}}
