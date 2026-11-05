@@ -580,12 +580,13 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-cmp .c1 b{font-size:20px;color:#8a93a6}
 .ab-cmp .c2{padding:26px 24px}.ab-cmp .c2 span{background:#0f2342;color:#e6c883}
 .ab-cmp ul{list-style:none;margin:0;padding:0}.ab-cmp li{font-size:18px;line-height:1.5;padding:7px 0;border-bottom:1px dashed #e6dcc4}.ab-cmp li:last-child{border:0}.ab-cmp li b{color:#8a6a28;font-size:19px;margin-right:4px}
+.ab-cmp.pl{grid-template-columns:1fr}.ab-cmp.pl .pr{padding:13px 24px;border-bottom:1px dashed #e6dcc4}.ab-cmp.pl .pr:last-child{border:0}.ab-cmp.pl .pr span{margin-bottom:8px}.ab-cmp.pl .pr.m span{background:#0f2342;color:#e6c883}.ab-cmp.pl p{margin:0;color:#2b3648;text-shadow:none;font-size:18px;line-height:1.55}.ab-cmp.pl p b{color:#8a6a28;font-size:19px}
 @media (max-width:860px){.ab-cmp{width:100%;margin-top:26px}.ab-sl .wrap{padding-bottom:80px}}
 @media (prefers-reduced-motion:reduce){.ab-tr{transition:none}}
 .ab-hero.has-photo .sk{display:none}.ab-hero.has-photo::before{background-image:linear-gradient(90deg,rgba(11,28,55,.55) 0%,rgba(11,28,55,.38) 34%,rgba(11,28,55,.08) 66%,rgba(11,28,55,0) 100%)!important}.ab-hero.has-photo::after{display:none}
 .ab-hero.has-photo .ab-ht h1,.ab-hero.has-photo .ab-ht p,.ab-hero.has-photo .ab-ask b{text-shadow:0 1px 3px rgba(5,14,30,.85),0 2px 18px rgba(5,14,30,.8)}.ab-hero.has-photo .ab-ht p{color:#eef2f9!important}
 </style>
-<link rel="preload" as="image" href="/img/hero.jpg" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=26"></head>
+<link rel="preload" as="image" href="/img/hero.jpg" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=28"></head>
 <body>
 <script>(function(){var h=(location.hash||"").slice(1);if(!h||h==="home")document.body.classList.add("ph");window.igKnown=function(){return !!(window.IGAUTH&&window.IGAUTH.ready)||!!window.__igT};setTimeout(function(){if(!window.igKnown()){window.__igT=1;try{window.dispatchEvent(new CustomEvent("ig-known"))}catch(e){}}},2500)})()</script>
 <header class="top"><div class="wrap">
@@ -609,11 +610,11 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </div></div>
 <div class="ab-sl s2" id="abS2"><div class="ab-ph ab-ph2" id="abPh2" aria-hidden="true"></div><div class="wrap ab-hw">
 <div class="ab-ht">
-<h2 class="ab2h">가입하면 뭐가<br><em>달라지냐고요?</em></h2>
-<p class="ab2p">카드 등록 없이 14일, 낙찰 현장을 마음껏 둘러보세요.</p>
+<h2 class="ab2h">얼마나<br><em>쓸 수 있나요?</em></h2>
+<p class="ab2p">가입하고 14일은 낙찰 현장이 전부 열려 있습니다.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">가입하기</button></div>
 </div>
-<div class="ab-cmp" aria-label="비회원과 회원 비교"><div class="c1"><span>비회원</span><b>둘러보기만</b></div><div class="c2"><span>회원</span><ul><li><b>14일</b> 일감 맛보기</li><li><b>매일 아침</b> 새 낙찰 메일</li><li><b>직거래장터</b> 글 올리기</li><li><b>카드 등록</b> 필요 없음</li></ul></div></div>
+<div class="ab-cmp pl" aria-label="요금제 안내"><div class="pr"><span>맛보기 14일</span><p><b>낙찰 현장 전부</b> 둘러보기<br>카드 등록 없음</p></div><div class="pr"><span>그 뒤에도</span><p>낙찰·업체·금액 <b>계속 조회</b><br>업체 정보 하루 3곳</p></div><div class="pr m"><span>일감 마스터</span><p><b>30일 49,900원</b> 한 번 결제<br>영업 리스트 엑셀·지역 알림</p></div></div>
 </div></div></div>
 <div class="ab-dots" id="abDots" role="tablist" aria-label="소개 화면"><button type="button" class="ar" data-d="-1" aria-label="이전 화면">&#8249;</button><button type="button" class="d" role="tab" aria-selected="true" aria-label="첫 번째 화면"></button><button type="button" class="d" role="tab" aria-selected="false" aria-label="두 번째 화면"></button><button type="button" class="ar" data-d="1" aria-label="다음 화면">&#8250;</button></div></section>
 
@@ -700,7 +701,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="fcols">
 <div><div class="fbrand">일감마켓</div><p class="fsay">낙찰된 현장, 가장 먼저 연락하세요.</p><p class="fsub">공공 공사 낙찰정보와 자재·장비 거래(직거래장터)를 한곳에서.</p>
 <div class="src"><span>출처 <b>조달청 나라장터 · 공공데이터포털</b></span> <span id="upd"></span></div></div>
-<div><b>바로가기</b><a href="#top">낙찰정보</a><a href="market/?c=sell">내 물건 팔기</a><a href="market/?c=need">필요한 물품 견적받기</a><a href="about.html">회사소개</a></div>
+<div id="fgo"><b>바로가기</b><a href="#" data-m="0">회사소개</a><a href="#" data-m="1">낙찰정보</a><a href="#" data-m="2">직거래장터</a><a href="#" data-m="3">관심업체</a><a href="#" data-m="4">고객센터</a></div>
 <div><b>문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><span class="d">글 신고·삭제, 회원 탈퇴도 이 메일로 접수합니다.</span></div>
 </div>
 <div class="biz" id="biz"><b class="bh">사업자 정보</b>
@@ -807,5 +808,6 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;if(u){clearInterval(t);go(0);s2.style.display='none';ds.style.display='none'}else{s2.style.display='';ds.style.display='';auto()}}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/guide.js?v=1" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=2" defer></script><script src="/ga.js" defer></script></body>
+<script src="/guide.js?v=1" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=2" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
+</body>
 </html>
