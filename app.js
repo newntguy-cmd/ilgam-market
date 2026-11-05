@@ -2,7 +2,7 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'about', label: '회사 소개', desc: '일감마켓이 시작된 이야기', href: 'about.html' },
+    { id: 'home', label: '회사 소개', desc: '일감마켓이 시작된 이야기', ready: true },
     { id: 'win', label: '새 일감', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'st', label: '통계', desc: '지역·분야별 낙찰 현황', ready: true },
@@ -12,10 +12,10 @@
     { id: 'sell', label: '건설자재 사고팔기', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
   ];
   var PAGE = 30;
-  var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'win', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
+  var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'home', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
 
   var HT = (location.hash || '').slice(1);
-  if (['win', 'co', 'st', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
+  if (['home', 'win', 'co', 'st', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
 
   // 관심 업체: 이 기기에 저장합니다. { 업체명: { b: 사업자번호, seen: 마지막으로 확인한 낙찰일 } }
   var WL = {};
@@ -282,7 +282,7 @@
         if (t.id === 'wl') { b.textContent = '관심 업체'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
         b.type = 'button';
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
-        b.addEventListener('click', function () { S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); });
+        b.addEventListener('click', function () { var was = S.tab; S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); if (was === 'home' || t.id === 'home') window.scrollTo(0, 0); });
       }
       if (t.id === 'win') b.className += ' sep'; if (t.id === 'sell') b.className += ' hot';
       if (t.desc) b.title = t.desc;
@@ -624,6 +624,8 @@
 
   function render() {
     renderGnb(); renderChips(); renderAcc();
+    document.body.classList.toggle('ph', S.tab === 'home');
+    if (S.tab === 'home') return;
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
     $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '새 일감' : tab.label;
@@ -737,9 +739,15 @@
   $('fSort').addEventListener('change', function () { S.sort = this.value; render(); });
   $('fPeriod').addEventListener('change', function () { S.period = this.value; S.shown = PAGE; render(); });
 
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-act]'); if (!t) return;
+    var act = t.getAttribute('data-act');
+    if (act === 'join') { openLogin('signup'); return; }
+    if (act.indexOf('tab:') === 0) { S.tab = act.slice(4); S.shown = PAGE; try { history.replaceState(null, '', '#' + S.tab); } catch (x) {} render(); window.scrollTo(0, 0); }
+  });
   document.querySelector('.brand').addEventListener('click', function (e) {
     e.preventDefault();
-    S.tab = 'win'; S.region = '전체'; S.kind = '전체'; S.q = ''; S.sort = 'd'; S.period = 'd3'; S.shown = PAGE;
+    S.tab = 'home'; S.region = '전체'; S.kind = '전체'; S.q = ''; S.sort = 'd'; S.period = 'd3'; S.shown = PAGE;
     $('fRegion').value = '전체'; $('fKind').value = '전체'; $('fQ').value = ''; $('fSort').value = 'd'; $('fPeriod').value = 'd3';
     try { history.replaceState(null, '', location.pathname); } catch (x) {}
     render(); window.scrollTo(0, 0);
