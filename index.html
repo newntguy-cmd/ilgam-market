@@ -465,6 +465,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .pc .pt1{font-size:13px;font-weight:700;color:#8a6a24}.pc.hot .pt1{color:#e6c883}.pc h3{margin:8px 0 6px;font-size:24px;letter-spacing:-.03em;color:#0f2342}.pc.hot h3{color:#fff}.pc .pb{margin:0 0 14px;font-size:16px;color:#2c3a52}.pc.hot .pb{color:#dbe4f3}.pc .pb b{color:#0f2342;font-size:18px}.pc.hot .pb b{color:#e6c883}
 .pc ul{list-style:none;margin:0;padding:14px 0 0;border-top:1px solid rgba(120,135,160,.3)}.pc li{position:relative;padding:5px 0 5px 16px;font-size:14.5px;line-height:1.55;word-break:keep-all;color:#44526b}.pc.hot li{color:#cdd8ea}.pc li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:#c9a45c}
 .pn1{margin:18px 0 0;font-size:13.5px;color:#6b7891}@media(max-width:860px){.pl{grid-template-columns:1fr}}
+.mkd{margin:14px 0 0;font-size:13px;color:#6b788e}.ab-nums{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 </style>
 <link rel="stylesheet" href="/btn3d.css?v=4"></head>
 <body>
@@ -494,43 +495,24 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div><b id="dN" data-fmt="n">–</b><span>낙찰 현장</span></div>
 <div><b id="dC" data-fmt="n">–</b><span>낙찰 업체</span></div>
 <div><b id="dA" data-fmt="jo">–</b><span>낙찰 금액 합계</span></div>
-<div><b id="dR">17</b><span>전국 시·도</span></div>
 </div>
-<div class="ab-reg" id="dReg" aria-label="지역별 낙찰 현장 수"></div>
-<div class="ab-week" id="dWeek" hidden>
-<h3>이번 주 낙찰 동향 <small id="dWk"></small></h3>
-<div class="ab-wg">
-<div class="ab-wm"><span>이번 주 낙찰</span><b id="wN">–</b><em id="wD"></em></div>
-<div class="ab-wl"><h4>늘어난 지역</h4><ul id="wUp"></ul><h4>줄어든 지역</h4><ul id="wDn"></ul></div>
-<div class="ab-wb"><h4>이번 주 큰 현장 TOP 5</h4><ol id="wBig"></ol></div>
-</div></div>
 
 </div>
 <div class="ab-belt" aria-label="방금 낙찰된 현장"><div class="ab-track" id="dTrack"></div></div>
 </section>
 
 
-<div class="wrap hm"><section class="pv" id="pv" aria-label="가입 혜택"><div class="tk"><div class="tl"><span class="tg">가입 혜택</span><h2>가입하면 14일,<br><em>연락처가 전부 열립니다</em></h2><p>카드 등록 없이 가입만 하면 됩니다. 낙찰 업체의 대표 전화와 주소를 14일 동안 제한 없이 확인하세요.</p><button type="button" class="go" id="pvjoin">무료로 14일 열어보기</button></div><div class="tr" aria-hidden="true"><b>14<small>일</small></b><span>이용권</span><i>가입하면 자동 지급</i></div></div></section><section class="mk" id="mk" aria-label="장터">
-<div class="mkh"><h2>직거래 장터</h2><p>낙찰된 현장에는 물건이 필요합니다. 이번 주 새로 낙찰된 현장 <b id="mkn">1,877</b>곳이 자재·장비·집기를 찾고 있습니다. <b>남는 물건은 팔고, 필요한 물품은 견적받으세요.</b></p></div>
+<div class="wrap hm"><section class="pv" id="pv" aria-label="가입 혜택"><div class="tk"><div class="tl"><h2>가입하면 14일,<br><em>연락처가 전부 열립니다</em></h2><button type="button" class="go" id="pvjoin">14일 열어보기</button></div><div class="tr" aria-hidden="true"><b>14<small>일</small></b><span>이용권</span><i>가입하면 자동 지급</i></div></div></section><section class="mk" id="mk" aria-label="장터">
+<div class="mkh"><h2>직거래 장터</h2><p>이번 주 낙찰된 현장 <b id="mkn">1,877</b>곳이 자재·장비·집기를 찾고 있습니다.</p></div>
 <div class="mkg">
-<a class="mkc sell" href="market/?c=sell"><span class="mki" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span><b>내 물건 팔기</b><p>남는 자재·장비·사무집기를 사진 한 장으로 올리세요. 현장 담당자가 직접 연락합니다.</p><small class="mkn">결제가 발생하지 않으며 PG를 사용하지 않습니다.</small><i>올리러 가기</i></a>
-<a class="mkc need" href="market/?c=need"><span class="mki" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><b>필요한 물품 견적받기</b><p>필요한 물품을 적어 올리면 판매자가 제안을 보냅니다. 발품 없이 견적을 받으세요.</p><small class="mkn">결제가 발생하지 않으며 PG를 사용하지 않습니다.</small><i>구하러 가기</i></a>
-</div></section><section class="bz" id="bz" aria-label="이번 주 둘러보기" hidden>
-<div class="bzh"><h2>이번 주 둘러보기</h2><div class="bzt" role="tablist"><button type="button" role="tab" aria-selected="true" data-t="co">많이 낙찰받은 업체</button><button type="button" role="tab" aria-selected="false" data-t="rg">지역별 낙찰 현황</button></div></div>
-<p class="bzs" id="bzs"></p>
-<div id="bzco" class="bzco"></div>
-<div id="bzrg" class="bzrg" hidden></div>
-</section></div>
+<a class="mkc sell" href="market/?c=sell"><span class="mki" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span><b>팔고 싶은 물건 있으세요?</b><p>사진 한 장이면 됩니다.</p><i>바로가기</i></a>
+<a class="mkc need" href="market/?c=need"><span class="mki" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><b>어떤 물건 찾으세요?</b><p>적어 올리면 판매자가 견적을 보냅니다.</p><i>바로가기</i></a>
+</div>
+<p class="mkd">거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.</p></section></div>
 <div class="wrap">
 
 
-<section class="ab-sec"><h2>일감마켓이 하는 일</h2>
-<ul class="ab-do">
-<li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b>새 낙찰을 매일 아침</b><p>나라장터 낙찰 소식을 지역·분야별로 모아 아침 7시 30분에 갱신합니다.</p></li>
-<li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><b>연락처까지 한 번에</b><p>낙찰 업체를 누르면 법인 대표 전화와 주소를 확인할 수 있습니다. 가입하면 보입니다.</p></li>
-<li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><b>내 지역 알림</b><p>관심 업체나 내 영업 지역에 새 낙찰이 생기면 아침 메일로 알려 드립니다.</p></li>
-<li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span><b>물건 사고팔기</b><p>자재·장비·사무집기를 올리고 구하는 곳입니다. 거래는 이용자끼리 직접 합니다.</p></li>
-</ul></section>
+
 
 
 
@@ -619,7 +601,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105l"></script>
+<script src="app.js?v=20261105m"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
@@ -628,23 +610,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function eok(a){a=Math.round(a/1e6)/100;return a>=1e4?(a/1e4).toFixed(1)+'조':a>=100?Math.round(a).toLocaleString('ko-KR')+'억':a.toFixed(1)+'억'}
 function mem(){return !!(window.IGAUTH&&window.IGAUTH.user)}
 function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
-function draw(){
-  if(!A||!A.week)return;var bz=document.getElementById('bz');bz.hidden=false;
-  var co=document.getElementById('bzco'),rg=document.getElementById('bzrg'),s=document.getElementById('bzs');
-  co.hidden=tab!=='co';rg.hidden=tab!=='rg';
-  if(tab==='co'){s.textContent=A.week.from.slice(5).replace('-','/')+' ~ '+A.week.to.slice(5).replace('-','/')+' 최근 7일, 낙찰 건수가 많은 업체입니다. 낙찰이 많은 곳이 지금 물건이 필요한 곳입니다.'+(mem()?' 누르면 업체 정보가 열립니다.':' 업체명은 가입하면 보입니다.');
-    co.innerHTML=A.topco.slice(0,8).map(function(c,i){var l=!mem();return '<button type="button" '+(l?'':'data-b="'+esc(c.b)+'" data-c="'+esc(c.co)+'"')+'><span class="rk">'+(i+1)+'</span><span class="nm'+(l?' lk':'')+'">'+(l?mk(c.co):esc(c.co))+'</span><span class="ms"><b>'+c.n+'건</b>'+eok(c.amt)+'</span></button>'}).join('');}
-  else{s.textContent='최근 7일 낙찰 건수와 지난주 대비 변화입니다.';
-    rg.innerHTML=A.regw.slice(0,12).map(function(r){var d=r.cur-r.prev;return '<div><span>'+esc(r.rg)+'</span><b>'+r.cur.toLocaleString('ko-KR')+'건</b><em class="'+(d>=0?'u':'d')+'">'+(d>=0?'▲ ':'▼ ')+Math.abs(d)+'</em></div>'}).join('');}
-}
-document.getElementById('bz').addEventListener('click',function(e){
-  var t=e.target.closest('.bzt button');if(t){tab=t.dataset.t;[].forEach.call(document.querySelectorAll('.bzt button'),function(b){b.setAttribute('aria-selected',String(b===t))});draw();return}
-  var c=e.target.closest('.bzco button');if(!c)return;
-  if(!mem()){var j=document.getElementById('hjoin');if(j&&!j.hidden)j.click();else if(window.IGAUTH&&IGAUTH.openLogin)IGAUTH.openLogin('signup');return}
-  if(c.dataset.b&&window.IGOpenCo)window.IGOpenCo({co:c.dataset.c,biz:c.dataset.b});
-});
-window.addEventListener('ig-auth',draw);
-fetch('data/about.json').then(function(r){return r.json()}).then(function(a){A=a;draw()}).catch(function(){});
+
 })();
 </script><div id="bn" role="dialog" aria-modal="true" aria-labelledby="bnt"><div class="pn"><button type="button" class="x" id="bnx" aria-label="닫기">✕</button><img class="lg" src="/img/logo.svg" alt="" width="104" height="104"><span class="tg">가입 혜택</span><h2 id="bnt">가입하면 14일,<br><em>연락처가 전부 열립니다</em></h2><p>이번 주 새로 낙찰된 현장 <b id="bnn">1,877</b>건. 낙찰 업체의 대표 전화와 주소를 카드 등록 없이 확인하세요.</p>
 <div class="ch"><div><b>14일</b><span>전부 열림</span></div><div><b>오전 7:30</b><span>낙찰 아침 메일</span></div><div><b>0원</b><span>카드 등록 없음</span></div></div>
@@ -688,18 +654,6 @@ fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
   count(document.getElementById('dN'),a.n,function(v){return fmtN(Math.round(v))+'건'},1400);
   count(document.getElementById('dC'),a.cos,function(v){return fmtN(Math.round(v))+'곳'},1400);
   count(document.getElementById('dA'),a.amt,function(v){return fmtJo(v)},1400);
-  document.getElementById('dR').textContent=a.regions.length+'곳';
-  var mx=a.regions[0][1],box=document.getElementById('dReg');
-  box.innerHTML=a.regions.slice(0,8).map(function(r){return '<div><span>'+esc(r[0])+'</span><i style="--w:'+Math.max(4,Math.round(r[1]/mx*100))+'%"></i><em>'+fmtN(r[1])+'</em></div>'}).join('');
-  var w=a.week;if(w){var pc=w.pn?Math.round((w.n-w.pn)/w.pn*100):0;
-    document.getElementById('dWk').textContent=w.from.slice(5).replace('-','/')+' ~ '+w.to.slice(5).replace('-','/')+', 지난주와 비교';
-    count(document.getElementById('wN'),w.n,function(v){return fmtN(Math.round(v))+'건'},1000);
-    var wd=document.getElementById('wD');wd.className=pc>=0?'ab-up':'ab-dn';wd.textContent=(pc>=0?'▲ ':'▼ ')+Math.abs(pc)+'% (지난주 '+fmtN(w.pn)+'건)';
-    function rl(x){return '<li><span>'+esc(x.rg)+'</span><span class="'+(x.diff>=0?'ab-up':'ab-dn')+'">'+(x.diff>=0?'▲ ':'▼ ')+Math.abs(x.diff)+'건</span></li>'}
-    document.getElementById('wUp').innerHTML=(a.up.length?a.up.map(rl).join(''):'<li><span>없음</span></li>');
-    document.getElementById('wDn').innerHTML=(a.down.length?a.down.map(rl).join(''):'<li><span>없음</span></li>');
-    document.getElementById('wBig').innerHTML=a.big.map(function(c){return '<li><span>'+esc(c.nm)+'</span><u>'+eok(c.amt)+'</u></li>'}).join('');
-    document.getElementById('dWeek').hidden=false;}
   window.__hc=a.cards[0];if(window.__phc)window.__phc();var hn=document.getElementById('hN');if(hn&&a.week)hn.textContent=fmtN(a.week.n);var cards=a.cards.map(function(c){return '<div class="ab-card"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
   document.getElementById('dTrack').innerHTML=cards+cards;
 }).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
