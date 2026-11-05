@@ -51,3 +51,7 @@ header.top .brand{color:#0f2342}
 .gnb .sep::before{background:#d5cbb4!important}
 .tier{color:#8a6a28!important}.tier.free{color:#6b788e!important}.tier.pro{color:#1f7a4a!important}
 .acc>button{background:transparent!important;color:#0f2342!important;border:1px solid #cdbf9f!important}
+
+/* 메뉴: 오른쪽 정렬, 직거래 장터가 맨 앞 */
+@media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-end}}
+.gnb a.hot,header nav a.hot{order:-1}
