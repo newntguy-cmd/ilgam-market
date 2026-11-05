@@ -344,6 +344,18 @@
     return a;
   }
 
+  // 가입 유도용 열람 제한(비회원). 토스 승인 전에는 GATE.on = false 로 꺼 둡니다. 숫자는 반응을 보고 조절합니다.
+  var GATE = { on: false, guestList: 20, guestCo: 3 };
+  function isGuest() { return !(window.IGAUTH && window.IGAUTH.user); }
+  function gateCo(biz) {
+    if (!GATE.on || !isGuest()) return true;
+    var k = 'ig_co_' + new Date().toISOString().slice(0, 10), a = [];
+    try { a = JSON.parse(localStorage.getItem(k) || '[]'); } catch (e) {}
+    if (a.indexOf(biz) > -1) return true;
+    if (a.length >= GATE.guestCo) { openLogin('signup'); return false; }
+    a.push(biz); try { localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
+    return true;
+  }
   function renderWin(list) {
     var board = $('board'); board.textContent = '';
     if (!list.length) { board.appendChild(el('div', 'empty', '조건에 맞는 낙찰이 없습니다. 지역이나 검색어를 바꿔 보세요.')); return; }
@@ -352,7 +364,8 @@
       var s = el('span', null, t); if (i === 3) s.style.textAlign = 'right'; hd.appendChild(s);
     });
     board.appendChild(hd);
-    list.slice(0, S.shown).forEach(function (r) {
+    var cap = (GATE.on && isGuest()) ? Math.min(S.shown, GATE.guestList) : S.shown;
+    list.slice(0, cap).forEach(function (r) {
       var row = el('div', 'row');
       row.appendChild(el('span', 'rg', r.rg || '-'));
       row.appendChild(el('span', 'kd', r.cat || ''));
@@ -378,13 +391,16 @@
       if (hasBz) { row.classList.add('click'); row.tabIndex = 0; row.setAttribute('role', 'button'); row.setAttribute('aria-label', r.co + ' 업체 정보 보기'); }
       var openCo = function () {
         var bz = r.b || ''; if (!bz) S.items.forEach(function (x) { if (x.co === r.co && x.b) bz = x.b; });
-        if (bz) openShare({ co: r.co, biz: bz });
+        if (bz && gateCo(bz)) openShare({ co: r.co, biz: bz });
       };
       if (hasBz) row.addEventListener('click', function (e) { if (e.target.closest('button,a')) return; openCo(); });
       if (hasBz) row.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); openCo(); } });
       board.appendChild(row);
     });
-    if (list.length > S.shown) {
+    if (GATE.on && isGuest() && list.length > cap) {
+      var lk = el('div', 'more'); var lb = el('button', null, '가입하고 ' + (list.length - cap) + '건 더 보기'); lb.type = 'button';
+      lb.addEventListener('click', function () { openLogin('signup'); }); lk.appendChild(lb); board.appendChild(lk);
+    } else if (list.length > S.shown) {
       var m = el('div', 'more'); var b = el('button', null, '더 보기 (' + (list.length - S.shown) + '건 남음)'); b.type = 'button';
       b.addEventListener('click', function () { S.shown += PAGE; render(); });
       m.appendChild(b); board.appendChild(m);
@@ -397,7 +413,7 @@
     if (!u && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) { var p = r.id.split('-'); u = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + p[0] + '&bidPbancOrd=' + p[1]; }
     return u && /^https:\/\/([a-z0-9.-]+\.)?g2b\.go\.kr\//.test(u) ? u : '';
   }
-  window.IGOpenCo = function (c) { openShare(c); };
+  window.IGOpenCo = function (c) { if (gateCo(c.biz)) openShare(c); };
   function openShare(c, src) {
     var d = $('sh');
     if (!d) {
