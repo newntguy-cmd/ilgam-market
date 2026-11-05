@@ -217,6 +217,7 @@ function renderDetail(){
     s.append(btn('신고하기',null,()=>report(p.id,null,p.authorId)),btn('작성자 차단',null,()=>blockUser(p.authorId,p.authorName,true)));
     b.append(s);
   }
+  b.append(el('div','tip legal','일감마켓은 이용자끼리 거래할 수 있게 연결해 주는 곳입니다. 거래의 당사자가 아니며, 물건의 품질·대금·배송 등 거래와 관련한 분쟁과 책임은 거래 당사자에게 있습니다. 거래 전에 상대방과 조건을 직접 확인해 주세요.'));
   const ch=el('h3','h4','댓글');ch.id='chead';b.append(ch);
   const cl=el('div');cl.id='clist';b.append(cl);
   renderComments();renderCbox();renderGal();
@@ -399,7 +400,7 @@ function renderWrite(){
   const ti=el('input');ti.id='wt';ti.maxLength=80;ti.placeholder=S.wtype==='need'?'예) 조립식 가설사무소 임대 구합니다':'예) 사용 안 한 H빔 10톤 팝니다';ti.value=keep.title||'';g2.append(ti);
   const g3=el('div');g3.append(el('label',null,'내용'));
   const bo=el('textarea');bo.id='wb';bo.maxLength=3000;bo.placeholder=S.wtype==='need'?'수량, 지역, 필요한 시기를 적어 주세요.':'상태, 수량, 가격, 지역을 적어 주세요.';bo.value=keep.body||'';g3.append(bo);
-  f.append(g1,g2,g3,el('div','tip','연락처는 글에 적지 말고, 댓글로 주고받으세요. 댓글은 로그인한 회원에게만 보입니다.'));
+  f.append(g1,g2,g3,el('div','tip','연락처는 글에 적지 말고, 댓글로 주고받으세요. 댓글은 로그인한 회원에게만 보입니다.'),el('div','tip legal','올리는 글은 올린 사람의 책임입니다. 일감마켓은 이용자끼리 거래할 수 있게 연결해 주는 곳입니다. 거래의 당사자가 아니며, 물건의 품질·대금·배송 등 거래와 관련한 분쟁과 책임은 거래 당사자에게 있습니다.'));
   const err=el('div','err');err.id='werr';
   const sub=btn('올리기','primary big',async()=>{
     const title=ti.value.trim(),body=bo.value.trim();
