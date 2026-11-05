@@ -132,3 +132,10 @@ button.star:not([aria-pressed=true]){color:#8b97ab}button.star:not([aria-pressed
 header.top .wrap .acc{margin-left:auto!important}
 }
 @media (min-width:761px) and (max-width:1100px){.gnb>*,header.top nav>*{flex:0 0 clamp(110px,11vw,160px)!important;width:clamp(110px,11vw,160px)!important}}
+/* 모든 페이지 상단 메뉴: 글꼴·크기·굵기·높이·아이콘 완전히 동일, 눌러도 크기가 변하지 않음 */
+header.top nav>*,.gnb>*{font-family:"Noto Sans KR",system-ui,sans-serif!important;font-size:17px!important;font-weight:500!important;letter-spacing:0!important;line-height:1!important;height:48px!important;min-height:48px!important;box-sizing:border-box!important;padding:0 6px!important;margin:0!important;display:flex!important;align-items:center;justify-content:center;gap:7px;border-bottom:3px solid transparent!important;border-radius:6px}
+header.top nav>* .em,.gnb>* .em{display:inline-flex!important;width:18px;height:18px;flex:none;opacity:.85!important}
+header.top nav>* .em svg,.gnb>* .em svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+header.top nav>*[aria-current=true],header.top nav>*[aria-current=page],.gnb>*[aria-current=true]{font-weight:500!important;border-bottom-color:#c9a45c!important}
+.gnb .cnt{margin-left:2px}
+header.top nav>a.tablink,.gnb>a.tablink,.gnb>.tablink{font-size:17px!important;font-weight:500!important;padding:0 6px!important;height:48px!important}
