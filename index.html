@@ -418,6 +418,7 @@ footer{margin-top:0}
 .ab-hl .hc .row i{font-style:normal;opacity:.55;letter-spacing:.08em}.ab-hl .hc .row em{font-style:normal;margin-left:6px;font-size:12px;color:#c9a45c}
 .ab-hl .hc.up{background:linear-gradient(180deg,#f1d795,#c9a45c);color:#0f2342;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 16px 30px -12px rgba(0,0,0,.5)}
 .ab-hl .hc.up b{font-size:19px}.ab-hl .hc.up p{margin:6px 0 14px;font-size:14px;line-height:1.5;color:#3b3317}
+.ab-hl .hc.up a{margin-left:16px;color:#0f2342;font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer}
 .ab-hl .hc.up button{font-family:inherit;border:0;cursor:pointer;height:44px;padding:0 20px;border-radius:3px;background:#0f2342;color:#fff;font-size:15px;font-weight:700}
 .ab-sub{margin:12px 0 0!important;font-size:14.5px!important;color:#b9c6dc!important}
 .ab-data{background:#0b1c37;color:#fff;border-top:1px solid rgba(201,164,92,.35);padding:46px 0 0;overflow:hidden}
@@ -617,7 +618,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105g"></script>
+<script src="app.js?v=20261105h"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
@@ -709,7 +710,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function eok(a){a=Math.round(a/1e6)/100;return a>=1e4?(a/1e4).toFixed(1)+'조':a>=100?Math.round(a).toLocaleString('ko-KR')+'억':a.toFixed(1)+'억'}
 function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
 window.__phc=function(){paintHC()};
-function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c)return;var on=m();box.innerHTML='<div class="hc"><small>방금 낙찰 · '+esc(c.rg)+'</small><b>'+esc(c.nm)+'</b><div class="row"><span>'+(on?esc(c.co):mk(c.co)+'<em>가입하면 공개</em>')+'</span><u>'+eok(c.amt)+'</u></div></div><div class="hc up"><b>내 물건 올리기</b><p>남는 자재·장비를 올리면 필요한 업체가 직접 연락합니다.</p>'+(on?'':'<button type="button" data-act="join" data-j="내 물건 올리기">내 물건 올리기</button>')+'</div>'}
+function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c)return;var on=m();box.innerHTML='<div class="hc"><small>방금 낙찰 · '+esc(c.rg)+'</small><b>'+esc(c.nm)+'</b><div class="row"><span>'+(on?esc(c.co):mk(c.co)+'<em>가입하면 공개</em>')+'</span><u>'+eok(c.amt)+'</u></div></div><div class="hc up"><b>어떤 물건 찾으세요?</b><p>필요한 물품을 올리면 업체들이 견적을 보내옵니다.</p><button type="button" data-go="market/?c=need">바로가기</button><a href="market/?c=sell" data-go="market/?c=sell">내 물건 팔기</a></div>'}
 function sk(){paintHC();var hs=document.getElementById('hsub');if(hs)hs.hidden=m();var on=m();[].forEach.call(document.querySelectorAll('#home [data-j]'),function(b){if(on){b.textContent='내 물건 올리기';b.removeAttribute('data-act');b.setAttribute('data-go','market/?c=sell')}else{b.textContent=b.getAttribute('data-j');b.setAttribute('data-act','join');b.removeAttribute('data-go')}})}
 [].forEach.call(document.querySelectorAll('#home [data-act="join"]'),function(b){b.setAttribute('data-j',b.textContent)});
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home [data-go]');if(t)location.href=t.getAttribute('data-go')});
