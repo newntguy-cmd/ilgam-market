@@ -122,3 +122,7 @@ header.top .wrap .acc{min-width:0}
 /* 모든 페이지의 메뉴 글씨가 같은 진하기로 보이게 */
 header.top nav a{color:#46556d!important}header.top nav a:hover{color:#0f2342!important}header.top nav a[aria-current=page],header.top nav a[aria-current=true]{color:#8a6a28!important}
 button.star:not([aria-pressed=true]){color:#8b97ab}button.star:not([aria-pressed=true]):hover{color:#c9a45c}
+/* 직거래장터 상단 배너: '물건 올리기'와 '견적 요청 올리기' 버튼 크기·위치 동일, 배너 높이 고정 */
+.corner{min-height:156px}
+.corner button{width:200px!important;min-width:200px;height:52px!important;padding:0!important;font-size:17px!important;text-align:center;white-space:nowrap}
+@media (max-width:560px){.corner{min-height:0}.corner button{width:100%!important}}
