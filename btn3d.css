@@ -82,3 +82,9 @@ nav.gnb,header.top nav{gap:6px!important;align-items:center}
 header nav a:nth-child(2){margin-right:auto!important}
 .gnb a.hot,.gnb .tablink,header nav a.hot{margin-left:0!important}
 }
+/* 메뉴 4개: 한 줄에 균등한 간격으로 쭉 나열 */
+@media (min-width:761px){
+nav.gnb,header.top nav{justify-content:center!important;gap:40px!important}
+.gnb button:nth-of-type(2),header nav a:nth-child(2),.gnb a.hot,.gnb .tablink,header nav a.hot,.gnb button,header nav a{margin:0!important}
+.gnb button,.gnb .tablink,header nav a{padding:0 6px!important}
+}
