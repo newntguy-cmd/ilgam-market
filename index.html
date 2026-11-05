@@ -96,7 +96,7 @@ form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:none;backgr
 #bn{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,12,28,.72)}#bn.on{display:flex}
 #bn .pn{position:relative;width:min(540px,100%);padding:36px 34px 20px;border-radius:12px;color:#fff;text-align:center;overflow:hidden;background:radial-gradient(circle at 50% -10%,#27487f 0,#0f2342 55%,#0a1830 100%);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 0 0 1px rgba(201,164,92,.55),0 0 0 6px rgba(201,164,92,.12),0 30px 70px rgba(0,0,0,.6)}
 #bn .pn::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:34px 34px;pointer-events:none}#bn .pn>*{position:relative}
-#bn .lg{width:104px;height:104px;margin:-4px auto 14px;display:block;filter:drop-shadow(0 8px 14px rgba(0,0,0,.4))}
+#bn .bn2{display:block;margin:12px auto 0;background:none;border:0;color:#c9a45c;font:700 14px inherit;font-family:inherit;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:6px}#bn .bn2[hidden]{display:none}#bn .lg{width:104px;height:104px;margin:-4px auto 14px;display:block;filter:drop-shadow(0 8px 14px rgba(0,0,0,.4))}
 #bn .tg{display:inline-block;padding:5px 14px;border:1px solid rgba(201,164,92,.6);border-radius:2px;font-size:12.5px;color:#c9a45c}
 #bn h2{margin:14px 0 8px;font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1.24;text-shadow:0 -1px 0 rgba(0,0,0,.5)}#bn h2 em{font-style:normal;color:#e6c883}
 #bn p{margin:0 auto 18px;max-width:400px;color:#b9c6dc;font-size:15.5px;line-height:1.65}
@@ -646,7 +646,7 @@ fetch('data/about.json').then(function(r){return r.json()}).then(function(a){A=a
 })();
 </script><div id="bn" role="dialog" aria-modal="true" aria-labelledby="bnt"><div class="pn"><button type="button" class="x" id="bnx" aria-label="닫기">✕</button><img class="lg" src="/img/logo.svg" alt="" width="104" height="104"><span class="tg">가입 혜택</span><h2 id="bnt">가입하면 14일,<br><em>연락처가 전부 열립니다</em></h2><p>이번 주 새로 낙찰된 현장 <b id="bnn">1,877</b>건. 낙찰 업체의 대표 전화와 주소를 카드 등록 없이 확인하세요.</p>
 <div class="ch"><div><b>14일</b><span>전부 열림</span></div><div><b>오전 7:30</b><span>낙찰 아침 메일</span></div><div><b>0원</b><span>카드 등록 없음</span></div></div>
-<button type="button" class="go" id="bnjoin">무료 가입하고 14일 열어보기</button><div class="ft"><label><input type="checkbox" id="bnck"> 하루 동안 보지 않기</label></div></div></div>
+<button type="button" class="go" id="bnjoin">무료 가입하고 14일 열어보기</button><button type="button" class="bn2" id="bn2" data-act="tab:win" hidden>새 일감 보기</button><div class="ft"><label><input type="checkbox" id="bnck"> 하루 동안 보지 않기</label></div></div></div>
 <script>
 (function(){
 var K='ig_bn_until',bn=document.getElementById('bn'),last=null;
@@ -656,13 +656,14 @@ function close(){bn.classList.remove('on');try{if(document.getElementById('bnck'
 document.getElementById('bnx').addEventListener('click',close);
 bn.addEventListener('click',function(e){if(e.target===bn)close()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&bn.classList.contains('on'))close()});
-document.getElementById('bnjoin').addEventListener('click',function(){close();if(member())return;var j=document.getElementById('hjoin');if(j)j.click()});
+document.getElementById('bn2').addEventListener('click',function(){close()});
+document.getElementById('bnjoin').addEventListener('click',function(){close();if(member()){var u=this.getAttribute('data-go');if(u)location.href=u;return}var j=document.getElementById('hjoin');if(j)j.click()});
 var pj=document.getElementById('pvjoin');if(pj)pj.addEventListener('click',function(){var j=document.getElementById('hjoin');if(j)j.click()});
 var N='1,877',orig={};
 function skin(){var m=member(),t=document.querySelector('#bn .tg'),h=document.getElementById('bnt'),p=document.querySelector('#bn p'),c=document.querySelector('#bn .ch'),g=document.getElementById('bnjoin');
 if(!orig.h){orig={t:t.textContent,h:h.innerHTML,p:p.innerHTML,g:g.textContent}}
-if(m){t.textContent='새 일감';h.innerHTML='이번 주 새로 낙찰된 현장<br><em>'+N+'건</em>';p.innerHTML='낙찰 업체의 대표 전화와 주소를 지금 확인하세요.';c.style.display='none';g.textContent='새 일감 보러 가기';g.setAttribute('data-act','tab:win')}
-else{t.textContent=orig.t;h.innerHTML=orig.h;p.innerHTML=orig.p;c.style.display='';g.textContent=orig.g;g.removeAttribute('data-act')}}
+if(m){t.textContent='건설자재 사고팔기';h.innerHTML='내가 가진 물건이<br><em>일감이 됩니다</em>';p.innerHTML='사진 한 장으로 올리면 필요한 업체가 연락합니다.<br>올리기도, 낙찰·업체 조회도 무료입니다.';c.style.display='none';g.textContent='내 물건 올리기';g.setAttribute('data-go','market/?c=sell');var b2=document.getElementById('bn2');if(b2)b2.hidden=false}
+else{t.textContent=orig.t;h.innerHTML=orig.h;p.innerHTML=orig.p;c.style.display='';g.textContent=orig.g;g.removeAttribute('data-go');var b2=document.getElementById('bn2');if(b2)b2.hidden=true}}
 function sync(){var m=member();var pv=document.getElementById('pv');if(pv)pv.hidden=m;skin()}
 window.addEventListener('ig-auth',sync);sync();
 if(!/[?&]embed=1/.test(location.search)&&ok()){setTimeout(function(){skin();last=document.activeElement;bn.classList.add('on');try{document.getElementById('bnjoin').focus({preventScroll:true})}catch(e){}},900)}
