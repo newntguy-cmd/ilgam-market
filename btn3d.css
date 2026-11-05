@@ -64,3 +64,21 @@ header.top .brand{color:#0f2342}
 @media (max-width:760px){.gnb button,.gnb .tablink{font-size:16px!important;min-height:48px!important}}
 /* 메뉴: 왼쪽 낙찰 공사·통계, 오른쪽 직거래 장터·관심 업체 */
 @media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-start}.gnb a.hot,header nav a.hot{order:1;margin-left:auto!important}.gnb button[aria-current]:last-child,.gnb button:last-of-type{order:2}}
+/* 메뉴 간격 통일: 모든 항목 같은 높이·좌우 여백, 왼쪽 묶음·오른쪽 묶음 */
+@media (min-width:761px){
+header.top .wrap{gap:0 18px!important}
+nav.gnb,header.top nav{gap:6px!important;align-items:center}
+.gnb button,.gnb .tablink,header nav a{padding:0 20px!important;min-height:48px!important;border-radius:6px}
+.gnb a.hot,header nav a.hot{padding:0 24px!important;min-height:44px!important;margin:0 8px 0 auto!important}
+.gnb a.hot+button,.gnb button+a.hot{margin-left:auto!important}
+.brand{margin-right:14px}
+.tier{margin-left:12px!important}
+}
+/* 메뉴 통일: 네 항목 모두 같은 모양, 별도 디자인 없음 */
+.gnb a.hot,header nav a.hot,.gnb .tablink{background:none!important;box-shadow:none!important;border:0!important;border-radius:6px!important;color:#46556d!important;font-weight:500!important;font-size:17.5px!important;min-height:48px!important;padding:0 20px!important;margin:0!important;animation:none!important;background-image:none!important}
+.gnb .tablink:hover,header nav a:hover{color:#0f2342!important;background:rgba(15,35,66,.06)!important}
+@media (min-width:761px){
+.gnb button:nth-of-type(2){margin-right:auto!important}
+header nav a:nth-child(2){margin-right:auto!important}
+.gnb a.hot,.gnb .tablink,header nav a.hot{margin-left:0!important}
+}

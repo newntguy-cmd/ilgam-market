@@ -86,7 +86,7 @@ for biz, rows in by.items():
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=4">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
-<body><header class="top"><div class="wrap"><a class="brand" href="/" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav aria-label="메뉴"><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰 공사</a><a href="/#st" title="지역·분야별 낙찰 현황"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-7M12 20V5M19 20V10"/></svg></span>통계</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심 업체</a><a class="hot" href="/market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래 장터</a></nav></div></header>
+<body><header class="top"><div class="wrap"><a class="brand" href="/" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav aria-label="메뉴"><a href="/#home" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사소개</a><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰정보</a><a href="/market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래장터</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심업체</a></nav></div></header>
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>
 <h1>{e(name)}</h1>
 <p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p>
@@ -117,7 +117,7 @@ open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
 open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 print(f"업체 페이지 {len(made)}개")
 
-# 회사 소개 페이지용 작은 통계 파일 (낙찰 전체 파일 6MB를 소개 페이지에서 받지 않도록)
+# 회사소개 페이지용 작은 통계 파일 (낙찰 전체 파일 6MB를 소개 페이지에서 받지 않도록)
 import collections
 _it = d["items"]
 _win = [r for r in _it if r.get("s") == "낙찰" and r.get("co") and r.get("amt")]
@@ -133,7 +133,7 @@ _about = {
 }
 json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
-# 이번 주 동향 (최근 7일 vs 직전 7일) — 회사 소개 페이지
+# 이번 주 동향 (최근 7일 vs 직전 7일) — 회사소개 페이지
 import datetime as _dt
 _end = _dt.date.fromisoformat(_about["to"]) if _about["to"] else _dt.date.today()
 def _rng(a, b):  # (end-a, end-b]

@@ -2,22 +2,21 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'home', label: '회사 소개', desc: '일감마켓이 시작된 이야기', ready: true },
-    { id: 'win', label: '낙찰 공사', desc: '방금 낙찰된 현장과 업체', ready: true },
+    { id: 'home', label: '회사소개', desc: '일감마켓이 시작된 이야기', ready: true },
+    { id: 'win', label: '낙찰정보', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
-    { id: 'st', label: '통계', desc: '지역·분야별 낙찰 현황', ready: true },
+    { id: 'sell', label: '직거래장터', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
     { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
-    { id: 'sell', label: '직거래 장터', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
   ];
   var PAGE = 30;
   var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'home', region: '전체', kind: '전체', q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
 
   var HT = (location.hash || '').slice(1);
-  if (['home', 'win', 'co', 'st', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
+  if (['home', 'win', 'co', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
 
-  // 관심 업체: 이 기기에 저장합니다. { 업체명: { b: 사업자번호, seen: 마지막으로 확인한 낙찰일 } }
+  // 관심업체: 이 기기에 저장합니다. { 업체명: { b: 사업자번호, seen: 마지막으로 확인한 낙찰일 } }
   var WL = {};
   try { WL = JSON.parse(localStorage.getItem('ilgam_wl') || '{}') || {}; } catch (e) { WL = {}; }
   function wlSave() { try { localStorage.setItem('ilgam_wl', JSON.stringify(WL)); } catch (e) {} }
@@ -58,8 +57,8 @@
     var b = el('button', 'star' + (cls ? ' ' + cls : ''), WL[name] ? '★' : '☆');
     b.type = 'button';
     b.setAttribute('aria-pressed', String(!!WL[name]));
-    b.setAttribute('aria-label', name + (WL[name] ? ' 관심 업체에서 빼기' : ' 관심 업체에 담기'));
-    b.title = WL[name] ? '관심 업체에서 빼기' : '관심 업체에 담기';
+    b.setAttribute('aria-label', name + (WL[name] ? ' 관심업체에서 빼기' : ' 관심업체에 담기'));
+    b.title = WL[name] ? '관심업체에서 빼기' : '관심업체에 담기';
     b.addEventListener('click', function (e) {
       e.stopPropagation();
       if (WL[name]) delete WL[name]; else WL[name] = { b: biz || '', seen: S.maxD };
@@ -180,7 +179,7 @@
     var b2 = el('button', null, '내 계정 ▾'); b2.type = 'button'; b2.setAttribute('aria-haspopup', 'true');
     var m = el('div', 'menu'); m.hidden = true;
     m.appendChild(el('div', 'em', A.user.email));
-    var w = el('button', null, '★ 내 관심 업체'); w.type = 'button';
+    var w = el('button', null, '★ 내 관심업체'); w.type = 'button';
     w.addEventListener('click', function () { m.hidden = true; S.tab = 'wl'; try { history.replaceState(null, '', '#wl'); } catch (e) {} render(); });
     var o = el('button', null, '로그아웃'); o.type = 'button'; o.addEventListener('click', function () { m.hidden = true; A.logout(); });
     m.appendChild(w); m.appendChild(o);
@@ -275,16 +274,16 @@
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
       var b, ic = IC[t.id] || '';
-      if (t.hidden || t.id === 'home') return;
+      if (t.hidden) return;
       if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
       else {
         b = el('button', t.ready ? null : 'soonTab', t.label);
-        if (t.id === 'wl') { b.textContent = '관심 업체'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
+        if (t.id === 'wl') { b.textContent = '관심업체'; if (wlCount()) b.appendChild(el('i', 'cnt', String(wlCount()))); }
         b.type = 'button';
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { var was = S.tab; S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); if (was === 'home' || t.id === 'home') window.scrollTo(0, 0); });
       }
-      if (t.id === 'sell') b.className += ' hot';
+      
       if (t.desc) b.title = t.desc;
       if (ic) { var sp = el('span', 'em'); sp.setAttribute('aria-hidden', 'true'); sp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ic + '</svg>'; b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);
@@ -628,7 +627,7 @@
     if (S.tab === 'home') return;
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
-    $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '낙찰 공사' : tab.label;
+    $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '낙찰정보' : tab.label;
     $('fPeriod').hidden = tab.id !== 'win'; $('fSort').hidden = false; $('dl').hidden = true;
     if (!tab.ready) {
       board.textContent = '';
@@ -651,8 +650,8 @@
       var cn = renderCo(wlist, true);
       $('board').insertBefore(regionCard(), $('board').firstChild);
       $('board').insertBefore(accountCard(), $('board').firstChild);
-      $('meta').textContent = wlCount() ? '관심 업체 ' + wlCount() + '곳' + (window.IGAUTH && window.IGAUTH.user ? '' : ' · 이 기기에 저장됩니다') : '';
-      $('title').textContent = '관심 업체';
+      $('meta').textContent = wlCount() ? '관심업체 ' + wlCount() + '곳' + (window.IGAUTH && window.IGAUTH.user ? '' : ' · 이 기기에 저장됩니다') : '';
+      $('title').textContent = '관심업체';
       // 이번에 보여 준 낙찰은 확인한 것으로 기록합니다 (다음 방문부터 NEW가 사라집니다)
       Object.keys(WL).forEach(function (k) { WL[k].seen = S.maxD; });
       if (JSON.stringify(WL) !== seenBefore) wlSave();
@@ -694,7 +693,7 @@
     fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), S.region);
     fillSelect($('fKind'), ['전체'].concat(CATORDER.filter(function (c) { return S.items.some(function (r) { return r.cat === c; }); })), S.kind);
     if (data.updated) $('upd').textContent = data.updated.replace('T', ' ').replace(/(\d{2}:\d{2}).*$/, '$1') + ' 갱신';
-    if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰 정보가 아닙니다.'); $('banner').appendChild(b); }
+    if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰정보가 아닙니다.'); $('banner').appendChild(b); }
     Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
     renderStat(); render(); cloudSync();
   }
@@ -764,7 +763,7 @@
       $('board').appendChild(el('div', 'err', '데이터를 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.'));
     });
   }
-  // 첫 화면(회사 소개)이 먼저 뜨도록, 큰 낙찰 데이터는 첫 조작이 있거나 잠시 뒤에 받습니다.
+  // 첫 화면(회사소개)이 먼저 뜨도록, 큰 낙찰 데이터는 첫 조작이 있거나 잠시 뒤에 받습니다.
   if (!location.hash || location.hash === '#home') {
     var started = false, go = function () { if (started) return; started = true; ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) { window.removeEventListener(ev, go, true); }); startData(); };
     ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) { window.addEventListener(ev, go, { capture: true, passive: true }); });
