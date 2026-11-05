@@ -3,7 +3,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
     { id: 'home', label: '회사 소개', desc: '일감마켓이 시작된 이야기', ready: true },
-    { id: 'win', label: '새 일감', desc: '방금 낙찰된 현장과 업체', ready: true },
+    { id: 'win', label: '낙찰 공사', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'st', label: '통계', desc: '지역·분야별 낙찰 현황', ready: true },
     { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
@@ -83,9 +83,9 @@
   function openLogin(m) { setMode(m === 'signup' ? 'signup' : 'login'); $('lgErr').textContent = ''; var d = $('lg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); $('lgEm').focus(); }
   function setMode(m) {
     mode = m;
-    $('lgTitle').textContent = m === 'login' ? '로그인' : '무료 가입';
+    $('lgTitle').textContent = m === 'login' ? '로그인' : '가입하기';
     $('lgGo').textContent = m === 'login' ? '로그인' : '가입하고 시작';
-    $('lgSwap').textContent = m === 'login' ? '처음이세요? 무료 가입' : '이미 계정이 있어요';
+    $('lgSwap').textContent = m === 'login' ? '처음이세요? 가입하기' : '이미 계정이 있어요';
     $('lgPw').autocomplete = m === 'login' ? 'current-password' : 'new-password';
     $('lgReset').hidden = m !== 'login';
   }
@@ -158,7 +158,7 @@
       l.appendChild(sp); if (extra) l.appendChild(extra); box.appendChild(l);
     }
     var A = window.IGAUTH;
-    if (!A || !A.user) { lockLine(box, '주소', '가입하면 보입니다', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하면 보입니다', '무료 가입', function () { openLogin('signup'); }); return; }
+    if (!A || !A.user) { lockLine(box, '주소', '가입하면 보입니다', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하면 보입니다', '가입하기', function () { openLogin('signup'); }); return; }
     var ct = CT[biz];
     if (ct) {
       if (ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); row('주소', ad, copyBtn(ad)); }
@@ -194,7 +194,7 @@
       var l = el('div', 'at'); l.appendChild(el('b', null, '로그인하면 새 낙찰을 메일로 알려 드립니다'));
       l.appendChild(el('span', null, '담은 업체에 새 낙찰이 생기면 아침에 한 통으로 보내고, 폰과 PC에서 같은 목록을 봅니다. 무료입니다.'));
       box.appendChild(l);
-      var b = el('button', 'btn', '로그인 · 무료 가입'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b);
+      var b = el('button', 'btn', '로그인 · 가입'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b);
       return box;
     }
     var l2 = el('div', 'at'); l2.appendChild(el('b', null, '새 낙찰 이메일 알림'));
@@ -471,7 +471,7 @@
       var cta = el('div', 'wcta');
       var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하면 현장명 · 발주처 · 주소 · 대표 전화가 모두 보입니다'));
       cta.appendChild(t);
-      var jb = el('button', 'go', '무료 가입'); jb.type = 'button'; jb.addEventListener('click', function () { openLogin('signup'); });
+      var jb = el('button', 'go', '가입하기'); jb.type = 'button'; jb.addEventListener('click', function () { openLogin('signup'); });
       cta.appendChild(jb); d.appendChild(cta);
     }
     return d;
@@ -628,7 +628,7 @@
     if (S.tab === 'home') return;
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
-    $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '새 일감' : tab.label;
+    $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '낙찰 공사' : tab.label;
     $('fPeriod').hidden = tab.id !== 'win'; $('fSort').hidden = false; $('dl').hidden = true;
     if (!tab.ready) {
       board.textContent = '';

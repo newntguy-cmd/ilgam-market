@@ -363,7 +363,7 @@ function renderWrite(){
   const f=$('wform');
   if(!S.user||!S.profile){
     f.textContent='';f.append(el('h2',null,'가입하면 바로 올릴 수 있습니다'),el('div','tip','이메일과 비밀번호만 있으면 됩니다.'),
-      btn('무료 가입하고 올리기','primary big',()=>{S.authMode='signup';go('me');}),
+      btn('가입하고 올리기','primary big',()=>{S.authMode='signup';go('me');}),
       btn('이미 계정이 있어요 · 로그인',null,()=>{S.authMode='login';go('me');}));
     return;
   }
