@@ -57,3 +57,8 @@ header.top .brand{color:#0f2342}
 .gnb a.hot,header nav a.hot{order:-1}
 .acc>button.jn{background:#c9a45c!important;color:#0f2342!important;border-color:#8a6a28!important;margin-right:8px;font-weight:800}
 @media (max-width:760px){.acc>button.jn{display:none}}
+/* 큼직하게(헤더) */
+.gnb button,.gnb .tablink{font-size:17.5px!important;min-height:54px!important}
+.gnb a.hot,header nav a.hot{font-size:18px!important;min-height:42px!important}
+.acc>button,.tier{font-size:16px!important}.acc>button{min-height:42px;padding:0 18px}
+@media (max-width:760px){.gnb button,.gnb .tablink{font-size:16px!important;min-height:48px!important}}

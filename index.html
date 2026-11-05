@@ -500,8 +500,30 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-hero .sk .hk{transform-origin:1030px 40px;animation:sw 5s ease-in-out infinite}
 .ab-hero .sk{animation:skd 30s linear infinite alternate}@keyframes skd{from{transform:translateX(0)}to{transform:translateX(-24px)}}
 @media (prefers-reduced-motion:reduce){.ab-hero .sk,.ab-hero .sk .hk{animation:none}}
+/* 큼직하게 */
+.tb{font-size:16.5px;min-height:46px}.tb button{height:34px;padding:0 18px;font-size:15px}
+.ab-hero p{font-size:clamp(19px,1.9vw,22px)!important;line-height:1.75!important}
+.ab-ask b{font-size:28px!important}
+.ab-bt .go,#home .go{min-height:58px;padding:0 34px;font-size:19px!important}
+.ab-hl{width:460px!important}.pt h3{font-size:30px!important}.pt p{font-size:16.5px!important}.pt small{font-size:14px!important}
+.pt button{height:54px!important;font-size:18px!important;padding:0 30px!important}.pt .r b{font-size:66px!important}.pt .r span{font-size:14.5px!important}
+.hc small{font-size:14.5px!important}.hc b{font-size:20px!important}.hc .row{font-size:16px!important}.hc .row u{font-size:22px!important}
+.ab-dh{font-size:19px!important}.ab-nums span{font-size:17px!important}.ab-nums b{font-size:clamp(40px,4.4vw,54px)!important}
+.ab-card small{font-size:14px!important}.ab-card b{font-size:17px!important}.ab-card span{font-size:15px!important}
+.pv h2{font-size:clamp(30px,3.2vw,40px)!important}.pv .go{min-height:56px;font-size:18px!important;padding:0 30px}
+.mkh h2{font-size:34px!important}.mkh p{font-size:19px!important}.mkc b{font-size:27px!important}.mkc p{font-size:18px!important;line-height:1.6}.mkc i{font-size:17px!important;min-height:48px}
+.mkd{font-size:15px!important}
+.pc h3{font-size:28px!important}.pc .pb{font-size:19px!important}.pc li{font-size:17px!important;line-height:1.6}.pc .pt1{font-size:15px!important}
+.pn1{font-size:15.5px!important}
+.ab-cta h2{font-size:clamp(28px,3.4vw,38px)!important}.ab-cta .bt button{min-height:60px!important;font-size:19px!important}
+.ab-sec h2{font-size:clamp(28px,3vw,36px)!important}
+.ab-card{min-width:330px!important;padding:16px 20px!important}.ab-card b{font-size:18px!important;margin:4px 0!important}.ab-card span{font-size:16px!important}.ab-card u{font-size:18px!important}
+.ab-data{padding-top:64px!important}.ab-nums>div{padding:26px 26px!important}
+.mk{padding:44px 44px 38px!important;margin-bottom:44px!important}.mkh{margin-bottom:26px!important}
+.pc{padding:30px 28px!important}
+.pv .tk{min-height:240px}
 </style>
-<link rel="stylesheet" href="/btn3d.css?v=6"></head>
+<link rel="stylesheet" href="/btn3d.css?v=7"></head>
 <body>
 <script>(function(){var h=(location.hash||"").slice(1);if(!h||h==="home")document.body.classList.add("ph")})()</script>
 <div class="tb" id="tb"><span>지금 가입하면 <b>14일</b> 동안 낙찰 현장을 제한 없이 둘러볼 수 있습니다</span><button type="button" data-act="join">가입하기</button></div>
@@ -636,7 +658,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105q"></script>
+<script src="app.js?v=20261105s"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
