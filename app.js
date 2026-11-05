@@ -275,7 +275,7 @@
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
       var b, ic = IC[t.id] || '';
-      if (t.hidden || t.id === 'home' || t.id === 'win' || t.id === 'st') return;
+      if (t.hidden || t.id === 'home') return;
       if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
       else {
         b = el('button', t.ready ? null : 'soonTab', t.label);
@@ -284,7 +284,7 @@
         b.setAttribute('aria-current', String(S.tab === t.id || (t.id === 'win' && S.tab === 'co')));
         b.addEventListener('click', function () { var was = S.tab; S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); if (was === 'home' || t.id === 'home') window.scrollTo(0, 0); });
       }
-      if (t.id === 'win') b.className += ' sep'; if (t.id === 'sell') b.className += ' hot';
+      if (t.id === 'sell') b.className += ' hot';
       if (t.desc) b.title = t.desc;
       if (ic) { var sp = el('span', 'em'); sp.setAttribute('aria-hidden', 'true'); sp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ic + '</svg>'; b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);

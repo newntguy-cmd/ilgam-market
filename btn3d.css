@@ -62,3 +62,5 @@ header.top .brand{color:#0f2342}
 .gnb a.hot,header nav a.hot{font-size:18px!important;min-height:42px!important}
 .acc>button,.tier{font-size:16px!important}.acc>button{min-height:42px;padding:0 18px}
 @media (max-width:760px){.gnb button,.gnb .tablink{font-size:16px!important;min-height:48px!important}}
+/* 메뉴: 왼쪽 낙찰 공사·통계, 오른쪽 직거래 장터·관심 업체 */
+@media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-start}.gnb a.hot,header nav a.hot{order:1;margin-left:auto!important}.gnb button[aria-current]:last-child,.gnb button:last-of-type{order:2}}

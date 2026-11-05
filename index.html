@@ -541,8 +541,13 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-ln{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 .ab-ln span{margin-left:4px;color:#c9a45c;font-weight:700;border-bottom:2px solid rgba(201,164,92,.6)}.ab-ln:hover span{color:#f1d795}
 .hc[data-act]{cursor:pointer;transition:transform .2s}.hc[data-act]:hover{transform:translateY(-4px)}
+.ab-card{cursor:pointer}.ab-card:hover{transform:translateY(-4px)}.ab-card{transition:transform .2s}
+.ab-dh{display:flex;align-items:center;gap:12px;font-size:clamp(22px,2.4vw,28px)!important;font-weight:800!important;letter-spacing:-.02em;color:#1fd69a!important;text-shadow:0 0 22px rgba(31,214,154,.45)}
+.ab-dh::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;background:#1fd69a;box-shadow:0 0 0 0 rgba(31,214,154,.6);animation:lv 2s ease-out infinite}
+@keyframes lv{0%{box-shadow:0 0 0 0 rgba(31,214,154,.6)}100%{box-shadow:0 0 0 14px rgba(31,214,154,0)}}
+@media (prefers-reduced-motion:reduce){.ab-dh::before{animation:none}}
 </style>
-<link rel="stylesheet" href="/btn3d.css?v=7"></head>
+<link rel="stylesheet" href="/btn3d.css?v=8"></head>
 <body>
 <script>(function(){var h=(location.hash||"").slice(1);if(!h||h==="home")document.body.classList.add("ph")})()</script>
 <div class="tb" id="tb"><span>지금 가입하면 <b>14일</b>, 낙찰 현장을 마음껏 둘러보세요</span><button type="button" data-act="join">가입하기</button></div>
@@ -677,7 +682,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105z"></script>
+<script src="app.js?v=20261105zb"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
@@ -730,7 +735,7 @@ fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
   count(document.getElementById('dN'),a.n,function(v){return fmtN(Math.round(v))+'건'},1400);
   count(document.getElementById('dC'),a.cos,function(v){return fmtN(Math.round(v))+'곳'},1400);
   count(document.getElementById('dA'),a.amt,function(v){return fmtJo(v)},1400);
-  window.__hc=a.cards[0];if(window.__phc)window.__phc();var hn=document.getElementById('hN');if(hn&&a.week)hn.textContent=fmtN(a.week.n);var cards=a.cards.map(function(c){return '<div class="ab-card"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
+  window.__hc=a.cards[0];if(window.__phc)window.__phc();var hn=document.getElementById('hN');if(hn&&a.week)hn.textContent=fmtN(a.week.n);var cards=a.cards.map(function(c){return '<div class="ab-card" role="button" tabindex="0" data-b="'+esc(c.b||'')+'" data-c="'+esc(c.co)+'"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
   document.getElementById('dTrack').innerHTML=cards+cards;
 }).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
 })();
@@ -741,10 +746,12 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function eok(a){a=Math.round(a/1e6)/100;return a>=1e4?(a/1e4).toFixed(1)+'조':a>=100?Math.round(a).toLocaleString('ko-KR')+'억':a.toFixed(1)+'억'}
 function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
 window.__phc=function(){paintHC()};
-function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c)return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입 선물</small><h3>일감 맛보기,<br>14일 드립니다</h3><p>낙찰 현장을 마음껏 둘러보세요. 카드 등록은 필요 없습니다.</p><button type="button" data-act="join" data-j="지금 받기">지금 받기</button></div><div class="r"><b>14<i>일</i></b><span>가입하면 바로</span></div></div>';return}box.innerHTML='<div class="hc" data-act="tab:win" role="button" tabindex="0"><small><span class="nw">NEW</span>방금 낙찰 · '+esc(c.rg)+'</small><b>'+esc(c.nm)+'</b><div class="row"><span>'+(on?esc(c.co):mk(c.co)+'<em>가입하면 공개</em>')+'</span><u>'+eok(c.amt)+'</u></div></div>'}
+function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c)return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입 선물</small><h3>일감 맛보기,<br>14일 드립니다</h3><p>낙찰 현장을 마음껏 둘러보세요. 카드 등록은 필요 없습니다.</p><button type="button" data-act="join" data-j="지금 받기">지금 받기</button></div><div class="r"><b>14<i>일</i></b><span>가입하면 바로</span></div></div>';return}box.innerHTML='<div class="hc" data-b="'+esc(c.b||'')+'" data-c="'+esc(c.co)+'" role="button" tabindex="0"><small><span class="nw">NEW</span>방금 낙찰 · '+esc(c.rg)+'</small><b>'+esc(c.nm)+'</b><div class="row"><span>'+(on?esc(c.co):mk(c.co)+'<em>가입하면 공개</em>')+'</span><u>'+eok(c.amt)+'</u></div></div>'}
 function sk(){paintHC();var tb=document.getElementById('tb');if(tb)tb.hidden=m();var hs=document.getElementById('hsub');if(hs)hs.hidden=m();var on=m();[].forEach.call(document.querySelectorAll('#home [data-j]'),function(b){if(on){b.textContent='내 물건 올리기';b.removeAttribute('data-act');b.setAttribute('data-go','market/?c=sell')}else{b.textContent=b.getAttribute('data-j');b.setAttribute('data-act','join');b.removeAttribute('data-go')}})}
 [].forEach.call(document.querySelectorAll('#home [data-act="join"]'),function(b){b.setAttribute('data-j',b.textContent)});
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home [data-go]');if(t)location.href=t.getAttribute('data-go')});
+document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home .ab-card[data-b],#home .hc[data-b]');if(!t||!t.dataset.b||!window.IGOpenCo)return;window.IGOpenCo({co:t.dataset.c,biz:t.dataset.b})});
+document.addEventListener('keydown',function(e){if(e.key!=='Enter')return;var t=e.target.closest&&e.target.closest('#home .ab-card[data-b],#home .hc[data-b]');if(t&&t.dataset.b&&window.IGOpenCo)window.IGOpenCo({co:t.dataset.c,biz:t.dataset.b})});
 window.addEventListener('ig-auth',sk);sk();(function(){var b=document.getElementById('hCards');if(!b||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 b.addEventListener('mousemove',function(e){var t=b.querySelector('.pt');if(!t)return;var r=t.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;t.style.transform='rotateY('+(x*14)+'deg) rotateX('+(-y*12)+'deg)'});
 b.addEventListener('mouseleave',function(){var t=b.querySelector('.pt');if(t)t.style.transform=''})})();
