@@ -610,7 +610,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105c"></script>
+<script src="app.js?v=20261105d"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
@@ -695,6 +695,13 @@ fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
   document.getElementById('dTrack').innerHTML=cards+cards;
 }).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
 })();
+</script>
+<script>
+(function(){function m(){return !!(window.IGAUTH&&window.IGAUTH.user)}
+function sk(){var on=m();[].forEach.call(document.querySelectorAll('#home [data-j]'),function(b){if(on){b.textContent='내 물건 올리기';b.removeAttribute('data-act');b.setAttribute('data-go','market/?c=sell')}else{b.textContent=b.getAttribute('data-j');b.setAttribute('data-act','join');b.removeAttribute('data-go')}})}
+[].forEach.call(document.querySelectorAll('#home [data-act="join"]'),function(b){b.setAttribute('data-j',b.textContent)});
+document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home [data-go]');if(t)location.href=t.getAttribute('data-go')});
+window.addEventListener('ig-auth',sk);sk();})();
 </script>
 <script src="/ga.js" defer></script></body>
 </html>
