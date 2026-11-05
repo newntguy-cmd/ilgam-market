@@ -556,6 +556,9 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 @media (max-width:640px){.ab-nums b{font-size:clamp(20px,6.4vw,28px)!important;white-space:nowrap}.ab-nums span{font-size:13px!important;word-break:keep-all}}
 
 .ab-ph{background-image:url(/img/hero.jpg)!important;opacity:.95!important;transition:none!important}.ab-ht h1,.ab-ht h1 em,.ab-ht p,.ab-ask{animation:none!important;opacity:1!important;transform:none!important}
+
+@media (min-width:861px){.ab-hero .ab-ht h1{font-size:clamp(52px,5vw,84px)!important;max-width:none}.ab-hero .ab-ht p{font-size:clamp(22px,1.7vw,28px)!important;max-width:760px;line-height:1.7}.ab-hero .ab-ask b{font-size:clamp(30px,2.3vw,38px)!important}.ab-hero .ab-ask .go{height:60px!important;padding:0 36px!important;font-size:20px!important}}
+@media (max-width:860px){.ab-hero .ab-ht h1{font-size:clamp(40px,10.5vw,56px)!important}.ab-hero .ab-ht p{font-size:19px!important}.ab-hero .ab-ask b{font-size:26px!important}}
 .ab-hero.has-photo::before{display:none!important}.ab-sl.s1::after,.ab-sl.s2::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(90deg,rgba(8,20,42,.72) 0%,rgba(8,20,42,.55) 38%,rgba(8,20,42,.18) 70%,rgba(8,20,42,.05) 100%)}
 .ab-sl{position:relative;flex:0 0 100%;min-width:0;overflow:hidden}
 .ab-sl .wrap{position:relative;z-index:2}
@@ -599,7 +602,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="ab-ht">
 <h1>내가 가진 물건이<br><em>일감이 되는 곳.</em></h1>
 <p><button type="button" class="ab-ln" data-act="tab:win">이번 주 낙찰된 공사 <b id="hN">1,877</b>건 <span>보기 ›</span></button><br>필요한 물품도, 팔고 싶은 물품도<br>일감마켓에서 해결하세요.</p>
-<div class="ab-bt ab-ask"><b>어떤 물건 찾으세요?</b><button type="button" class="go" data-go="market/?c=need">바로가기</button></div>
+<div class="ab-bt ab-ask"><b>이용방법 안내</b><button type="button" class="go" data-guide="1">바로가기</button></div>
 </div>
 <div class="ab-hl" id="hCards" aria-label="최근 낙찰 한 건과 내 물건 올리기"></div>
 </div></div>
@@ -725,7 +728,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105zx"></script>
+<script src="app.js?v=20261105zy"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
@@ -809,5 +812,5 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;if(u){clearInterval(t);go(0);s2.style.display='none';ds.style.display='none'}else{s2.style.display='';ds.style.display='';auto()}}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/cs.js?v=1" defer></script><script src="/ga.js" defer></script></body>
+<script src="/guide.js?v=1" defer></script><script src="/cs.js?v=1" defer></script><script src="/ga.js" defer></script></body>
 </html>
