@@ -117,3 +117,5 @@ header.top .wrap .acc{min-width:0}
 .gnb>*,header.top nav>*{flex:0 1 140px!important;width:140px}
 .gnb .em,header nav .em{display:none!important}
 }
+/* 직거래장터 등 .gnb 안의 링크도 다른 페이지와 같은 색으로 */
+.gnb a{color:#46556d!important;font-weight:500!important}.gnb a:hover{color:#0f2342!important}.gnb a[aria-current=true]{color:#8a6a28!important;border-bottom:3px solid #c9a45c!important;background:rgba(255,255,255,.55)!important}

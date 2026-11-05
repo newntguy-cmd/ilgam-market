@@ -164,7 +164,7 @@ function renderFeed(){
   const v=visible();$('fcnt').textContent=v.length?v.length+'개의 글':'';
   if(!v.length){
     const e=el('div','empty card');
-    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 글이 없습니다.'),el('br'),btn(S.corner==='need'?'견적 요청 올리기':'물건 올리기','primary',()=>{S.wtype=S.corner;go('write');}));
+    e.append(el('div',null,S.q||S.cat?'조건에 맞는 글이 없습니다.':'아직 올라온 글이 없습니다.'));
     ls.append(e);
   }
   v.forEach(p=>ls.append(postCard(p)));
