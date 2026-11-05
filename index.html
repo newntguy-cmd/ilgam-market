@@ -400,12 +400,12 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 .ab-cta .wrap{display:flex;flex-wrap:wrap;gap:22px 40px;align-items:center;justify-content:space-between}
 .ab-cta h2{margin:0;color:#fff;font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.035em;max-width:620px;line-height:1.35}
 .ab-cta .bt{display:flex;gap:12px;flex-wrap:wrap}
-.ab-cta a{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:3px;font-size:16.5px;font-weight:700;text-decoration:none}
-.ab-cta a.p{background:#c9a45c;color:#0f2342}.ab-cta a.p:hover{background:#d8b672}
-.ab-cta a.g{border:1px solid #c9a45c;color:#c9a45c}.ab-cta a.g:hover{background:rgba(201,164,92,.14)}
+.ab-cta .bt button{font-family:inherit;border:0;cursor:pointer;display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:3px;font-size:16.5px;font-weight:700;text-decoration:none}
+.ab-cta .bt button.p{background:#c9a45c;color:#0f2342}.ab-cta .bt button.p:hover{background:#d8b672}
+.ab-cta .bt button.g{background:none;border:1px solid #c9a45c;color:#c9a45c}.ab-cta .bt button.g:hover{background:rgba(201,164,92,.14)}
 footer{margin-top:0}
 @media (max-width:900px){.ab-do{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-keep div{grid-template-columns:1fr;gap:6px}}
-@media (max-width:640px){.ab-hero .wrap{padding-top:52px;padding-bottom:56px}.ab-hero p{font-size:16.5px}.ab-sec{padding-top:52px}.ab-do{grid-template-columns:1fr}.ab-story p{font-size:16.5px}.ab-story p.k{font-size:19px}.ab-cta a{width:100%;justify-content:center}}
+@media (max-width:640px){.ab-hero .wrap{padding-top:52px;padding-bottom:56px}.ab-hero p{font-size:16.5px}.ab-sec{padding-top:52px}.ab-do{grid-template-columns:1fr}.ab-story p{font-size:16.5px}.ab-story p.k{font-size:19px}.ab-cta .bt button{width:100%;justify-content:center}}
 
 .ab-hw{display:flex;align-items:center;justify-content:space-between;gap:30px}
 .ab-ht{min-width:0}
@@ -451,6 +451,10 @@ footer{margin-top:0}
 
 #home .hm{padding-top:40px}#home .ab-hero .ab-bt{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}#home .ab-hero .ab-g{height:48px;padding:0 22px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);color:#fff;border-radius:3px;font:700 15px inherit;font-family:inherit;cursor:pointer}#home .ab-hero .ab-g:hover{border-color:#c9a45c;color:#e6c883}#home .ab-cta button{font-family:inherit;cursor:pointer}
 body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
+.pl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}.pc{padding:26px 24px 24px;border:1px solid #d9dfeb;border-radius:6px;background:#fff;box-shadow:0 4px 14px rgba(15,35,66,.06)}.pc.hot{background:linear-gradient(160deg,#16305a,#0b1c37);border-color:#c9a45c;color:#fff;box-shadow:0 10px 26px rgba(15,35,66,.28)}
+.pc .pt1{font-size:13px;font-weight:700;color:#8a6a24}.pc.hot .pt1{color:#e6c883}.pc h3{margin:8px 0 6px;font-size:24px;letter-spacing:-.03em;color:#0f2342}.pc.hot h3{color:#fff}.pc .pb{margin:0 0 14px;font-size:16px;color:#2c3a52}.pc.hot .pb{color:#dbe4f3}.pc .pb b{color:#0f2342;font-size:18px}.pc.hot .pb b{color:#e6c883}
+.pc ul{list-style:none;margin:0;padding:14px 0 0;border-top:1px solid rgba(120,135,160,.3)}.pc li{position:relative;padding:5px 0 5px 16px;font-size:14.5px;line-height:1.55;word-break:keep-all;color:#44526b}.pc.hot li{color:#cdd8ea}.pc li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:#c9a45c}
+.pn1{margin:18px 0 0;font-size:13.5px;color:#6b7891}@media(max-width:860px){.pl{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="/btn3d.css"></head>
 <body>
@@ -469,7 +473,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="ab-ht">
 <span class="ab-tag">건설자재 사고팔기 · 낙찰 현장</span>
 <h1>내가 가진 물건이<br><em>일감이 되는 곳.</em></h1>
-<p>이번 주 낙찰된 공사 <b id="hN">1,877</b>건. 남는 자재·장비를 올리면 필요한 업체가 연락합니다. 낙찰·업체 조회는 계속 무료입니다.</p>
+<p>이번 주 낙찰된 공사 <b id="hN">1,877</b>건. 남는 자재·장비를 올리면 필요한 업체가 연락합니다. 가입하면 14일 동안 업체 전화번호가 전부 열립니다.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">무료 가입 · 14일 전부 열림</button><button type="button" class="ab-g" data-act="tab:win">새 일감 보기</button></div>
 </div>
 <div class="ab-hl" aria-hidden="true"><img src="/img/logo.svg" alt="" width="260" height="260"></div>
@@ -509,13 +513,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div id="bzrg" class="bzrg" hidden></div>
 </section></div>
 <div class="wrap">
-<section class="ab-sec"><h2>시작은 한 가지 불편이었습니다</h2>
-<div class="ab-story">
-<p>공공 공사는 낙찰이 정해지는 순간부터 영업이 시작됩니다. 현장이 열리면 자재를 대고, 장비를 빌려주고, 사무실을 채울 업체가 필요해집니다. 먼저 연락한 사람이 먼저 이야기를 시작합니다.</p>
-<p>그런데 낙찰 소식은 나라장터 곳곳에 흩어져 있습니다. 어느 현장인지, 누가 땄는지, 그 회사에 어떻게 연락하는지를 알려면 여러 화면을 오가며 한참을 찾아야 합니다. 그 사이 다른 영업 담당자가 먼저 전화를 겁니다.</p>
-<p class="k">낙찰 소식이 일감이 되는 가장 빠른 길을 만들자.</p>
-<p>일감마켓은 현장에서 영업하는 사람의 시선으로 이 불편을 풀기 위해 만들었습니다. 매일 아침, 오늘 전화할 곳을 가장 쉽게 보여 드리는 것이 전부입니다.</p>
-</div></section>
+
 
 <section class="ab-sec"><h2>일감마켓이 하는 일</h2>
 <ul class="ab-do">
@@ -525,20 +523,15 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <li><span class="ie" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span><b>물건 사고팔기</b><p>자재·장비·사무집기를 올리고 구하는 곳입니다. 거래는 이용자끼리 직접 합니다.</p></li>
 </ul></section>
 
-<section class="ab-sec"><h2>우리가 지키는 세 가지</h2>
-<div class="ab-keep">
-<div><h3>가장 먼저</h3><p>영업은 속도입니다. 낙찰 소식을 매일 아침 가장 먼저 정리해 드립니다.</p></div>
-<div><h3>필요한 것만</h3><p>순위나 평균 같은 숫자는 걷어 냈습니다. 지금 전화할 곳을 정하는 데 필요한 정보만 한눈에 보여 드립니다.</p></div>
-<div><h3>숨기지 않습니다</h3><p>출처(조달청 나라장터·공공데이터포털)를 밝히고, 정확성을 보장하지 못한다는 한계와 가격, 환불 조건을 그대로 적습니다.</p></div>
-</div></section>
 
-<section class="ab-sec"><h2>이렇게 운영합니다</h2>
-<ul class="ab-run">
-<li><b>가입은 무료입니다.</b> 가입하면 14일 동안 모든 연락처가 열립니다. 카드 등록은 필요 없습니다.</li>
-<li><b>맛보기가 끝나도 계속 무료입니다.</b> 낙찰·업체·금액 조회와 통계는 제한 없이 볼 수 있습니다.</li>
-<li><b>더 필요하시면 일감 마스터를 쓰세요.</b> 연락처 무제한, 영업 리스트 엑셀, 여러 지역 알림이 열립니다. 30일 49,900원, 한 번 결제하며 자동으로 다시 결제되지 않습니다.</li>
-<li><b>물건 거래는 이용자끼리 직접 합니다.</b> 일감마켓은 거래 당사자가 아닙니다.</li>
-</ul></section>
+
+<section class="ab-sec"><h2>가입하면 이렇게 쓸 수 있습니다</h2>
+<div class="pl">
+<div class="pc"><span class="pt1">가입 즉시 14일</span><h3>일감 맛보기</h3><p class="pb">업체 연락처가 <b>전부</b> 열립니다</p><ul><li>대표 전화·주소 제한 없음</li><li>카드 등록 필요 없음</li></ul></div>
+<div class="pc"><span class="pt1">그 이후에도</span><h3>무료</h3><p class="pb">조회와 통계는 <b>제한 없이</b></p><ul><li>낙찰·업체·금액 조회와 통계</li><li>업체 연락처 하루 3곳</li><li>지역 알림 1곳</li><li>건설자재 사고팔기 글 올리기와 보기</li></ul></div>
+<div class="pc hot"><span class="pt1">더 필요하시면</span><h3>일감 마스터</h3><p class="pb">연락처 <b>무제한</b></p><ul><li>영업 리스트 엑셀</li><li>여러 지역 알림</li><li>30일 49,900원, 한 번 결제하며 자동으로 다시 결제되지 않습니다</li></ul></div>
+</div>
+<p class="pn1">물건 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.</p></section>
 </div>
 
 <section class="ab-cta"><div class="wrap"><h2>오늘 낙찰된 현장부터 확인해 보세요</h2>
@@ -617,7 +610,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105b"></script>
+<script src="app.js?v=20261105c"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
