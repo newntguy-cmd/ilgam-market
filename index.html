@@ -803,8 +803,9 @@ b.addEventListener('mouseleave',function(){var t=b.querySelector('.pt');if(t)t.s
 })();
 </script>
 <script>(function(){var tr=document.getElementById('abTr'),ds=document.getElementById('abDots'),s2=document.getElementById('abS2'),hero=document.getElementById('abHero');if(!tr||!ds||!s2)return;var i=0,t=0,bs=ds.querySelectorAll('button.d'),ar=ds.querySelectorAll('button.ar');
-function go(n){i=n;tr.style.transform='translateX('+(-100*n)+'%)';for(var k=0;k<bs.length;k++)bs[k].setAttribute('aria-selected',String(k===n));s2.setAttribute('aria-hidden',String(n!==0?false:true))}
-function auto(){clearInterval(t);if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;t=setInterval(function(){go(i?0:1)},8000)}
+function mem(){return !!(window.IGAUTH&&window.IGAUTH.user)}
+function go(n){if(mem())n=0;i=n;tr.style.transform='translateX('+(-100*n)+'%)';for(var k=0;k<bs.length;k++)bs[k].setAttribute('aria-selected',String(k===n));s2.setAttribute('aria-hidden',String(n!==0?false:true))}
+function auto(){clearInterval(t);if(mem())return;if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;t=setInterval(function(){go(i?0:1)},8000)}
 for(var k=0;k<bs.length;k++)(function(n){bs[n].addEventListener('click',function(){go(n);auto()})})(k);
 for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);auto()});hero.addEventListener('mouseenter',function(){clearInterval(t)});hero.addEventListener('mouseleave',auto);hero.addEventListener('focusin',function(){clearInterval(t)});
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
