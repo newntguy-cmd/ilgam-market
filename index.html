@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>일감마켓 · 오늘 새로 생긴 일감, 공공 공사 낙찰</title>
+<title>일감마켓 · 내가 가진 물건이 일감이 되는 곳</title>
 <meta name="naver-site-verification" content="c90a09065c84eecffc4b4a400a52710d5afa1786">
-<meta name="description" content="공공 공사 낙찰 소식부터 자재·장비 거래까지. 조달청 나라장터 공공데이터를 지역·분야·업체별로 정리해 매일 아침 갱신합니다.">
+<meta name="description" content="남는 자재·장비를 올리면 필요한 업체가 연락합니다. 공공 공사 낙찰 현장과 업체 정보는 매일 아침 갱신하고, 조회는 계속 무료입니다.">
 <link rel="canonical" href="https://ilgammarket.co.kr/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="일감마켓 · 오늘 새로 생긴 일감, 한눈에 보세요"><meta property="og:description" content="공공 공사 낙찰, 업체 연락처, 관심 업체 알림까지 모두 무료. 매일 아침 갱신합니다."><meta property="og:url" content="https://ilgammarket.co.kr/"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="일감마켓 · 내가 가진 물건이 일감이 되는 곳"><meta property="og:description" content="남는 자재·장비를 올리면 필요한 업체가 연락합니다. 공공 공사 낙찰 현장과 업체 정보는 매일 아침 갱신하고, 조회는 계속 무료입니다."><meta property="og:url" content="https://ilgammarket.co.kr/"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ilgammarket.co.kr/og.png">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
 <meta name="theme-color" content="#0f2342">
@@ -466,9 +466,9 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 
 <section class="ab-hero"><div class="wrap ab-hw">
 <div class="ab-ht">
-<span class="ab-tag">일감마켓 이야기</span>
-<h1>영업하는 사람이 만든,<br><em>영업하는 사람</em>을 위한 곳</h1>
-<p>낙찰된 현장 옆에 ‘누구에게 전화할까’를 붙였습니다. 일감마켓은 그 한 가지에서 시작했습니다.</p>
+<span class="ab-tag">건설자재 사고팔기 · 낙찰 현장</span>
+<h1>내가 가진 물건이<br><em>일감이 되는 곳.</em></h1>
+<p>이번 주 낙찰된 공사 <b id="hN">1,877</b>건. 남는 자재·장비를 올리면 필요한 업체가 연락합니다. 낙찰·업체 조회는 계속 무료입니다.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">무료 가입 · 14일 전부 열림</button><button type="button" class="ab-g" data-act="tab:win">새 일감 보기</button></div>
 </div>
 <div class="ab-hl" aria-hidden="true"><img src="/img/logo.svg" alt="" width="260" height="260"></div>
@@ -703,7 +703,7 @@ fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
     document.getElementById('wDn').innerHTML=(a.down.length?a.down.map(rl).join(''):'<li><span>없음</span></li>');
     document.getElementById('wBig').innerHTML=a.big.map(function(c){return '<li><span>'+esc(c.nm)+'</span><u>'+eok(c.amt)+'</u></li>'}).join('');
     document.getElementById('dWeek').hidden=false;}
-  var cards=a.cards.map(function(c){return '<div class="ab-card"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
+  var hn=document.getElementById('hN');if(hn&&a.week)hn.textContent=fmtN(a.week.n);var cards=a.cards.map(function(c){return '<div class="ab-card"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
   document.getElementById('dTrack').innerHTML=cards+cards;
 }).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
 })();
