@@ -139,3 +139,5 @@ header.top nav>* .em svg,.gnb>* .em svg{width:18px;height:18px;fill:none;stroke:
 header.top nav>*[aria-current=true],header.top nav>*[aria-current=page],.gnb>*[aria-current=true]{font-weight:500!important;border-bottom-color:#c9a45c!important}
 .gnb .cnt{margin-left:2px}
 header.top nav>a.tablink,.gnb>a.tablink,.gnb>.tablink{font-size:17px!important;font-weight:500!important;padding:0 6px!important;height:48px!important}
+header.top .gnb>a.tablink,header.top nav.gnb>a{border:0!important;border-bottom:3px solid transparent!important}
+header.top .gnb>*[aria-current=true]{border-bottom-color:#c9a45c!important}
