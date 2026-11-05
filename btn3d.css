@@ -88,3 +88,8 @@ nav.gnb,header.top nav{justify-content:center!important;gap:40px!important}
 .gnb button:nth-of-type(2),header nav a:nth-child(2),.gnb a.hot,.gnb .tablink,header nav a.hot,.gnb button,header nav a{margin:0!important}
 .gnb button,.gnb .tablink,header nav a{padding:0 6px!important}
 }
+/* 메뉴: 직인 바로 옆에서 시작, 4개 같은 간격 */
+@media (min-width:761px){
+nav.gnb,header.top nav{justify-content:flex-start!important;gap:48px!important;margin-left:8px!important;flex:0 1 auto}
+header.top .wrap .acc{margin-left:auto!important}
+}
