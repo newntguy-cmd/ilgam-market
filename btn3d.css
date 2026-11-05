@@ -126,3 +126,9 @@ button.star:not([aria-pressed=true]){color:#8b97ab}button.star:not([aria-pressed
 .corner{min-height:156px}
 .corner button{width:200px!important;min-width:200px;height:52px!important;padding:0!important;font-size:17px!important;text-align:center;white-space:nowrap}
 @media (max-width:560px){.corner{min-height:0}.corner button{width:100%!important}}
+/* 메뉴 자리는 모든 페이지에서 똑같이: 폭은 화면 너비에만 따라 정해짐(오른쪽 계정·이용상태와 무관) */
+@media (min-width:761px){
+.gnb>*,header.top nav>*{flex:0 0 clamp(110px,11vw,160px)!important;width:clamp(110px,11vw,160px)!important}
+header.top .wrap .acc{margin-left:auto!important}
+}
+@media (min-width:761px) and (max-width:1100px){.gnb>*,header.top nav>*{flex:0 0 clamp(110px,11vw,160px)!important;width:clamp(110px,11vw,160px)!important}}
