@@ -141,3 +141,9 @@ header.top nav>*[aria-current=true],header.top nav>*[aria-current=page],.gnb>*[a
 header.top nav>a.tablink,.gnb>a.tablink,.gnb>.tablink{font-size:17px!important;font-weight:500!important;padding:0 6px!important;height:48px!important}
 header.top .gnb>a.tablink,header.top nav.gnb>a{border:0!important;border-bottom:3px solid transparent!important}
 header.top .gnb>*[aria-current=true]{border-bottom-color:#c9a45c!important}
+/* 관심업체 개수 표시: 모든 페이지 동일 */
+header.top nav .cnt,.gnb .cnt{font-style:normal;margin-left:6px;min-width:18px;padding:0 5px;border-radius:9px;background:#c9a45c;color:#0f2342;font-size:12px;font-weight:700;line-height:18px;text-align:center;display:inline-block}
+/* 메뉴 5개를 같은 폭으로 넓게(고객센터는 더 오른쪽), 폭은 화면 너비로만 정해짐 */
+@media (min-width:761px){
+.gnb>*,header.top nav>*{flex:0 0 clamp(110px,12.4vw,190px)!important;width:clamp(110px,12.4vw,190px)!important}
+}

@@ -11,6 +11,18 @@
     a.innerHTML = ICON + '고객센터';
     nav.appendChild(a);
   }
+
+  // 관심업체 개수 표시(이 기기에 저장된 값): 모든 페이지의 메뉴에서 똑같이 보이게
+  function addCount() {
+    var nav = document.querySelector('header.top nav'); if (!nav) return;
+    var n = 0; try { n = Object.keys(JSON.parse(localStorage.getItem('ilgam_wl') || '{}') || {}).length; } catch (e) {}
+    var items = nav.children;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].textContent.indexOf('관심업체') < 0) continue;
+      var old = items[i].querySelector('.cnt'); if (old) old.remove();
+      if (n > 0) { var b = document.createElement('i'); b.className = 'cnt'; b.textContent = String(n); items[i].appendChild(b); }
+    }
+  }
   var FAQ = [
     ['가입하면 무엇이 달라지나요?', '가입하면 14일 동안 낙찰 현장을 마음껏 둘러볼 수 있습니다. 카드 등록은 필요 없습니다.'],
     ['직거래장터는 어떻게 이용하나요?', '팔고 싶은 물건은 사진과 함께 올리고, 필요한 물품은 적어 올리면 판매자가 견적을 보냅니다. 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.'],
@@ -50,5 +62,6 @@
     if (!t) return; e.preventDefault(); open();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box && !box.hidden) close(); });
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addMenu); else addMenu();
+  function init() { addMenu(); addCount(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
