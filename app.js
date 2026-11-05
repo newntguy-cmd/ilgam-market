@@ -757,9 +757,17 @@
   // 앱(안드로이드)에서는 파일이 기기 안에 들어 있으므로 데이터만 홈페이지에서 받아 옵니다.
   var DATA_URL = (location.hostname === 'localhost' || location.protocol === 'capacitor:') ? 'https://ilgammarket.co.kr/data/public.json' : 'data/public.json';
   renderGnb();
-  fetch(DATA_URL, { cache: 'no-cache' }).then(function (r) {
-    if (!r.ok) throw new Error(r.status); return r.json();
-  }).then(boot).catch(function () {
-    $('board').appendChild(el('div', 'err', '데이터를 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.'));
-  });
+  function startData() {
+    fetch(DATA_URL, { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error(r.status); return r.json();
+    }).then(boot).catch(function () {
+      $('board').appendChild(el('div', 'err', '데이터를 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.'));
+    });
+  }
+  // 첫 화면(회사 소개)이 먼저 뜨도록, 큰 낙찰 데이터는 첫 조작이 있거나 잠시 뒤에 받습니다.
+  if (!location.hash || location.hash === '#home') {
+    var started = false, go = function () { if (started) return; started = true; ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) { window.removeEventListener(ev, go, true); }); startData(); };
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) { window.addEventListener(ev, go, { capture: true, passive: true }); });
+    setTimeout(go, 2500);
+  } else { startData(); }
 })();
