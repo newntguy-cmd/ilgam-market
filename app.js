@@ -275,7 +275,7 @@
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
       var b, ic = IC[t.id] || '';
-      if (t.hidden) return;
+      if (t.hidden || t.id === 'home' || t.id === 'win' || t.id === 'st') return;
       if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
       else {
         b = el('button', t.ready ? null : 'soonTab', t.label);
