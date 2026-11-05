@@ -687,6 +687,7 @@
     box.appendChild(ol); box.hidden = false;
   }
 
+  try { renderGnb(); } catch (e) {}
   function boot(data) {
     S.items = data.items || []; S.items.forEach(function (r) { r.cat = catOf(r); }); S.corp = data.corp || {}; S.sample = !!data.sample;
     S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
