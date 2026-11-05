@@ -560,9 +560,10 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-sl{position:relative;flex:0 0 100%;min-width:0;overflow:hidden}
 .ab-sl .wrap{position:relative;z-index:2}
 .ab-ph2{transform:scaleX(-1);background-position:center 55%}
-.ab-dots{position:absolute;left:0;right:0;bottom:26px;z-index:5;display:flex;justify-content:center;gap:12px}
-.ab-dots button{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:transparent;padding:0;cursor:pointer;transition:background .3s,transform .3s}
-.ab-dots button[aria-selected=true]{background:#c9a45c;border-color:#c9a45c;transform:scale(1.15)}
+.ab-dots{position:absolute;left:0;right:0;bottom:22px;z-index:5;display:flex;justify-content:center;align-items:center;gap:14px}
+.ab-dots .ar{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(8,20,42,.35);color:#fff;font-size:34px;line-height:1;font-weight:300;font-family:inherit;padding:0 0 5px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,color .2s}.ab-dots .ar:hover{background:#c9a45c;border-color:#c9a45c;color:#0f2342}.ab-dots .ar:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.ab-dots button.d{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:transparent;padding:0;cursor:pointer;transition:background .3s,transform .3s}
+.ab-dots button.d[aria-selected=true]{background:#c9a45c;border-color:#c9a45c;transform:scale(1.15)}
 .ab-dots button:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .ab-hero .ab2h{margin:0;font-size:clamp(32px,5.4vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1.18;color:#fff;text-shadow:0 1px 3px rgba(5,14,30,.85),0 2px 18px rgba(5,14,30,.8)}
 .ab-hero .ab2h em{font-style:normal;color:#e6c883}
@@ -610,7 +611,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </div>
 <div class="ab-cmp" aria-label="비회원과 회원 비교"><div class="c1"><span>비회원</span><b>둘러보기만</b></div><div class="c2"><span>회원</span><ul><li><b>14일</b> 일감 맛보기</li><li><b>매일 아침</b> 새 낙찰 메일</li><li><b>직거래장터</b> 글 올리기</li><li><b>카드 등록</b> 필요 없음</li></ul></div></div>
 </div></div></div>
-<div class="ab-dots" id="abDots" role="tablist" aria-label="소개 화면"><button type="button" role="tab" aria-selected="true" aria-label="첫 번째 화면"></button><button type="button" role="tab" aria-selected="false" aria-label="두 번째 화면"></button></div></section>
+<div class="ab-dots" id="abDots" role="tablist" aria-label="소개 화면"><button type="button" class="ar" data-d="-1" aria-label="이전 화면">&#8249;</button><button type="button" class="d" role="tab" aria-selected="true" aria-label="첫 번째 화면"></button><button type="button" class="d" role="tab" aria-selected="false" aria-label="두 번째 화면"></button><button type="button" class="ar" data-d="1" aria-label="다음 화면">&#8250;</button></div></section>
 
 <section class="ab-data" aria-label="일감마켓이 모은 낙찰 데이터"><div class="wrap">
 <p class="ab-dh">따끈한 최신 일감이 모여 있어요</p><span id="dRange" hidden></span>
@@ -724,7 +725,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261105zw"></script>
+<script src="app.js?v=20261105zx"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
 (function(){
@@ -800,11 +801,11 @@ b.addEventListener('mousemove',function(e){var t=b.querySelector('.pt');if(!t)re
 b.addEventListener('mouseleave',function(){var t=b.querySelector('.pt');if(t)t.style.transform=''})})();
 })();
 </script>
-<script>(function(){var tr=document.getElementById('abTr'),ds=document.getElementById('abDots'),s2=document.getElementById('abS2'),hero=document.getElementById('abHero');if(!tr||!ds||!s2)return;var i=0,t=0,bs=ds.querySelectorAll('button');
+<script>(function(){var tr=document.getElementById('abTr'),ds=document.getElementById('abDots'),s2=document.getElementById('abS2'),hero=document.getElementById('abHero');if(!tr||!ds||!s2)return;var i=0,t=0,bs=ds.querySelectorAll('button.d'),ar=ds.querySelectorAll('button.ar');
 function go(n){i=n;tr.style.transform='translateX('+(-100*n)+'%)';for(var k=0;k<bs.length;k++)bs[k].setAttribute('aria-selected',String(k===n));s2.setAttribute('aria-hidden',String(n!==0?false:true))}
 function auto(){clearInterval(t);if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;t=setInterval(function(){go(i?0:1)},8000)}
 for(var k=0;k<bs.length;k++)(function(n){bs[n].addEventListener('click',function(){go(n);auto()})})(k);
-hero.addEventListener('mouseenter',function(){clearInterval(t)});hero.addEventListener('mouseleave',auto);hero.addEventListener('focusin',function(){clearInterval(t)});
+for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);auto()});hero.addEventListener('mouseenter',function(){clearInterval(t)});hero.addEventListener('mouseleave',auto);hero.addEventListener('focusin',function(){clearInterval(t)});
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;if(u){clearInterval(t);go(0);s2.style.display='none';ds.style.display='none'}else{s2.style.display='';ds.style.display='';auto()}}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
