@@ -119,3 +119,6 @@ header.top .wrap .acc{min-width:0}
 }
 /* 직거래장터 등 .gnb 안의 링크도 다른 페이지와 같은 색으로 */
 .gnb a{color:#46556d!important;font-weight:500!important}.gnb a:hover{color:#0f2342!important}.gnb a[aria-current=true]{color:#8a6a28!important;border-bottom:3px solid #c9a45c!important;background:rgba(255,255,255,.55)!important}
+/* 모든 페이지의 메뉴 글씨가 같은 진하기로 보이게 */
+header.top nav a{color:#46556d!important}header.top nav a:hover{color:#0f2342!important}header.top nav a[aria-current=page],header.top nav a[aria-current=true]{color:#8a6a28!important}
+button.star:not([aria-pressed=true]){color:#8b97ab}button.star:not([aria-pressed=true]):hover{color:#c9a45c}
