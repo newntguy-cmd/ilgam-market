@@ -49,7 +49,7 @@
   var joinShown = false;
   (function () { var j = document.getElementById('hjoin'); if (!j) return; j.addEventListener('click', function () { openLogin('signup'); }); var it = document.getElementById('intro'), ij = document.getElementById('introjoin'); if (ij) ij.addEventListener('click', function () { openLogin('signup'); }); function sync() { var m = !!(window.IGAUTH && window.IGAUTH.user); j.hidden = m; if (it) it.hidden = m; } window.addEventListener('ig-auth', sync); sync(); })();
   window.addEventListener('ig-auth', function () {
-    if (window.IGAUTH.user) loadMe(); else { ME = null; CT = {}; CTLOCK = {}; CTNONE = {}; paintTier(); }
+    if (window.IGAUTH.user) loadMe(); else { try { localStorage.removeItem('ig_me'); } catch (e) {} ME = null; CT = {}; CTLOCK = {}; CTNONE = {}; paintTier(); }
     render(); if (window.IGAUTH.user && S.items.length) cloudSync();
     if (!window.IGAUTH.user && !joinShown && /[?&]join=1/.test(location.search)) { joinShown = true; openLogin('signup'); }
   });
@@ -115,7 +115,7 @@
     });
   }
   function loadMe() {
-    return srv('/me').then(function (r) { ME = r && r.ok ? r : null; paintTier(); return ME; }, function () { ME = null; paintTier(); return null; });
+    return srv('/me').then(function (r) { ME = r && r.ok ? r : null; try { if (ME) localStorage.setItem('ig_me', JSON.stringify(ME)); else localStorage.removeItem('ig_me'); } catch (e) {} paintTier(); return ME; }, function () { ME = null; paintTier(); return null; });
   }
   // 업체 번호를 요청합니다. open=true 는 "열어 주세요"(무료는 하루 3곳까지 소진)
   function getContacts(bizs, open) {
@@ -132,6 +132,17 @@
     });
   }
   function daysLeft(ms) { return Math.max(0, Math.ceil((ms - Date.now()) / 86400000)); }
+  // 이전에 확인한 내 이용 상태를 먼저 보여 줘서 '일감 맛보기 N일 남음'이 늦게 뜨지 않게 합니다. 로그인 확인이 끝나면 정확한 값으로 바뀝니다.
+  (function () {
+    try {
+      var c = JSON.parse(localStorage.getItem('ig_me') || 'null'), t = $('tier');
+      if (!c || !t) return;
+      if (c.tier === 'trial') t.textContent = '일감 맛보기 ' + daysLeft(c.trialUntil) + '일 남음';
+      else if (c.tier === 'pro') { var d = new Date(c.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
+      else return;
+      t.className = 'tier ' + c.tier; t.hidden = false;
+    } catch (e) {}
+  })();
   function paintTier() {
     var t = $('tier'), dl = $('dl'), A = window.IGAUTH;
     if (dl) { var locked = !!(A && A.user && ME && ME.tier === 'free'); dl.textContent = locked ? '엑셀로 받기 · 일감 마스터' : '엑셀로 받기'; dl.classList.toggle('locked', locked); }
