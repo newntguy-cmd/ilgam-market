@@ -171,3 +171,15 @@ header.top .gnb>a.tablink,header.top nav.gnb>a,header.top nav>a.tablink,.gnb>.ta
 .gnb .cnt,header.top nav .cnt{position:absolute;top:0;right:3px;margin:0;min-width:15px;padding:0 4px;font-size:10.5px;line-height:15px}
 }
 @media (max-width:760px){header.top nav .em,header.top .gnb .em,header.top nav>*>span.em{display:none!important}}
+/* 휴대폰 상단: 로고 · 남은 기간 · 내 계정을 한 줄에, 메뉴는 그 아래 한 줄 */
+@media (max-width:760px){
+header.top>*:first-child{flex-wrap:wrap!important;align-items:center}
+header.top .brand{order:1}
+header.top #tier,header.top .tier{order:2;margin-left:auto!important;font-size:14px!important;min-width:0!important;white-space:nowrap}
+header.top #acc,header.top .acc{order:3;min-width:0!important;margin-left:8px!important}
+header.top #acc>button,header.top .acc>button{min-height:40px;padding:0 12px!important;font-size:15px!important;white-space:nowrap}
+header.top nav{order:4;flex:0 0 100%}
+}
+@media (max-width:400px){header.top #tier,header.top .tier{font-size:12.5px!important;letter-spacing:-.04em}header.top #acc>button,header.top .acc>button{padding:0 9px!important;font-size:14px!important}header.top .brand{margin-right:0}}
+@media (max-width:760px){header.top #tier,header.top .tier{flex:1 1 0!important;width:auto!important;max-width:none!important;text-align:right;overflow:hidden;text-overflow:ellipsis}}
+@media (max-width:380px){header.top #tier,header.top .tier{font-size:12px!important;letter-spacing:-.06em;text-overflow:clip}header.top #acc>button,header.top .acc>button{padding:0 7px!important;font-size:13.5px!important}}
