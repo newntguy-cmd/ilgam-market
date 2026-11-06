@@ -588,6 +588,12 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-ph{inset:-40px!important}.ab-sl{background:#0f2342}
 @media (min-width:861px){.ab-sl{min-height:clamp(520px,calc(100vh - 200px),760px)!important}.ab-hero .ab-sl .wrap{padding-top:70px!important;padding-bottom:96px!important}}
 @media (max-width:860px){.ab-hero .ab-ht h1{text-shadow:0 1px 3px rgba(5,14,30,.85),0 2px 10px rgba(5,14,30,.55)!important}}
+.ab-hero .ab-ask{display:inline-flex!important;align-items:center;gap:22px!important;padding:9px 9px 9px 30px;border-radius:999px;background:linear-gradient(180deg,rgba(14,30,58,.62),rgba(8,20,42,.72));border:1px solid rgba(230,200,131,.5);box-shadow:0 10px 30px rgba(3,10,24,.45),inset 0 1px 0 rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.ab-hero .ab-ask b{text-shadow:none!important;font-weight:700!important;letter-spacing:-.02em;white-space:nowrap}
+.ab-hero .ab-ask .go{display:inline-flex;align-items:center;gap:6px;border-radius:999px!important;padding:0 22px 0 26px!important;height:52px;font-weight:800;white-space:nowrap}
+.ab-hero .ab-ask .go svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.ab-hero .ab-ask .go:hover svg{transform:translateX(3px)}
+@media (max-width:860px){.ab-hero .ab-ask{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;width:100%;box-sizing:border-box;justify-content:space-between;padding:8px 8px 8px 22px;gap:12px!important}.ab-hero .ab-ask b{font-size:18px!important}.ab-hero .ab-ask .go{width:auto!important;flex:0 0 auto;height:46px;padding:0 12px 0 16px!important;font-size:16px!important}}
 </style>
 <link rel="preload" as="image" href="/img/hero.jpg" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=34"></head>
 <body>
@@ -607,7 +613,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="ab-ht">
 <h1>당신의 이야기가<br><em>일감이 되는 곳.</em></h1>
 <p><button type="button" class="ab-ln" data-act="tab:win">이번 주 낙찰된 공사 <b id="hN">1,877</b>건 <span>보기 ›</span></button><br>어서오세요,<br>여러분의 일감마켓입니다.</p>
-<div class="ab-bt ab-ask"><b>이용방법 안내</b><button type="button" class="go" data-guide="1">바로가기</button></div>
+<div class="ab-bt ab-ask"><b>일감마켓 둘러보기</b><button type="button" class="go" data-guide="1" aria-label="일감마켓 둘러보기">바로가기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
 </div>
 <div class="ab-hl" id="hCards" aria-label="최근 낙찰 한 건과 내 물건 올리기"></div>
 </div></div>
