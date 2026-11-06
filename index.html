@@ -538,6 +538,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-hl .pt .l{animation:thump 2.2s ease-out 1.5s 1 both}
 @media (prefers-reduced-motion:reduce){.ab-ht h1,.ab-ht h1 em,.ab-ht p,.ab-ask,#hCards .pt,#hCards .pt .stp,.ab-hl .pt .l,.ab-hero .sk rect.w{animation:none!important}}
 .mkd,.pn1{color:#46556d!important;font-size:16px!important}.pt .r span{font-size:14.5px!important;color:#d3dcec!important}
+.ab-ln b,#mkn{display:inline-block;min-width:4.6ch;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .35s}.ab-ln b.ok,#mkn.ok{opacity:1}
 .ab-ln{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 .ab-ln span{margin-left:4px;color:#c9a45c;font-weight:700;border-bottom:2px solid rgba(201,164,92,.6)}.ab-ln:hover span{color:#f1d795}.ab-ln span{color:#1fd69a!important;font-weight:800;border-bottom:2px solid #1fd69a!important;text-shadow:0 1px 3px rgba(5,14,30,.9),0 0 14px rgba(5,14,30,.7)}.ab-ln:hover span{color:#1fd69a!important;border-bottom-width:3px}
 .hc[data-act]{cursor:pointer;transition:transform .2s}.hc[data-act]:hover{transform:translateY(-4px)}
@@ -736,7 +737,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <script type="module" src="auth.js"></script>
 <script src="app.js?v=20261106a"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
-<script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR")}).catch(function(){})</script><script>
+<script>setTimeout(function(){["hN","mkn"].forEach(function(i){var e=document.getElementById(i);if(e)e.className="ok"})},3000);fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){
 var A=null,tab='co';
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -787,7 +788,7 @@ fetch('/data/about.json').then(function(r){return r.json()}).then(function(a){
   count(document.getElementById('dN'),a.n,function(v){return fmtN(Math.round(v))+'건'},1400);
   count(document.getElementById('dC'),a.cos,function(v){return fmtN(Math.round(v))+'곳'},1400);
   count(document.getElementById('dA'),a.amt,function(v){return fmtJo(v)},1400);
-  window.__hc=a.cards[0];if(window.__phc)window.__phc();var hn=document.getElementById('hN');if(hn&&a.week)hn.textContent=fmtN(a.week.n);var cards=a.cards.map(function(c){return '<div class="ab-card" role="button" tabindex="0" data-b="'+esc(c.b||'')+'" data-c="'+esc(c.co)+'"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
+  window.__hc=a.cards[0];if(window.__phc)window.__phc();var hn=document.getElementById('hN');if(hn&&a.week)hn.textContent=fmtN(a.week.n);hn.className='ok';var cards=a.cards.map(function(c){return '<div class="ab-card" role="button" tabindex="0" data-b="'+esc(c.b||'')+'" data-c="'+esc(c.co)+'"><small>'+esc(c.rg)+' · '+esc(c.d.slice(5).replace('-','월 '))+'일 낙찰</small><b>'+esc(c.nm)+'</b><span>'+esc(c.co)+'<u>'+eok(c.amt)+'</u></span></div>'}).join('');
   document.getElementById('dTrack').innerHTML=cards+cards;
 }).catch(function(){var s=document.querySelector('.ab-data');if(s)s.style.display='none'});
 })();
