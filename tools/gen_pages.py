@@ -10,6 +10,9 @@ import re
 import shutil
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import HEADER, FOOTER, SCRIPTS
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = sys.argv[1] if len(sys.argv) > 1 else ROOT
 SITE = "https://ilgammarket.co.kr"
@@ -86,14 +89,14 @@ for biz, rows in by.items():
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=38">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet"></head>
-<body><header class="top"><div class="wrap"><a class="brand" href="/" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav aria-label="메뉴"><a href="/#home" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사소개</a><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰정보</a><a href="/market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래장터</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심업체</a></nav></div></header>
+<body>{HEADER}
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>
 <h1>{e(name)}</h1>
 <p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p>
 <section class="card"><h2>업체 정보</h2>{info}<p class="note">※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.</p></section>
 <section class="card"><h2>낙찰 이력</h2><table><tbody>{hist}</tbody></table></section>
 <p class="more"><a class="btn" href="/#co">홈페이지에서 다른 업체 보기</a></p></main>
-<footer><div class="wrap"><p>데이터 출처 조달청 나라장터 · 공공데이터포털. 공공데이터를 가공해 제공하며 정확성과 완전성을 보장하지 않습니다.</p><p><a href="/#biz">사업자 정보</a> (겟잇타운 · 사업자등록번호 594-06-03620 · 통신판매업 신고번호 제2026-용인기흥-01348호) · 문의 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> · <a href="/market/policy.html">이용약관</a> · <a href="/pro.html">일감 마스터</a> · <a href="/market/policy.html#refund">환불규정</a> · <a href="/market/policy.html#privacy">개인정보처리방침</a></p></div></footer><script type="module" src="/auth.js"></script><script src="/c.js" defer></script><script src="/cs.js?v=2" defer></script><script src="/ga.js" defer></script></body></html>
+{FOOTER}{SCRIPTS}</body></html>
 '''
     made[biz] = (page, latest)
 
@@ -109,9 +112,12 @@ for name in os.listdir(cdir):  # 60일 창에서 빠진 업체는 지웁니다
     if re.fullmatch(r"\d{10}", name) and name not in made:
         shutil.rmtree(os.path.join(cdir, name))
 
+import gen_areas
+AREA_URLS = gen_areas.build(d, OUT, SITE, set(made))
+print(f"지역 페이지 {len(AREA_URLS)}개")
 urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>"] + [
     f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)
-]
+] + AREA_URLS
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n")
 open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")

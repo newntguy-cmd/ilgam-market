@@ -24,6 +24,13 @@
   var RG = [];                  // 지역 알림: 고른 지역 이름들
   try { RG = JSON.parse(localStorage.getItem('ilgam_rg') || '[]') || []; } catch (e) { RG = []; }
   function rgSave() { try { localStorage.setItem('ilgam_rg', JSON.stringify(RG)); } catch (e) {} }
+  // 지역 페이지(/a/…)의 '알림 받아보기'로 들어오면 그 지역을 알림 지역으로 미리 담아 둡니다(이미 고른 지역이 있으면 그대로 둠).
+  (function () {
+    var m = /[?&]rg=([^&]+)/.exec(location.search); if (!m || RG.length) return;
+    var g; try { g = decodeURIComponent(m[1]); } catch (e) { return; }
+    if (['서울', '경기', '인천', '강원', '충북', '충남', '대전', '세종', '전북', '광주·전남', '경북', '대구', '경남', '부산', '울산', '제주'].indexOf(g) < 0) return;
+    RG.push(g); rgSave();
+  })();
   function cloudList() { return Object.keys(WL).concat(RG.map(function (r) { return '@지역:' + r; })); }
   var NOTIFY = true;            // 이메일 알림 켜짐 여부(로그인 시 클라우드와 동기화)
   var syncT = 0;
