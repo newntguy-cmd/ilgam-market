@@ -146,7 +146,7 @@ function postCard(p){
   return b;
 }
 const CORNER={sell:['내 물건 팔기','팔고 싶은 물건을 올리면, 필요한 업체가 연락합니다.','물건 올리기','<svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>'],need:['필요한 물품 견적받기','필요한 물품을 올리면, 파는 업체가 연락합니다.','견적 요청 올리기','<svg viewBox="0 0 24 24"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H17.5a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h4"/></svg>']};
-function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const ic=el('span','ci');ic.innerHTML=k[3];ic.setAttribute('aria-hidden','true');const d=el('div','ct');d.append(el('h2',null,k[0]),el('p',null,k[1]));c.append(ic,d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
+function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const ic=el('span','ci');ic.innerHTML=k[3];ic.setAttribute('aria-hidden','true');const d=el('div','ct');d.append(el('h2',null,k[0]),el('p',null,k[1]));d.append(el('p','cn','이 코너에서는 결제가 발생하지 않으며 PG(결제대행)를 사용하지 않습니다. 거래는 이용자끼리 직접 하며, 일감마켓은 낙찰을 주관·시행하지 않는 정보서비스입니다.'));c.append(ic,d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
 function renderFeed(){
   renderCorner();
   const t=$('ftype');t.textContent='';
