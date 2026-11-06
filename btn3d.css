@@ -170,3 +170,4 @@ header.top .gnb>a.tablink,header.top nav.gnb>a,header.top nav>a.tablink,.gnb>.ta
 header.top .gnb>a.tablink,header.top nav.gnb>a,header.top nav>a.tablink,.gnb>.tablink,.gnb>*,header.top nav>*{font-size:13.5px!important;letter-spacing:-.05em!important;position:relative}
 .gnb .cnt,header.top nav .cnt{position:absolute;top:0;right:3px;margin:0;min-width:15px;padding:0 4px;font-size:10.5px;line-height:15px}
 }
+@media (max-width:760px){header.top nav .em,header.top .gnb .em,header.top nav>*>span.em{display:none!important}}
