@@ -761,11 +761,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&bn.classLis
 document.getElementById('bn2').addEventListener('click',function(){close()});
 document.getElementById('bnjoin').addEventListener('click',function(){close();if(member()){var u=this.getAttribute('data-go');if(u)location.href=u;return}var j=document.getElementById('hjoin');if(j)j.click()});
 var pj=document.getElementById('pvjoin');if(pj)pj.addEventListener('click',function(){var j=document.getElementById('hjoin');if(j)j.click()});
-var N='1,877',orig={};
+var N='',orig={};
 function skin(){var m=member(),t=document.querySelector('#bn .tg'),h=document.getElementById('bnt'),p=document.querySelector('#bn p'),c=document.querySelector('#bn .ch'),g=document.getElementById('bnjoin');
 if(!orig.h){orig={t:t.textContent,h:h.innerHTML,p:p.innerHTML,g:g.textContent}}
 if(m){t.textContent='직거래장터';h.innerHTML='내가 가진 물건이<br><em>일감이 됩니다</em>';p.innerHTML='사진 한 장으로 올리면 필요한 업체가 연락합니다.<br>올리기도, 낙찰·업체 조회도 무료입니다.';c.style.display='none';g.textContent='내 물건 올리기';g.setAttribute('data-go','market/?c=sell');var b2=document.getElementById('bn2');if(b2)b2.hidden=false}
-else{t.textContent=orig.t;h.innerHTML=orig.h;p.innerHTML=orig.p;c.style.display='';g.textContent=orig.g;g.removeAttribute('data-go');var b2=document.getElementById('bn2');if(b2)b2.hidden=true}}
+else{t.textContent=orig.t;h.innerHTML=orig.h;p.innerHTML=orig.p;c.style.display='';g.textContent=orig.g;g.removeAttribute('data-go');var b2=document.getElementById('bn2');if(b2)b2.hidden=true}
+var ne=document.getElementById('bnn');if(ne&&N){ne.textContent=N;ne.className='ok'}}
 function sync(){var m=member();var pv=document.getElementById('pv');if(pv)pv.hidden=m||!window.igKnown();skin()}
 window.addEventListener('ig-auth',sync);window.addEventListener('ig-known',sync);sync();
 if(!/[?&]embed=1/.test(location.search)&&ok()){var openBn=function(){setTimeout(function(){skin();last=document.activeElement;bn.classList.add('on');try{document.getElementById('bnjoin').focus({preventScroll:true})}catch(e){}},900)};if(window.igKnown())openBn();else{var once=function(){window.removeEventListener('ig-auth',once);window.removeEventListener('ig-known',once);openBn()};window.addEventListener('ig-auth',once);window.addEventListener('ig-known',once)}}
