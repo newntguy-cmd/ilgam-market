@@ -193,6 +193,8 @@
     var A = window.IGAUTH, box = $('acc'); box.textContent = '';
     var fc = $('fcta'); if (fc) { fc.hidden = !!(A && A.user); if (!fc.getAttribute('data-b')) { fc.setAttribute('data-b', '1'); $('fctab').addEventListener('click', function () { openLogin('signup'); }); } }
     if (!A || !A.user) {
+      var cached = false; try { cached = !!localStorage.getItem('ig_me'); } catch (e) {}
+      if (cached && !(window.igKnown && window.igKnown())) { var bc = el('button', null, '내 계정 ▾'); bc.type = 'button'; box.appendChild(bc); return; }
       var b0 = el('button', 'jn', '가입하기'); b0.type = 'button'; b0.addEventListener('click', function () { openLogin('signup'); }); box.appendChild(b0); var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', function () { openLogin(); }); box.appendChild(b); return;
     }
     var b2 = el('button', null, '내 계정 ▾'); b2.type = 'button'; b2.setAttribute('aria-haspopup', 'true');
@@ -205,6 +207,7 @@
     b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
     box.appendChild(b2); box.appendChild(m);
   }
+  try { renderAcc(); } catch (e) {} // 로그인 확인 전에도 자리를 먼저 채워 둬서, 나중에 나타나며 깜빡이지 않게 함
   document.addEventListener('click', function (e) { var m = document.querySelector('#acc .menu'); if (m && !m.contains(e.target)) m.hidden = true; });
   function accountCard() {
     var A = window.IGAUTH, box = el('div', 'acct');

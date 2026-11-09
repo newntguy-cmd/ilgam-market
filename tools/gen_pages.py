@@ -165,3 +165,14 @@ for r in _cur:
 _about["topco"] = [{"co": k, "n": v, "amt": _ca[k], "b": _cb.get(k, "")} for k, v in sorted(_cn.items(), key=lambda kv: (-kv[1], -_ca[kv[0]]))[:10]]
 _about["regw"] = [{"rg": k, "cur": _cc[k], "prev": _pc.get(k, 0)} for k in sorted(_cc, key=lambda x: -_cc[x]) if k != "미분류"]
 json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+# 메인 화면 숫자: 처음 그려질 때부터 맞는 값이 보이도록 HTML 안의 자리 숫자도 오늘 값으로 맞춘다
+try:
+    import re as _re
+    _wn = "{:,}".format(_about["week"]["n"])
+    _ip = os.path.join(OUT, "index.html")
+    _h = open(_ip, encoding="utf-8").read()
+    for _id in ("hN", "mkn", "bnn"):
+        _h = _re.sub(r'(id="%s">)[0-9,]+(<)' % _id, lambda m: m.group(1) + _wn + m.group(2), _h)
+    open(_ip, "w", encoding="utf-8").write(_h)
+except Exception as _e:
+    print("메인 숫자 맞춤 건너뜀:", _e)
