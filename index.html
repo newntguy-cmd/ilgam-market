@@ -581,6 +581,13 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-cmp .c2{padding:26px 24px}.ab-cmp .c2 span{background:#0f2342;color:#e6c883}
 .ab-cmp ul{list-style:none;margin:0;padding:0}.ab-cmp li{font-size:18px;line-height:1.5;padding:7px 0;border-bottom:1px dashed #e6dcc4}.ab-cmp li:last-child{border:0}.ab-cmp li b{color:#8a6a28;font-size:19px;margin-right:4px}
 .ab-cmp.pl{grid-template-columns:1fr}.ab-cmp.pl .pr{padding:13px 24px;border-bottom:1px dashed #e6dcc4}.ab-cmp.pl .pr:last-child{border:0}.ab-cmp.pl .pr span{margin-bottom:8px}.ab-cmp.pl .pr.m span{background:#0f2342;color:#e6c883}.ab-cmp.pl p{margin:0;color:#2b3648;text-shadow:none;font-size:18px;line-height:1.55}.ab-cmp.pl p b{color:#8a6a28;font-size:19px}
+.ab-pl{list-style:none;margin:0;padding:6px 0;width:min(520px,100%);border-radius:16px;background:rgba(9,22,47,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(201,164,92,.55);box-shadow:0 26px 54px rgba(0,0,0,.5)}
+.ab-pl li{display:grid;grid-template-columns:132px 1fr;align-items:center;gap:18px;padding:20px 26px;border-bottom:1px solid rgba(201,164,92,.22)}.ab-pl li:last-child{border:0}
+.ab-pl .f{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1;color:#e6c883;white-space:nowrap}
+.ab-pl em{display:block;font-style:normal;font-size:15px;font-weight:700;color:#9fb0ca;margin-bottom:5px}
+.ab-pl p{margin:0;font-size:19px;font-weight:700;line-height:1.45;color:#fff;text-shadow:none}.ab-pl small{display:inline-block;margin-top:3px;font-size:15.5px;font-weight:500;color:#c3cfe3}
+.ab-pl li.m{background:linear-gradient(90deg,rgba(201,164,92,.22),rgba(201,164,92,.05));box-shadow:inset 4px 0 0 #c9a45c}
+@media (max-width:860px){.ab-pl{margin-top:26px}.ab-pl li{grid-template-columns:104px 1fr;gap:12px;padding:16px 16px}.ab-pl .f{font-size:23px}.ab-pl p{font-size:17px}.ab-pl small{font-size:14.5px}}
 @media (max-width:860px){.ab-cmp{width:100%;margin-top:26px}.ab-sl .wrap{padding-bottom:80px}}
 @media (prefers-reduced-motion:reduce){.ab-tr{transition:none}}
 .ab-hero.has-photo .sk{display:none}.ab-hero.has-photo::before{background-image:linear-gradient(90deg,rgba(11,28,55,.55) 0%,rgba(11,28,55,.38) 34%,rgba(11,28,55,.08) 66%,rgba(11,28,55,0) 100%)!important}.ab-hero.has-photo::after{display:none}
@@ -620,11 +627,11 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </div></div>
 <div class="ab-sl s2" id="abS2"><div class="ab-ph ab-ph2" id="abPh2" aria-hidden="true"></div><div class="wrap ab-hw">
 <div class="ab-ht">
-<h2 class="ab2h">얼마나<br><em>쓸 수 있나요?</em></h2>
-<p class="ab2p">가입하고 14일은 낙찰 현장이 전부 열려 있습니다.</p>
+<h2 class="ab2h">처음 14일은<br><em>전부 보세요</em></h2>
+<p class="ab2p">카드 등록 없이, 낙찰 현장·업체·금액을 제한 없이 봅니다.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">가입하기</button></div>
 </div>
-<div class="ab-cmp pl" aria-label="요금제 안내"><div class="pr"><span>맛보기 14일</span><p><b>낙찰 현장 전부</b> 둘러보기<br>카드 등록 없음</p></div><div class="pr"><span>그 뒤에도</span><p><b>낙찰 현황</b> 계속 보기<br>업체 정보 하루 3곳</p></div><div class="pr m"><span>일감 마스터</span><p><b>30일 49,900원</b> 한 번 결제<br>영업 리스트 엑셀·지역 알림</p></div></div>
+<ol class="ab-pl" aria-label="요금제 안내"><li><b class="f">14일</b><div><em>맛보기</em><p>현장·업체·금액 전부<br><small>카드 등록 없음</small></p></div></li><li><b class="f">하루 3곳</b><div><em>그 뒤에도</em><p>낙찰 현황은 계속 보기<br><small>업체 정보는 하루 3곳씩</small></p></div></li><li class="m"><b class="f">49,900원</b><div><em>일감 마스터 · 30일 한 번 결제</em><p>업체 정보 제한 없이<br><small>영업 리스트 엑셀 · 지역 알림</small></p></div></li></ol>
 </div></div></div>
 <div class="ab-dots" id="abDots" role="tablist" aria-label="소개 화면"><button type="button" class="ar" data-d="-1" aria-label="이전 화면">&#8249;</button><button type="button" class="d" role="tab" aria-selected="true" aria-label="첫 번째 화면"></button><button type="button" class="d" role="tab" aria-selected="false" aria-label="두 번째 화면"></button><button type="button" class="ar" data-d="1" aria-label="다음 화면">&#8250;</button></div></section>
 
