@@ -375,7 +375,7 @@
     });
     board.appendChild(hd);
     var cap = (GATE.on && isGuest()) ? Math.min(S.shown, GATE.guestList) : S.shown;
-    list.slice(0, cap).forEach(function (r) {
+    list.slice(0, cap).forEach(function (r, ri) {
       var row = el('div', 'row');
       row.appendChild(el('span', 'rg', r.rg || '-'));
       row.appendChild(el('span', 'kd', r.cat || ''));
@@ -406,6 +406,15 @@
       if (hasBz) row.addEventListener('click', function (e) { if (e.target.closest('button,a')) return; openCo(); });
       if (hasBz) row.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); openCo(); } });
       board.appendChild(row);
+      if (ri === 5 && isGuest()) {
+        var gr = (S.region && S.region !== '전체') ? S.region : '';
+        var mk = el('div', 'nca');
+        var tx = el('div', 'nct'); tx.appendChild(el('b', null, (gr || '내 지역') + '에 새 낙찰이 나면, 아침마다 메일로'));
+        tx.appendChild(el('span', null, '지역을 정해 두면 그 지역 소식만 보내 드려요.'));
+        var mb = el('button', null, '알림 받아보기'); mb.type = 'button';
+        mb.addEventListener('click', function () { if (gr && !RG.length) { RG.push(gr); rgSave(); } openLogin('signup'); });
+        mk.appendChild(tx); mk.appendChild(mb); board.appendChild(mk);
+      }
     });
     if (GATE.on && isGuest() && list.length > cap) {
       var lk = el('div', 'more'); var lb = el('button', null, '가입하고 ' + (list.length - cap) + '건 더 보기'); lb.type = 'button';
