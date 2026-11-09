@@ -1,3 +1,4 @@
+from urllib.parse import quote
 """법인 업체별 전용 페이지(c/<사업자번호>/index.html), 사이트맵, robots.txt 를 만듭니다.
 
 검색엔진이 읽을 수 있는 정적 페이지입니다. 법인만 만들고(개인사업자는 만들지 않음),
@@ -53,7 +54,7 @@ for r in d["items"]:
     if r.get("b"):
         by.setdefault(r["b"], []).append(r)
 
-STYLE = "/page.css"
+STYLE = "/page.css?v=2"
 made = {}
 for biz, rows in by.items():
     rows.sort(key=lambda r: (r["d"], r["amt"]), reverse=True)
@@ -75,10 +76,10 @@ for biz, rows in by.items():
         for r in rows[:50]
     )
     info = f'<div class="l"><span>사업자번호</span><b>{fmt_biz(biz)}</b></div>'
-    info += ('<div class="l" id="ct0"><span>주소</span><a class="lock" href="/?join=1"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg><span class="dots">경기 ••••• ••• ••••</span> 가입하면 보입니다</a></div>')
+    info += ('<div class="l" id="ct0"><span>주소</span><a class="lock" href="/?join=1"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg><span class="dots">경기 ••••• ••• ••••</span> 가입하고 보기</a></div>')
     info += (f'<div class="l" id="ct" data-biz="{biz}"><span>대표 전화</span>'
              f'<a class="lock" href="/?join=1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
-             f'<span class="dots">031-•••-••••</span> 가입하면 보입니다</a></div>')
+             f'<span class="dots">031-•••-••••</span> 가입하고 보기</a></div>')
     page = f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title>
@@ -95,6 +96,7 @@ for biz, rows in by.items():
 <p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p>
 <section class="card"><h2>업체 정보</h2>{info}<p class="note">※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.</p></section>
 <section class="card"><h2>낙찰 이력</h2><table><tbody>{hist}</tbody></table></section>
+<aside class="nca"><div><b>{e(top)}에 새 낙찰이 나면, 아침마다 메일로</b><span>지역을 정해 두면 그 지역 소식만 보내 드려요.</span></div><a href="/?join=1&amp;rg={quote(top)}">알림 받아보기</a></aside>
 <p class="more"><a class="btn" href="/#co">홈페이지에서 다른 업체 보기</a></p></main>
 {FOOTER}{SCRIPTS}</body></html>
 '''
