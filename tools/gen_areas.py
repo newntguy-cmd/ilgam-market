@@ -151,7 +151,7 @@ def build(d, out, site, linked):
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=38"><style>{css}</style>
-<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet"></head>
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {body}
 {FOOTER}{SCRIPTS}</body></html>

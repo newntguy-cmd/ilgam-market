@@ -88,7 +88,7 @@ for biz, rows in by.items():
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
 <meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=38">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
-<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet"></head>
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>
 <h1>{e(name)}</h1>
