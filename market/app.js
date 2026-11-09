@@ -111,8 +111,9 @@ function needLogin(){
 }
 function updateWho(){
   $('who').textContent='';
-  const t=$('tme');if(t){t.textContent=S.user?'내 계정':'로그인';}
+  const t=$('tme');if(t){t.textContent=S.user?'내 계정':'로그인';}const j=$('tjn');if(j)j.hidden=!!S.user;
 }
+$('tjn').addEventListener('click',()=>{S.authMode='signup';go('me');});
 $('tme').addEventListener('click',()=>{if(!S.user)S.authMode='login';go('me');});
 
 /* ---------- 장터(목록) ---------- */
