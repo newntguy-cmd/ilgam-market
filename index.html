@@ -365,8 +365,8 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
 @media (prefers-reduced-motion:reduce){.row{transition:none}}
-.tier{margin-left:auto;flex:none;font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;color:var(--brass);padding:6px 4px}.tier[hidden]{display:none}.tier+.acc{margin-left:14px}
-.tier.free{color:#aebbd1}.tier.pro{color:#1fd69a}
+.tier{margin-left:auto;flex:none;font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;color:var(--brass);padding:7px 14px;border:1px solid rgba(176,137,59,.6);border-radius:999px;background:rgba(255,255,255,.4);transition:background .15s}.tier::after{content:' ›';font-weight:800}.tier:hover{background:rgba(255,255,255,.75)}.tier[hidden]{display:none}.tier+.acc{margin-left:14px}
+.tier.free{color:#5b6b85;border-color:#aebbd1}.tier.pro{color:#0f9f72;border-color:rgba(31,214,154,.6)}
 .lockline .lockv{display:inline-flex;align-items:center;gap:8px;color:var(--mut);font-weight:500}.lockline .dots{letter-spacing:.12em}.lockline .why{color:var(--sub);font-size:14px}
 .cp.unlock{background:var(--brass);border-color:var(--brass);color:var(--navy);font-weight:700}
 .tools .dl.locked{background:#f3f4f7;border-color:#cfd6e0;color:#6b788e}
@@ -742,7 +742,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261109c"></script>
+<script src="app.js?v=20261111a"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){

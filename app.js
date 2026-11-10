@@ -203,7 +203,8 @@
     var w = el('button', null, '★ 내 관심업체'); w.type = 'button';
     w.addEventListener('click', function () { m.hidden = true; S.tab = 'wl'; try { history.replaceState(null, '', '#wl'); } catch (e) {} render(); });
     var o = el('button', null, '로그아웃'); o.type = 'button'; o.addEventListener('click', function () { m.hidden = true; A.logout(); });
-    m.appendChild(w); m.appendChild(o);
+    var pr = el('button', null, '일감 마스터 이용권 · 결제 내역'); pr.type = 'button'; pr.addEventListener('click', function () { location.href = 'pro.html'; });
+    m.appendChild(w); m.appendChild(pr); m.appendChild(o);
     b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
     box.appendChild(b2); box.appendChild(m);
   }
