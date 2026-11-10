@@ -196,7 +196,7 @@ function renderDetail(){
   const r=el('div','row');r.append(el('span','tag '+p.type,TYPE[p.type]||''));
   if(p.cat)r.append(el('span','tag cat',p.cat));
   if(p.status==='closed')r.append(el('span','tag end','거래완료'));
-  b.append(r,el('h2','dtitle',p.title||''),el('div','dby',(p.authorName||'')+' · '+ago(p.createdAt)));
+  b.append(r,el('h2','dtitle',p.title||''),el('div','dby',(p.type==='need'?'찾는 분 ':'파는 분 ')+(p.authorName||'')+(mine?' (나)':'')+' · '+ago(p.createdAt)));
   if(p.body)b.append(el('div','dbody',p.body));
   if(p.items&&p.items.length){
     const c=el('div','card form');c.append(el('h3','h4','품목 '+p.items.length+'개'));
@@ -209,6 +209,14 @@ function renderDetail(){
       try{await navigator.clipboard.writeText(t);toast('복사했습니다');}catch(e){toast('복사하지 못했습니다');}}));
     b.append(c);
   }
+  const hw=el('div','how');
+  if(mine){
+    hw.append(el('b',null,'문의가 오면 아래 댓글에 보입니다'),el('p',null,'댓글에 남은 연락처로 직접 연락해 주세요. 거래가 끝나면 아래에서 거래완료로 바꿔 두시면 목록에서 정리됩니다.'));
+  }else{
+    hw.append(el('b',null,p.type==='need'?'이 물품을 가지고 계신가요?':'관심 있으신가요?'),el('p',null,'아래 댓글에 문의와 연락처를 남겨 주세요. 올린 분이 확인하고 연락합니다. 가격·수량·인도 방법은 서로 직접 정합니다.'));
+    hw.append(btn(S.user?'댓글 남기기':'로그인하고 댓글 남기기','primary',()=>{if(!S.user){needLogin();back();return;}const t=document.querySelector('#cbox textarea');if(t)t.focus({preventScroll:true});}));
+  }
+  b.append(hw);
   if(mine){
     const a=el('div','own');
     a.append(el('span',null,'내가 올린 글'),btn(p.status==='closed'?'다시 열기':'거래완료로 바꾸기',null,toggleClosed),btn('삭제','danger',delPost));
