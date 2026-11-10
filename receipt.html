@@ -39,7 +39,7 @@
     rows+=row('주문번호','<span style="font-size:13px">'+esc(o.orderId)+'</span>');
     var off=(o.receipt&&/^https:\/\/[\w.-]*tosspayments\.com\//.test(o.receipt))?'<a href="'+o.receipt+'" target="_blank" rel="noopener">카드사 매출전표</a>':'';
     box.innerHTML='<h1>결제 영수증</h1><p class="sub">일감 마스터 이용권</p><div class="amt">'+Number(o.amount).toLocaleString('ko-KR')+'원</div><dl>'+rows+'</dl>'
-     +'<div class="seller"><b>판매자</b> 겟잇타운 (일감마켓) · 대표 신상헌 · 사업자등록번호 594-06-03620<br>help@ilgammarket.co.kr</div>'
+     +'<div class="seller"><b>판매자</b> 겟잇타운 (일감마켓) · 사업자등록번호 594-06-03620<br>help@ilgammarket.co.kr</div>'
      +'<div class="act"><button type="button" class="btn go" id="pr">PDF로 저장</button></div>'
      +(off?'<p class="fine">카드사 서식이 필요하면 '+off+'(카드번호로 본인 확인)</p>':'');
     document.getElementById('pr').onclick=function(){window.print();};
