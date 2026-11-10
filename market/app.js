@@ -407,6 +407,7 @@ function renderWrite(){
     const title=ti.value.trim(),body=bo.value.trim();
     err.textContent='';
     if(title.length<2){err.textContent='제목을 2자 이상 적어 주세요.';ti.focus();return;}
+    if(body.length<10){err.textContent='내용을 10자 이상 적어 주세요. 상태·수량·지역이 있으면 연락이 더 잘 옵니다.';bo.focus();return;}
     sub.disabled=true;sub.textContent='올리는 중…';
     try{
       const data={type:S.wtype,title,body,cat:sel.value,authorId:S.user.uid,authorName:S.profile.nick,status:'open',createdAt:serverTimestamp()};
