@@ -211,10 +211,21 @@ function renderDetail(){
   }
   const hw=el('div','how');
   if(mine){
-    hw.append(el('b',null,'문의가 오면 아래 댓글에 보입니다'),el('p',null,'댓글에 남은 연락처로 직접 연락해 주세요. 거래가 끝나면 아래에서 거래완료로 바꿔 두시면 목록에서 정리됩니다.'));
+    hw.append(el('b',null,'문의는 연락처나 댓글로 옵니다'),el('p',null,(p.contact?'내 연락처: '+p.contact+'. ':'')+'거래가 끝나면 아래에서 거래완료로 바꿔 두세요. 목록에서 정리됩니다.'));
   }else{
-    hw.append(el('b',null,p.type==='need'?'이 물품을 가지고 계신가요?':'관심 있으신가요?'),el('p',null,'아래 댓글에 문의와 연락처를 남겨 주세요. 올린 분이 확인하고 연락합니다. 가격·수량·인도 방법은 서로 직접 정합니다.'));
-    hw.append(btn(S.user?'댓글 남기기':'로그인하고 댓글 남기기','primary',()=>{if(!S.user){needLogin();back();return;}const t=document.querySelector('#cbox textarea');if(t)t.focus({preventScroll:true});}));
+    hw.append(el('b',null,p.type==='need'?'이 물품을 가지고 계신가요?':'관심 있으신가요?'));
+    if(p.contact){
+      if(S.user){
+        const isM=p.contact.indexOf('@')>0,cn=el('div','cn');cn.append(el('span',null,'연락받을 곳'),el('strong',null,p.contact));
+        const a=el('a','btn-l',isM?'메일 보내기':'전화 걸기');a.href=(isM?'mailto:':'tel:')+p.contact.replace(/\s/g,'');cn.append(a);
+        hw.append(cn,el('p',null,'바로 연락하시거나, 아래 댓글로 문의를 남기셔도 됩니다. 가격·수량·인도 방법은 서로 직접 정합니다.'));
+      }else{
+        hw.append(el('p',null,'올린 분의 연락처는 로그인하면 바로 보입니다. 가격·수량·인도 방법은 서로 직접 정합니다.'),btn('로그인하고 연락처 보기','primary',()=>{needLogin();back();}));
+      }
+    }else{
+      hw.append(el('p',null,'아래 댓글에 문의와 연락처를 남겨 주세요. 올린 분이 확인하고 연락합니다. 가격·수량·인도 방법은 서로 직접 정합니다.'));
+      hw.append(btn(S.user?'댓글 남기기':'로그인하고 댓글 남기기','primary',()=>{if(!S.user){needLogin();back();return;}const t=document.querySelector('#cbox textarea');if(t)t.focus({preventScroll:true});}));
+    }
   }
   b.append(hw);
   if(mine){
@@ -409,20 +420,30 @@ function renderWrite(){
   const ti=el('input');ti.id='wt';ti.maxLength=80;ti.placeholder=S.wtype==='need'?'예) 조립식 가설사무소 임대 구합니다':'예) 사용 안 한 H빔 10톤 팝니다';ti.value=keep.title||'';g2.append(ti);
   const g3=el('div');g3.append(el('label',null,'내용'));
   const bo=el('textarea');bo.id='wb';bo.maxLength=3000;bo.placeholder=S.wtype==='need'?'수량, 지역, 필요한 시기를 적어 주세요.':'상태, 수량, 가격, 지역을 적어 주세요.';bo.value=keep.body||'';g3.append(bo);
-  f.append(g1,g2,g3,el('div','tip','연락처는 글에 적지 말고, 댓글로 주고받으세요. 댓글은 로그인한 회원에게만 보입니다.'),el('div','tip legal','올리는 글은 올린 사람의 책임입니다. 일감마켓은 이용자끼리 거래할 수 있게 연결해 주는 곳입니다. 거래의 당사자가 아니며, 물건의 품질·대금·배송 등 거래와 관련한 분쟁과 책임은 거래 당사자에게 있습니다.'));
+  const g4=el('div');g4.append(el('label',null,'연락받을 곳 (휴대폰 번호 또는 이메일)'));
+  const co=el('input');co.id='wk';co.maxLength=60;co.placeholder='예) 010-1234-5678 또는 abc@naver.com';co.autocomplete='off';co.value=keep.contact||'';g4.append(co);
+  f.append(g1,g2,g3,g4,el('div','tip','연락받을 곳은 로그인한 회원에게만 보입니다. 문의는 댓글로도 받을 수 있습니다.'),el('div','tip legal','올리는 글은 올린 사람의 책임입니다. 일감마켓은 이용자끼리 거래할 수 있게 연결해 주는 곳입니다. 거래의 당사자가 아니며, 물건의 품질·대금·배송 등 거래와 관련한 분쟁과 책임은 거래 당사자에게 있습니다.'));
   const err=el('div','err');err.id='werr';
   const sub=btn('올리기','primary big',async()=>{
     const title=ti.value.trim(),body=bo.value.trim();
     err.textContent='';
     if(title.length<2){err.textContent='제목을 2자 이상 적어 주세요.';ti.focus();return;}
     if(body.length<10){err.textContent='내용을 10자 이상 적어 주세요. 상태·수량·지역이 있으면 연락이 더 잘 옵니다.';bo.focus();return;}
+    const contact=co.value.trim();
+    if(!/^[0-9][0-9\- ]{8,}$/.test(contact)&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)){err.textContent='연락받을 휴대폰 번호나 이메일을 정확히 적어 주세요.';co.focus();return;}
     sub.disabled=true;sub.textContent='올리는 중…';
     try{
-      const data={type:S.wtype,title,body,cat:sel.value,authorId:S.user.uid,authorName:S.profile.nick,status:'open',createdAt:serverTimestamp()};
+      const data={type:S.wtype,title,body,contact,cat:sel.value,authorId:S.user.uid,authorName:S.profile.nick,status:'open',createdAt:serverTimestamp()};
       if(S.attach&&S.attach.rows.length)data.items=S.attach.rows.slice(0,300);
       const pics=S.photos.slice();
       if(pics.length){data.thumb=pics[0].thumb;data.pc=pics.length;}
-      const ref=await addDoc(collection(db,'posts'),data);
+      let ref;
+      try{ref=await addDoc(collection(db,'posts'),data);}
+      catch(e0){
+        if(!e0||e0.code!=='permission-denied')throw e0;
+        data.body=body+'\n\n연락처: '+contact;delete data.contact;
+        ref=await addDoc(collection(db,'posts'),data);
+      }
       let fail=0;
       for(let i=0;i<pics.length;i++){
         sub.textContent='사진 올리는 중 ('+(i+1)+'/'+pics.length+')';
