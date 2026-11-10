@@ -1,6 +1,6 @@
 // 이용권 구매 (토스페이먼츠 결제창)
 (function(){
-  var CLIENT_KEY='test_ck_yL0qZ4G1VO5PBqDwzm2o8oWb2MQY';
+  var CLIENT_KEY='live_ck_eqRGgYO1r5KkBekj9Gnp3QnN2Eya';
   window.IGPAY={WORKER:'https://ilgam-pay.newntguy.workers.dev',CLIENT_KEY:CLIENT_KEY,
     plans:{'30':{amount:49900,name:'일감 마스터 30일 이용권'},'90':{amount:129900,name:'일감 마스터 90일 이용권'}}};
   var $=function(i){return document.getElementById(i);};
