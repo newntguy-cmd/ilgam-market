@@ -210,8 +210,8 @@ function renderDetail(){
     b.append(c);
   }
   if(mine){
-    const a=el('div','act');
-    a.append(btn(p.status==='closed'?'다시 열기':'거래완료로 바꾸기','primary',toggleClosed),btn('글 삭제','danger',delPost));
+    const a=el('div','own');
+    a.append(el('span',null,'내가 올린 글'),btn(p.status==='closed'?'다시 열기':'거래완료로 바꾸기',null,toggleClosed),btn('삭제','danger',delPost));
     b.append(a);
   }else{
     const s=el('div','sub');
