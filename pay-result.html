@@ -29,9 +29,10 @@
     res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
   }
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
-  if(q.get('code')){show('결제가 완료되지 않았습니다',q.get('message')||'결제가 취소되었거나 실패했습니다. 카드에서 금액이 빠져나가지 않았습니다.');return;}
+  function clean(){try{history.replaceState(null,'','/pay-result.html');}catch(e){}}
+  if(q.get('code')){clean();show('결제가 완료되지 않았습니다',q.get('message')||'결제가 취소되었거나 실패했습니다. 카드에서 금액이 빠져나가지 않았습니다.');return;}
   var pk=q.get('paymentKey'),oid=q.get('orderId'),amt=q.get('amount');
-  if(!pk||!oid||!amt){show('결제 정보가 없습니다','요금 안내 페이지에서 다시 시작해 주세요.');return;}
+  if(!pk||!oid||!amt){location.replace('/pro.html');return;}
   var W=window.IGPAY.WORKER,tries=0;
   function go(){
     var A=window.IGAUTH;
@@ -40,6 +41,7 @@
     A.token().then(function(t){
       return fetch(W+'/confirm',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify({paymentKey:pk,orderId:oid,amount:Number(amt)})});
     }).then(function(r){return r.json();}).then(function(d){
+      clean();
       if(!d.ok){show('결제를 확인하지 못했습니다',d.message||'잠시 뒤 다시 시도해 주세요. 문제가 계속되면 help@ilgammarket.co.kr 로 알려 주세요.');return;}
       show('결제가 완료되었습니다','일감 마스터 이용이 시작되었습니다.',
         '<div><span>이용권</span><b>'+(oid.indexOf('ig_90_')===0?'90일':'30일')+'</b></div><div><span>결제 금액</span><b>'+Number(amt).toLocaleString('ko-KR')+'원</b></div><div><span>이용 기간</span><b>'+fmt(d.until)+'까지</b></div>',true,oid);
