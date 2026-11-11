@@ -124,7 +124,7 @@
   function loadMe() {
     return srv('/me').then(function (r) { ME = r && r.ok ? r : null; try { if (ME) localStorage.setItem('ig_me', JSON.stringify(ME)); else localStorage.removeItem('ig_me'); } catch (e) {} paintTier(); return ME; }, function () { ME = null; paintTier(); return null; });
   }
-  // 업체 번호를 요청합니다. open=true 는 "열어 주세요"(무료는 하루 3곳까지 소진)
+  // 업체 번호를 요청합니다. 무료 회원에게는 서버가 번호를 내주지 않고 잠금으로 돌려줍니다.
   function getContacts(bizs, open) {
     var need = bizs.filter(function (b) { return !CT[b] && !CTLOCK[b] && !CTNONE[b]; });
     if (!need.length) return Promise.resolve();
@@ -139,13 +139,12 @@
     });
   }
   function daysLeft(ms) { return Math.max(0, Math.ceil((ms - Date.now()) / 86400000)); }
-  // 이전에 확인한 내 이용 상태를 먼저 보여 줘서 '일감 맛보기 N일 남음'이 늦게 뜨지 않게 합니다. 로그인 확인이 끝나면 정확한 값으로 바뀝니다.
+  // 이전에 확인한 내 이용 상태를 먼저 보여 줘서 '일감 마스터 · N월 N일까지'가 늦게 뜨지 않게 합니다. 로그인 확인이 끝나면 정확한 값으로 바뀝니다.
   (function () {
     try {
       var c = JSON.parse(localStorage.getItem('ig_me') || 'null'), t = $('tier');
       if (!c || !t) return;
-      if (c.tier === 'trial') t.textContent = '일감 맛보기 ' + daysLeft(c.trialUntil) + '일 남음';
-      else if (c.tier === 'pro') { var d = new Date(c.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
+      if (c.tier === 'pro') { var d = new Date(c.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
       else return;
       t.className = 'tier ' + c.tier; t.hidden = false;
     } catch (e) {}
@@ -156,9 +155,8 @@
     if (!t) return;
     if (!A || !A.user || !ME) { t.hidden = true; return; }
     t.hidden = false; t.className = 'tier ' + ME.tier;
-    if (ME.tier === 'trial') t.textContent = '일감 맛보기 ' + daysLeft(ME.trialUntil) + '일 남음';
-    else if (ME.tier === 'pro') { var d = new Date(ME.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
-    else t.textContent = '무료 · 오늘 연락처 ' + ME.used + '/' + ME.limit + '곳';
+    if (ME.tier === 'pro') { var d = new Date(ME.until); t.textContent = '일감 마스터 · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일까지'; }
+    else t.textContent = '전화번호 열기 · 일감 마스터';
   }
   var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
   function lockLine(box, label, why, btnText, onBtn, dots) {
@@ -185,7 +183,7 @@
       return;
     }
     if (CTNONE[biz]) { row('연락처', '등록된 정보가 없습니다'); return; }
-    if (CTLOCK[biz]) { lockLine(box, '대표 전화', '오늘 ' + (ME ? ME.limit : 3) + '곳을 모두 확인하셨습니다', '일감 마스터 보기', function () { location.href = 'pro.html'; }); return; }
+    if (CTLOCK[biz] || (ME && ME.tier === 'free')) { lockLine(box, '주소', '일감 마스터에서 열립니다', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '30일 49,900원 · 하루 1,663원', '전화번호 보기', function () { location.href = 'pro.html'; }); return; }
     row('연락처', '불러오는 중…');
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
   }
