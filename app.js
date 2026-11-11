@@ -176,7 +176,7 @@
       l.appendChild(sp); if (extra) l.appendChild(extra); box.appendChild(l);
     }
     var A = window.IGAUTH;
-    if (!A || !A.user) { lockLine(box, '주소', '가입하면 보입니다', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하면 보입니다', '가입하기', function () { openLogin('signup'); }); return; }
+    if (!A || !A.user) { lockLine(box, '주소', '가입하고 보기', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하고 보기', '가입하기', function () { openLogin('signup'); }); return; }
     var ct = CT[biz];
     if (ct) {
       if (ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); row('주소', ad, copyBtn(ad)); }
@@ -371,7 +371,7 @@
     var board = $('board'); board.textContent = '';
     if (!list.length) { board.appendChild(el('div', 'empty', '조건에 맞는 낙찰이 없습니다. 지역이나 검색어를 바꿔 보세요.')); return; }
     var hd = el('div', 'hd');
-    ['지역', '분야', (window.IGAUTH && window.IGAUTH.user) ? '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보)' : '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보 · 현장은 가입하면 보임)', '낙찰 금액'].forEach(function (t, i) {
+    ['지역', '분야', (window.IGAUTH && window.IGAUTH.user) ? '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보)' : '현장명 · 발주처 · 낙찰 업체 (누르면 업체 정보 · 현장은 가입 후 확인)', '낙찰 금액'].forEach(function (t, i) {
       var s = el('span', null, t); if (i === 3) s.style.textAlign = 'right'; hd.appendChild(s);
     });
     board.appendChild(hd);
@@ -517,7 +517,7 @@
     d.appendChild(tb);
     if (!member) {
       var cta = el('div', 'wcta');
-      var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하면 현장명 · 발주처 · 주소 · 대표 전화가 모두 보입니다'));
+      var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하고 현장명 · 발주처 · 주소 · 대표 전화까지 보기'));
       cta.appendChild(t);
       var jb = el('button', 'go', '가입하기'); jb.type = 'button'; jb.addEventListener('click', function () { openLogin('signup'); });
       cta.appendChild(jb); d.appendChild(cta);
