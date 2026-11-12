@@ -119,6 +119,11 @@ async function admin(req, env, url) {
     const r = await env.DB.prepare('SELECT id, ts, kind, cat, item, state, area, name, tel, memo FROM buyreq WHERE sent = 0 ORDER BY id LIMIT 50').all();
     return J(req, { ok: true, rows: r.results || [] });
   }
+  if (url.pathname === '/admin/buy-img') {
+    const id = Number(url.searchParams.get('id')), k = Number(url.searchParams.get('i'));
+    const v = Number.isInteger(id) && Number.isInteger(k) && env.PRO ? await env.PRO.get('buyimg:' + id + ':' + k) : null;
+    return v ? J(req, { ok: true, data: v }) : J(req, { ok: false }, 404);
+  }
   if (url.pathname === '/admin/buy-sent' && req.method === 'POST') {
     let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: 'bad json' }, 400); }
     const ids = (b.ids || []).map(Number).filter((n) => Number.isInteger(n) && n > 0).slice(0, 50);
@@ -145,8 +150,18 @@ async function buy(req, env) {
   const ip = (req.headers.get('CF-Connecting-IP') || '').slice(0, 64), now = Date.now();
   const c = await env.DB.prepare('SELECT COUNT(*) n FROM buyreq WHERE ip = ? AND ts > ?').bind(ip, now - 3600000).first();
   if (c && c.n >= 5) return J(req, { ok: false, message: '잠시 뒤에 다시 보내 주세요.' }, 429);
-  await env.DB.prepare('INSERT INTO buyreq(ts, ip, kind, cat, item, state, area, name, tel, memo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+  const ins = await env.DB.prepare('INSERT INTO buyreq(ts, ip, kind, cat, item, state, area, name, tel, memo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
     .bind(now, ip, b.kind === 'ask' ? 'ask' : 'buy', t(b.cat, 20),item, t(b.state, 120), t(b.area, 40), name, tel, t(b.memo, 600)).run();
+  // 사진(선택): 브라우저에서 줄여 보낸 JPEG 최대 3장을 KV에 180일 보관합니다.
+  const imgs = (Array.isArray(b.imgs) ? b.imgs : []).slice(0, 3);
+  const id = ins && ins.meta && ins.meta.last_row_id;
+  if (id && env.PRO) {
+    for (let k = 0; k < imgs.length; k++) {
+      const m = /^data:image\/jpeg;base64,([A-Za-z0-9+/=]+)$/.exec(String(imgs[k] || ''));
+      if (!m || m[1].length > 900000) continue;
+      await env.PRO.put('buyimg:' + id + ':' + k, m[1], { expirationTtl: 15552000 });
+    }
+  }
   return J(req, { ok: true });
 }
 

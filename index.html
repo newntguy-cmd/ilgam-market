@@ -829,6 +829,6 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;var jb=s2.querySelector('.ab-bt');if(jb)jb.style.display=u?'none':'';s2.style.display='';ds.style.display='';auto()}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/guide.js?v=1" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=7" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
+<script src="/guide.js?v=1" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=8" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
 </body>
 </html>

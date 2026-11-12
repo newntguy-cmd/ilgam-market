@@ -52,7 +52,7 @@
   }
   function pgcss() {
     var st = document.createElement('style');
-    st.textContent = '#igcs.pg,#igbuy.pg{position:static;display:block;background:none;padding:0;z-index:auto}#igcs.pg .p,#igbuy.pg .p{width:auto;max-height:none;overflow:visible;box-shadow:none;border-top:0;background:none}#igcs.pg .h,#igbuy.pg .h{display:none}#igcs.pg .b,#igbuy.pg .b{padding:6px 0 26px;max-width:640px}';
+    st.textContent = '#igcs.pg,#igbuy.pg{position:static;display:block;background:none;padding:0;z-index:auto}#igcs.pg .p,#igbuy.pg .p{width:auto;max-height:none;overflow:visible;box-shadow:none;border-top:0;background:none}#igcs.pg .h,#igbuy.pg .h{display:none}#igcs.pg .b,#igbuy.pg .b{padding:6px 0 26px}';
     document.head.appendChild(st);
   }
   function build() {
@@ -103,6 +103,8 @@
     + '#igbuy .ag{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;font-size:14.5px;line-height:1.55;color:#4a5872;font-weight:400}#igbuy .ag input{margin-top:3px;width:20px;height:20px;flex:none}'
     + '#igbuy .go{width:100%;margin-top:18px;padding:16px;border:0;border-radius:10px;background:#0f2342;color:#fff;font:inherit;font-size:19px;font-weight:800;cursor:pointer}#igbuy .go[disabled]{opacity:.55;cursor:default}'
     + '#igbuy .er{margin:12px 0 0;color:#b3261e;font-size:15px;line-height:1.5}#igbuy .ok{padding:26px 6px 8px;text-align:center}#igbuy .ok b{display:block;font-size:22px;margin-bottom:8px}#igbuy .ok p{margin:0;font-size:17px;line-height:1.6;color:#33425b}'
+    + '#igbuy .ph{display:flex;flex-wrap:wrap;gap:10px}#igbuy .addp{display:block;margin:0}#igbuy .addp span{display:flex;align-items:center;justify-content:center;width:96px;height:96px;border:1.5px dashed #c9b88e;border-radius:10px;background:#fff;color:#8a6a28;font-size:15px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}'
+    + '#igbuy .th{position:relative;width:96px;height:96px;border-radius:10px;overflow:hidden;border:1px solid #d8cdb0;background:#fff}#igbuy .th img{width:100%;height:100%;object-fit:cover;display:block}#igbuy .th button{position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(15,35,66,.82);color:#fff;font-size:16px;line-height:1;cursor:pointer}'
     + '#igbuy .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6b7690}#igbuy .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
     document.head.appendChild(st);
   }
@@ -118,12 +120,14 @@
       + '<div><label for="ib_bn">성함 <i>필수</i></label><input id="ib_bn" type="text" maxlength="30" autocomplete="name"></div></div>'
       + '<label for="ib_bt">연락받을 전화번호 <i>필수</i></label><input id="ib_bt" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000">'
       + '<label for="ib_bm">전하실 말씀</label><textarea id="ib_bm" maxlength="600" placeholder="' + c.memo + '"></textarea>'
+      + '<label>사진 <small style="font-weight:400;color:#6b7690">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
       + '<div class="hp" aria-hidden="true"><input id="ib_bw" type="text" tabindex="-1" autocomplete="off"></div>'
-      + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함·전화번호·문의 내용을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
+      + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함·전화번호·문의 내용·사진을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
       + '<p class="er" id="ib_ber" role="alert" hidden></p><button class="go" id="ib_bgo" type="submit">' + c.send + '</button></form>'
       + '<div class="ok" id="ib_bok" hidden><b>접수됐습니다</b><p>' + c.done + '</p></div>'
       + '<p class="n">' + c.note + '</p></div>';
     bbox.querySelector('#igbuyf').addEventListener('submit', bsend);
+    bimgs = []; var bf = bbox.querySelector('#ib_bf'); if (bf) bf.addEventListener('change', bpick);
   }
   function bbuild() {
     bcss();
@@ -134,6 +138,41 @@
     bbox.addEventListener('click', function (e) { if (e.target === bbox || e.target.className === 'x') bclose(); });
   }
   function berr(t) { var e = bbox.querySelector('#ib_ber'); e.textContent = t || ''; e.hidden = !t; }
+  var bimgs = [];
+  function bshrink(file) {
+    return new Promise(function (res, rej) {
+      var u = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        var m = 1280, w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, m / Math.max(w, h));
+        var cv = document.createElement('canvas'); cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+        cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); URL.revokeObjectURL(u);
+        var q = 0.82, d = cv.toDataURL('image/jpeg', q);
+        while (d.length > 700000 && q > 0.4) { q -= 0.12; d = cv.toDataURL('image/jpeg', q); }
+        d.length > 880000 ? rej(new Error('big')) : res(d);
+      };
+      im.onerror = function () { URL.revokeObjectURL(u); rej(new Error('bad')); };
+      im.src = u;
+    });
+  }
+  function bthumbs() {
+    var box = bbox.querySelector('#ib_ph'); if (!box) return;
+    box.querySelectorAll('.th').forEach(function (n) { n.remove(); });
+    var add = box.querySelector('.addp');
+    bimgs.forEach(function (d, i) {
+      var t = document.createElement('div'); t.className = 'th';
+      var im = document.createElement('img'); im.src = d; im.alt = '첨부 사진 ' + (i + 1);
+      var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', '사진 빼기');
+      x.addEventListener('click', function () { bimgs.splice(i, 1); bthumbs(); });
+      t.append(im, x); box.insertBefore(t, add);
+    });
+    add.style.display = bimgs.length >= 3 ? 'none' : '';
+  }
+  function bpick(ev) {
+    var fs = Array.prototype.slice.call(ev.target.files || [], 0, 3 - bimgs.length); ev.target.value = '';
+    berr('');
+    fs.reduce(function (p, f) { return p.then(function () { return bshrink(f).then(function (d) { bimgs.push(d); bthumbs(); }); }); }, Promise.resolve())
+      .catch(function () { berr('사진을 불러오지 못했어요. 다른 사진으로 시도해 주세요.'); });
+  }
   function bsend(ev) {
     ev.preventDefault(); berr('');
     var c = BF[bkind];
@@ -146,7 +185,7 @@
     if (!bbox.querySelector('#ib_bg').checked) { berr('개인정보 수집에 동의해 주셔야 접수할 수 있어요.'); return; }
     var go = bbox.querySelector('#ib_bgo'); go.disabled = true; go.textContent = '보내는 중…';
     fetch(BAPI + '/buy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ kind: bkind, cat: cat, item: v('bi'), state: v('bs'), area: v('ba'), name: v('bn'), tel: tel, memo: v('bm'), hp: v('bw') }) })
+      body: JSON.stringify({ kind: bkind, cat: cat, item: v('bi'), state: v('bs'), area: v('ba'), name: v('bn'), tel: tel, memo: v('bm'), hp: v('bw'), imgs: bimgs }) })
       .then(function (r) { return r.json(); })
       .then(function (r) {
         if (!r || !r.ok) throw new Error((r && r.message) || 'fail');
