@@ -12,10 +12,10 @@
     a.href = '#'; a.setAttribute('data-cs', '1'); a.setAttribute('role', 'button'); a.title = '문의와 자주 묻는 질문';
     a.innerHTML = ICON + '고객센터';
     var bm = document.createElement('a');
-    bm.href = '#'; bm.setAttribute('data-buy', 'buy'); bm.setAttribute('role', 'button'); bm.title = '팔고 싶은 물건을 겟잇타운이 직접 매입합니다';
+    bm.href = '#'; bm.setAttribute('data-buy', 'buy'); bm.setAttribute('role', 'button'); bm.title = '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다';
     bm.innerHTML = BICON + '매입문의';
     var am = document.createElement('a');
-    am.href = '#'; am.setAttribute('data-buy', 'ask'); am.setAttribute('role', 'button'); am.title = '필요한 사무집기를 겟잇타운에 문의';
+    am.href = '#'; am.setAttribute('data-buy', 'ask'); am.setAttribute('role', 'button'); am.title = '필요한 사무집기를 일감마켓에 문의';
     am.innerHTML = AICON + '사무집기 문의';
     nav.appendChild(bm);
     nav.appendChild(am);
@@ -75,16 +75,16 @@
   // ---- 매입문의 · 사무집기 문의: 겟잇타운이 직접 응대합니다. 접수 내용은 서버에 저장되고 담당자에게 메일로 전달됩니다.
   var bbox, blast, bkind = 'buy', BAPI = 'https://ilgam-pay.newntguy.workers.dev';
   var BF = {
-    buy: { title: '매입문의', lead: '냉난방기·에어컨·사무집기를 겟잇타운이 직접 매입합니다. 팔고 싶은 물건을 남겨 주세요.',
+    buy: { title: '매입문의', lead: '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다. 팔고 싶은 물건을 남겨 주세요.',
       cats: ['냉난방기', '에어컨', '사무집기'], catLabel: '어떤 물건인가요?',
       item: '품명과 수량', itemEx: '예: 시스템에어컨 3대, 사무용 책상 20개', state: '상태와 사용 기간', stateEx: '예: 2년 사용, 상태 양호', area: '물건이 있는 지역',
       memo: '희망 가격, 처분 시기 등', agree: '매입 상담', send: '매입 문의 보내기', done: '확인하고 남겨 주신 번호로 연락드리겠습니다.',
-      note: '매입은 겟잇타운(대표 신상헌)이 직접 합니다. 일감마켓 직거래장터의 이용자 간 거래와는 별개입니다.' },
-    ask: { title: '사무집기 문의', lead: '필요한 사무집기를 남겨 주시면 겟잇타운이 확인하고 연락드립니다.',
+      note: '남겨 주신 내용은 일감마켓에서 검토한 뒤 연락드립니다. 직거래장터의 이용자 간 거래와는 별개입니다.' },
+    ask: { title: '사무집기 문의', lead: '필요한 사무집기를 남겨 주시면 일감마켓에서 확인하고 연락드립니다.',
       cats: null, catLabel: '',
       item: '필요한 사무집기', itemEx: '예: 책상 10개, 의자 10개, 파티션', state: '사용 시기와 기간', stateEx: '예: 12월부터 6개월', area: '설치할 지역',
       memo: '예산, 납품 일정 등', agree: '사무집기 상담', send: '문의 보내기', done: '확인하고 남겨 주신 번호로 연락드리겠습니다.',
-      note: '문의는 겟잇타운(대표 신상헌)이 직접 응대합니다. 일감마켓 직거래장터의 이용자 간 거래와는 별개입니다.' }
+      note: '남겨 주신 내용은 일감마켓에서 확인한 뒤 연락드립니다. 직거래장터의 이용자 간 거래와는 별개입니다.' }
   };
   function bcss() {
     var st = document.createElement('style');
