@@ -117,7 +117,7 @@ for name in os.listdir(cdir):  # 60일 창에서 빠진 업체는 지웁니다
 import gen_areas
 AREA_URLS = gen_areas.build(d, OUT, SITE, set(made))
 print(f"지역 페이지 {len(AREA_URLS)}개")
-urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>"] + [
+urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"] + [
     f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)
 ] + AREA_URLS
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(

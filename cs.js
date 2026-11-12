@@ -9,10 +9,10 @@
     var nav = document.querySelector('header.top nav');
     if (!nav || nav.querySelector('[data-cs]')) return;
     var a = document.createElement('a');
-    a.href = '#'; a.setAttribute('data-cs', '1'); a.setAttribute('role', 'button'); a.title = '문의와 자주 묻는 질문';
+    a.href = '/help.html'; a.setAttribute('data-cs', '1'); a.setAttribute('role', 'button'); a.title = '문의와 자주 묻는 질문';
     a.innerHTML = ICON + '고객센터';
     var bm = document.createElement('a');
-    bm.href = '#'; bm.setAttribute('data-buy', 'buy'); bm.setAttribute('role', 'button'); bm.title = '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다';
+    bm.href = '/buy.html'; bm.setAttribute('data-buy', 'buy'); bm.setAttribute('role', 'button'); bm.title = '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다';
     bm.innerHTML = BICON + '매입문의';
     nav.appendChild(bm);
     nav.appendChild(a);
@@ -50,14 +50,19 @@
     + '#igcs .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6b7690}';
     document.head.appendChild(st);
   }
+  function pgcss() {
+    var st = document.createElement('style');
+    st.textContent = '#igcs.pg,#igbuy.pg{position:static;display:block;background:none;padding:0;z-index:auto}#igcs.pg .p,#igbuy.pg .p{width:auto;max-height:none;overflow:visible;box-shadow:none;border-top:0;background:none}#igcs.pg .h,#igbuy.pg .h{display:none}#igcs.pg .b,#igbuy.pg .b{padding:6px 0 26px;max-width:640px}';
+    document.head.appendChild(st);
+  }
   function build() {
     css();
-    box = document.createElement('div'); box.id = 'igcs'; box.hidden = true;
+    box = document.getElementById('igcs'); if (!box) { box = document.createElement('div'); box.id = 'igcs'; box.hidden = true; }
     var f = FAQ.map(function (q) { return '<details><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('');
     box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="igcst"><div class="h"><h2 id="igcst">고객센터</h2><button type="button" class="x" aria-label="닫기">×</button></div>'
       + '<div class="b"><div class="ct"><b>문의</b><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a><a href="tel:07080648210">070-8064-8210</a></div>'
       + f + '<p class="n">일감마켓은 거래 당사자가 아니며, 이용자 간 거래에서 생긴 분쟁에 책임을 지지 않습니다.</p></div></div>';
-    document.body.appendChild(box);
+    if (!box.parentNode) document.body.appendChild(box);
     box.addEventListener('click', function (e) { if (e.target === box || e.target.className === 'x') close(); });
   }
   var last;
@@ -65,7 +70,7 @@
   function close() { if (box) box.hidden = true; if (last && last.focus) last.focus(); }
   document.addEventListener('click', function (e) {
     var t = e.target.closest && e.target.closest('[data-cs]');
-    if (!t) return; e.preventDefault(); open();
+    if (!t) return; e.preventDefault(); if (location.pathname !== '/help.html') location.href = '/help.html';
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box && !box.hidden) close(); });
   // ---- 매입문의 · 사무집기 문의: 겟잇타운이 직접 응대합니다. 접수 내용은 서버에 저장되고 담당자에게 메일로 전달됩니다.
@@ -122,9 +127,10 @@
   }
   function bbuild() {
     bcss();
-    bbox = document.createElement('div'); bbox.id = 'igbuy'; bbox.hidden = true;
-    bbox.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="igbuyt"></div>';
-    document.body.appendChild(bbox);
+    bbox = document.getElementById('igbuy');
+    if (!bbox) { bbox = document.createElement('div'); bbox.id = 'igbuy'; bbox.hidden = true;
+      bbox.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="igbuyt"></div>';
+      document.body.appendChild(bbox); }
     bbox.addEventListener('click', function (e) { if (e.target === bbox || e.target.className === 'x') bclose(); });
   }
   function berr(t) { var e = bbox.querySelector('#ib_ber'); e.textContent = t || ''; e.hidden = !t; }
@@ -150,8 +156,12 @@
   }
   function bopen(kind) { if (!bbox) bbuild(); blast = document.activeElement; bfill(kind); bbox.hidden = false; var i = bbox.querySelector('#ib_bi'); if (i && !bbox.querySelector('input[name=ib_cat]')) i.focus(); }
   function bclose() { if (bbox) bbox.hidden = true; if (blast && blast.focus) blast.focus(); }
-  document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('[data-buy]'); if (!t) return; e.preventDefault(); bopen(t.getAttribute('data-buy') === 'ask' ? 'ask' : 'buy'); });
+  document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('[data-buy]'); if (!t) return; e.preventDefault(); if (location.pathname !== '/buy.html') location.href = '/buy.html'; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && bbox && !bbox.hidden) bclose(); });
-  function init() { addMenu(); addCount(); }
+  function init() {
+    addMenu(); addCount();
+    if (document.getElementById('igbuy') && document.getElementById('igbuy').classList.contains('pg')) { pgcss(); bcss(); bbuild(); bfill('buy'); bbox.hidden = false; }
+    var pc = document.getElementById('igcs'); if (pc && pc.classList.contains('pg')) { pgcss(); build(); pc.hidden = false; }
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
