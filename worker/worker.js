@@ -54,7 +54,7 @@ async function init(env) {
   await env.DB.batch([
     env.DB.prepare('CREATE TABLE IF NOT EXISTS users(uid TEXT PRIMARY KEY, first_seen INTEGER NOT NULL)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS contacts(biz TEXT PRIMARY KEY, tel TEXT, addr TEXT)'),
-    env.DB.prepare('CREATE TABLE IF NOT EXISTS buyreq(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, ip TEXT, item TEXT, state TEXT, area TEXT, name TEXT, tel TEXT, memo TEXT, sent INTEGER NOT NULL DEFAULT 0)'),
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS buyreq(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, ip TEXT, kind TEXT, cat TEXT, item TEXT, state TEXT, area TEXT, name TEXT, tel TEXT, memo TEXT, sent INTEGER NOT NULL DEFAULT 0)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS opens(uid TEXT NOT NULL, day TEXT NOT NULL, biz TEXT NOT NULL, PRIMARY KEY(uid, day, biz))')
   ]);
   READY = true;
@@ -116,7 +116,7 @@ async function admin(req, env, url) {
     return J(req, { ok: true, n: rows.length });
   }
   if (url.pathname === '/admin/buy-pending') {
-    const r = await env.DB.prepare('SELECT id, ts, item, state, area, name, tel, memo FROM buyreq WHERE sent = 0 ORDER BY id LIMIT 50').all();
+    const r = await env.DB.prepare('SELECT id, ts, kind, cat, item, state, area, name, tel, memo FROM buyreq WHERE sent = 0 ORDER BY id LIMIT 50').all();
     return J(req, { ok: true, rows: r.results || [] });
   }
   if (url.pathname === '/admin/buy-sent' && req.method === 'POST') {
@@ -145,8 +145,8 @@ async function buy(req, env) {
   const ip = (req.headers.get('CF-Connecting-IP') || '').slice(0, 64), now = Date.now();
   const c = await env.DB.prepare('SELECT COUNT(*) n FROM buyreq WHERE ip = ? AND ts > ?').bind(ip, now - 3600000).first();
   if (c && c.n >= 5) return J(req, { ok: false, message: '잠시 뒤에 다시 보내 주세요.' }, 429);
-  await env.DB.prepare('INSERT INTO buyreq(ts, ip, item, state, area, name, tel, memo) VALUES(?, ?, ?, ?, ?, ?, ?, ?)')
-    .bind(now, ip, item, t(b.state, 120), t(b.area, 40), name, tel, t(b.memo, 600)).run();
+  await env.DB.prepare('INSERT INTO buyreq(ts, ip, kind, cat, item, state, area, name, tel, memo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    .bind(now, ip, b.kind === 'ask' ? 'ask' : 'buy', t(b.cat, 20),item, t(b.state, 120), t(b.area, 40), name, tel, t(b.memo, 600)).run();
   return J(req, { ok: true });
 }
 

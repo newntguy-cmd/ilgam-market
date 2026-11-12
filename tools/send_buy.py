@@ -46,10 +46,11 @@ for r in rows:
     tel = r["tel"]
     shown = f"{tel[:3]}-{tel[3:-4]}-{tel[-4:]}" if len(tel) >= 9 else tel
     when = datetime.fromtimestamp(r["ts"] / 1000, KST).strftime("%m월 %d일 %H:%M")
-    lines = [("물건", r["item"]), ("상태", r["state"]), ("지역", r["area"]), ("성함", r["name"]), ("전화", shown), ("전하는 말", r["memo"])]
-    body = "\n".join(f"{k}: {v}" for k, v in lines if v) + f"\n\n접수 {when} · 일감마켓 매입문의"
+    kind = "사무집기 문의" if r.get("kind") == "ask" else "매입문의"
+    lines = [("구분", kind), ("분류", r.get("cat") or ""), ("물건", r["item"]), ("상태", r["state"]), ("지역", r["area"]), ("성함", r["name"]), ("전화", shown), ("전하는 말", r["memo"])]
+    body = "\n".join(f"{k}: {v}" for k, v in lines if v) + f"\n\n접수 {when} · 일감마켓 {kind}"
     m = MIMEText(body, "plain", "utf-8")
-    m["Subject"] = Header(f"[매입문의] {r['item'][:40]} · {r['name']} {shown}", "utf-8")
+    m["Subject"] = Header(f"[{kind}] {r['item'][:40]} · {r['name']} {shown}", "utf-8")
     m["From"] = formataddr(("일감마켓 매입문의", FROM))
     m["To"] = TO
     try:

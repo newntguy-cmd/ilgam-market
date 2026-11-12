@@ -183,3 +183,7 @@ header.top nav{order:4;flex:0 0 100%}
 @media (max-width:400px){header.top #tier,header.top .tier{font-size:12.5px!important;letter-spacing:-.04em}header.top #acc>button,header.top .acc>button{padding:0 9px!important;font-size:14px!important}header.top .brand{margin-right:0}}
 @media (max-width:760px){header.top #tier,header.top .tier{flex:1 1 0!important;width:auto!important;max-width:none!important;text-align:right;overflow:hidden;text-overflow:ellipsis}}
 @media (max-width:380px){header.top #tier,header.top .tier{font-size:12px!important;letter-spacing:-.06em;text-overflow:clip}header.top #acc>button,header.top .acc>button{padding:0 7px!important;font-size:13.5px!important}}
+
+@media (min-width:761px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{flex:0 0 auto!important;width:auto!important;padding-left:16px!important;padding-right:16px!important;font-size:16.5px!important}}
+@media (min-width:761px){header.top nav>* .em,.gnb>* .em{display:none!important}}
+@media (min-width:761px) and (max-width:1300px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:13px!important;padding-right:13px!important;font-size:16px!important}}

@@ -7,7 +7,8 @@
     { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'sell', label: '직거래장터', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
     { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
-    { id: 'buy', label: '매입문의', desc: '팔고 싶은 물건을 겟잇타운이 직접 매입합니다', buy: true },
+    { id: 'buy', label: '매입문의', desc: '냉난방기·에어컨·사무집기를 겟잇타운이 직접 매입합니다', buy: 'buy' },
+    { id: 'ask', label: '사무집기 문의', desc: '필요한 사무집기를 겟잇타운에 문의', buy: 'ask' },
     { id: 'cs', label: '고객센터', desc: '문의와 자주 묻는 질문', cs: true },
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
@@ -291,14 +292,14 @@
     });
   }
 
-  var IC = { buy: '<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>', home: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/>', cs: '<path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/>', win: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>', st: '<path d="M5 20v-7M12 20V5M19 20V10"/>', wl: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/>', sell: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>', need: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', about: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/>' };
+  var IC = { ask: '<rect x="3" y="9" width="18" height="4" rx="1"/><path d="M5 13v7M19 13v7M7 9V5h10v4"/>', buy: '<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>', home: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/>', cs: '<path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/>', win: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>', st: '<path d="M5 20v-7M12 20V5M19 20V10"/>', wl: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/>', sell: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>', need: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', about: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/>' };
   function renderGnb() {
     var g = $('gnb'); g.textContent = '';
     TABS.forEach(function (t) {
       var b, ic = IC[t.id] || '';
       if (t.hidden) return;
       if (t.cs) { b = el('button', null, t.label); b.type = 'button'; b.setAttribute('data-cs', '1'); }
-      else if (t.buy) { b = el('button', null, t.label); b.type = 'button'; b.setAttribute('data-buy', '1'); }
+      else if (t.buy) { b = el('button', null, t.label); b.type = 'button'; b.setAttribute('data-buy', t.buy); }
       else if (t.href) { b = el('a', 'tablink', t.label); b.href = t.href; }
       else {
         b = el('button', t.ready ? null : 'soonTab', t.label);
