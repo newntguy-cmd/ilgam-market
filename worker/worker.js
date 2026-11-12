@@ -54,6 +54,7 @@ async function init(env) {
   await env.DB.batch([
     env.DB.prepare('CREATE TABLE IF NOT EXISTS users(uid TEXT PRIMARY KEY, first_seen INTEGER NOT NULL)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS contacts(biz TEXT PRIMARY KEY, tel TEXT, addr TEXT)'),
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS buyreq(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, ip TEXT, item TEXT, state TEXT, area TEXT, name TEXT, tel TEXT, memo TEXT, sent INTEGER NOT NULL DEFAULT 0)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS opens(uid TEXT NOT NULL, day TEXT NOT NULL, biz TEXT NOT NULL, PRIMARY KEY(uid, day, biz))')
   ]);
   READY = true;
@@ -114,6 +115,16 @@ async function admin(req, env, url) {
     if (rows.length) await env.DB.batch(rows.map((r) => st.bind(r[0], String(r[1] || '').slice(0, 40), String(r[2] || '').slice(0, 200))));
     return J(req, { ok: true, n: rows.length });
   }
+  if (url.pathname === '/admin/buy-pending') {
+    const r = await env.DB.prepare('SELECT id, ts, item, state, area, name, tel, memo FROM buyreq WHERE sent = 0 ORDER BY id LIMIT 50').all();
+    return J(req, { ok: true, rows: r.results || [] });
+  }
+  if (url.pathname === '/admin/buy-sent' && req.method === 'POST') {
+    let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: 'bad json' }, 400); }
+    const ids = (b.ids || []).map(Number).filter((n) => Number.isInteger(n) && n > 0).slice(0, 50);
+    if (ids.length) await env.DB.prepare('UPDATE buyreq SET sent = 1 WHERE id IN (' + ids.map(() => '?').join(',') + ')').bind(...ids).run();
+    return J(req, { ok: true, n: ids.length });
+  }
   if (url.pathname === '/admin/count') {
     const c = await env.DB.prepare('SELECT COUNT(*) n FROM contacts').first();
     const u = await env.DB.prepare('SELECT COUNT(*) n FROM users').first();
@@ -122,12 +133,30 @@ async function admin(req, env, url) {
   return J(req, { ok: false, message: 'not found' }, 404);
 }
 
+// 매입문의 접수(로그인 불필요). 같은 IP는 1시간에 5건까지, 입력값은 길이를 제한해 저장합니다.
+async function buy(req, env) {
+  if (!env.DB) return J(req, { ok: false, message: '지금은 접수할 수 없어요. 잠시 뒤 다시 시도해 주세요.' }, 500);
+  let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: '입력을 확인해 주세요.' }, 400); }
+  if (b.hp) return J(req, { ok: true }); // 자동 입력 방지용 숨은 칸이 채워지면 조용히 무시
+  const t = (v, n) => String(v == null ? '' : v).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);
+  const item = t(b.item, 120), name = t(b.name, 30), tel = String(b.tel || '').replace(/[^0-9]/g, '');
+  if (!item || !name || tel.length < 9 || tel.length > 11) return J(req, { ok: false, message: '입력을 확인해 주세요.' }, 400);
+  await init(env);
+  const ip = (req.headers.get('CF-Connecting-IP') || '').slice(0, 64), now = Date.now();
+  const c = await env.DB.prepare('SELECT COUNT(*) n FROM buyreq WHERE ip = ? AND ts > ?').bind(ip, now - 3600000).first();
+  if (c && c.n >= 5) return J(req, { ok: false, message: '잠시 뒤에 다시 보내 주세요.' }, 429);
+  await env.DB.prepare('INSERT INTO buyreq(ts, ip, item, state, area, name, tel, memo) VALUES(?, ?, ?, ?, ?, ?, ?, ?)')
+    .bind(now, ip, item, t(b.state, 120), t(b.area, 40), name, tel, t(b.memo, 600)).run();
+  return J(req, { ok: true });
+}
+
 export default {
   async fetch(req, env) {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(req) });
     env = { ...env, PRO: env.PRO || env.PR0 }; // 이름 철자(O/0) 어느 쪽이든 동작
     const url = new URL(req.url);
     if (url.pathname.startsWith('/admin/')) { if (!env.DB) return J(req, { ok: false, message: 'DB 연결이 없습니다.' }, 500); return admin(req, env, url); }
+    if (url.pathname === '/buy' && req.method === 'POST') return buy(req, env);
     const me = await whoami(req);
     if (!me) return J(req, { ok: false, message: '로그인이 필요합니다.' }, 401);
 

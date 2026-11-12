@@ -1,0 +1,18 @@
+name: send-buy-inquiries
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # 15분마다 매입문의 접수분을 메일로 전달
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 매입문의 메일 전달
+        env:
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: python3 tools/send_buy.py
