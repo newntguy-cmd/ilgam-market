@@ -66,8 +66,8 @@ for biz, rows in by.items():
     top = sorted(regs, key=lambda k: -regs[k])[0]
     # 전화·주소는 정적 페이지에 싣지 않습니다. 로그인한 사용자에게만 서버에서 내려줍니다.
     latest = rows[0]["d"]
-    title = f"{name} 낙찰 이력 · 일감마켓"
-    desc = f"{name}의 최근 공공 공사 낙찰 {len(rows)}건, 합계 {money(total)}. 주로 {top} 지역. 사업자번호 {fmt_biz(biz)}" + ". 조달청 나라장터 공공데이터 기준."
+    title = f"{name} 대표 전화·주소·낙찰 이력 · 일감마켓"
+    desc = f"{name}의 최근 공공 공사 낙찰 {len(rows)}건, 합계 {money(total)}. 주로 {top} 지역. 사업자번호 {fmt_biz(biz)}" + ". 대표 전화·주소는 일감 마스터에서 확인할 수 있어요. 조달청 나라장터 공공데이터 기준."
     url = f"{SITE}/c/{biz}/"
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": name, "taxID": fmt_biz(biz), "url": url}
     hist = "".join(
