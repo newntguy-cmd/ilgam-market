@@ -19,7 +19,10 @@
         if (ct.t) { var a = document.createElement('a'); a.textContent = ct.t; a.href = 'tel:' + ct.t.replace(/[^0-9+]/g, ''); rows.push(line('대표 전화', a)); }
         if (!rows.length) rows.push(line('연락처', txt('등록된 정보가 없습니다')));
       } else if ((r.locked || []).indexOf(biz) >= 0) {
-        var p = document.createElement('a'); p.href = '/pro.html'; p.textContent = '오늘 ' + r.limit + '곳을 모두 확인하셨습니다 · 일감 마스터 보기'; rows.push(line('대표 전화', p));
+        var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+        var mk = function (dots, label) { var q = document.createElement('a'); q.className = 'lock'; q.setAttribute('data-pro', '1'); q.href = '/pro.html'; q.innerHTML = ICON + '<span class="dots"></span> '; q.querySelector('.dots').textContent = dots; q.appendChild(document.createTextNode(label)); return q; };
+        rows.push(line('주소', mk('••• ••••• ••• ••••', '일감 마스터에서 열림')));
+        rows.push(line('대표 전화', mk('031-•••-••••', '전화번호 보기 · 30일 49,900원')));
       } else rows.push(line('연락처', txt('등록된 정보가 없습니다')));
       var c0 = document.getElementById('ct0'); if (c0) c0.parentNode.removeChild(c0);
       rows.forEach(function (n) { parent.insertBefore(n, box); }); parent.removeChild(box);
@@ -34,7 +37,8 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a'); if (!a) return;
     var h = a.getAttribute('href') || '';
-    if (a.classList.contains('lock') || h.indexOf('join=1') > -1) { e.preventDefault(); parent.postMessage({ ig: 'join' }, location.origin); }
+    if (a.getAttribute('data-pro')) { e.preventDefault(); parent.postMessage({ ig: 'pro' }, location.origin); }
+    else if (a.classList.contains('lock') || h.indexOf('join=1') > -1) { e.preventDefault(); parent.postMessage({ ig: 'join' }, location.origin); }
     else if (h.indexOf('pro.html') > -1) { e.preventDefault(); parent.postMessage({ ig: 'pro' }, location.origin); }
   });
 })();

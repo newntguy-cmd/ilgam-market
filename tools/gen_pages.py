@@ -76,7 +76,7 @@ for biz, rows in by.items():
         for r in rows[:50]
     )
     info = f'<div class="l"><span>사업자번호</span><b>{fmt_biz(biz)}</b></div>'
-    info += ('<div class="l" id="ct0"><span>주소</span><a class="lock" href="/?join=1"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg><span class="dots">경기 ••••• ••• ••••</span> 가입하고 보기</a></div>')
+    info += ('<div class="l" id="ct0"><span>주소</span><a class="lock" href="/?join=1"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg><span class="dots">••• ••••• ••• ••••</span> 가입하고 보기</a></div>')
     info += (f'<div class="l" id="ct" data-biz="{biz}"><span>대표 전화</span>'
              f'<a class="lock" href="/?join=1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
              f'<span class="dots">031-•••-••••</span> 가입하고 보기</a></div>')

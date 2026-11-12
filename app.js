@@ -174,7 +174,7 @@
       l.appendChild(sp); if (extra) l.appendChild(extra); box.appendChild(l);
     }
     var A = window.IGAUTH;
-    if (!A || !A.user) { lockLine(box, '주소', '가입하고 보기', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하고 보기', '가입하기', function () { openLogin('signup'); }); return; }
+    if (!A || !A.user) { lockLine(box, '주소', '가입하고 보기', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하고 보기', '가입하기', function () { openLogin('signup'); }); return; }
     var ct = CT[biz];
     if (ct) {
       if (ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); row('주소', ad, copyBtn(ad)); }
@@ -183,7 +183,7 @@
       return;
     }
     if (CTNONE[biz]) { row('연락처', '등록된 정보가 없습니다'); return; }
-    if (CTLOCK[biz] || (ME && ME.tier === 'free')) { lockLine(box, '주소', '일감 마스터에서 열립니다', null, null, '경기 ••••• ••• ••••'); lockLine(box, '대표 전화', '30일 49,900원 · 하루 1,663원', '전화번호 보기', function () { location.href = 'pro.html'; }); return; }
+    if (CTLOCK[biz] || (ME && ME.tier === 'free')) { lockLine(box, '주소', '일감 마스터에서 열립니다', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '30일 49,900원 · 하루 1,663원', '전화번호 보기', function () { location.href = 'pro.html'; }); return; }
     row('연락처', '불러오는 중…');
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
   }
