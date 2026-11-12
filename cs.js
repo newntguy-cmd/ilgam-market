@@ -14,11 +14,7 @@
     var bm = document.createElement('a');
     bm.href = '#'; bm.setAttribute('data-buy', 'buy'); bm.setAttribute('role', 'button'); bm.title = '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다';
     bm.innerHTML = BICON + '매입문의';
-    var am = document.createElement('a');
-    am.href = '#'; am.setAttribute('data-buy', 'ask'); am.setAttribute('role', 'button'); am.title = '필요한 사무집기를 일감마켓에 문의';
-    am.innerHTML = AICON + '사무집기 문의';
     nav.appendChild(bm);
-    nav.appendChild(am);
     nav.appendChild(a);
   }
 
