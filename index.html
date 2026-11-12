@@ -365,7 +365,7 @@ form.search select option:checked{background:var(--brass);color:var(--navy)}
 @media (max-width:760px){.gnb button,.gnb .tablink{padding:0 8px;font-size:14px}.cwrap button.star.abs{top:8px}.cwrap button.crow{padding-left:52px}}
 
 @media (prefers-reduced-motion:reduce){.row{transition:none}}
-.tier{margin-left:auto;flex:none;font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;color:var(--brass);padding:7px 14px;border:1px solid rgba(176,137,59,.6);border-radius:999px;background:rgba(255,255,255,.4);transition:background .15s}.tier::after{content:' ›';font-weight:800}.tier:hover{background:rgba(255,255,255,.75)}.tier[hidden]{display:none}.tier+.acc{margin-left:14px}
+.tier{display:none!important;margin-left:auto;flex:none;font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;color:var(--brass);padding:7px 14px;border:1px solid rgba(176,137,59,.6);border-radius:999px;background:rgba(255,255,255,.4);transition:background .15s}.tier::after{content:' ›';font-weight:800}.tier:hover{background:rgba(255,255,255,.75)}.tier[hidden]{display:none}.tier+.acc{margin-left:14px}
 .tier.free{color:#5b6b85;border-color:#aebbd1}.tier.pro{color:#0f9f72;border-color:rgba(31,214,154,.6)}
 .lockline .lockv{display:inline-flex;align-items:center;gap:8px;color:var(--mut);font-weight:500}.lockline .dots{letter-spacing:.12em}.lockline .why{color:var(--sub);font-size:14px}
 .cp.unlock{background:var(--brass);border-color:var(--brass);color:var(--navy);font-weight:700}
@@ -605,7 +605,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 @media (max-width:860px){.ab-hero .ab-ask{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;width:100%;box-sizing:border-box;justify-content:space-between;padding:8px 8px 8px 22px;gap:12px!important}.ab-hero .ab-ask b{font-size:18px!important}.ab-hero .ab-ask .go{width:auto!important;flex:0 0 auto;height:46px;padding:0 12px 0 16px!important;font-size:16px!important}}
 @media (max-width:640px){.ab-nums{grid-template-columns:minmax(0,1fr)!important;gap:10px}.ab-nums>div{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px!important}.ab-nums b{font-size:30px!important;line-height:1.1}.ab-nums span{margin:0!important;font-size:16px!important}}
 </style>
-<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=43"><style>#home{scroll-margin-top:240px}</style></head>
+<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=45"><style>#home{scroll-margin-top:240px}</style></head>
 <body>
 <script>(function(){var h=(location.hash||"").slice(1);if(!h||h==="home")document.body.classList.add("ph");window.igKnown=function(){return !!(window.IGAUTH&&window.IGAUTH.ready)||!!window.__igT};setTimeout(function(){if(!window.igKnown()){window.__igT=1;try{window.dispatchEvent(new CustomEvent("ig-known"))}catch(e){}}},2500)})()</script>
 <header class="top"><div class="wrap">
@@ -744,7 +744,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261112f"></script>
+<script src="app.js?v=20261112g"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){

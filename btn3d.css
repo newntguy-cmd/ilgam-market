@@ -150,40 +150,6 @@ header.top nav .cnt,.gnb .cnt{font-style:normal;margin-left:6px;min-width:18px;p
 /* 메인 메뉴: 한 단계 더 진하고 고급스러운 색감(배경과 메뉴 글자색만) */
 header.top{background:linear-gradient(180deg,#ece3cd,#e4d9bf)!important;border-bottom:1px solid #c9b88f!important}
 .gnb button[aria-current=true],.gnb .tablink[aria-current=true]{color:#6f4f0e!important}
-@media (min-width:761px){.gnb>*,header.top nav>*{flex:0 0 clamp(110px,11.2vw,166px)!important;width:clamp(110px,11.2vw,166px)!important}}
-@media (min-width:761px) and (max-width:1250px){.gnb>*,header.top nav>*{flex:0 0 clamp(110px,9.6vw,166px)!important;width:clamp(110px,9.6vw,166px)!important}}
-/* 휴대폰: 메뉴 5개를 한 줄에 균등하게 모두 보이게(옆으로 밀지 않음) */
-@media (max-width:760px){
-.gnb,header.top nav{overflow:visible!important;display:flex!important;width:100%}
-.gnb>*,header.top nav>*{flex:1 1 0!important;width:auto!important;min-width:0!important;padding:0 2px!important;justify-content:center;font-size:15px!important;gap:0!important;white-space:nowrap}
-.gnb>* svg,header.top nav>* svg,.gnb .em{display:none!important}
-.gnb .cnt,header.top nav .cnt{margin-left:3px;min-width:16px;padding:0 4px;font-size:11px;line-height:16px}
-}
-@media (max-width:760px){
-.gnb,header.top nav{gap:0!important;margin-left:-8px!important;margin-right:-8px!important;width:calc(100% + 16px)!important;max-width:none!important}
-.gnb>*,header.top nav>*{font-size:14.5px!important;letter-spacing:-.03em!important;padding:0!important}
-}
-@media (max-width:760px){
-header.top .gnb>a.tablink,header.top nav.gnb>a,header.top nav>a.tablink,.gnb>.tablink,.gnb>*,header.top nav>*{font-size:14px!important;padding:0!important;height:auto!important;min-height:48px!important}
-}
-@media (max-width:760px){
-header.top .gnb>a.tablink,header.top nav.gnb>a,header.top nav>a.tablink,.gnb>.tablink,.gnb>*,header.top nav>*{font-size:13.5px!important;letter-spacing:-.05em!important;position:relative}
-.gnb .cnt,header.top nav .cnt{position:absolute;top:0;right:3px;margin:0;min-width:15px;padding:0 4px;font-size:10.5px;line-height:15px}
-}
-@media (max-width:760px){header.top nav .em,header.top .gnb .em,header.top nav>*>span.em{display:none!important}}
-/* 휴대폰 상단: 로고 · 남은 기간 · 내 계정을 한 줄에, 메뉴는 그 아래 한 줄 */
-@media (max-width:760px){
-header.top>*:first-child{flex-wrap:wrap!important;align-items:center}
-header.top .brand{order:1}
-header.top #tier,header.top .tier{order:2;margin-left:auto!important;font-size:14px!important;min-width:0!important;white-space:nowrap}
-header.top #acc,header.top .acc{order:3;min-width:0!important;margin-left:8px!important}
-header.top #acc>button,header.top .acc>button{min-height:40px;padding:0 12px!important;font-size:15px!important;white-space:nowrap}
-header.top nav{order:4;flex:0 0 100%}
-}
-@media (max-width:400px){header.top #tier,header.top .tier{font-size:12.5px!important;letter-spacing:-.04em}header.top #acc>button,header.top .acc>button{padding:0 9px!important;font-size:14px!important}header.top .brand{margin-right:0}}
-@media (max-width:760px){header.top #tier,header.top .tier{flex:1 1 0!important;width:auto!important;max-width:none!important;text-align:right;overflow:hidden;text-overflow:ellipsis}}
-@media (max-width:380px){header.top #tier,header.top .tier{font-size:12px!important;letter-spacing:-.06em;text-overflow:clip}header.top #acc>button,header.top .acc>button{padding:0 7px!important;font-size:13.5px!important}}
-
-@media (min-width:761px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{flex:0 0 auto!important;width:auto!important;padding-left:16px!important;padding-right:16px!important;font-size:16.5px!important}}
-@media (min-width:761px){header.top nav>* .em,.gnb>* .em{display:none!important}}
-@media (min-width:761px) and (max-width:1300px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:13px!important;padding-right:13px!important;font-size:16px!important}}
+@media (min-width:761px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{flex:0 0 auto!important;width:auto!important;padding-left:32px!important;padding-right:32px!important;font-size:17.5px!important}header.top nav>* .em,.gnb>* .em{display:none!important}}
+@media (min-width:761px) and (max-width:1300px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:22px!important;padding-right:22px!important;font-size:17px!important}}
+@media (min-width:761px) and (max-width:1040px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:14px!important;padding-right:14px!important;font-size:16px!important}}
