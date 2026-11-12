@@ -23,7 +23,7 @@
 .opt{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 6px}
 .opt div{border:1px solid #e3e7ed;border-radius:4px;padding:14px 16px;background:#f8f9fb}
 .opt .rec{position:relative;border-color:#c9a45c;background:#fbf5e6}.opt .rb{position:absolute;top:-10px;right:12px;font-style:normal;font-size:12px;font-weight:700;background:#0f2342;color:#fff;border-radius:10px;padding:2px 10px}.opt .was{margin-left:8px;color:#8a95a8;font-size:15px}
-.prodrow{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;align-items:start;margin:0 0 22px}.prodrow img{width:88px;height:88px;object-fit:cover;border-radius:20px;display:block;box-shadow:0 6px 18px rgba(15,35,66,.18)}.prodrow .pl{margin:0}.prodrow .pl div{display:flex;gap:14px;padding:10px 0;border-top:1px solid #e3e7ed;font-size:15px}.prodrow .pl dt{width:90px;flex:none;color:#6b788e}.prodrow .pl dd{margin:0;font-weight:600;color:#0f2342}@media (max-width:760px){.prodrow{grid-template-columns:1fr}}
+.hero2 .st{font-size:17px;color:#0f2342;margin:0 0 10px}.hero2 .st b{font-size:22px;color:#a8791f}.prodrow{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;align-items:start;margin:0 0 22px}.prodrow img{width:88px;height:88px;object-fit:cover;border-radius:20px;display:block;box-shadow:0 6px 18px rgba(15,35,66,.18)}.prodrow .pl{margin:0}.prodrow .pl div{display:flex;gap:14px;padding:10px 0;border-top:1px solid #e3e7ed;font-size:15px}.prodrow .pl dt{width:90px;flex:none;color:#6b788e}.prodrow .pl dd{margin:0;font-weight:600;color:#0f2342}@media (max-width:760px){.prodrow{grid-template-columns:1fr}}
 .opt b{display:block;font-size:16px}.opt span{font-size:22px;font-weight:800}.opt small{display:block;color:#6b788e;margin-top:2px}
 .state{margin:18px 0;padding:16px 20px;background:#fff;border:1px solid #e3e7ed;border-left:3px solid #c9a45c;border-radius:3px}
 .state b{display:block;margin-bottom:4px}
@@ -63,9 +63,10 @@
 <section class="hero2">
 <div class="hl">
 <span class="badge">전화·주소는 일감 마스터에서 열립니다</span>
-<h1>방금 낙찰된 업체가<br>내 신규 거래처가 됩니다</h1>
-<p>자재·장비·렌탈·시공 영업이라면 낙찰 업체가 곧 신규 거래처입니다. 대표 전화·주소를 지역별 엑셀로 받고, 내 지역에 새 낙찰이 나면 아침 메일로 알려 드려요.</p>
-<div class="cta"><a class="btn go" href="/?join=1">가입하고 낙찰 현황 보기</a><a class="btn ghost" href="/#win">낙찰 목록 보기</a></div>
+<h1>낙찰 업체 영업 리스트,<br>엑셀로 바로 받기</h1>
+<p class="st" id="st" hidden></p>
+<p>자재·장비·렌탈·시공 영업이라면 낙찰 업체가 곧 신규 거래처입니다. 하나씩 찾던 대표 전화·주소를 지역별 엑셀로 받고, 내 지역 새 낙찰은 아침 메일로 알려 드려요.</p>
+<div class="cta"><a class="btn go" href="/?join=1">가입하고 확인하기</a><a class="btn ghost" href="/#win">낙찰 목록 보기</a></div>
 <p class="fine">업체명·금액·통계는 가입 없이 누구나 봅니다. 전화·주소는 031-•••-•••• 로 가려져 있다가 결제하면 열립니다.</p>
 </div>
 <aside class="pv" id="pv" aria-label="오늘 낙찰된 현장 미리보기" hidden>
@@ -131,6 +132,9 @@
   fetch(host+'data/public.json').then(function(r){return r.json();}).then(function(d){
     var items=d.items||[],mx='';items.forEach(function(r){if(r.d>mx)mx=r.d;});
     var day=items.filter(function(r){return r.d===mx;}),sum=0,cos={};day.forEach(function(r){sum+=r.amt||0;cos[r.co]=1;});
+    var c7=new Date(mx);c7.setDate(c7.getDate()-7);var cut=c7.toISOString().slice(0,10),wk={},wn=0;
+    items.forEach(function(r){if(r.d>cut){wn++;wk[r.b||r.co]=1;}});
+    var st=document.getElementById('st');if(st&&wn){st.innerHTML='최근 7일, 낙찰된 업체 <b>'+Object.keys(wk).length.toLocaleString('ko-KR')+'곳</b> · 낙찰 <b>'+wn.toLocaleString('ko-KR')+'건</b>';st.hidden=false;}
     var rows=day.filter(function(r){return r.b;}).sort(function(a,b){return(b.amt||0)-(a.amt||0);}).slice(0,6);
     if(!rows.length)return;
     document.getElementById('pvt').textContent=mx.slice(5).replace('-','월 ')+'일 낙찰된 현장';
