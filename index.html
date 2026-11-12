@@ -630,11 +630,11 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="ab-sl s2" id="abS2"><div class="ab-ph ab-ph2" id="abPh2" aria-hidden="true"></div><div class="wrap ab-hw">
 <div class="ab-ht">
 <h2 class="ab2h">보는 건 가입만으로,<br><em>전화는 결제로</em></h2>
-<p class="ab2p">업체 전화·주소는 가려져 있다가 결제하면 보여요. 카드는 결제할 때만 등록해요.</p>
+<p class="ab2p">업체 전화·주소는 가려져 있다가 결제하면 확인할 수 있어요. 카드는 결제할 때만 등록해요.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">가입하기</button></div>
 <a class="ab-lk" href="pro.html">일감 마스터 이용권 보기 ›</a>
 </div>
-<ol class="ab-pl" aria-label="요금제 안내"><li><b class="f">가입</b><div><em>낙찰 현황</em><p>현장·업체·금액 전부 보기<br><small>카드 등록 없음</small></p></div></li><li><b class="f">•••</b><div><em>전화·주소</em><p>031-•••-•••• 로 가려져 보임<br><small>일감 마스터에서 열림</small></p></div></li><li class="m"><b class="f">49,900원</b><div><em>30일 한 번 결제 · 자동 갱신 없음</em><p>대표 전화·주소 열기<br><small>영업 리스트 엑셀 · 지역 알림</small></p></div></li></ol>
+<ol class="ab-pl" aria-label="요금제 안내"><li><b class="f">가입</b><div><em>낙찰 현황</em><p>현장·업체·금액 전부 보기<br><small>카드 등록 없음</small></p></div></li><li><b class="f">•••</b><div><em>전화·주소</em><p>031-•••-•••• 로 가려져 보임<br><small>일감 마스터에서 확인</small></p></div></li><li class="m"><b class="f">49,900원</b><div><em>30일 한 번 결제 · 자동 갱신 없음</em><p>대표 전화·주소 확인<br><small>영업 리스트 엑셀 · 지역 알림</small></p></div></li></ol>
 </div></div></div>
 <div class="ab-dots" id="abDots" role="tablist" aria-label="소개 화면"><button type="button" class="ar" data-d="-1" aria-label="이전 화면">&#8249;</button><button type="button" class="d" role="tab" aria-selected="true" aria-label="첫 번째 화면"></button><button type="button" class="d" role="tab" aria-selected="false" aria-label="두 번째 화면"></button><button type="button" class="ar" data-d="1" aria-label="다음 화면">&#8250;</button></div></section>
 
@@ -668,8 +668,8 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <section class="ab-sec"><h2>얼마나 쓸 수 있나요?</h2>
 <div class="pl">
 <div class="pc"><span class="pt1">가입하면</span><h3>낙찰 현황</h3><p class="pb">현장·업체·금액 <b>전부</b></p><ul><li>낙찰 현장·업체·금액 전부 보기</li><li>지역 알림 1곳</li><li>직거래장터 글 올리기와 보기</li><li>카드 등록 필요 없음</li></ul></div>
-<div class="pc"><span class="pt1">가입 후 화면</span><h3>전화·주소</h3><p class="pb">결제 전에는 <b>•••</b></p><ul><li>대표 전화 031-•••-•••• 로 가려져 보임</li><li>주소 ••• ••••• ••• •••• 로 가려져 보임</li><li>일감 마스터 결제 즉시 열림</li></ul></div>
-<div class="pc hot"><span class="pt1">더 필요하시면</span><h3>일감 마스터</h3><p class="pb">영업 리스트와 <b>알림까지</b></p><ul><li>대표 전화·주소 열기</li><li>영업 리스트 엑셀</li><li>여러 지역 알림</li><li>30일 49,900원, 한 번 결제하며 자동으로 다시 결제되지 않습니다</li></ul></div>
+<div class="pc"><span class="pt1">가입 후 화면</span><h3>전화·주소</h3><p class="pb">결제 전에는 <b>•••</b></p><ul><li>대표 전화 031-•••-•••• 로 가려져 보임</li><li>주소 ••• ••••• ••• •••• 로 가려져 보임</li><li>일감 마스터 결제 즉시 확인</li></ul></div>
+<div class="pc hot"><span class="pt1">더 필요하시면</span><h3>일감 마스터</h3><p class="pb">영업 리스트와 <b>알림까지</b></p><ul><li>대표 전화·주소 확인</li><li>영업 리스트 엑셀</li><li>여러 지역 알림</li><li>30일 49,900원, 한 번 결제하며 자동으로 다시 결제되지 않습니다</li></ul></div>
 </div>
 <p class="pn1">물건 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.</p></section>
 </div>
@@ -809,7 +809,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function eok(a){a=Math.round(a/1e6)/100;return a>=1e4?(a/1e4).toFixed(1)+'조':a>=100?Math.round(a).toLocaleString('ko-KR')+'억':a.toFixed(1)+'억'}
 function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
 window.__phc=function(){paintHC()};
-function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c||!window.igKnown())return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입하면</small><h3>낙찰 현장,<br>업체·금액까지 전부</h3><p>카드 등록은 필요 없습니다. 업체 전화·주소는 일감 마스터에서 열립니다.</p><button type="button" data-act="join" data-j="가입하고 보기">가입하고 보기</button></div><div class="r"><b>0<i>원</i></b><span>가입비</span></div></div>';return}box.innerHTML=''}
+function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c||!window.igKnown())return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입하면</small><h3>낙찰 현장,<br>업체·금액까지 전부</h3><p>카드 등록은 필요 없습니다. 업체 전화·주소는 일감 마스터에서 확인할 수 있어요.</p><button type="button" data-act="join" data-j="가입하고 보기">가입하고 보기</button></div><div class="r"><b>0<i>원</i></b><span>가입비</span></div></div>';return}box.innerHTML=''}
 function sk(){paintHC();var tb=document.getElementById('tb');if(tb)tb.hidden=true;var hs=document.getElementById('hsub');if(hs)hs.hidden=m();var on=m();[].forEach.call(document.querySelectorAll('#home [data-j]'),function(b){if(on){b.textContent='내 물건 올리기';b.removeAttribute('data-act');b.setAttribute('data-go','market/?c=sell')}else{b.textContent=b.getAttribute('data-j');b.setAttribute('data-act','join');b.removeAttribute('data-go')}})}
 [].forEach.call(document.querySelectorAll('#home [data-act="join"]'),function(b){b.setAttribute('data-j',b.textContent)});
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home [data-go]');if(t)location.href=t.getAttribute('data-go')});
