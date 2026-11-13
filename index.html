@@ -634,7 +634,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="ab-bt"><button type="button" class="go" data-act="join">가입하기</button></div>
 <a class="ab-lk" href="pro.html">일감 마스터 이용권 보기 ›</a>
 </div>
-<ol class="ab-pl" aria-label="요금제 안내"><li><b class="f">가입</b><div><em>낙찰 현황</em><p>현장·업체·금액 전부 보기<br><small>카드 등록 없음</small></p></div></li><li><b class="f">•••</b><div><em>전화·주소</em><p>031-•••-•••• 로 가려져 보임<br><small>일감 마스터에서 확인</small></p></div></li><li class="m"><b class="f">49,900원</b><div><em>30일 한 번 결제 · 자동 갱신 없음</em><p>대표 전화·주소 확인<br><small>영업 리스트 엑셀 · 지역 알림</small></p></div></li></ol>
+<ol class="ab-pl" aria-label="요금제 안내"><li><b class="f">가입</b><div><em>낙찰 현황</em><p>현장·업체·금액 전부 보기<br><small>카드 등록 없음</small></p></div></li><li><b class="f">•••</b><div><em>전화·주소</em><p>031-•••-•••• 로 가려져 보임<br><small>일감 마스터에서 확인</small></p></div></li><li class="m"><b class="f">49,900원</b><div><em>30일 한 번 결제 · 부가세 포함</em><p>대표 전화·주소 확인<br><small>영업 리스트 엑셀 · 지역 알림</small></p></div></li></ol>
 </div></div></div>
 <div class="ab-dots" id="abDots" role="tablist" aria-label="소개 화면"><button type="button" class="ar" data-d="-1" aria-label="이전 화면">&#8249;</button><button type="button" class="d" role="tab" aria-selected="true" aria-label="첫 번째 화면"></button><button type="button" class="d" role="tab" aria-selected="false" aria-label="두 번째 화면"></button><button type="button" class="ar" data-d="1" aria-label="다음 화면">&#8250;</button></div></section>
 
@@ -669,7 +669,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="pl">
 <div class="pc"><span class="pt1">가입하면</span><h3>낙찰 현황</h3><p class="pb">현장·업체·금액 <b>전부</b></p><ul><li>낙찰 현장·업체·금액 전부 보기</li><li>지역 알림 1곳</li><li>직거래장터 글 올리기와 보기</li><li>카드 등록 필요 없음</li></ul></div>
 <div class="pc"><span class="pt1">가입 후 화면</span><h3>전화·주소</h3><p class="pb">결제 전에는 <b>•••</b></p><ul><li>대표 전화 031-•••-•••• 로 가려져 보임</li><li>주소 ••• ••••• ••• •••• 로 가려져 보임</li><li>일감 마스터 결제 즉시 확인</li></ul></div>
-<div class="pc hot"><span class="pt1">더 필요하시면</span><h3>일감 마스터</h3><p class="pb">영업 리스트와 <b>알림까지</b></p><ul><li>대표 전화·주소 확인</li><li>영업 리스트 엑셀</li><li>여러 지역 알림</li><li>30일 49,900원, 한 번 결제하며 자동으로 다시 결제되지 않습니다</li></ul></div>
+<div class="pc hot"><span class="pt1">더 필요하시면</span><h3>일감 마스터</h3><p class="pb">영업 리스트와 <b>알림까지</b></p><ul><li>대표 전화·주소 확인</li><li>영업 리스트 엑셀</li><li>여러 지역 알림</li><li>30일 49,900원(부가세 포함), 한 번 결제하며 자동으로 다시 결제되지 않습니다</li></ul></div>
 </div>
 <p class="pn1">물건 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.</p></section>
 </div>
@@ -829,6 +829,6 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;var jb=s2.querySelector('.ab-bt');if(jb)jb.style.display=u?'none':'';s2.style.display='';ds.style.display='';auto()}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/guide.js?v=1" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=8" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
+<script src="/guide.js?v=2" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=8" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
 </body>
 </html>
