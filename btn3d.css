@@ -153,3 +153,15 @@ header.top{background:linear-gradient(180deg,#ece3cd,#e4d9bf)!important;border-b
 @media (min-width:761px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{flex:0 0 auto!important;width:auto!important;padding-left:32px!important;padding-right:32px!important;font-size:17.5px!important}header.top nav>* .em,.gnb>* .em{display:none!important}}
 @media (min-width:761px) and (max-width:1300px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:22px!important;padding-right:22px!important;font-size:17px!important}}
 @media (min-width:761px) and (max-width:1040px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:14px!important;padding-right:14px!important;font-size:16px!important}}
+/* 메뉴 좌우 정렬: 로고와 내 계정 사이를 메뉴가 고르게 채워 오른쪽 끝(고객센터)까지 시원하게 */
+@media (min-width:761px){
+header.top .wrap{flex-wrap:nowrap!important}
+header.top nav{flex:1 1 auto!important;min-width:0!important;max-width:1120px;margin:0 auto!important;justify-content:space-evenly!important;gap:0!important;overflow:visible!important}
+header.top nav>*{padding-left:clamp(8px,1.2vw,22px)!important;padding-right:clamp(8px,1.2vw,22px)!important}
+}
+@media (min-width:761px){header.top #tier[hidden],header.top #tier{display:none!important}}
+@media (min-width:761px) and (max-width:900px){
+header.top .wrap{gap:10px!important}
+header.top nav>*{padding-left:5px!important;padding-right:5px!important;font-size:14.5px!important}
+header.top .acc>button{padding:0 12px!important;font-size:14px!important}
+}
