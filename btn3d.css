@@ -157,11 +157,19 @@ header.top{background:linear-gradient(180deg,#ece3cd,#e4d9bf)!important;border-b
 @media (min-width:761px){
 header.top .wrap{flex-wrap:nowrap!important}
 header.top nav{flex:1 1 auto!important;min-width:0!important;max-width:1120px;margin:0 auto!important;justify-content:space-evenly!important;gap:0!important;overflow:visible!important}
-header.top nav>*{padding-left:clamp(8px,1.2vw,22px)!important;padding-right:clamp(8px,1.2vw,22px)!important}
+header.top nav>*:not(#x){padding-left:clamp(8px,1.2vw,22px)!important;padding-right:clamp(8px,1.2vw,22px)!important}
 }
 @media (min-width:761px){header.top #tier[hidden],header.top #tier{display:none!important}}
 @media (min-width:761px) and (max-width:900px){
 header.top .wrap{gap:10px!important}
-header.top nav>*{padding-left:5px!important;padding-right:5px!important;font-size:14.5px!important}
+header.top nav>*:not(#x){padding-left:5px!important;padding-right:5px!important;font-size:14.5px!important}
 header.top .acc>button{padding:0 12px!important;font-size:14px!important}
+}
+/* 모바일: 메뉴 6개가 가려지지 않게 3열 2줄로 모두 보여 줌 */
+@media (max-width:760px){
+header.top .wrap{flex-wrap:wrap!important;row-gap:0!important}
+header.top nav{order:5!important;flex:1 1 100%!important;width:100%!important;max-width:none!important;min-width:0!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0!important;overflow:visible!important;margin:2px 0 4px!important;justify-content:stretch!important}
+header.top nav>*:not(#x){flex:none!important;width:auto!important;min-width:0!important;height:42px!important;min-height:42px!important;padding:0 2px!important;font-size:15.5px!important;justify-content:center!important;text-align:center!important}
+header.top nav>* .em{display:none!important}
+header.top .acc{margin-left:auto!important}
 }
