@@ -13,7 +13,7 @@
     a.innerHTML = ICON + '고객센터';
     var bm = document.createElement('a');
     bm.href = '/buy.html'; bm.setAttribute('data-buy', 'buy'); bm.setAttribute('role', 'button'); bm.title = '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다';
-    bm.innerHTML = BICON + '매입문의';
+    bm.innerHTML = BICON + '매입의 신';
     nav.appendChild(bm);
     nav.appendChild(a);
   }
@@ -76,7 +76,7 @@
   // ---- 매입문의 · 사무집기 문의: 겟잇타운이 직접 응대합니다. 접수 내용은 서버에 저장되고 담당자에게 메일로 전달됩니다.
   var bbox, blast, bkind = 'buy', BAPI = 'https://ilgam-pay.newntguy.workers.dev';
   var BF = {
-    buy: { title: '매입문의', lead: '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다. 팔고 싶은 물건을 남겨 주세요.',
+    buy: { title: '매입의 신', lead: '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다. 사진과 함께 팔고 싶은 물건을 남겨 주세요.',
       cats: ['냉난방기', '에어컨', '사무집기'], catLabel: '어떤 물건인가요?',
       item: '품명과 수량', itemEx: '예: 시스템에어컨 3대, 사무용 책상 20개', state: '상태와 사용 기간', stateEx: '예: 2년 사용, 상태 양호', area: '물건이 있는 지역',
       memo: '희망 가격, 처분 시기 등', agree: '매입 상담', send: '매입 문의 보내기', done: '확인하고 남겨 주신 번호로 연락드리겠습니다.',

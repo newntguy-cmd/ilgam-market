@@ -7,7 +7,7 @@
     { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'sell', label: '직거래장터', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
     { id: 'wl', label: '관심', desc: '담아 둔 업체의 새 낙찰 알림', ready: true },
-    { id: 'buy', label: '매입문의', desc: '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다', buy: 'buy' },
+    { id: 'buy', label: '매입의 신', desc: '냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다', buy: 'buy' },
     { id: 'cs', label: '고객센터', desc: '문의와 자주 묻는 질문', cs: true },
     { id: 'bid', label: '입찰', ready: false, hidden: true },
     { id: 'con', label: '계약', ready: false, hidden: true },
