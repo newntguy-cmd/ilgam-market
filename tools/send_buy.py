@@ -30,7 +30,7 @@ if not (SECRET and os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS")):
 def call(path, body=None):
     data = json.dumps(body).encode("utf-8") if body is not None else None
     req = urllib.request.Request(WORKER + path, data=data, method="POST" if data else "GET",
-                                 headers={"X-Admin": SECRET, "Content-Type": "application/json"})
+                                 headers={"X-Admin": SECRET, "Content-Type": "application/json", "User-Agent": "ilgam-market-bot/1.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.loads(r.read().decode("utf-8"))
 
