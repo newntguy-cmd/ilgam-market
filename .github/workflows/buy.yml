@@ -1,7 +1,7 @@
 name: send-buy-inquiries
 on:
   schedule:
-    - cron: "*/15 * * * *"   # 15분마다 매입문의 접수분을 메일로 전달
+    - cron: "*/5 * * * *"   # 5분마다 매입문의 접수분을 메일로 전달
   workflow_dispatch:
 permissions:
   contents: read
