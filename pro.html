@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
 <meta name="theme-color" content="#0f2342">
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1">
-<link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=47">
+<link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=53">
 <style>
 .hd{margin:26px 0 22px}
 .hd p{margin:8px 0 0;color:#46556d;max-width:640px}
@@ -57,14 +57,14 @@
 .fn{font-size:13.5px;color:#46556d}.fn li{margin:4px 0}
 </style></head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="/" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav aria-label="메뉴"><a href="/#home" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사소개</a><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰정보</a><a href="/market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래장터</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심업체</a></nav></div></header>
+<header class="top"><div class="wrap"><a class="brand" href="/" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav class="gnb" aria-label="메뉴"><a href="/#home" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사소개</a><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰정보</a><a href="/market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래장터</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심업체</a><a href="/buy.html" data-buy="buy" title="냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>매입의 신</a><a href="/help.html" data-cs="1" title="문의와 자주 묻는 질문"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></span>고객센터</a></nav><div class="acc" id="acc"><button type="button" id="tjn" class="jn">가입하기</button><button type="button" id="tme">로그인</button></div><script>try{if(localStorage.getItem('ig_me')){document.getElementById('tme').textContent='내 계정';document.getElementById('tjn').hidden=true}}catch(e){}</script></div></header>
 <main class="wrap">
 <div class="crumb"><a href="/">홈</a> › 일감 마스터 안내</div>
 <section class="hero2">
 <div class="hl">
 <span class="badge">전화·주소는 일감 마스터 영업 리스트에</span>
 <h1>낙찰 업체 영업 리스트,<br>엑셀로 바로 받기</h1>
-<p class="st" id="st" hidden></p>
+<p class="st" id="st" style="visibility:hidden">최근 7일, 낙찰된 업체 <b>0,000곳</b> · 낙찰 <b>0,000건</b></p>
 <p>자재·장비·렌탈·시공 영업이라면 낙찰 업체가 곧 신규 거래처입니다. 하나씩 찾던 대표 전화·주소를 지역별 엑셀로 받고, 내 지역 새 낙찰은 아침 메일로 알려 드려요.</p>
 <div class="cta"><a class="btn go" href="/?join=1">가입하고 확인하기</a><a class="btn ghost" href="/#win">낙찰 목록 보기</a></div>
 <p class="fine">업체명·금액·통계는 가입 없이 누구나 봅니다. 전화·주소는 031-•••-•••• 로 표시되고, 일감 마스터에서 영업 리스트로 이용할 수 있습니다.</p>
@@ -134,7 +134,7 @@
     var day=items.filter(function(r){return r.d===mx;}),sum=0,cos={};day.forEach(function(r){sum+=r.amt||0;cos[r.co]=1;});
     var c7=new Date(mx);c7.setDate(c7.getDate()-7);var cut=c7.toISOString().slice(0,10),wk={},wn=0;
     items.forEach(function(r){if(r.d>cut){wn++;wk[r.b||r.co]=1;}});
-    var st=document.getElementById('st');if(st&&wn){st.innerHTML='최근 7일, 낙찰된 업체 <b>'+Object.keys(wk).length.toLocaleString('ko-KR')+'곳</b> · 낙찰 <b>'+wn.toLocaleString('ko-KR')+'건</b>';st.hidden=false;}
+    var st=document.getElementById('st');if(st&&wn){st.innerHTML='최근 7일, 낙찰된 업체 <b>'+Object.keys(wk).length.toLocaleString('ko-KR')+'곳</b> · 낙찰 <b>'+wn.toLocaleString('ko-KR')+'건</b>';st.style.visibility='';}else if(st){st.hidden=true;}
     var rows=day.filter(function(r){return r.b;}).sort(function(a,b){return(b.amt||0)-(a.amt||0);}).slice(0,6);
     if(!rows.length)return;
     document.getElementById('pvt').textContent=mx.slice(5).replace('-','월 ')+'일 낙찰된 현장';
@@ -148,7 +148,7 @@
       box.appendChild(row);
     });
     document.getElementById('pv').hidden=false;
-  }).catch(function(){});
+  }).catch(function(){var q=document.getElementById('st');if(q)q.hidden=true;});
 })();
 </script>
-<script src="/cs.js?v=9x" defer></script><script src="/ga.js" defer></script></body></html>
+<script src="/cs.js?v=9y" defer></script><script src="/ga.js" defer></script></body></html>

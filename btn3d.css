@@ -173,3 +173,14 @@ header.top nav>*:not(#x){flex:none!important;width:auto!important;min-width:0!im
 header.top nav>* .em{display:none!important}
 header.top .acc{margin-left:auto!important}
 }
+/* 데이터가 들어오기 전에도 자리를 잡아 두어, 도착할 때 아래 내용이 밀리지 않게 */
+.board:empty{min-height:120vh}
+main.wrap{min-height:70vh}
+/* 가입/로그인 자리는 모든 페이지에서 같은 폭 */
+header.top .acc{display:flex!important;gap:0!important;align-items:center}
+#meta{min-height:22px}
+#regionChips:empty{min-height:38px}
+/* 매입의 신·고객센터 페이지: 양식이 그려지기 전에도 자리를 잡아 아래 바닥글이 밀리지 않게 */
+#igbuy.pg{min-height:1040px}#igcs.pg{min-height:460px}
+@media (max-width:600px){#igbuy.pg{min-height:1250px}#igcs.pg{min-height:510px}}
+html.embed main.wrap{min-height:0}

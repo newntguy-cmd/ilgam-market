@@ -199,6 +199,12 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && bbox && !bbox.hidden) bclose(); });
   function init() {
     addMenu(); addCount();
+    // 가입하기·로그인: 다른 페이지에서는 첫 화면의 로그인 창으로 보냅니다(첫 화면·장터는 자체 처리)
+    var tj = document.getElementById('tjn'), tm = document.getElementById('tme');
+    if (tj && tm && !document.getElementById('gnb') && location.pathname.indexOf('/market/') !== 0) {
+      tj.addEventListener('click', function () { location.href = '/#join'; });
+      tm.addEventListener('click', function () { var c = false; try { c = !!localStorage.getItem('ig_me'); } catch (e) {} location.href = c ? '/pro.html' : '/#login'; });
+    }
     if (document.getElementById('igbuy') && document.getElementById('igbuy').classList.contains('pg')) { pgcss(); bcss(); bbuild(); bfill('buy'); bbox.hidden = false; }
     var pc = document.getElementById('igcs'); if (pc && pc.classList.contains('pg')) { pgcss(); build(); pc.hidden = false; }
   }
