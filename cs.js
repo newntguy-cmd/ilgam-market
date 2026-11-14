@@ -80,7 +80,8 @@
       cats: ['냉난방기', '에어컨', '사무집기'], catLabel: '어떤 물건인가요?',
       item: '품명과 수량', itemEx: '예: 시스템에어컨 3대, 사무용 책상 20개', state: '상태와 사용 기간', stateEx: '예: 2년 사용, 상태 양호', area: '물건이 있는 지역',
       memo: '희망 가격, 처분 시기 등', agree: '매입 상담', send: '매입 문의 보내기', done: '확인하고 남겨 주신 번호로 연락드리겠습니다.',
-      note: '남겨 주신 내용은 일감마켓에서 검토한 뒤 연락드립니다. 직거래장터의 이용자 간 거래와는 별개입니다.' },
+      steps: ['사진과 정보 남기기', '매입 가능 여부와 예상 금액 안내', '실물 확인 후 가격 확정'], photoHint: '모델명·제조년월 라벨이 보이게 한 장 더 찍어 주세요. 연식에 따라 매입가가 달라집니다.',
+      note: '남겨 주신 내용은 일감마켓에서 검토한 뒤 연락드립니다. 예상 금액은 사진 기준이며 최종 매입가는 실물을 확인한 뒤 정해지고, 가격이 맞지 않으면 거절하셔도 됩니다. 직거래장터의 이용자 간 거래와는 별개입니다.' },
     ask: { title: '사무집기 문의', lead: '필요한 사무집기를 남겨 주시면 일감마켓에서 확인하고 연락드립니다.',
       cats: null, catLabel: '',
       item: '필요한 사무집기', itemEx: '예: 책상 10개, 의자 10개, 파티션', state: '사용 시기와 기간', stateEx: '예: 12월부터 6개월', area: '설치할 지역',
@@ -105,6 +106,8 @@
     + '#igbuy .er{margin:12px 0 0;color:#b3261e;font-size:15px;line-height:1.5}#igbuy .ok{padding:26px 6px 8px;text-align:center}#igbuy .ok b{display:block;font-size:22px;margin-bottom:8px}#igbuy .ok p{margin:0;font-size:17px;line-height:1.6;color:#33425b}'
     + '#igbuy .ph{display:flex;flex-wrap:wrap;gap:10px}#igbuy .addp{display:block;margin:0}#igbuy .addp span{display:flex;align-items:center;justify-content:center;width:96px;height:96px;border:1.5px dashed #c9b88e;border-radius:10px;background:#fff;color:#8a6a28;font-size:15px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}'
     + '#igbuy .th{position:relative;width:96px;height:96px;border-radius:10px;overflow:hidden;border:1px solid #d8cdb0;background:#fff}#igbuy .th img{width:100%;height:100%;object-fit:cover;display:block}#igbuy .th button{position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(15,35,66,.82);color:#fff;font-size:16px;line-height:1;cursor:pointer}'
+    + '#igbuy .stp{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px;padding:0}#igbuy .stp li{counter-increment:s;display:flex;flex-direction:column;gap:6px;padding:10px 10px 11px;border:1px solid #e3d8bb;border-radius:10px;background:#fff;font-size:14.5px;line-height:1.4;font-weight:700;color:#0f2342;word-break:keep-all}#igbuy .stp li:before{content:counter(s);display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#0f2342;color:#fff;font-size:13px;font-weight:800}@media(max-width:480px){#igbuy .stp{grid-template-columns:1fr}#igbuy .stp li{flex-direction:row;align-items:center;gap:10px}}'
+    + '#igbuy .pht{margin:0 0 8px;font-size:14.5px;line-height:1.5;color:#6b7690;word-break:keep-all}'
     + '#igbuy .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6b7690}#igbuy .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
     document.head.appendChild(st);
   }
@@ -113,14 +116,14 @@
     var cats = c.cats ? '<label>' + c.catLabel + ' <i>필수</i></label><div class="cats" role="radiogroup" aria-label="' + c.catLabel + '">'
       + c.cats.map(function (k) { return '<label><input type="radio" name="ib_cat" value="' + k + '"><span>' + k + '</span></label>'; }).join('') + '</div>' : '';
     bbox.querySelector('.p').innerHTML = '<div class="h"><h2 id="igbuyt">' + c.title + '</h2><button type="button" class="x" aria-label="닫기">×</button></div><div class="b">'
-      + '<form id="igbuyf" novalidate><p class="lead">' + c.lead + '</p>' + cats
+      + '<form id="igbuyf" novalidate><p class="lead">' + c.lead + '</p>' + (c.steps ? '<ol class="stp">' + c.steps.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ol>' : '') + cats
       + '<label for="ib_bi">' + c.item + ' <i>필수</i></label><input id="ib_bi" type="text" maxlength="120" autocomplete="off" placeholder="' + c.itemEx + '">'
       + '<label for="ib_bs">' + c.state + '</label><input id="ib_bs" type="text" maxlength="120" autocomplete="off" placeholder="' + c.stateEx + '">'
       + '<div class="two"><div><label for="ib_ba">' + c.area + '</label><input id="ib_ba" type="text" maxlength="40" autocomplete="off" placeholder="예: 경기 수원"></div>'
       + '<div><label for="ib_bn">성함 <i>필수</i></label><input id="ib_bn" type="text" maxlength="30" autocomplete="name"></div></div>'
       + '<label for="ib_bt">연락받을 전화번호 <i>필수</i></label><input id="ib_bt" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000">'
       + '<label for="ib_bm">전하실 말씀</label><textarea id="ib_bm" maxlength="600" placeholder="' + c.memo + '"></textarea>'
-      + '<label>사진 <small style="font-weight:400;color:#6b7690">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
+      + '<label>사진 <small style="font-weight:400;color:#6b7690">선택 · 최대 3장</small></label>' + (c.photoHint ? '<p class="pht">' + c.photoHint + '</p>' : '') + '<div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
       + '<div class="hp" aria-hidden="true"><input id="ib_bw" type="text" tabindex="-1" autocomplete="off"></div>'
       + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함·전화번호·문의 내용·사진을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
       + '<p class="er" id="ib_ber" role="alert" hidden></p><button class="go" id="ib_bgo" type="submit">' + c.send + '</button></form>'
