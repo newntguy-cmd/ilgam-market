@@ -184,3 +184,5 @@ header.top .acc{display:flex!important;gap:0!important;align-items:center}
 #igbuy.pg{min-height:1040px}#igcs.pg{min-height:460px}
 @media (max-width:600px){#igbuy.pg{min-height:1250px}#igcs.pg{min-height:510px}}
 html.embed main.wrap{min-height:0}
+/* 회사소개 첫 등장 애니메이션은 한 번만: 메뉴를 옮겨 다닐 때마다 다시 재생돼 글자가 흐려졌다 선명해지던 현상 방지 */
+html.ig-seen .ab-ht h1,html.ig-seen .ab-ht h1 em,html.ig-seen .ab-ht p,html.ig-seen .ab-ask,html.ig-seen #hCards .pt,html.ig-seen #hCards .pt .stp,html.ig-seen .ab-hl .pt .l,html.ig-seen .ab-reg i::after{animation:none!important}

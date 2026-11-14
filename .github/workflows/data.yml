@@ -33,6 +33,16 @@ jobs:
           p = "data/public.json"
           d = json.load(open(p, encoding="utf-8"))
           n = len(d.pop("corp", None) or {})
+          # 파일을 가볍게: id로 다시 만들 수 있는 나라장터 링크(u)와 빈 공종(kind)은 뺍니다 (화면에서 id로 복원)
+          import re
+          for r in d.get("items", []):
+              i = r.get("id") or ""
+              if re.match(r"^[A-Z0-9]+-\d{3}$", i):
+                  a, o = i.split("-")
+                  if r.get("u") == f"https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo={a}&bidPbancOrd={o}":
+                      r.pop("u", None)
+              if r.get("kind") == "":
+                  r.pop("kind", None)
           json.dump(d, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
           print("공개 파일에서 뺀 연락처", n, "건")
           PY
@@ -48,7 +58,7 @@ jobs:
         run: |
           git config user.name "data-bot"
           git config user.email "data-bot@users.noreply.github.com"
-          git add -A data/public.json data/about.json index.html c a sitemap.xml 'sitemap-*.xml' robots.txt
+          git add -A data/public.json data/about.json data/pv.json index.html c a sitemap.xml 'sitemap-*.xml' robots.txt
           git diff --cached --quiet || git commit -m "update data"
           git pull --rebase origin main
           git push

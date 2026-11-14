@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
 <meta name="theme-color" content="#0f2342">
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1">
-<link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=53">
+<link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=55">
 <style>
 .hd{margin:26px 0 22px}
 .hd p{margin:8px 0 0;color:#46556d;max-width:640px}
@@ -129,16 +129,12 @@
 (function(){
   function money(n){if(!n)return'-';var e=n/1e8;return e>=1?(e>=100?e.toFixed(0):e.toFixed(1))+'억':Math.round(n/1e4).toLocaleString('ko-KR')+'만';}
   var host=(location.hostname==='localhost'||location.protocol==='capacitor:')?'https://ilgammarket.co.kr/':'';
-  fetch(host+'data/public.json').then(function(r){return r.json();}).then(function(d){
-    var items=d.items||[],mx='';items.forEach(function(r){if(r.d>mx)mx=r.d;});
-    var day=items.filter(function(r){return r.d===mx;}),sum=0,cos={};day.forEach(function(r){sum+=r.amt||0;cos[r.co]=1;});
-    var c7=new Date(mx);c7.setDate(c7.getDate()-7);var cut=c7.toISOString().slice(0,10),wk={},wn=0;
-    items.forEach(function(r){if(r.d>cut){wn++;wk[r.b||r.co]=1;}});
-    var st=document.getElementById('st');if(st&&wn){st.innerHTML='최근 7일, 낙찰된 업체 <b>'+Object.keys(wk).length.toLocaleString('ko-KR')+'곳</b> · 낙찰 <b>'+wn.toLocaleString('ko-KR')+'건</b>';st.style.visibility='';}else if(st){st.hidden=true;}
-    var rows=day.filter(function(r){return r.b;}).sort(function(a,b){return(b.amt||0)-(a.amt||0);}).slice(0,6);
+  fetch(host+'data/pv.json').then(function(r){return r.json();}).then(function(d){
+    var st=document.getElementById('st');if(st&&d.wn){st.innerHTML='최근 7일, 낙찰된 업체 <b>'+(d.wc||0).toLocaleString('ko-KR')+'곳</b> · 낙찰 <b>'+d.wn.toLocaleString('ko-KR')+'건</b>';st.style.visibility='';}else if(st){st.hidden=true;}
+    var rows=d.rows||[],mx=d.mx||'';
     if(!rows.length)return;
     document.getElementById('pvt').textContent=mx.slice(5).replace('-','월 ')+'일 낙찰된 현장';
-    document.getElementById('pvs').textContent=day.length+'건 · '+money(sum)+' · '+Object.keys(cos).length+'곳';
+    document.getElementById('pvs').textContent=d.dn+'건 · '+money(d.dsum)+' · '+d.dco+'곳';
     var box=document.getElementById('pvl');
     rows.forEach(function(r){
       var row=document.createElement('div');row.className='pvr';
@@ -151,4 +147,4 @@
   }).catch(function(){var q=document.getElementById('st');if(q)q.hidden=true;});
 })();
 </script>
-<script src="/cs.js?v=9y" defer></script><script src="/ga.js" defer></script></body></html>
+<script src="/cs.js?v=9z" defer></script><script src="/ga.js" defer></script></body></html>

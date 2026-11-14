@@ -197,7 +197,19 @@
   function bclose() { if (bbox) bbox.hidden = true; if (blast && blast.focus) blast.focus(); }
   document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('[data-buy]'); if (!t) return; e.preventDefault(); if (location.pathname !== '/buy.html') location.href = '/buy.html'; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && bbox && !bbox.hidden) bclose(); });
+  // 메뉴 위에 마우스를 올리면 그 페이지를 미리 불러 두어, 누르는 순간 바로 열리게 (지원하는 브라우저에서만)
+  function warm() {
+    try {
+      if (!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules'))) return;
+      if (!window.matchMedia || !matchMedia('(hover:hover)').matches) return;
+      var here = location.pathname, list = ['/market/', '/buy.html', '/help.html', '/pro.html'].filter(function (u) { return u === '/market/' ? here.indexOf('/market/') !== 0 : here !== u; });
+      var sr = document.createElement('script'); sr.type = 'speculationrules';
+      sr.textContent = JSON.stringify({ prerender: [{ urls: list, eagerness: 'moderate' }] });
+      document.head.appendChild(sr);
+    } catch (e) {}
+  }
   function init() {
+    warm();
     addMenu(); addCount();
     // 가입하기·로그인: 다른 페이지에서는 첫 화면의 로그인 창으로 보냅니다(첫 화면·장터는 자체 처리)
     var tj = document.getElementById('tjn'), tm = document.getElementById('tme');

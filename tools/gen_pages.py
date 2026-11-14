@@ -87,7 +87,7 @@ for biz, rows in by.items():
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(name)} · 낙찰 {len(rows)}건 {money(total)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ilgammarket.co.kr/og.png">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=53">
+<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=55">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
@@ -152,6 +152,20 @@ _about = {
     "cards": [{"rg": r["rg"], "nm": r["nm"], "co": r["co"], "amt": r["amt"], "d": r["d"], "b": r.get("b", "")} for r in _win[:18]],
 }
 json.dump(_about, open(os.path.join(OUT, "data", "about.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+
+# 요금 안내 페이지 미리보기용 작은 파일 (낙찰 전체 파일을 요금 페이지에서 받지 않도록)
+import datetime as _dt
+_mx = max((r.get("d") or "" for r in _it), default="")
+if _mx:
+    _day = [r for r in _it if r.get("d") == _mx]
+    _cut = (_dt.date.fromisoformat(_mx) - _dt.timedelta(days=7)).isoformat()
+    _wk = [r for r in _it if (r.get("d") or "") > _cut]
+    _top = sorted([r for r in _day if r.get("b")], key=lambda r: r.get("amt") or 0, reverse=True)[:6]
+    json.dump({
+        "mx": _mx, "wn": len(_wk), "wc": len({r.get("b") or r.get("co") for r in _wk}),
+        "dn": len(_day), "dsum": sum(r.get("amt") or 0 for r in _day), "dco": len({r.get("co") for r in _day}),
+        "rows": [{"co": r.get("co"), "amt": r.get("amt"), "rg": r.get("rg"), "nm": r.get("nm")} for r in _top],
+    }, open(os.path.join(OUT, "data", "pv.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
 # 이번 주 동향 (최근 7일 vs 직전 7일) — 회사소개 페이지
 import datetime as _dt

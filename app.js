@@ -189,7 +189,11 @@
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
   }
   function renderAcc() {
-    var A = window.IGAUTH, box = $('acc'); box.textContent = '';
+    var A = window.IGAUTH, box = $('acc');
+    var ck = '0'; try { ck = localStorage.getItem('ig_me') ? '1' : '0'; } catch (e) {}
+    var key = [A && A.user ? A.user.email : '', ME && ME.tier, ME && ME.until, ck, window.igKnown && window.igKnown() ? 1 : 0].join('|');
+    if (box.getAttribute('data-k') === key && box.firstChild) return; // 같은 상태면 다시 그리지 않아 메뉴를 옮겨도 깜빡이지 않게
+    box.setAttribute('data-k', key); box.textContent = '';
     var fc = $('fcta'); if (fc) { fc.hidden = !!(A && A.user); if (!fc.getAttribute('data-b')) { fc.setAttribute('data-b', '1'); $('fctab').addEventListener('click', function () { openLogin('signup'); }); } }
     if (!A || !A.user) {
       var cached = false; try { cached = !!localStorage.getItem('ig_me'); } catch (e) {}
@@ -309,10 +313,24 @@
         b.addEventListener('click', function () { var was = S.tab; S.tab = t.id; S.shown = PAGE; try { history.replaceState(null, '', '#' + t.id); } catch (e) {} render(); if (was === 'home' || t.id === 'home') window.scrollTo(0, 0); });
       }
       
+      b.setAttribute('data-tab', t.id);
       if (t.desc) b.title = t.desc;
       if (ic) { var sp = el('span', 'em'); sp.setAttribute('aria-hidden', 'true'); sp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ic + '</svg>'; b.insertBefore(sp, b.firstChild); }
       g.appendChild(b);
     });
+  }
+
+  // 메뉴는 처음에 한 번만 만들고, 이후에는 현재 위치 표시만 바꿉니다 (탭을 옮길 때 메뉴가 깜빡이지 않게)
+  function syncGnb() {
+    var g = $('gnb');
+    if (g.getAttribute('data-ok') !== '1') { renderGnb(); g.setAttribute('data-ok', '1'); return; }
+    var kids = g.children;
+    for (var i = 0; i < kids.length; i++) {
+      var k = kids[i], id = k.getAttribute('data-tab');
+      if (!id) continue;
+      if (k.hasAttribute('aria-current')) k.setAttribute('aria-current', String(S.tab === id || (id === 'win' && S.tab === 'co')));
+      if (id === 'wl') { var n = wlCount(), c = k.querySelector('.cnt'); if (n) { if (!c) { c = el('i', 'cnt'); k.appendChild(c); } c.textContent = String(n); } else if (c) c.remove(); }
+    }
   }
 
   function fillSelect(sel, values, cur) {
@@ -671,8 +689,11 @@
     board.appendChild(wrap);
   }
 
+  var lastTab = S.tab;
   function render() {
-    renderGnb(); renderChips(); renderAcc();
+    if (lastTab === 'home' && S.tab !== 'home') { document.documentElement.classList.add('ig-seen'); try { sessionStorage.setItem('ig_intro', '1'); } catch (e) {} }
+    lastTab = S.tab;
+    syncGnb(); renderChips(); renderAcc();
     document.body.classList.toggle('ph', S.tab === 'home');
     if (S.tab === 'home') return;
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
@@ -775,7 +796,7 @@
       var out = [head.map(csvCell).join(',')];
       list.forEach(function (r) {
         var ct = r.b ? CT[r.b] : null;
-        out.push([r.d, r.nm, r.dm, r.rg, r.kind, r.co, r.amt || '', r.rate || '', r.b || '', ct && ct.t ? ct.t : '', ct && ct.a ? ct.a : '', r.u || ''].map(csvCell).join(','));
+        out.push([r.d, r.nm, r.dm, r.rg, r.kind, r.co, r.amt || '', r.rate || '', r.b || '', ct && ct.t ? ct.t : '', ct && ct.a ? ct.a : '', srcOf(r)].map(csvCell).join(','));
       });
       out.push(''); out.push(csvCell('출처: 일감마켓(ilgammarket.co.kr) · 조달청 나라장터 공공데이터'));
       var blob = new Blob(['﻿' + out.join('\r\n')], { type: 'text/csv;charset=utf-8' });
@@ -805,7 +826,7 @@
 
   // 앱(안드로이드)에서는 파일이 기기 안에 들어 있으므로 데이터만 홈페이지에서 받아 옵니다.
   var DATA_URL = (location.hostname === 'localhost' || location.protocol === 'capacitor:') ? 'https://ilgammarket.co.kr/data/public.json' : 'data/public.json';
-  renderGnb();
+  renderGnb(); $('gnb').setAttribute('data-ok', '1');
   if (HT === 'join' || HT === 'login') { try { history.replaceState(null, '', location.pathname); } catch (e) {} openLogin(HT === 'join' ? 'signup' : 'login'); }
   function startData() {
     fetch(DATA_URL, { cache: 'no-cache' }).then(function (r) {
