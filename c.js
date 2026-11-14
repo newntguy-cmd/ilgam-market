@@ -26,7 +26,12 @@
       } else rows.push(line('연락처', txt('등록된 정보가 없습니다')));
       var c0 = document.getElementById('ct0'); if (c0) c0.parentNode.removeChild(c0);
       rows.forEach(function (n) { parent.insertBefore(n, box); }); parent.removeChild(box);
-    }).catch(function () { busy = false; });
+    }).catch(function () {
+      busy = false;
+      var A = window.IGAUTH; if (!A || !A.user) return;
+      var ls = box.parentNode ? box.parentNode.querySelectorAll('a[href*="join=1"], a.lock') : [];
+      [].forEach.call(ls, function (a) { if (a.textContent.indexOf('가입하고 보기') > -1) { a.textContent = '다시 불러오기'; a.removeAttribute('href'); a.style.cursor = 'pointer'; a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); paint(); }, { once: true }); } });
+    });
   }
   window.addEventListener('ig-auth', paint); paint();
 })();
