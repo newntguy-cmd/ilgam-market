@@ -117,12 +117,24 @@ for name in os.listdir(cdir):  # 60일 창에서 빠진 업체는 지웁니다
 import gen_areas
 AREA_URLS = gen_areas.build(d, OUT, SITE, set(made))
 print(f"지역 페이지 {len(AREA_URLS)}개")
-urls = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"] + [
-    f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)
-] + AREA_URLS
+core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"]
+comp = [f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)]
+urls = core + list(AREA_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
+# 사이트맵 인덱스: 파일 하나에 3,000개씩 나눕니다(네이버·구글 모두 대량 URL은 인덱스를 권장)
+CHUNK = 3000
+for old in os.listdir(OUT):
+    if re.fullmatch(r"sitemap-\d+\.xml", old):
+        os.remove(os.path.join(OUT, old))
+parts = [urls[i:i + CHUNK] for i in range(0, len(urls), CHUNK)]
+idx = []
+for n, part in enumerate(parts, 1):
+    open(os.path.join(OUT, f"sitemap-{n}.xml"), "w", encoding="utf-8").write(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(part) + "\n</urlset>\n")
+    idx.append(f"  <sitemap><loc>{SITE}/sitemap-{n}.xml</loc></sitemap>")
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n")
+    '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(idx) + "\n</sitemapindex>\n")
 open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
+print(f"사이트맵 {len(parts)}개 파일, URL {len(urls)}개")
 print(f"업체 페이지 {len(made)}개")
 
 # 회사소개 페이지용 작은 통계 파일 (낙찰 전체 파일 6MB를 소개 페이지에서 받지 않도록)
