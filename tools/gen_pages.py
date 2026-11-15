@@ -64,7 +64,7 @@ for biz, rows in by.items():
     for r in rows:
         regs[r["rg"]] = regs.get(r["rg"], 0) + 1
     top = sorted(regs, key=lambda k: -regs[k])[0]
-    # 전화·주소는 정적 페이지에 싣지 않습니다. 로그인한 사용자에게만 서버에서 내려줍니다.
+    # 전화⁠·⁠주소는 정적 페이지에 싣지 않습니다. 로그인한 사용자에게만 서버에서 내려줍니다.
     latest = rows[0]["d"]
     title = f"{name} 대표 전화·주소·낙찰 이력 · 일감마켓"
     desc = f"{name}의 최근 공공 공사 낙찰 {len(rows)}건, 합계 {money(total)}. 주로 {top} 지역. 사업자번호 {fmt_biz(biz)}" + ". 대표 전화·주소는 일감 마스터에서 확인할 수 있어요. 조달청 나라장터 공공데이터 기준."
@@ -87,7 +87,7 @@ for biz, rows in by.items():
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(name)} · 낙찰 {len(rows)}건 {money(total)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ilgammarket.co.kr/og.png">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=55">
+<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=56">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
@@ -120,7 +120,7 @@ print(f"지역 페이지 {len(AREA_URLS)}개")
 core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"]
 comp = [f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)]
 urls = core + list(AREA_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
-# 사이트맵 인덱스: 파일 하나에 3,000개씩 나눕니다(네이버·구글 모두 대량 URL은 인덱스를 권장)
+# 사이트맵 인덱스: 파일 하나에 3,000개씩 나눕니다(네이버⁠·⁠구글 모두 대량 URL은 인덱스를 권장)
 CHUNK = 3000
 for old in os.listdir(OUT):
     if re.fullmatch(r"sitemap-\d+\.xml", old):

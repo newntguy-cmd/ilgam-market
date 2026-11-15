@@ -1,4 +1,4 @@
-"""지역·공종·시군구별 '최근 낙찰 현장' 페이지(a/...)를 만듭니다.
+"""지역⁠·⁠공종·시군구별 '최근 낙찰 현장' 페이지(a/...)를 만듭니다.
 
 영업 담당자가 검색창에 치는 말("경기 전기공사 낙찰", "평택 신축공사 낙찰")에 맞는 정적 페이지입니다.
 공종 칸이 비어 있는 자료가 많아서, 공사명 글자에서 공종을 뽑아 씁니다. 같은 입력이면 같은 출력이 나옵니다.
@@ -101,7 +101,7 @@ def build(d, out, site, linked):
 {('<section class="card"><h2>더 좁혀 보기</h2><p class="chips">' + chip + '</p></section>') if chip else ''}
 <section class="card"><h2>최근 낙찰</h2><table><tbody>{trs}</tbody></table>{'<p class="note">최근 ' + str(ROWS) + '건만 보여 드립니다. 전체 목록은 일감마켓에서 확인하실 수 있습니다.</p>' if len(rows) > ROWS else ''}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 전체 낙찰 보기</a></p>
-<p class="note">※ 조달청 나라장터 공공데이터를 가공한 정보이며, 일감마켓은 낙찰을 주관·시행하지 않는 정보서비스입니다. 정확성과 완전성을 보장하지 않습니다.</p></main>'''
+<p class="note">※ 조달청 나라장터 공공데이터를 가공한 정보이며, 일감마켓은 낙찰을 주관⁠·⁠시행하지 않는 정보서비스입니다. 정확성과 완전성을 보장하지 않습니다.</p></main>'''
         pages[path] = (title, desc, body, len(rows))
 
     by_rg = {}
@@ -139,7 +139,7 @@ def build(d, out, site, linked):
         shutil.rmtree(adir)
     urls = []
     css = ('.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0}.chip{display:inline-block;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid #d5dbe5;color:#0f2342;text-decoration:none;font-weight:600}'
-           '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.cta p{margin:6px 0 14px}td.co{white-space:nowrap}.tg{display:inline-block;margin-left:6px;padding:0 8px;border-radius:999px;background:#f1ece0;color:#6f4f0e;font-size:12px}')
+           '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.cta p{margin:6px 0 14px}td.co{white-space:nowrap}@media(max-width:640px){.card table,.card tbody{display:block}.card tr{display:grid;grid-template-columns:46px minmax(0,1fr) auto;grid-template-areas:"d n a" "d c c";column-gap:10px;row-gap:2px;padding:11px 0;border-bottom:1px solid #ece7da}.card td{display:block;padding:0;border:0;min-width:0}td.dt{grid-area:d;white-space:nowrap}.card td:nth-child(2){grid-area:n}td.co{grid-area:c;white-space:normal;font-size:13px;color:#4a5a73}td.amt{grid-area:a;text-align:right;white-space:nowrap}}.tg{display:inline-block;margin-left:6px;padding:0 8px;border-radius:999px;background:#f1ece0;color:#6f4f0e;font-size:12px}')
     for path, (title, desc, body, n) in pages.items():
         url = f"{site}/a/" + (quote(path) + "/" if path else "")
         ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url}
@@ -150,7 +150,7 @@ def build(d, out, site, linked):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=55"><style>{css}</style>
+<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=56"><style>{css}</style>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {body}

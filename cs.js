@@ -30,7 +30,7 @@
     }
   }
   var FAQ = [
-    ['가입하면 무엇이 달라지나요?', '가입하면 낙찰 현장·업체·금액이 전부 보입니다. 카드 등록은 필요 없습니다. 대표 전화·주소가 담긴 영업 리스트는 일감 마스터에서 이용할 수 있습니다.'],
+    ['가입하면 무엇이 달라지나요?', '가입하면 낙찰 현장⁠·⁠업체⁠·⁠금액이 전부 보입니다. 카드 등록은 필요 없습니다. 대표 전화⁠·⁠주소가 담긴 영업 리스트는 일감 마스터에서 이용할 수 있습니다.'],
     ['직거래장터는 어떻게 이용하나요?', '팔고 싶은 물건은 사진과 함께 올리고, 필요한 물품은 적어 올리면 판매자가 견적을 보냅니다. 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.'],
     ['글 신고, 삭제, 회원 탈퇴는 어떻게 하나요?', '아래 이메일로 보내 주시면 접수해 드립니다.'],
     ['이용권 결제와 환불은요?', '<a href="/market/policy.html#refund" target="_blank" rel="noopener">환불규정</a>에서 확인하실 수 있습니다.']
@@ -122,7 +122,7 @@
       + '<label for="ib_bm">전하실 말씀</label><textarea id="ib_bm" maxlength="600" placeholder="' + c.memo + '"></textarea>'
       + '<label>사진 <small style="font-weight:400;color:#6b7690">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
       + '<div class="hp" aria-hidden="true"><input id="ib_bw" type="text" tabindex="-1" autocomplete="off"></div>'
-      + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함·전화번호·문의 내용·사진을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
+      + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함⁠·⁠전화번호·문의 내용⁠·⁠사진을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
       + '<p class="er" id="ib_ber" role="alert" hidden></p><button class="go" id="ib_bgo" type="submit">' + c.send + '</button></form>'
       + '<div class="ok" id="ib_bok" hidden><b>접수됐습니다</b><p>' + c.done + '</p></div>'
       + '<p class="n">' + c.note + '</p></div>';
@@ -211,7 +211,7 @@
   function init() {
     warm();
     addMenu(); addCount();
-    // 가입하기·로그인: 다른 페이지에서는 첫 화면의 로그인 창으로 보냅니다(첫 화면·장터는 자체 처리)
+    // 가입하기·로그인: 다른 페이지에서는 첫 화면의 로그인 창으로 보냅니다(첫 화면⁠·⁠장터는 자체 처리)
     var tj = document.getElementById('tjn'), tm = document.getElementById('tme');
     if (tj && tm && !document.getElementById('gnb') && location.pathname.indexOf('/market/') !== 0) {
       tj.addEventListener('click', function () { location.href = '/#join'; });
