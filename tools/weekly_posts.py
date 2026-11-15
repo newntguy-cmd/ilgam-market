@@ -36,7 +36,7 @@ def main(out):
         cats = Counter(cat_of(r)[0] for r in rs if cat_of(r))
         top = ", ".join(f"{k} {v}건" for k, v in cats.most_common(3))
         big = sorted([r for r in rs if r.get("amt")], key=lambda r: -r["amt"])[:3]
-        lines = [f"[이번 주 {rg} 낙찰 현황] {f[5:].replace('-', '/')}~{t[5:].replace('-', '/')}",
+        lines = [f"[{rg} 낙찰 현황] {f[5:].replace('-', '/')}~{t[5:].replace('-', '/')}",
                  f"낙찰 {len(rs):,}건, 합계 약 {eok(sum(r.get('amt') or 0 for r in rs))}"]
         if top:
             lines.append(f"많이 나온 공종: {top}")
