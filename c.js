@@ -7,10 +7,10 @@
     var s = document.createElement('span'); s.textContent = k; l.appendChild(s); l.appendChild(node); return l;
   }
   function txt(t) { var b = document.createElement('b'); b.textContent = t; return b; }
-  function paint() {
-    var A = window.IGAUTH; if (busy || !A || !A.ready || !A.user) return; busy = true;
+  function paint(want) {
+    var A = window.IGAUTH; if (want && want.type) want = false; if (busy || !A || !A.ready || !A.user) return; busy = true;
     A.token().then(function (t) {
-      return fetch(API + '/contacts', { method: 'POST', headers: { 'Authorization': 'Bearer ' + t, 'Content-Type': 'application/json' }, body: JSON.stringify({ bizs: [biz], open: true }) }).then(function (r) { return r.json(); });
+      return fetch(API + '/contacts', { method: 'POST', headers: { 'Authorization': 'Bearer ' + t, 'Content-Type': 'application/json' }, body: JSON.stringify({ bizs: [biz], open: !!want }) }).then(function (r) { return r.json(); });
     }).then(function (r) {
       if (!r || !r.ok) throw new Error('fail');
       var ct = r.contacts && r.contacts[biz], parent = box.parentNode, rows = [];
@@ -21,8 +21,16 @@
       } else if ((r.locked || []).indexOf(biz) >= 0) {
         var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
         var mk = function (dots, label) { var q = document.createElement('a'); q.className = 'lock'; q.setAttribute('data-pro', '1'); q.href = '/pro.html'; q.innerHTML = ICON + '<span class="dots"></span> '; q.querySelector('.dots').textContent = dots; q.appendChild(document.createTextNode(label)); return q; };
-        rows.push(line('주소', mk('••• ••••• ••• ••••', '일감 마스터에서 확인')));
-        rows.push(line('대표 전화', mk('031-•••-••••', '영업 리스트 보기 · 30일 49,900원')));
+        var left = r.tier === 'free' && r.limit ? Math.max(0, r.limit - (r.used || 0)) : 0;
+        if (left > 0) {
+          rows.push(line('주소', mk('••• ••••• ••• ••••', '가입 선물 ' + r.limit + '곳 중 ' + left + '곳 남음')));
+          var ob = document.createElement('a'); ob.className = 'lock'; ob.href = '#'; ob.textContent = '전화·주소 보기';
+          ob.addEventListener('click', function (e) { e.preventDefault(); var ph = document.createElement('div'); ph.id = 'ct'; ph.setAttribute('data-biz', biz); parent.insertBefore(ph, rows[0]); rows.forEach(function (n) { if (n.parentNode) n.parentNode.removeChild(n); }); box = ph; busy = false; paint(true); });
+          rows.push(line('대표 전화', ob));
+        } else {
+          rows.push(line('주소', mk('••• ••••• ••• ••••', '일감 마스터에서 확인')));
+          rows.push(line('대표 전화', mk('031-•••-••••', '영업 리스트 보기 · 30일 49,900원')));
+        }
       } else rows.push(line('연락처', txt('등록된 정보가 없습니다')));
       var c0 = document.getElementById('ct0'); if (c0) c0.parentNode.removeChild(c0);
       rows.forEach(function (n) { parent.insertBefore(n, box); }); parent.removeChild(box);

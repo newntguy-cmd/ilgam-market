@@ -184,7 +184,15 @@
       return;
     }
     if (CTNONE[biz]) { row('연락처', '등록된 정보가 없습니다'); return; }
-    if (CTLOCK[biz] || (ME && ME.tier === 'free')) { lockLine(box, '주소', '일감 마스터 영업 리스트에서', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '30일 49,900원 · 하루 1,663원', '전화번호 보기', function () { location.href = 'pro.html'; }); return; }
+    if (CTLOCK[biz] || (ME && ME.tier === 'free')) {
+      var left = ME && ME.limit ? Math.max(0, ME.limit - (ME.used || 0)) : 0;
+      if (left > 0) {
+        lockLine(box, '주소', '가입 선물 ' + ME.limit + '곳 중 ' + left + '곳 남음', null, null, '••• ••••• ••• ••••');
+        lockLine(box, '대표 전화', '한 번 열면 다시 열어도 차감되지 않아요', '전화·주소 보기', function () { delete CTLOCK[biz]; box.textContent = ''; row('연락처', '불러오는 중…'); getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 눌러 주세요.'); }); });
+        return;
+      }
+      lockLine(box, '주소', '일감 마스터 영업 리스트에서', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '가입 선물 ' + (ME && ME.limit || 10) + '곳을 모두 보셨어요 · 30일 49,900원', '전화번호 보기', function () { location.href = 'pro.html'; }); return;
+    }
     row('연락처', '불러오는 중…');
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
   }

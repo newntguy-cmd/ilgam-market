@@ -2,7 +2,7 @@
 // 환경변수: TOSS_SECRET (토스 시크릿 키), ADMIN_SECRET (연락처 적재용 비밀값)
 // 저장소: KV 바인딩 PRO (프로 기간·결제), D1 바인딩 DB (사용자 첫 접속일·법인 연락처·하루 열람 기록)
 const TRIAL_DAYS = 0;    // 맛보기 없음: 연락처는 결제한 일감 마스터에게만 공개
-const FREE_DAILY = 0;    // 무료 회원 연락처 열람 건수(0 = 전부 잠금)
+const FREE_GIFT = 10;    // 가입 선물: 무료 회원이 대표 전화·주소를 열 수 있는 업체 수(계정당 총 10곳, 소진되면 일감 마스터)
 const PLANS = { '30': { amount: 49900, days: 30 }, '90': { amount: 129900, days: 90 } };
 const FIRST_30 = 39900;  // 신규 고객가(정상가 49,900원): 일감 마스터 30일 이용권, 결제 내역이 없는 계정의 첫 결제 1회
 const ORIGINS = ['https://ilgammarket.co.kr', 'https://www.ilgammarket.co.kr', 'http://localhost:8077', 'capacitor://localhost', 'https://localhost'];
@@ -76,8 +76,8 @@ async function account(env, me) {
   const trialUntil = u.first_seen + TRIAL_DAYS * 86400000;
   const trial = !st.pro && now < trialUntil;
   const day = today();
-  const used = (await env.DB.prepare('SELECT COUNT(*) n FROM opens WHERE uid = ? AND day = ?').bind(me.uid, day).first()).n;
-  return { ...st, trial, trialUntil, tier: st.pro ? 'pro' : trial ? 'trial' : 'free', limit: FREE_DAILY, used };
+  const used = (await env.DB.prepare('SELECT COUNT(DISTINCT biz) n FROM opens WHERE uid = ?').bind(me.uid).first()).n;
+  return { ...st, trial, trialUntil, tier: st.pro ? 'pro' : trial ? 'trial' : 'free', limit: FREE_GIFT, used };
 }
 
 // 연락처 요청. open=false 는 "이미 열린 것만 보여 달라"(열람 건수를 쓰지 않음), open=true 는 "열어 달라".
@@ -91,19 +91,43 @@ async function contacts(env, me, bizs, open) {
     const ins = [];
     for (const b of bizs) if (have[b]) { out[b] = { t: have[b].tel || '', a: have[b].addr || '' }; if (open) ins.push(env.DB.prepare('INSERT OR IGNORE INTO opens(uid, day, biz) VALUES(?, ?, ?)').bind(me.uid, day, b)); }
     if (ins.length) await env.DB.batch(ins);
-  } else {                                       // 무료: 하루 FREE_DAILY 건
-    const prev = await env.DB.prepare('SELECT biz FROM opens WHERE uid = ? AND day = ? AND biz IN (' + qs(bizs.length) + ')').bind(me.uid, day, ...bizs).all();
+  } else {                                       // 무료: 가입 선물 FREE_GIFT 곳(한 번 연 업체는 다시 열어도 차감되지 않음)
+    const prev = await env.DB.prepare('SELECT DISTINCT biz FROM opens WHERE uid = ? AND biz IN (' + qs(bizs.length) + ')').bind(me.uid, ...bizs).all();
     const was = new Set(prev.results.map((r) => r.biz));
     let used = A.used; const ins = [];
     for (const b of bizs) {
       if (!have[b]) continue;
       if (was.has(b)) out[b] = { t: have[b].tel || '', a: have[b].addr || '' };
-      else if (open && used < FREE_DAILY) { used++; ins.push(env.DB.prepare('INSERT OR IGNORE INTO opens(uid, day, biz) VALUES(?, ?, ?)').bind(me.uid, day, b)); out[b] = { t: have[b].tel || '', a: have[b].addr || '' }; }
+      else if (open && used < FREE_GIFT) { used++; ins.push(env.DB.prepare('INSERT OR IGNORE INTO opens(uid, day, biz) VALUES(?, ?, ?)').bind(me.uid, day, b)); out[b] = { t: have[b].tel || '', a: have[b].addr || '' }; }
     }
     if (ins.length) await env.DB.batch(ins);
   }
   const fresh = await account(env, me);
-  return { ok: true, tier: fresh.tier, used: fresh.used, limit: FREE_DAILY, trialUntil: fresh.trialUntil, contacts: out, locked: bizs.filter((b) => have[b] && !out[b]) };
+  return { ok: true, tier: fresh.tier, used: fresh.used, limit: FREE_GIFT, trialUntil: fresh.trialUntil, contacts: out, locked: bizs.filter((b) => have[b] && !out[b]) };
+}
+
+// 관리자 통계 (ADMIN_UIDS 에 등록된 계정만)
+async function stats(env) {
+  const kst = (ms) => new Date(ms + 9 * 3600000).toISOString().slice(0, 10);
+  const now = Date.now(), d0 = kst(now), d7 = kst(now - 6 * 86400000), d30 = kst(now - 29 * 86400000);
+  const users = (await env.DB.prepare('SELECT first_seen FROM users').all()).results || [];
+  const byDay = {}; users.forEach((u) => { const k = kst(u.first_seen); byDay[k] = (byDay[k] || 0) + 1; });
+  const days = []; for (let i = 13; i >= 0; i--) { const k = kst(now - i * 86400000); days.push({ day: k, n: byDay[k] || 0 }); }
+  const cnt = (from) => users.filter((u) => kst(u.first_seen) >= from).length;
+  const opens = (await env.DB.prepare('SELECT COUNT(*) n, COUNT(DISTINCT uid) u FROM opens').first()) || { n: 0, u: 0 };
+  const buy = (await env.DB.prepare('SELECT COUNT(*) n FROM buyreq').first()) || { n: 0 };
+  const buy7 = (await env.DB.prepare('SELECT COUNT(*) n FROM buyreq WHERE ts >= ?').bind(now - 7 * 86400000).first()) || { n: 0 };
+  let pro = 0, paid = 0, revenue = 0, firstN = 0; const recent = [];
+  let cur; do {
+    const l = await env.PRO.list({ prefix: 'order:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
+    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (!v) continue; try { const o = JSON.parse(v); paid++; revenue += Number(o.amount) || 0; if (Number(o.amount) === FIRST_30) firstN++; recent.push({ at: o.at, plan: o.plan, amount: o.amount }); } catch (e) {} }
+  } while (cur);
+  cur = undefined; do {
+    const l = await env.PRO.list({ prefix: 'pro:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
+    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (Number(v) > now) pro++; }
+  } while (cur);
+  recent.sort((a, b) => b.at - a.at);
+  return { ok: true, now, users: { total: users.length, today: cnt(d0), d7: cnt(d7), d30: cnt(d30), days }, pro: { active: pro, orders: paid, revenue, firstPrice: firstN }, gift: { limit: FREE_GIFT, opens: opens.n, users: opens.u }, buy: { total: buy.n, d7: buy7.n }, recent: recent.slice(0, 10) };
 }
 
 // 관리자 전용: 매일 최신 연락처를 채워 넣습니다.
@@ -181,6 +205,13 @@ export default {
     const me = await whoami(req);
     if (!me) return J(req, { ok: false, message: '로그인이 필요합니다.' }, 401);
 
+    if (url.pathname === '/stats') {
+      const ids = String(env.ADMIN_UIDS || '').split(',').map((s) => s.trim()).filter(Boolean);
+      if (!ids.includes(me.uid)) return J(req, { ok: false, message: 'forbidden', uid: me.uid }, 403);
+      if (!env.DB) return J(req, { ok: false, message: 'DB 연결이 없습니다.' }, 500);
+      await init(env);
+      return J(req, await stats(env));
+    }
     if (url.pathname === '/status') return J(req, { ok: true, ...(await status(env, me.uid)) });
 
     if (url.pathname === '/me' || url.pathname === '/contacts') {

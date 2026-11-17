@@ -133,7 +133,7 @@ for n, part in enumerate(parts, 1):
     idx.append(f"  <sitemap><loc>{SITE}/sitemap-{n}.xml</loc></sitemap>")
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(idx) + "\n</sitemapindex>\n")
-open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
+open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(f"User-agent: *\nAllow: /\nDisallow: /admin.html\nSitemap: {SITE}/sitemap.xml\n")
 print(f"사이트맵 {len(parts)}개 파일, URL {len(urls)}개")
 print(f"업체 페이지 {len(made)}개")
 
