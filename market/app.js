@@ -382,8 +382,8 @@ async function prep(file){
 function renderWrite(){
   const f=$('wform');
   if(!S.user||!S.profile){
-    f.textContent='';f.append(el('h2',null,'가입하고 바로 올리기'),el('div','tip','이메일과 비밀번호만 있으면 됩니다.'),
-      btn('가입하고 올리기','primary big',()=>{S.authMode='signup';go('me');}),
+    f.textContent='';f.append(el('h2',null,'올리려면 가입이 필요해요'),el('div','tip','이메일과 비밀번호만 있으면 됩니다.'),
+      btn('가입하기','primary big',()=>{S.authMode='signup';go('me');}),
       btn('이미 계정이 있어요 · 로그인',null,()=>{S.authMode='login';go('me');}));
     return;
   }

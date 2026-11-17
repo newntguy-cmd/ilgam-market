@@ -92,7 +92,7 @@
   function setMode(m) {
     mode = m;
     $('lgTitle').textContent = m === 'login' ? '로그인' : '가입하기';
-    $('lgGo').textContent = m === 'login' ? '로그인' : '가입하고 시작';
+    $('lgGo').textContent = m === 'login' ? '로그인' : '가입하기';
     $('lgSwap').textContent = m === 'login' ? '처음이세요? 가입하기' : '이미 계정이 있어요';
     $('lgPw').autocomplete = m === 'login' ? 'current-password' : 'new-password';
     $('lgReset').hidden = m !== 'login';
@@ -175,7 +175,7 @@
       l.appendChild(sp); if (extra) l.appendChild(extra); box.appendChild(l);
     }
     var A = window.IGAUTH;
-    if (!A || !A.user) { lockLine(box, '주소', '가입하고 보기', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하고 보기', '가입하기', function () { openLogin('signup'); }); return; }
+    if (!A || !A.user) { lockLine(box, '주소', '가입하기', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '가입하기', '가입하기', function () { openLogin('signup'); }); return; }
     var ct = CT[biz];
     if (ct) {
       if (ct.a) { var ad = ct.a.replace(/\s*\(\s*\)\s*/g, ' ').replace(/-0(?=\s|\(|$)/g, '').replace(/\s+/g, ' ').trim(); row('주소', ad, copyBtn(ad)); }
@@ -471,7 +471,7 @@
       }
     });
     if (GATE.on && isGuest() && list.length > cap) {
-      var lk = el('div', 'more'); var lb = el('button', null, '가입하고 ' + (list.length - cap) + '건 더 보기'); lb.type = 'button';
+      var lk = el('div', 'more'); lk.appendChild(el('span', 'mt', (list.length - cap).toLocaleString('ko-KR') + '건이 더 있어요')); var lb = el('button', null, '가입하기'); lb.type = 'button';
       lb.addEventListener('click', function () { openLogin('signup'); }); lk.appendChild(lb); board.appendChild(lk);
     } else if (list.length > S.shown) {
       var m = el('div', 'more'); var b = el('button', null, '더 보기 (' + (list.length - S.shown) + '건 남음)'); b.type = 'button';
@@ -570,7 +570,7 @@
     d.appendChild(tb);
     if (!member) {
       var cta = el('div', 'wcta');
-      var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하고 현장명 · 발주처 · 주소 · 대표 전화까지 보기'));
+      var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하면 현장명 · 발주처 · 낙찰 업체가 모두 보여요'));
       cta.appendChild(t);
       var jb = el('button', 'go', '가입하기'); jb.type = 'button'; jb.addEventListener('click', function () { openLogin('signup'); });
       cta.appendChild(jb); d.appendChild(cta);

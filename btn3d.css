@@ -189,3 +189,7 @@ html.ig-seen .ab-ht h1,html.ig-seen .ab-ht h1 em,html.ig-seen .ab-ht p,html.ig-s
 
 /* 로그인한 사람에게는 가입 권유를 숨긴다 */
 html.ig-in [data-act="join"],html.ig-in #hjoin,html.ig-in #pv,html.ig-in #pvjoin,html.ig-in #tb,html.ig-in #fcta,html.ig-in #bnjoin,html.ig-in [data-guide-join],html.ig-in .ab-sl.s2 .ab-bt,html.ig-in .ab-jn{display:none!important}
+/* 로그인 전·후·이용 중에도 메뉴가 같은 자리에 있도록 오른쪽 계정 영역의 폭을 고정 */
+@media (max-width:1000px) and (min-width:761px){header.top .wrap .acc{flex:none!important;min-width:204px!important;justify-content:flex-end!important}}
+@media (max-width:900px) and (min-width:761px){header.top .wrap .acc{min-width:166px!important}}
+@media (min-width:1001px){header.top .wrap .acc{flex:none!important;min-width:216px!important;justify-content:flex-end!important}}

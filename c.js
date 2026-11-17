@@ -30,7 +30,7 @@
       busy = false;
       var A = window.IGAUTH; if (!A || !A.user) return;
       var ls = box.parentNode ? box.parentNode.querySelectorAll('a[href*="join=1"], a.lock') : [];
-      [].forEach.call(ls, function (a) { if (a.textContent.indexOf('가입하고 보기') > -1) { a.textContent = '다시 불러오기'; a.removeAttribute('href'); a.style.cursor = 'pointer'; a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); paint(); }, { once: true }); } });
+      [].forEach.call(ls, function (a) { if (a.textContent.indexOf('가입하기') > -1) { a.textContent = '다시 불러오기'; a.removeAttribute('href'); a.style.cursor = 'pointer'; a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); paint(); }, { once: true }); } });
     });
   }
   window.addEventListener('ig-auth', paint); paint();

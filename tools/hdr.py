@@ -27,7 +27,7 @@ def header(active='', base='/'):
         out.append('<a href="%s"%s%s title="%s"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true">%s</svg></span>%s</a>'
                    % (href[n], cur, extra, TITLE[n], SVG[n], n))
     acc = ('<div class="acc" id="acc"><button type="button" id="tjn" class="jn">가입하기</button><button type="button" id="tme">로그인</button></div>'
-           "<script>try{var m=localStorage.getItem('ig_me');if(m){var j=document.getElementById('tjn');document.getElementById('tme').textContent='내 계정';if((JSON.parse(m)||{}).tier==='pro'){j.hidden=true}else{j.textContent='결제하기';j.className='jn pay'}}}catch(e){}</script>")
+           "<script>try{var m=localStorage.getItem('ig_me');if(m){var j=document.getElementById('tjn');document.getElementById('tme').textContent='내 계정 ▾';if((JSON.parse(m)||{}).tier==='pro'){j.hidden=true}else{j.textContent='결제하기';j.className='jn pay'}}}catch(e){}</script>")
     return ('<header class="top"><div class="wrap"><a class="brand" href="%s" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a>'
             '<nav class="gnb" aria-label="메뉴">%s</nav>%s</div></header>' % (base, ''.join(out), acc))
 

@@ -172,7 +172,7 @@ section.res{padding:100px 0 80px}
 .am{text-align:right;font-size:20px;font-weight:600;color:var(--navy);letter-spacing:-.02em}
 .am small{display:block;font-size:12px;font-weight:400;color:var(--mut);letter-spacing:0}
 .nca{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:8px 22px;padding:18px 22px;border-radius:12px;background:linear-gradient(90deg,#0f2342,#173764);border:1px solid rgba(201,164,92,.5);color:#fff}.nct b{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em}.nct span{display:block;margin-top:4px;font-size:15px;color:#c3cfe3}.nca button{flex:none;font-family:inherit;border:0;cursor:pointer;height:44px;padding:0 22px;border-radius:22px;background:#c9a45c;color:#0f2342;font-size:16px;font-weight:800}@media (max-width:760px){.nca{flex-direction:column;align-items:stretch;margin:8px 12px;gap:12px}.nca button{width:100%}}
-.more{display:flex;justify-content:center;padding:22px}
+.more{display:flex;justify-content:center;align-items:center;gap:18px;padding:22px;flex-wrap:wrap}.more .mt{font-size:17px;font-weight:700;color:var(--navy)}
 .more button{min-height:48px;padding:0 30px;border-radius:3px;border:1px solid var(--navy);background:#fff;color:var(--navy);font-size:15px;font-weight:600;cursor:pointer}
 .more button:hover{background:var(--navy);color:#fff}
 .empty{padding:48px 22px;text-align:center;color:var(--sub)}
@@ -615,7 +615,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 @media (max-width:860px){.ab-hero .ab-ask{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;width:100%;box-sizing:border-box;justify-content:space-between;padding:8px 8px 8px 22px;gap:12px!important}.ab-hero .ab-ask b{font-size:18px!important}.ab-hero .ab-ask .go{width:auto!important;flex:0 0 auto;height:46px;padding:0 12px 0 16px!important;font-size:16px!important}}
 @media (max-width:640px){.ab-nums{grid-template-columns:minmax(0,1fr)!important;gap:10px}.ab-nums>div{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px!important}.ab-nums b{font-size:30px!important;line-height:1.1}.ab-nums span{margin:0!important;font-size:16px!important}}
 </style>
-<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=61"><style>#home{scroll-margin-top:240px}</style></head>
+<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=64"><style>#home{scroll-margin-top:240px}</style></head>
 <body>
 <script>(function(){try{if(localStorage.getItem("ig_me"))document.documentElement.classList.add("ig-in")}catch(e){}try{if(sessionStorage.getItem("ig_intro"))document.documentElement.classList.add("ig-seen");else setTimeout(function(){if(document.body.classList.contains("ph"))try{sessionStorage.setItem("ig_intro","1")}catch(e){}},3500)}catch(e){}var h=(location.hash||"").slice(1);if(!h||h==="home"||h==="join"||h==="login")document.body.classList.add("ph");window.igKnown=function(){return !!(window.IGAUTH&&window.IGAUTH.ready)||!!window.__igT};setTimeout(function(){if(!window.igKnown()){window.__igT=1;try{window.dispatchEvent(new CustomEvent("ig-known"))}catch(e){}}},2500)})()</script>
 <header class="top"><div class="wrap">
@@ -639,8 +639,8 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </div></div>
 <div class="ab-sl s2" id="abS2"><div class="ab-ph ab-ph2" id="abPh2" aria-hidden="true"></div><div class="wrap ab-hw">
 <div class="ab-ht">
-<h2 class="ab2h">낙찰 다음은,<br><em>영업입니다.</em></h2>
-<p class="ab2p">일감 마스터 · 30일 49,900원. 카드는 결제할 때만 등록해요.</p>
+<h2 class="ab2h">영업 리스트,<br><em>30일 49,900원</em></h2>
+<p class="ab2p">업체별 대표 전화⁠·⁠주소를 엑셀로 저장해요. 카드는 결제할 때만 등록해요.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">가입하기</button></div>
 <a class="ab-pay" href="pro.html#buy">일감 마스터 결제하기<b>49,900원</b></a>
 </div>
@@ -661,7 +661,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </section>
 
 
-<div class="wrap hm"><section class="pv" id="pv" aria-label="가입 혜택" hidden><div class="tk"><div class="tl"><h2>가입하면 낙찰 현장<br><em>업체⁠·⁠금액까지 전부</em></h2><button type="button" class="go" id="pvjoin">가입하고 보기</button></div><div class="tr" aria-hidden="true"><b>0<small>원</small></b><span>가입비</span><i>카드 등록 없음</i></div></div></section><section class="mk" id="mk" aria-label="장터">
+<div class="wrap hm"><section class="pv" id="pv" aria-label="가입 혜택" hidden><div class="tk"><div class="tl"><h2>가입하면 낙찰 현장<br><em>업체⁠·⁠금액까지 전부</em></h2><button type="button" class="go" id="pvjoin">가입하기</button></div><div class="tr" aria-hidden="true"><b>0<small>원</small></b><span>가입비</span><i>카드 등록 없음</i></div></div></section><section class="mk" id="mk" aria-label="장터">
 <div class="mkh"><h2>직거래장터</h2><p>이번 주 낙찰된 현장 <b id="mkn">1,981</b>곳이 자재⁠·⁠장비·집기를 찾고 있습니다.</p></div>
 <div class="mkg">
 <a class="mkc sell" href="market/?c=sell"><span class="mki" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span><b>팔고 싶은 물건 있으세요?</b><p>사진 한 장이면 됩니다.</p><i>바로가기</i></a>
@@ -697,7 +697,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="fld s"><label for="fKind">분야</label><select id="fKind"></select></div>
 <div class="fld q"><label for="fQ">현장명, 업체명</label><input id="fQ" type="search" placeholder="예: 청사 신축, 업체명" autocomplete="off"></div>
 <button class="go sub" type="submit">검색</button>
-<button class="go jn" type="button" id="hjoin">가입하고 보기</button>
+<button class="go jn" type="button" id="hjoin">가입하기</button>
 </form>
 </div></section>
 
@@ -754,7 +754,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261117f"></script>
+<script src="app.js?v=20261117g"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){
@@ -767,7 +767,7 @@ function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return
 })();
 </script><div id="bn" role="dialog" aria-modal="true" aria-labelledby="bnt"><div class="pn"><button type="button" class="x" id="bnx" aria-label="닫기">✕</button><img class="lg" src="/img/logo.svg" alt="" width="104" height="104"><span class="tg">가입 혜택</span><h2 id="bnt">가입하면 낙찰 현장<br><em>업체⁠·⁠금액까지 전부</em></h2><p>이번 주 새로 낙찰된 현장 <b id="bnn">1,981</b>건. 카드 등록 없이 시작할 수 있어요.</p>
 <div class="ch"><div><b>전부</b><span>현장⁠·⁠업체⁠·⁠금액</span></div><div><b>오전 7:30</b><span>낙찰 아침 메일</span></div><div><b>0원</b><span>카드 등록 없음</span></div></div>
-<button type="button" class="go" id="bnjoin">가입하고 보기</button><button type="button" class="bn2" id="bn2" data-act="tab:win" hidden>낙찰정보 보기</button><div class="ft"><label><input type="checkbox" id="bnck"> 하루 동안 보지 않기</label></div></div></div>
+<button type="button" class="go" id="bnjoin">가입하기</button><button type="button" class="bn2" id="bn2" data-act="tab:win" hidden>낙찰정보 보기</button><div class="ft"><label><input type="checkbox" id="bnck"> 하루 동안 보지 않기</label></div></div></div>
 <script>
 (function(){
 var K='ig_bn_until',bn=document.getElementById('bn'),last=null;
@@ -820,7 +820,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function eok(a){a=Math.round(a/1e6)/100;return a>=1e4?(a/1e4).toFixed(1)+'조':a>=100?Math.round(a).toLocaleString('ko-KR')+'억':a.toFixed(1)+'억'}
 function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
 window.__phc=function(){paintHC()};
-function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c||!window.igKnown())return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입하면</small><h3>낙찰 현장,<br>업체⁠·⁠금액까지 전부</h3><p>카드 등록은 필요 없습니다. 대표 전화⁠·⁠주소가 담긴 영업 리스트는 일감 마스터에서 이용해요.</p><button type="button" data-act="join" data-j="가입하고 보기">가입하고 보기</button></div><div class="r"><b>0<i>원</i></b><span>가입비</span></div></div>';return}box.innerHTML=''}
+function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c||!window.igKnown())return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입하면</small><h3>낙찰 현장,<br>업체⁠·⁠금액까지 전부</h3><p>카드 등록은 필요 없습니다. 대표 전화⁠·⁠주소가 담긴 영업 리스트는 일감 마스터에서 이용해요.</p><button type="button" data-act="join">가입하기</button></div><div class="r"><b>0<i>원</i></b><span>가입비</span></div></div>';return}box.innerHTML=''}
 function sk(){paintHC();var tb=document.getElementById('tb');if(tb)tb.hidden=true;var hs=document.getElementById('hsub');if(hs)hs.hidden=m();var on=m();[].forEach.call(document.querySelectorAll('#home [data-j]'),function(b){if(on){b.textContent='영업 리스트 보기';b.removeAttribute('data-act');b.setAttribute('data-go','pro.html')}else{b.textContent=b.getAttribute('data-j');b.setAttribute('data-act','join');b.removeAttribute('data-go')}})}
 [].forEach.call(document.querySelectorAll('#home [data-act="join"]'),function(b){b.setAttribute('data-j',b.textContent)});
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home [data-go]');if(t)location.href=t.getAttribute('data-go')});
@@ -840,6 +840,6 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;var jb=s2.querySelector('.ab-bt');if(jb)jb.style.display=u?'none':'';s2.style.display='';ds.style.display='';auto()}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/guide.js?v=2x" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=9zA" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
+<script src="/guide.js?v=2x" defer></script><script src="/promo.js?v=2" defer></script><script src="/cs.js?v=9zA" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
 </body>
 </html>
