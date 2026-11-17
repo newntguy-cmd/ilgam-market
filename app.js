@@ -88,7 +88,7 @@
     clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 6000);
   }
   var mode = 'login';
-  function openLogin(m) { setMode(m === 'signup' ? 'signup' : 'login'); $('lgErr').textContent = ''; var d = $('lg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); $('lgEm').focus(); }
+  function openLogin(m) { if (window.IGAUTH && window.IGAUTH.user) { location.href = 'pro.html#buy'; return; } setMode(m === 'signup' ? 'signup' : 'login'); $('lgErr').textContent = ''; var d = $('lg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); $('lgEm').focus(); }
   function setMode(m) {
     mode = m;
     $('lgTitle').textContent = m === 'login' ? '로그인' : '가입하기';
@@ -188,16 +188,18 @@
     row('연락처', '불러오는 중…');
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
   }
+  function payBtn() { var p = el('button', 'jn pay', '결제하기'); p.type = 'button'; p.addEventListener('click', function () { location.href = 'pro.html#buy'; }); return p; }
   function renderAcc() {
     var A = window.IGAUTH, box = $('acc');
     var ck = '0'; try { ck = localStorage.getItem('ig_me') ? '1' : '0'; } catch (e) {}
     var key = [A && A.user ? A.user.email : '', ME && ME.tier, ME && ME.until, ck, window.igKnown && window.igKnown() ? 1 : 0].join('|');
     if (box.getAttribute('data-k') === key && box.firstChild) return; // 같은 상태면 다시 그리지 않아 메뉴를 옮겨도 깜빡이지 않게
     box.setAttribute('data-k', key); box.textContent = '';
+    document.documentElement.classList.toggle('ig-in', !!(A && A.user) || (ck === '1' && !(window.igKnown && window.igKnown())));
     var fc = $('fcta'); if (fc) { fc.hidden = !!(A && A.user); if (!fc.getAttribute('data-b')) { fc.setAttribute('data-b', '1'); $('fctab').addEventListener('click', function () { openLogin('signup'); }); } }
     if (!A || !A.user) {
       var cached = false; try { cached = !!localStorage.getItem('ig_me'); } catch (e) {}
-      if (cached && !(window.igKnown && window.igKnown())) { var bc = el('button', null, '내 계정 ▾'); bc.type = 'button'; box.appendChild(bc); return; }
+      if (cached && !(window.igKnown && window.igKnown())) { var cp = null; try { cp = (JSON.parse(localStorage.getItem('ig_me')) || {}).tier !== 'pro'; } catch (e) {} if (cp) box.appendChild(payBtn()); var bc = el('button', null, '내 계정 ▾'); bc.type = 'button'; box.appendChild(bc); return; }
       var b0 = el('button', 'jn', '가입하기'); b0.type = 'button'; b0.addEventListener('click', function () { openLogin('signup'); }); box.appendChild(b0); var b = el('button', null, '로그인'); b.type = 'button'; b.addEventListener('click', function () { openLogin(); }); box.appendChild(b); return;
     }
     var b2 = el('button', null, '내 계정 ▾'); b2.type = 'button'; b2.setAttribute('aria-haspopup', 'true');
@@ -210,6 +212,7 @@
     var pr = el('button', null, pl); pr.type = 'button'; pr.addEventListener('click', function () { location.href = 'pro.html'; });
     m.appendChild(w); m.appendChild(pr); m.appendChild(o);
     b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
+    if (!(ME && ME.tier === 'pro')) box.appendChild(payBtn());
     box.appendChild(b2); box.appendChild(m);
   }
   try { renderAcc(); } catch (e) {} // 로그인 확인 전에도 자리를 먼저 채워 둬서, 나중에 나타나며 깜빡이지 않게 함

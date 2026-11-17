@@ -326,7 +326,7 @@ dialog#lg::backdrop{background:rgba(10,22,44,.62)}
 .acc .menu button:hover{background:#f7f3e9}
 @media (max-width:760px){.acc{order:2}}
 
-.hstat{position:absolute;right:20px;top:0;width:400px;padding:22px 24px;background:rgba(22,48,90,.72);border:1px solid var(--navy3);border-top:3px solid var(--brass);border-radius:4px;backdrop-filter:blur(4px)}
+.hstat{position:absolute;right:20px;top:0;width:400px;padding:22px 24px;background:rgba(22,48,90,.9);border:1px solid var(--navy3);border-top:3px solid var(--brass);border-radius:4px;}
 .hstat[hidden]{display:none}
 .hstat .hl{font-size:13px;color:var(--on)}
 .hstat .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 16px}
@@ -500,7 +500,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-hero{overflow:hidden}.ab-hero::after{content:"";position:absolute;right:-8%;top:-30%;width:62%;height:140%;background:radial-gradient(closest-side,rgba(201,164,92,.22),transparent 70%);pointer-events:none}
 .ab-hero .wrap{position:relative;z-index:2}
 #hCards{perspective:900px}
-.ab-hl .pt{transition:transform .25s ease-out;transform-style:preserve-3d;will-change:transform}
+.ab-hl .pt{transition:transform .25s ease-out;}
 .pt .l::after{content:"";position:absolute;top:0;bottom:0;left:0;width:34%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:sh 5s ease-in-out infinite;pointer-events:none}
 .ab-nums>div,.mkc{transition:transform .25s,box-shadow .25s}.ab-nums>div:hover,.mkc:hover{transform:translateY(-6px)}
 @media (prefers-reduced-motion:reduce){#hCards,.ab-hero::after,.pt .l::after{animation:none}.ab-hl .pt{transition:none}}
@@ -514,7 +514,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .tb{font-size:16.5px;min-height:46px}.tb button{height:34px;padding:0 18px;font-size:15px}
 .ab-hero p{font-size:clamp(19px,1.9vw,22px)!important;line-height:1.75!important}
 .ab-ask b{font-size:28px!important}
-.ab-lk{display:inline-block;margin-top:18px;font-size:16px;font-weight:700;color:#e3c27a;text-decoration:none;border-bottom:1px solid rgba(227,194,122,.5);padding-bottom:2px}.ab-lk:hover{color:#fff;border-color:#fff}
+.ab-pay{display:inline-flex;align-items:center;gap:12px;margin-top:22px;padding:15px 26px;border-radius:6px;background:linear-gradient(180deg,#e9c97f,#c9a45c);color:#0f2342;font-size:19px;font-weight:800;text-decoration:none;box-shadow:0 5px 0 #8a6a28,0 12px 24px rgba(0,0,0,.35);transition:transform .12s,box-shadow .12s}.ab-pay b{font-weight:800;padding-left:12px;border-left:1px solid rgba(15,35,66,.35)}.ab-pay:hover{transform:translateY(2px);box-shadow:0 3px 0 #8a6a28,0 8px 18px rgba(0,0,0,.35)}.ab-lk{display:inline-block;margin-top:18px;font-size:16px;font-weight:700;color:#e3c27a;text-decoration:none;border-bottom:1px solid rgba(227,194,122,.5);padding-bottom:2px}.ab-lk:hover{color:#fff;border-color:#fff}
 .ab-bt .go,#home .go{min-height:58px;padding:0 34px;font-size:19px!important}
 .ab-hl{width:460px!important}.pt h3{font-size:30px!important}.pt p{font-size:16.5px!important}.pt small{font-size:14px!important}
 .pt button{height:54px!important;font-size:18px!important;padding:0 30px!important}.pt .r b{font-size:66px!important}.pt .r span{font-size:14.5px!important}
@@ -593,7 +593,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-cmp .c2{padding:26px 24px}.ab-cmp .c2 span{background:#0f2342;color:#e6c883}
 .ab-cmp ul{list-style:none;margin:0;padding:0}.ab-cmp li{font-size:18px;line-height:1.5;padding:7px 0;border-bottom:1px dashed #e6dcc4}.ab-cmp li:last-child{border:0}.ab-cmp li b{color:#8a6a28;font-size:19px;margin-right:4px}
 .ab-cmp.pl{grid-template-columns:1fr}.ab-cmp.pl .pr{padding:13px 24px;border-bottom:1px dashed #e6dcc4}.ab-cmp.pl .pr:last-child{border:0}.ab-cmp.pl .pr span{margin-bottom:8px}.ab-cmp.pl .pr.m span{background:#0f2342;color:#e6c883}.ab-cmp.pl p{margin:0;color:#2b3648;text-shadow:none;font-size:18px;line-height:1.55}.ab-cmp.pl p b{color:#8a6a28;font-size:19px}
-.ab-pl{list-style:none;margin:0;padding:6px 0;width:min(520px,100%);border-radius:16px;background:rgba(9,22,47,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(201,164,92,.55);box-shadow:0 26px 54px rgba(0,0,0,.5)}
+.ab-pl{list-style:none;margin:0;padding:6px 0;width:min(520px,100%);border-radius:16px;background:rgba(9,22,47,.92);border:1px solid rgba(201,164,92,.55);box-shadow:0 26px 54px rgba(0,0,0,.5)}
 .ab-pl li{display:grid;grid-template-columns:132px 1fr;align-items:center;gap:18px;padding:20px 26px;border-bottom:1px solid rgba(201,164,92,.22)}.ab-pl li:last-child{border:0}
 .ab-pl .f{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1;color:#e6c883;white-space:nowrap}
 .ab-pl em{display:block;font-style:normal;font-size:15px;font-weight:700;color:#9fb0ca;margin-bottom:5px}
@@ -607,7 +607,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .ab-ph{inset:-40px!important}.ab-sl{background:#0f2342}
 @media (min-width:861px){.ab-sl{min-height:clamp(520px,calc(100vh - 200px),760px)!important}.ab-hero .ab-sl .wrap{padding-top:70px!important;padding-bottom:96px!important}}
 @media (max-width:860px){.ab-hero .ab-ht h1{text-shadow:0 1px 3px rgba(5,14,30,.85),0 2px 10px rgba(5,14,30,.55)!important}}
-.ab-hero .ab-ask{display:inline-flex!important;align-items:center;gap:22px!important;padding:9px 9px 9px 30px;border-radius:999px;background:linear-gradient(180deg,rgba(14,30,58,.62),rgba(8,20,42,.72));border:1px solid rgba(230,200,131,.5);box-shadow:0 10px 30px rgba(3,10,24,.45),inset 0 1px 0 rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.ab-hero .ab-ask{display:inline-flex!important;align-items:center;gap:22px!important;padding:9px 9px 9px 30px;border-radius:999px;background:linear-gradient(180deg,rgba(14,30,58,.62),rgba(8,20,42,.72));border:1px solid rgba(230,200,131,.5);box-shadow:0 10px 30px rgba(3,10,24,.45),inset 0 1px 0 rgba(255,255,255,.12);}
 .ab-hero .ab-ask b{text-shadow:none!important;font-weight:700!important;letter-spacing:-.02em;white-space:nowrap}
 .ab-hero .ab-ask .go{display:inline-flex;align-items:center;gap:6px;border-radius:999px!important;padding:0 22px 0 26px!important;height:52px;font-weight:800;white-space:nowrap}
 .ab-hero .ab-ask .go svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
@@ -615,9 +615,9 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 @media (max-width:860px){.ab-hero .ab-ask{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;width:100%;box-sizing:border-box;justify-content:space-between;padding:8px 8px 8px 22px;gap:12px!important}.ab-hero .ab-ask b{font-size:18px!important}.ab-hero .ab-ask .go{width:auto!important;flex:0 0 auto;height:46px;padding:0 12px 0 16px!important;font-size:16px!important}}
 @media (max-width:640px){.ab-nums{grid-template-columns:minmax(0,1fr)!important;gap:10px}.ab-nums>div{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px!important}.ab-nums b{font-size:30px!important;line-height:1.1}.ab-nums span{margin:0!important;font-size:16px!important}}
 </style>
-<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=57"><style>#home{scroll-margin-top:240px}</style></head>
+<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=59"><style>#home{scroll-margin-top:240px}</style></head>
 <body>
-<script>(function(){try{if(sessionStorage.getItem("ig_intro"))document.documentElement.classList.add("ig-seen");else setTimeout(function(){if(document.body.classList.contains("ph"))try{sessionStorage.setItem("ig_intro","1")}catch(e){}},3500)}catch(e){}var h=(location.hash||"").slice(1);if(!h||h==="home"||h==="join"||h==="login")document.body.classList.add("ph");window.igKnown=function(){return !!(window.IGAUTH&&window.IGAUTH.ready)||!!window.__igT};setTimeout(function(){if(!window.igKnown()){window.__igT=1;try{window.dispatchEvent(new CustomEvent("ig-known"))}catch(e){}}},2500)})()</script>
+<script>(function(){try{if(localStorage.getItem("ig_me"))document.documentElement.classList.add("ig-in")}catch(e){}try{if(sessionStorage.getItem("ig_intro"))document.documentElement.classList.add("ig-seen");else setTimeout(function(){if(document.body.classList.contains("ph"))try{sessionStorage.setItem("ig_intro","1")}catch(e){}},3500)}catch(e){}var h=(location.hash||"").slice(1);if(!h||h==="home"||h==="join"||h==="login")document.body.classList.add("ph");window.igKnown=function(){return !!(window.IGAUTH&&window.IGAUTH.ready)||!!window.__igT};setTimeout(function(){if(!window.igKnown()){window.__igT=1;try{window.dispatchEvent(new CustomEvent("ig-known"))}catch(e){}}},2500)})()</script>
 <header class="top"><div class="wrap">
 <a class="brand" href="./" aria-label="일감마켓"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span></a>
 <nav class="gnb" aria-label="데이터 메뉴" id="gnb"><button type="button" aria-current="true" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"></rect><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"></path></svg></span>회사소개</button><button type="button" aria-current="false" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"></path></svg></span>낙찰정보</button><a class="tablink" href="market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"></path><circle cx="7.5" cy="8.5" r="1.2"></circle></svg></span>직거래장터</a><button type="button" aria-current="false" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"></path></svg></span>관심업체</button><button type="button" data-buy="buy" title="냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>매입의 신</button><button type="button" data-cs="1" title="문의와 자주 묻는 질문"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"></path><rect x="3" y="13" width="4" height="6" rx="1.5"></rect><rect x="17" y="13" width="4" height="6" rx="1.5"></rect><path d="M19 19c0 1.5-2 2.5-5 2.5"></path></svg></span>고객센터</button></nav>
@@ -642,7 +642,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <h2 class="ab2h">보는 건 가입만으로,<br><em>전화는 결제로</em></h2>
 <p class="ab2p">대표 전화⁠·⁠주소가 담긴 영업 리스트는 일감 마스터에서 이용해요. 카드는 결제할 때만 등록해요.</p>
 <div class="ab-bt"><button type="button" class="go" data-act="join">가입하기</button></div>
-<a class="ab-lk" href="pro.html">일감 마스터 이용권 보기 ›</a>
+<a class="ab-pay" href="pro.html#buy">일감 마스터 결제하기<b>49,900원</b></a>
 </div>
 <ol class="ab-pl" aria-label="요금제 안내"><li><b class="f">가입</b><div><em>낙찰 현황</em><p>현장⁠·⁠업체⁠·⁠금액 전부 보기<br><small>카드 등록 없음</small></p></div></li><li><b class="f">•••</b><div><em>전화⁠·⁠주소</em><p>031-•••-•••• 형태로 표시돼요<br><small>일감 마스터에서 확인</small></p></div></li><li class="m"><b class="f">49,900원</b><div><em>30일 한 번 결제 · 부가세 포함</em><p>대표 전화⁠·⁠주소 조회<br><small>영업 리스트 엑셀 · 지역 알림</small></p></div></li></ol>
 </div></div></div>
@@ -754,7 +754,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261117c"></script>
+<script src="app.js?v=20261117e"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){
@@ -840,6 +840,6 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;var jb=s2.querySelector('.ab-bt');if(jb)jb.style.display=u?'none':'';s2.style.display='';ds.style.display='';auto()}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/guide.js?v=2x" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=9zz" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
+<script src="/guide.js?v=2x" defer></script><script src="/promo.js?v=1" defer></script><script src="/cs.js?v=9zA" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
 </body>
 </html>

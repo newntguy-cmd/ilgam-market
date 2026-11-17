@@ -56,7 +56,7 @@ header.top .brand{color:#0f2342}
 @media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-end}}
 .gnb a.hot,header nav a.hot{order:-1}
 .acc>button.jn{background:#c9a45c!important;color:#0f2342!important;border-color:#8a6a28!important;margin-right:8px;font-weight:800}
-@media (max-width:760px){.acc>button.jn{display:none}}
+@media (max-width:760px){.acc>button.jn{display:none}.acc>button.jn.pay{display:inline-flex!important;align-items:center;margin-right:6px}}
 /* 큼직하게(헤더) */
 .gnb button,.gnb .tablink{font-size:17.5px!important;min-height:54px!important}
 .gnb a.hot,header nav a.hot{font-size:18px!important;min-height:42px!important}
@@ -186,3 +186,6 @@ header.top .acc{display:flex!important;gap:0!important;align-items:center}
 html.embed main.wrap{min-height:0}
 /* 회사소개 첫 등장 애니메이션은 한 번만: 메뉴를 옮겨 다닐 때마다 다시 재생돼 글자가 흐려졌다 선명해지던 현상 방지 */
 html.ig-seen .ab-ht h1,html.ig-seen .ab-ht h1 em,html.ig-seen .ab-ht p,html.ig-seen .ab-ask,html.ig-seen #hCards .pt,html.ig-seen #hCards .pt .stp,html.ig-seen .ab-hl .pt .l,html.ig-seen .ab-reg i::after{animation:none!important}
+
+/* 로그인한 사람에게는 가입 권유를 숨긴다 */
+html.ig-in [data-act="join"],html.ig-in #hjoin,html.ig-in #pv,html.ig-in #pvjoin,html.ig-in #tb,html.ig-in #fcta,html.ig-in #bnjoin,html.ig-in [data-guide-join],html.ig-in .ab-bt{display:none!important}
