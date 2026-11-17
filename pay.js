@@ -4,14 +4,16 @@
   window.IGPAY={WORKER:'https://ilgam-pay.newntguy.workers.dev',CLIENT_KEY:CLIENT_KEY,
     plans:{'30':{amount:49900,name:'일감 마스터 30일 이용권'},'90':{amount:129900,name:'일감 마스터 90일 이용권'}}};
   var $=function(i){return document.getElementById(i);};
+  function p30(){var O=window.IGOFFER;return O&&O.on?O.price:IGPAY.plans['30'].amount;}
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
+  function won(n){return Number(n).toLocaleString('ko-KR')+'원';}
   function say(t,bad){var e=$('bmsg');e.textContent=t;e.className='bmsg'+(bad?' bad':'');}
 
   function render(){
     var A=window.IGAUTH,box=$('buybox');if(!A||!A.ready){return;}
     var on=!!A.user;
     $('bin').hidden=on;$('bout').hidden=!on;
-    var hg=$('hgo');if(hg){if(on){hg.textContent='결제하기 · 30일 49,900원';hg.setAttribute('href','#buy');}else{hg.textContent='가입하기';hg.setAttribute('href','/?join=1');}}
+    var hg=$('hgo');if(hg){if(on){hg.textContent='결제하기 · 30일 '+won(p30())+'';hg.setAttribute('href','#buy');}else{hg.textContent='가입하기';hg.setAttribute('href','/?join=1');}}
     if(on){$('who').textContent=A.user.email;checkStatus();orders();}
   }
   function checkStatus(){
@@ -21,7 +23,6 @@
        if(d.pro){$('until').textContent='일감 마스터 이용 중 · '+fmt(d.until)+'까지. 지금 결제하면 이어서 더해집니다.';$('until').hidden=false;}
      }).catch(function(){});
   }
-  function won(n){return Number(n).toLocaleString('ko-KR')+'원';}
   function orders(){
     var A=window.IGAUTH,box=$('myo');if(!box||!IGPAY.WORKER||!A.user)return;
     A.token().then(function(t){return fetch(IGPAY.WORKER+'/orders',{headers:{Authorization:'Bearer '+t}});})
@@ -48,7 +49,7 @@
     say('결제창을 여는 중입니다…');
     var tp=window.TossPayments(P.CLIENT_KEY);
     tp.payment({customerKey:A.user.uid}).requestPayment({
-      method:'CARD',amount:{currency:'KRW',value:P.plans[plan].amount},orderId:orderId,
+      method:'CARD',amount:{currency:'KRW',value:plan==='30'?p30():P.plans[plan].amount},orderId:orderId,
       orderName:P.plans[plan].name,customerEmail:A.user.email,
       successUrl:location.origin+'/pay-result.html',failUrl:location.origin+'/pay-result.html'
     }).catch(function(e){say(e&&e.code==='USER_CANCEL'?'결제를 취소하셨습니다.':'결제창을 열지 못했습니다. 잠시 뒤 다시 시도해 주세요.',1);});
@@ -59,7 +60,7 @@
     say('처리 중입니다…');
     window.IGAUTH[kind](em,pw).then(function(){say('');}).catch(function(e){say(e.message,1);});
   }
-  window.addEventListener('ig-auth',render);
+  window.addEventListener('ig-auth',render);window.addEventListener('ig-offer',render);
   document.addEventListener('DOMContentLoaded',function(){
     if(!$('b30'))return;
     $('b30').onclick=function(){buy('30');};$('b90').onclick=function(){buy('90');};

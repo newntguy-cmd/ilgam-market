@@ -4,6 +4,7 @@
 const TRIAL_DAYS = 0;    // 맛보기 없음: 연락처는 결제한 일감 마스터에게만 공개
 const FREE_DAILY = 0;    // 무료 회원 연락처 열람 건수(0 = 전부 잠금)
 const PLANS = { '30': { amount: 49900, days: 30 }, '90': { amount: 129900, days: 90 } };
+const FIRST_30 = 39900;  // 신규 고객가(정상가 49,900원): 일감 마스터 30일 이용권, 결제 내역이 없는 계정의 첫 결제 1회
 const ORIGINS = ['https://ilgammarket.co.kr', 'https://www.ilgammarket.co.kr', 'http://localhost:8077', 'capacitor://localhost', 'https://localhost'];
 
 function cors(req) {
@@ -41,10 +42,14 @@ async function whoami(req) {
   } catch (e) { return null; }
 }
 
+async function isFirst(env, uid) {           // 결제 내역이 하나도 없으면 첫 결제
+  const l = await env.PRO.list({ prefix: 'ord:' + uid + ':', limit: 1 });
+  return l.keys.length === 0;
+}
 async function status(env, uid) {
   const v = await env.PRO.get('pro:' + uid);
   const until = v ? Number(v) : 0;
-  return { pro: until > Date.now(), until };
+  return { pro: until > Date.now(), until, first: await isFirst(env, uid), firstPrice: FIRST_30, listPrice: PLANS['30'].amount };
 }
 
 // ---- D1: 계정 상태·연락처 -------------------------------------------------
@@ -171,6 +176,7 @@ export default {
     env = { ...env, PRO: env.PRO || env.PR0 }; // 이름 철자(O/0) 어느 쪽이든 동작
     const url = new URL(req.url);
     if (url.pathname.startsWith('/admin/')) { if (!env.DB) return J(req, { ok: false, message: 'DB 연결이 없습니다.' }, 500); return admin(req, env, url); }
+    if (url.pathname === '/offer') return J(req, { ok: true, firstPrice: FIRST_30, listPrice: PLANS['30'].amount });
     if (url.pathname === '/buy' && req.method === 'POST') return buy(req, env);
     const me = await whoami(req);
     if (!me) return J(req, { ok: false, message: '로그인이 필요합니다.' }, 401);
@@ -201,7 +207,10 @@ export default {
       const m = /^ig_(30|90)_([A-Za-z0-9]{1,8})_(\d{10,14})$/.exec(orderId || '');
       if (!paymentKey || !m) return J(req, { ok: false, message: '주문 정보가 올바르지 않습니다.' }, 400);
       const plan = PLANS[m[1]];
-      if (amount !== plan.amount || m[2] !== me.uid.slice(0, 8))
+      // 허용 금액: 정상가, 그리고 첫 결제인 계정의 30일권에 한해 이벤트가
+      const okAmounts = [plan.amount];
+      if (m[1] === '30' && await isFirst(env, me.uid)) okAmounts.push(FIRST_30);
+      if (!okAmounts.includes(amount) || m[2] !== me.uid.slice(0, 8))
         return J(req, { ok: false, message: '주문 금액이나 계정이 맞지 않습니다.' }, 400);
       const prev = await env.PRO.get('order:' + orderId);
       if (prev) { let o = {}; try { o = JSON.parse(prev); } catch (e) {} return J(req, { ok: true, again: true, receipt: o.receipt || '', ...(await status(env, me.uid)) }); }
@@ -212,7 +221,7 @@ export default {
         body: JSON.stringify({ paymentKey, orderId, amount })
       });
       const d = await r.json();
-      if (!r.ok || d.status !== 'DONE' || d.totalAmount !== plan.amount)
+      if (!r.ok || d.status !== 'DONE' || d.totalAmount !== amount)
         return J(req, { ok: false, message: d.message || '결제를 확인하지 못했습니다.' }, 400);
 
       const cur = (await status(env, me.uid)).until;
