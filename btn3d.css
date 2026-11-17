@@ -194,3 +194,8 @@ html.ig-in [data-act="join"],html.ig-in #hjoin,html.ig-in #pv,html.ig-in #pvjoin
 @media (max-width:900px) and (min-width:761px){header.top .wrap .acc{min-width:166px!important}}
 @media (min-width:1001px){header.top .wrap .acc{flex:none!important;min-width:216px!important;justify-content:flex-end!important}}
 .acc>button{min-width:98px;justify-content:center;text-align:center}
+@view-transition{navigation:auto}
+header.top{view-transition-name:igh}
+::view-transition-group(igh){animation-duration:0s}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.14s}
+@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}
