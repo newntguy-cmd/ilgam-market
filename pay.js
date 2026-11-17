@@ -11,6 +11,7 @@
     var A=window.IGAUTH,box=$('buybox');if(!A||!A.ready){return;}
     var on=!!A.user;
     $('bin').hidden=on;$('bout').hidden=!on;
+    var hg=$('hgo');if(hg){if(on){hg.textContent='결제하기 · 30일 49,900원';hg.setAttribute('href','#buy');}else{hg.textContent='가입하고 결제하기';hg.setAttribute('href','/?join=1');}}
     if(on){$('who').textContent=A.user.email;checkStatus();orders();}
   }
   function checkStatus(){
