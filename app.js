@@ -383,7 +383,7 @@
     var base = S.items.length ? filtered('region') : [];
     var rc = count(base, function (r) { return r.rg || '미분류'; });
     var regs = Object.keys(rc).sort(function (a, b) { return a === '서울' ? -1 : b === '서울' ? 1 : a === '미분류' ? 1 : b === '미분류' ? -1 : rc[b] - rc[a]; });
-    chipRow(box, '지역', [{ t: '전체', n: base.length, on: !S.regions.length, v: '' }].concat(regs.map(function (g) { return { t: g, n: rc[g], on: S.regions.indexOf(g) >= 0, v: g }; })), function (it) { S.regions = toggle(S.regions, it.v); });
+    chipRow(box, '지역', regs.map(function (g) { return { t: g, n: rc[g], on: S.regions.indexOf(g) >= 0, v: g }; }).filter(function (x) { return x.t === '서울'; }).concat([{ t: '전체', n: base.length, on: !S.regions.length, v: '' }], regs.filter(function (g) { return g !== '서울'; }).map(function (g) { return { t: g, n: rc[g], on: S.regions.indexOf(g) >= 0, v: g }; })), function (it) { S.regions = toggle(S.regions, it.v); });
     if (S.tab === 'st') return;
     var kb = filtered('kind'), kc = count(kb, function (r) { return r.cat; });
     chipRow(box, '공종', [{ t: '전체', n: kb.length, on: !S.kinds.length, v: '' }].concat(CATORDER.filter(function (c) { return kc[c] || S.kinds.indexOf(c) >= 0; }).map(function (c) { return { t: c, n: kc[c] || 0, on: S.kinds.indexOf(c) >= 0, v: c }; })), function (it) {
