@@ -763,7 +763,7 @@
     $('regionChips').hidden = false; $('fSort').hidden = false; $('dl').hidden = false;
     var list = filtered().slice();
     list.sort(function (a, b) { return S.sort === 'amt' ? (b.amt - a.amt) : S.sort === 'amt0' ? ((a.amt || 0) - (b.amt || 0)) : (b.d < a.d ? -1 : b.d > a.d ? 1 : b.amt - a.amt); });
-    if (S.tab === 'win') { renderWin(list); $('meta').textContent = '총 ' + list.length + '건' + (S.maxD ? ' · ' + S.maxD.slice(5).replace('-', '월 ') + '일 기준' : ''); }
+    if (S.tab === 'win') { renderWin(list); var sm = 0, cm = {}; list.forEach(function (r) { sm += r.amt || 0; cm[r.co] = 1; }); $('meta').textContent = '총 ' + list.length.toLocaleString('ko-KR') + '건' + (list.length ? ' · 낙찰 금액 합계 ' + money(sm) + ' · 업체 ' + Object.keys(cm).length.toLocaleString('ko-KR') + '곳' : '') + (S.maxD ? ' · ' + S.maxD.slice(5).replace('-', '월 ') + '일 기준' : ''); }
     else { var n = renderCo(list); $('meta').textContent = '낙찰 업체 ' + (n || 0) + '곳 · 아래 조건 기준'; }
   }
 
