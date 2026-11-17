@@ -77,7 +77,8 @@ async function account(env, me) {
   const trial = !st.pro && now < trialUntil;
   const day = today();
   const used = (await env.DB.prepare('SELECT COUNT(DISTINCT biz) n FROM opens WHERE uid = ?').bind(me.uid).first()).n;
-  return { ...st, trial, trialUntil, tier: st.pro ? 'pro' : trial ? 'trial' : 'free', limit: FREE_GIFT, used };
+  const admin = String(env.ADMIN_UIDS || '').split(',').map((s) => s.trim()).filter(Boolean).includes(me.uid);
+  return { ...st, trial, trialUntil, tier: st.pro ? 'pro' : trial ? 'trial' : 'free', limit: FREE_GIFT, used, admin };
 }
 
 // 연락처 요청. open=false 는 "이미 열린 것만 보여 달라"(열람 건수를 쓰지 않음), open=true 는 "열어 달라".

@@ -200,7 +200,7 @@
   function renderAcc() {
     var A = window.IGAUTH, box = $('acc');
     var ck = '0'; try { ck = localStorage.getItem('ig_me') ? '1' : '0'; } catch (e) {}
-    var key = [A && A.user ? A.user.email : '', ME && ME.tier, ME && ME.until, ck, window.igKnown && window.igKnown() ? 1 : 0].join('|');
+    var key = [A && A.user ? A.user.email : '', ME && ME.tier, ME && ME.until, ME && ME.admin ? 'A' : '', ck, window.igKnown && window.igKnown() ? 1 : 0].join('|');
     if (box.getAttribute('data-k') === key && box.firstChild) return; // 같은 상태면 다시 그리지 않아 메뉴를 옮겨도 깜빡이지 않게
     box.setAttribute('data-k', key); box.textContent = '';
     document.documentElement.classList.toggle('ig-in', !!(A && A.user) || (ck === '1' && !(window.igKnown && window.igKnown())));
@@ -218,7 +218,9 @@
     var o = el('button', null, '로그아웃'); o.type = 'button'; o.addEventListener('click', function () { m.hidden = true; A.logout(); });
     var pl = '일감 마스터 이용권 · 결제 내역'; try { if (ME && ME.tier === 'pro' && ME.until) { var ud = new Date(ME.until); pl = '일감 마스터 · ' + (ud.getMonth() + 1) + '월 ' + ud.getDate() + '일까지'; } } catch (e) {}
     var pr = el('button', null, pl); pr.type = 'button'; pr.addEventListener('click', function () { location.href = 'pro.html'; });
-    m.appendChild(w); m.appendChild(pr); m.appendChild(o);
+    m.appendChild(w); m.appendChild(pr);
+    if (ME && ME.admin) { var ad = el('button', null, '관리자 통계'); ad.type = 'button'; ad.addEventListener('click', function () { location.href = 'admin.html'; }); m.appendChild(ad); }
+    m.appendChild(o);
     b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
     if (!(ME && ME.tier === 'pro')) box.appendChild(payBtn());
     box.appendChild(b2); box.appendChild(m);

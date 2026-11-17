@@ -30,7 +30,7 @@ code{background:var(--bg);padding:2px 6px;border-radius:4px;word-break:break-all
 [hidden]{display:none!important}
 @media(max-width:600px){.kp b{font-size:26px}}
 </style></head><body>
-<div class="top"><b>일감마켓 관리자</b><button type="button" id="lo" hidden>로그아웃</button></div>
+<div class="top"><b>일감마켓 관리자</b><span><button type="button" id="hm">일감마켓으로</button> <button type="button" id="lo" hidden>로그아웃</button></span></div>
 <main>
 <section class="box" id="login" hidden><h2>관리자 로그인</h2><input id="em" type="email" placeholder="이메일" autocomplete="email"><input id="pw" type="password" placeholder="비밀번호" autocomplete="current-password"><button class="btn" id="go" type="button">로그인</button><p class="msg" id="m"></p></section>
 <section class="box" id="deny" hidden><h2>이 계정에는 관리자 권한이 없습니다</h2><p>아래 계정 ID를 결제 서버의 <b>ADMIN_UIDS</b> 설정에 넣으면 이 계정이 관리자가 됩니다.</p><p><code id="uid"></code></p></section>
@@ -63,7 +63,7 @@ function load(){
 window.addEventListener('ig-auth',load);
 document.addEventListener('DOMContentLoaded',function(){
   $('go').onclick=function(){$('m').textContent='';window.IGAUTH.login($('em').value.trim(),$('pw').value).catch(function(e){$('m').textContent=e.message})};
-  $('lo').onclick=function(){window.IGAUTH.logout()};load();
+  $('lo').onclick=function(){window.IGAUTH.logout()};$('hm').onclick=function(){location.href='/'};load();
 });
 })();
 </script></body></html>
