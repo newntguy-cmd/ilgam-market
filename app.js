@@ -810,7 +810,25 @@
     if (data.updated) $('upd').textContent = data.updated.replace('T', ' ').replace(/(\d{2}:\d{2}).*$/, '$1') + ' 갱신';
     if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰정보가 아닙니다.'); $('banner').appendChild(b); }
     Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
+    window.IGGUIDE = guidePreview();
     renderStat(); render(); cloudSync();
+  }
+  // 첫 화면 '둘러보기' 팝업용: 이번 주 낙찰을 지역별로 미리 보여 줍니다.
+  function guidePreview() {
+    var from = ''; try { var t = new Date(S.maxD + 'T00:00:00'); t.setDate(t.getDate() - 6); from = t.toISOString().slice(0, 10); } catch (e) {}
+    var wk = S.items.filter(function (r) { return r.d && r.d >= from && r.amt > 0; });
+    var cnt = {}; wk.forEach(function (r) { var g = r.rg || '미분류'; cnt[g] = (cnt[g] || 0) + 1; });
+    var regs = Object.keys(cnt).filter(function (g) { return g !== '미분류'; }).sort(function (a, b) { return cnt[b] - cnt[a]; });
+    var first = ['서울'].filter(function (g) { return cnt[g]; }); regs = first.concat(regs.filter(function (g) { return g !== '서울'; })).slice(0, 8);
+    return {
+      total: wk.length,
+      regions: regs.map(function (g) { return { g: g, n: cnt[g] }; }),
+      pick: function (g) {
+        var l = wk.filter(function (r) { return (r.rg || '미분류') === g; }).sort(function (a, b) { return b.amt - a.amt; });
+        return { n: l.length, top: l.slice(0, 3).map(function (r) { return { site: r.nm || '', co: r.co || '', amt: money(r.amt), cat: r.cat || '', d: r.d }; }) };
+      },
+      show: function (g) { S.tab = 'win'; S.regions = [g]; S.kinds = []; S.amts = []; S.period = 'week'; $('fPeriod').value = 'week'; S.shown = PAGE; try { history.replaceState(null, '', '#win'); } catch (e) {} render(); }
+    };
   }
 
   $('form').addEventListener('submit', function (e) {

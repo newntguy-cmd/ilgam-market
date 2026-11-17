@@ -17,40 +17,53 @@
     + '#igguide .n{margin:22px 0 0;font-size:14.5px;line-height:1.65;color:#6b7690}';
     document.head.appendChild(st);
   }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function mask(s, member) {
+    s = String(s || ''); if (member) return esc(s);
+    var i = s.trim().lastIndexOf(' '); if (i < 0) return '<span class="bl">' + esc(s) + '</span>';
+    return '<span class="bl">' + esc(s.slice(0, i + 1)) + '</span>' + esc(s.slice(i + 1));
+  }
   function build() {
     css();
+    var st = document.createElement('style');
+    st.textContent = '#igguide .igrg{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 4px}#igguide .igrg button{height:50px;padding:0 20px;border:1px solid #d9cba6;border-radius:999px;background:#fff;color:#0f2342;font:inherit;font-size:18px;font-weight:800;cursor:pointer}#igguide .igrg button small{margin-left:6px;font-size:14px;font-weight:600;color:#8a6a28}#igguide .igrg button[aria-pressed=true]{background:#0f2342;color:#fff;border-color:#0f2342}#igguide .igrg button[aria-pressed=true] small{color:#e6c883}'
+    + '#igguide .cd{margin:12px 0 0;padding:16px 18px;border:1px solid #eadfc6;border-radius:12px;background:#fff}#igguide .cd b.am{display:block;font-size:26px;color:#0f2342;letter-spacing:-.02em}#igguide .cd .s{margin:4px 0 6px;font-size:17px;font-weight:700;color:#0f2342;line-height:1.45}#igguide .cd .m{font-size:15px;color:#6b7690}'
+    + '#igguide .bl{filter:blur(5px);user-select:none}#igguide .mr{margin:14px 0 0;font-size:17px;color:#33425b}#igguide .mr b{color:#8a6a28}#igguide .em{padding:26px 0;text-align:center;color:#6b7690;font-size:17px}';
+    document.head.appendChild(st);
     box = document.createElement('div'); box.id = 'igguide'; box.hidden = true;
-    box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="iggt"><div class="h"><h2 id="iggt">일감마켓 이용방법</h2><button type="button" class="x" aria-label="닫기">×</button></div><div class="b">'
-    + '<h3>일감마켓은 어떤 곳인가요?</h3>'
-    + '<p>조달청 나라장터의 공공 공사 <span class="k">낙찰 정보</span>를 매일 모아서 보여 드리고, 내 물건을 팔거나 필요한 물품을 찾을 수 있는 <span class="k">직거래장터</span>를 함께 운영합니다.</p>'
-    + '<p>방금 낙찰된 현장과 업체를 가장 먼저 확인하고, 그 현장에 필요한 물품이 있다면 직거래장터에서 바로 이어 볼 수 있습니다.</p>'
-    + '<h3>어떤 서비스가 있나요?</h3>'
-    + '<ul><li><b>낙찰정보</b> · 방금 낙찰된 현장, 업체, 금액을 지역⁠·⁠공종별로 찾아봅니다.</li>'
-    + '<li><b>관심업체</b> · 눈여겨보던 업체는 담아 두세요. 새 낙찰이 나오면 바로 알 수 있어요.</li>'
-    + '<li><b>직거래장터</b> · 팔고 싶은 물건은 사진과 함께 올리고, 필요한 물품은 적어 올리면 판매자가 견적을 보냅니다.</li>'
-    + '<li><b>아침 메일</b> · 가입하면 새로 낙찰된 현장을 매일 아침 메일로 받아볼 수 있습니다.</li></ul>'
-    + '<h3>시작하는 방법</h3>'
-    + '<ol><li>가입하기를 누르세요. 카드 등록은 필요 없어요.</li>'
-    + '<li>낙찰정보에서 내 지역과 공종을 고르면 새 현장이 한눈에 보여요.</li>'
-    + '<li>눈여겨보는 업체는 관심업체에 담아 두세요.</li>'
-    + '<li>직거래장터에서 팔 물건을 올리거나, 필요한 물품을 적어 견적을 받아요.</li></ol>'
-    + '<h3>가입하면 받는 것</h3>'
-    + '<div class="gift"><b>가입하면 보이는 것</b><span>낙찰 현장⁠·⁠업체⁠·⁠금액과 통계가 전부 보입니다. 카드 등록은 필요 없습니다. 대표 전화⁠·⁠주소가 담긴 영업 리스트는 일감 마스터에서 이용할 수 있습니다.</span></div>'
-    + '<ul style="margin-top:14px"><li><b>더 필요하시면 일감 마스터</b> · 영업 리스트 엑셀 저장, 여러 지역 알림, 관심업체 새 낙찰 알림 메일을 이용할 수 있습니다. 30일 49,900원, 90일 129,900원(부가세 포함)이며 한 번만 결제합니다.</li></ul>'
-    + '<div class="cta"><button type="button" class="j" data-guide-join>가입하기</button><button type="button" class="c" data-guide-close>닫기</button></div>'
+    box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="iggt"><div class="h"><h2 id="iggt">어느 지역이 궁금하세요?</h2><button type="button" class="x" aria-label="닫기">×</button></div><div class="b">'
+    + '<p style="margin-top:14px">지역을 누르면 이번 주 낙찰된 큰 공사 3곳을 바로 보여 드려요.</p>'
+    + '<div class="igrg" id="iggr"></div><div id="iggc"></div>'
     + '<p class="n">일감마켓은 공공데이터를 가공해 보여 주는 정보서비스이며, 정확성과 완전성을 보장하지 않습니다. 직거래장터의 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아니므로 거래에서 생긴 분쟁에 책임을 지지 않습니다.</p>'
     + '</div></div>';
     document.body.appendChild(box);
     box.addEventListener('click', function (e) {
       var t = e.target;
-      if (t === box || t.className === 'x' || t.hasAttribute('data-guide-close')) { close(); return; }
-      if (t.hasAttribute('data-guide-join')) { close(); var j = document.querySelector('[data-act="join"]'); if (j) j.click(); }
+      if (t === box || t.className === 'x') { close(); return; }
+      var rb = t.closest && t.closest('[data-rg]'); if (rb) { pick(rb.getAttribute('data-rg')); return; }
+      var sh = t.closest && t.closest('[data-show]'); if (sh) { var g = sh.getAttribute('data-show'); close(); if (window.IGGUIDE) window.IGGUIDE.show(g); return; }
+      if (t.hasAttribute && t.hasAttribute('data-guide-join')) { close(); var j = document.querySelector('[data-act="join"]'); if (j) j.click(); }
     });
+  }
+  function pick(g) {
+    var G = window.IGGUIDE, c = document.getElementById('iggc'), member = !!(window.IGAUTH && window.IGAUTH.user);
+    [].forEach.call(document.querySelectorAll('#iggr button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-rg') === g)); });
+    var r = G.pick(g), h = '';
+    r.top.forEach(function (x) { h += '<div class="cd"><b class="am">' + esc(x.amt) + '</b><div class="s">' + mask(x.site, member) + '</div><div class="m">' + esc(x.co) + (x.cat ? ' · ' + esc(x.cat) : '') + '</div></div>'; });
+    h += '<p class="mr">' + esc(g) + '에서 이번 주 <b>' + r.n + '건</b>이 낙찰됐어요.</p>';
+    h += '<div class="cta"><button type="button" class="j" data-show="' + esc(g) + '">' + esc(g) + ' 낙찰 전체 보기</button>' + (member ? '' : '<button type="button" class="c" data-guide-join>가입하기</button>') + '</div>';
+    c.innerHTML = h;
+  }
+  function fill() {
+    var G = window.IGGUIDE, r = document.getElementById('iggr'); if (!r) return;
+    if (!G) { r.innerHTML = '<div class="em">낙찰 정보를 불러오는 중이에요</div>'; setTimeout(fill, 600); return; }
+    if (r.getAttribute('data-ok')) return; r.setAttribute('data-ok', '1');
+    r.innerHTML = G.regions.map(function (x) { return '<button type="button" data-rg="' + esc(x.g) + '" aria-pressed="false">' + esc(x.g) + '<small>' + x.n + '건</small></button>'; }).join('');
   }
   function open() {
     if (!box) build();
-    var u = window.IGAUTH && window.IGAUTH.user, j = box.querySelector('[data-guide-join]'); if (j) j.style.display = u ? 'none' : '';
-    last = document.activeElement; box.hidden = false; box.querySelector('.p').scrollTop = 0; box.querySelector('.x').focus();
+    
+    fill(); last = document.activeElement; box.hidden = false; box.querySelector('.p').scrollTop = 0; box.querySelector('.x').focus();
   }
   function close() { if (box) box.hidden = true; if (last && last.focus) last.focus(); }
   document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('[data-guide]'); if (t) { e.preventDefault(); open(); } });
