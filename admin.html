@@ -50,7 +50,8 @@ function draw(d){
    +kp('유료 이용 중',p.active+'명','',1)+kp('결제 건수',p.orders+'건','신규 고객가 '+p.firstPrice+'건')+kp('누적 결제액',won(p.revenue),'부가세 포함')
    +kp('가입 선물 사용',d.gift.users+'명','전화·주소 '+d.gift.opens+'곳 열람 (1인 최대 '+d.gift.limit+'곳)')+kp('매입의 신 접수',d.buy.total+'건','최근 7일 '+d.buy.d7+'건')+'</div>';
   h+='<section class="box" style="margin-top:16px"><h2>최근 14일 가입</h2><div class="bars">'+u.days.map(function(x){return '<div><em>'+(x.n||'')+'</em><i style="height:'+Math.round(x.n/max*100)+'%"></i><span>'+x.day.slice(5).replace('-','/')+'</span></div>'}).join('')+'</div></section>';
-  h+='<section class="box"><h2>최근 결제</h2>'+(d.recent.length?'<table><tr><th>일시</th><th>이용권</th><th>금액</th></tr>'+d.recent.map(function(r){var t=new Date(r.at);return '<tr><td>'+(t.getMonth()+1)+'/'+t.getDate()+' '+('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)+'</td><td>'+r.plan+'일</td><td>'+won(r.amount)+'</td></tr>'}).join('')+'</table>':'<p style="margin:0;color:#6b788e">아직 결제가 없습니다.</p>')+'</section>';
+  h+='<section class="box"><h2>최근 결제</h2>'+(d.recent.length?'<table><tr><th>일시</th><th>계정</th><th>이용권</th><th>금액</th></tr>'+d.recent.map(function(r){var t=new Date(r.at);return '<tr><td>'+(t.getMonth()+1)+'/'+t.getDate()+' '+('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)+'</td><td>'+(r.email||'-')+'</td><td>'+r.plan+'일</td><td>'+won(r.amount)+'</td></tr>'}).join('')+'</table>':'<p style="margin:0;color:#6b788e">아직 결제가 없습니다.</p>')+'</section>';
+  if(d.proUsers&&d.proUsers.length)h+='<section class="box"><h2>유료 이용 중인 계정</h2><table><tr><th>계정</th><th>이용 종료일</th></tr>'+d.proUsers.map(function(x){var t=new Date(x.until);return '<tr><td>'+x.email+'</td><td>'+t.getFullYear()+'.'+(t.getMonth()+1)+'.'+t.getDate()+'</td></tr>'}).join('')+'</table></section>';
   $('dash').innerHTML=h;$('dash').hidden=false;$('tools').hidden=false;
 }
 function load(){

@@ -119,17 +119,17 @@ async function stats(env, adminIds) {
   const opens = (await env.DB.prepare('SELECT COUNT(*) n, COUNT(DISTINCT uid) u FROM opens' + NOT).bind(...A).first()) || { n: 0, u: 0 };
   const buy = (await env.DB.prepare('SELECT COUNT(*) n FROM buyreq').first()) || { n: 0 };
   const buy7 = (await env.DB.prepare('SELECT COUNT(*) n FROM buyreq WHERE ts >= ?').bind(now - 7 * 86400000).first()) || { n: 0 };
-  let pro = 0, paid = 0, revenue = 0, firstN = 0; const recent = [];
+  let pro = 0, paid = 0, revenue = 0, firstN = 0; const recent = [], mail = {}, proUsers = [];
   let cur; do {
     const l = await env.PRO.list({ prefix: 'order:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
-    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (!v) continue; try { const o = JSON.parse(v); if (skip.has(o.uid)) continue; paid++; revenue += Number(o.amount) || 0; if (Number(o.amount) === FIRST_30) firstN++; recent.push({ at: o.at, plan: o.plan, amount: o.amount }); } catch (e) {} }
+    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (!v) continue; try { const o = JSON.parse(v); if (skip.has(o.uid)) continue; paid++; revenue += Number(o.amount) || 0; if (Number(o.amount) === FIRST_30) firstN++; recent.push({ at: o.at, plan: o.plan, amount: o.amount, email: o.email || '' }); if (o.email) mail[o.uid] = o.email; } catch (e) {} }
   } while (cur);
   cur = undefined; do {
     const l = await env.PRO.list({ prefix: 'pro:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
-    for (const k of l.keys) { if (skip.has(k.name.slice(4))) continue; const v = await env.PRO.get(k.name); if (Number(v) > now) pro++; }
+    for (const k of l.keys) { if (skip.has(k.name.slice(4))) continue; const v = await env.PRO.get(k.name); if (Number(v) > now) { pro++; proUsers.push({ email: mail[k.name.slice(4)] || '(이메일 기록 없음)', until: Number(v) }); } }
   } while (cur);
   recent.sort((a, b) => b.at - a.at);
-  return { ok: true, now, users: { total: users.length, today: cnt(d0), d7: cnt(d7), d30: cnt(d30), days }, pro: { active: pro, orders: paid, revenue, firstPrice: firstN }, gift: { limit: FREE_GIFT, opens: opens.n, users: opens.u }, buy: { total: buy.n, d7: buy7.n }, recent: recent.slice(0, 10) };
+  return { ok: true, now, users: { total: users.length, today: cnt(d0), d7: cnt(d7), d30: cnt(d30), days }, pro: { active: pro, orders: paid, revenue, firstPrice: firstN }, gift: { limit: FREE_GIFT, opens: opens.n, users: opens.u }, buy: { total: buy.n, d7: buy7.n }, recent: recent.slice(0, 10), proUsers };
 }
 
 // 관리자 전용: 매일 최신 연락처를 채워 넣습니다.
