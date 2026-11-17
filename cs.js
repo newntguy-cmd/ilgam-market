@@ -208,8 +208,28 @@
       document.head.appendChild(sr);
     } catch (e) {}
   }
+  // 처음 접속한 사람도 메뉴를 눌렀을 때 끊기지 않도록, 한가할 때 다른 메뉴 페이지의 파일을 미리 받아 둡니다
+  function prefetchAll() {
+    try {
+      if (navigator.connection && navigator.connection.saveData) return;
+      var here = location.pathname, seen = {};
+      ['/', '/market/', '/buy.html', '/help.html', '/pro.html'].filter(function (p) { return p === '/market/' ? here.indexOf('/market/') !== 0 : here !== p && !(p === '/' && here === '/index.html'); }).forEach(function (p, i) {
+        setTimeout(function () {
+          fetch(p, { credentials: 'omit' }).then(function (r) { return r.text(); }).then(function (h) {
+            var re = /(?:src|href)="([^"]+\.(?:js|css)(?:\?[^"]*)?)"/g, m;
+            while ((m = re.exec(h))) {
+              var u = new URL(m[1], location.origin + p).href;
+              if (u.indexOf(location.origin) !== 0 || seen[u]) continue; seen[u] = 1;
+              var l = document.createElement('link'); l.rel = 'prefetch'; l.as = /\.css/.test(u) ? 'style' : 'script'; l.href = u; document.head.appendChild(l);
+            }
+          }).catch(function () {});
+        }, 700 * i);
+      });
+    } catch (e) {}
+  }
   function init() {
     warm();
+    if (document.readyState === 'complete') setTimeout(prefetchAll, 1500); else addEventListener('load', function () { setTimeout(prefetchAll, 1500); });
     addMenu(); addCount();
     // 가입하기·로그인: 다른 페이지에서는 첫 화면의 로그인 창으로 보냅니다(첫 화면⁠·⁠장터는 자체 처리)
     var tj = document.getElementById('tjn'), tm = document.getElementById('tme');
