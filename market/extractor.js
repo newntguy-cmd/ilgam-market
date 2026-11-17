@@ -61,13 +61,14 @@ $('q').addEventListener('input',e=>{qs=e.target.value.trim();shown=60;render();}
 $('g').addEventListener('change',e=>{gsel=e.target.value;shown=60;render();});
 $('moreb').addEventListener('click',()=>{shown+=100;render();});
 $('all').addEventListener('click',()=>{const v=vis().slice(0,shown);const every=v.length>0&&v.every(x=>sel.has(x.id));v.forEach(x=>{every?sel.delete(x.id):sel.add(x.id);});render();});
-function readFile(f){return new Promise((res,rej)=>{const r=new FileReader();r.onerror=()=>rej(new Error('읽지 못했습니다'));
+let xl=null;function loadX(){return window.XLSX?Promise.resolve():(xl=xl||new Promise((ok,no)=>{const s=document.createElement('script');s.src='xlsx.full.min.js';s.onload=ok;s.onerror=()=>no(new Error('엑셀 도구를 불러오지 못했습니다'));document.head.appendChild(s);}));}
+function readFile(f){return loadX().then(()=>new Promise((res,rej)=>{const r=new FileReader();r.onerror=()=>rej(new Error('읽지 못했습니다'));
   r.onload=()=>{try{
     const wb=XLSX.read(r.result,{type:'array'});const all=[];
     wb.SheetNames.filter(n=>/내역서/.test(n)&&!/집계/.test(n)).forEach(n=>{
       const rows=XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:null});
       const p=parseSheet(rows);if(p)p.forEach(x=>all.push(Object.assign({f:f.name},x)));});
-    res(all);}catch(e){rej(e);}};r.readAsArrayBuffer(f);});}
+    res(all);}catch(e){rej(e);}};r.readAsArrayBuffer(f);}));}
 async function handle(fl){
   fl=[...fl].filter(f=>/\.xlsx?$/i.test(f.name));if(!fl.length)return;
   const box=$('files');box.textContent='읽는 중…';let all=[];const bad=[];

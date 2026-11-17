@@ -193,3 +193,4 @@ html.ig-in [data-act="join"],html.ig-in #hjoin,html.ig-in #pv,html.ig-in #pvjoin
 @media (max-width:1000px) and (min-width:761px){header.top .wrap .acc{flex:none!important;min-width:204px!important;justify-content:flex-end!important}}
 @media (max-width:900px) and (min-width:761px){header.top .wrap .acc{min-width:166px!important}}
 @media (min-width:1001px){header.top .wrap .acc{flex:none!important;min-width:216px!important;justify-content:flex-end!important}}
+.acc>button{min-width:98px;justify-content:center;text-align:center}
