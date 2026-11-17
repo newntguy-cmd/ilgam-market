@@ -188,4 +188,4 @@ html.embed main.wrap{min-height:0}
 html.ig-seen .ab-ht h1,html.ig-seen .ab-ht h1 em,html.ig-seen .ab-ht p,html.ig-seen .ab-ask,html.ig-seen #hCards .pt,html.ig-seen #hCards .pt .stp,html.ig-seen .ab-hl .pt .l,html.ig-seen .ab-reg i::after{animation:none!important}
 
 /* 로그인한 사람에게는 가입 권유를 숨긴다 */
-html.ig-in [data-act="join"],html.ig-in #hjoin,html.ig-in #pv,html.ig-in #pvjoin,html.ig-in #tb,html.ig-in #fcta,html.ig-in #bnjoin,html.ig-in [data-guide-join],html.ig-in .ab-bt{display:none!important}
+html.ig-in [data-act="join"],html.ig-in #hjoin,html.ig-in #pv,html.ig-in #pvjoin,html.ig-in #tb,html.ig-in #fcta,html.ig-in #bnjoin,html.ig-in [data-guide-join],html.ig-in .ab-sl.s2 .ab-bt,html.ig-in .ab-jn{display:none!important}
