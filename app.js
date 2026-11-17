@@ -436,7 +436,6 @@
       row.appendChild(el('span', 'kd', r.cat || ''));
       var nm = el('div', 'nm'), mem = !!(window.IGAUTH && window.IGAUTH.user);
       nm.appendChild(mem ? document.createTextNode(r.nm) : lockSplit(r.nm));
-      if (r.s === '낙찰예정') nm.appendChild(el('span', 'tag', '낙찰 예정'));
       var sm2 = el('small', null); if (mem) sm2.textContent = r.dm; else sm2.appendChild(lockSplit(r.dm)); nm.appendChild(sm2);
       var src = r.u;
       if (!src && /^[A-Z0-9]+-\d{3}$/.test(r.id || '')) {
@@ -444,7 +443,7 @@
         src = 'https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=' + pr[0] + '&bidPbancOrd=' + pr[1];
       }
       var wn = el('div', 'wn');
-      wn.appendChild(el('span', 'wlab', '낙찰'));
+      wn.appendChild(el('span', 'wlab', r.s === '낙찰예정' ? '낙찰 예정' : '낙찰'));
       wn.appendChild(el('b', null, r.co));
       wn.appendChild(starBtn(r.co, r.b));
       nm.appendChild(wn);
