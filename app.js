@@ -740,6 +740,10 @@
     syncGnb(); renderChips(); renderAcc();
     document.body.classList.toggle('ph', S.tab === 'home');
     if (S.tab === 'home') return;
+    if (S.partial && (['win'].indexOf(S.tab) < 0 || S.period === 'all' || S.q.trim())) {   // 최근 7일치로는 부족한 화면: 전체가 올 때까지 잠깐 기다립니다
+      pendingRender = true; loadFull();
+      var bd = $('board'); if (!bd.querySelector('.ld')) { bd.textContent = ''; bd.appendChild(el('div', 'soon ld', '낙찰 데이터를 불러오는 중이에요')); } return;
+    }
     var tab = TABS.filter(function (t) { return t.id === S.tab; })[0];
     var board = $('board');
     $('title').textContent = tab.id === 'win' || tab.id === 'co' ? '낙찰정보' : tab.label;
@@ -803,7 +807,7 @@
 
   try { renderGnb(); } catch (e) {}
   function boot(data) {
-    S.items = data.items || []; S.items.forEach(function (r) { r.cat = catOf(r); }); S.corp = data.corp || {}; S.sample = !!data.sample;
+    S.items = data.items || []; S.items.forEach(function (r) { r.cat = catOf(r); }); S.corp = data.corp || {}; S.sample = !!data.sample; S.partial = !!data.partial;
     S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
     fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), '전체');
     fillSelect($('fKind'), ['전체'].concat(CATORDER.filter(function (c) { return S.items.some(function (r) { return r.cat === c; }); })), S.kind);
@@ -872,11 +876,28 @@
   var DATA_URL = (location.hostname === 'localhost' || location.protocol === 'capacitor:') ? 'https://ilgammarket.co.kr/data/public.json' : 'data/public.json';
   renderGnb(); $('gnb').setAttribute('data-ok', '1');
   if (HT === 'join' || HT === 'login') { try { history.replaceState(null, '', location.pathname); } catch (e) {} openLogin(HT === 'join' ? 'signup' : 'login'); }
+  var RECENT_URL = DATA_URL.replace('public.json', 'recent.json'), fullP = null, pendingRender = false;
+  function loadFull() {
+    if (fullP) return fullP;
+    fullP = fetch(DATA_URL, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (data) {
+      S.items = data.items || []; S.items.forEach(function (r) { r.cat = catOf(r); }); S.partial = false;
+      fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), $('fRegion').value || '전체');
+      fillSelect($('fKind'), ['전체'].concat(CATORDER.filter(function (c) { return S.items.some(function (r) { return r.cat === c; }); })), S.kind);
+      Object.keys(WL).forEach(function (k) { if (!WL[k].b) WL[k].b = bizOf(k); });
+      if (pendingRender) { pendingRender = false; render(); }
+    }).catch(function () { fullP = null; if (pendingRender) { var b = $('board'); b.textContent = ''; b.appendChild(el('div', 'err', '데이터를 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.')); } });
+    return fullP;
+  }
   function startData() {
-    fetch(DATA_URL, { cache: 'no-cache' }).then(function (r) {
+    // 먼저 최근 8일치(가벼운 파일)로 바로 보여 줍니다.
+    fetch(RECENT_URL, { cache: 'no-cache' }).then(function (r) {
       if (!r.ok) throw new Error(r.status); return r.json();
-    }).then(boot).catch(function () {
-      $('board').appendChild(el('div', 'err', '데이터를 불러오지 못했습니다. 잠시 뒤 다시 시도해 주세요.'));
+    }).then(function (d) {
+      boot(d);
+      // 60일 전체는 필요한 화면(기간 '전체 60일'·검색·관심업체 등)을 열 때 받습니다. 손가락이 닿기 시작하면 미리 받아 둡니다.
+      ['fPeriod', 'fQ'].forEach(function (id) { var e = $(id); if (e) ['pointerdown', 'focus'].forEach(function (ev) { e.addEventListener(ev, loadFull, { once: true, passive: true }); }); });
+    }).catch(function () {
+      loadFull().then(function () { boot({ items: S.items, updated: '' }); }, function () {});
     });
   }
   // 첫 화면(회사소개)이 먼저 뜨도록, 큰 낙찰 데이터는 첫 조작이 있거나 잠시 뒤에 받습니다.
