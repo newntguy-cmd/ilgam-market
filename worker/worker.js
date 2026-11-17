@@ -108,24 +108,25 @@ async function contacts(env, me, bizs, open) {
 }
 
 // 관리자 통계 (ADMIN_UIDS 에 등록된 계정만)
-async function stats(env) {
+async function stats(env, adminIds) {
+  const skip = new Set(adminIds || []); const NOT = skip.size ? ' WHERE uid NOT IN (' + qs(skip.size) + ')' : ''; const A = [...skip];
   const kst = (ms) => new Date(ms + 9 * 3600000).toISOString().slice(0, 10);
   const now = Date.now(), d0 = kst(now), d7 = kst(now - 6 * 86400000), d30 = kst(now - 29 * 86400000);
-  const users = (await env.DB.prepare('SELECT first_seen FROM users').all()).results || [];
+  const users = (await env.DB.prepare('SELECT first_seen FROM users' + NOT).bind(...A).all()).results || [];
   const byDay = {}; users.forEach((u) => { const k = kst(u.first_seen); byDay[k] = (byDay[k] || 0) + 1; });
   const days = []; for (let i = 13; i >= 0; i--) { const k = kst(now - i * 86400000); days.push({ day: k, n: byDay[k] || 0 }); }
   const cnt = (from) => users.filter((u) => kst(u.first_seen) >= from).length;
-  const opens = (await env.DB.prepare('SELECT COUNT(*) n, COUNT(DISTINCT uid) u FROM opens').first()) || { n: 0, u: 0 };
+  const opens = (await env.DB.prepare('SELECT COUNT(*) n, COUNT(DISTINCT uid) u FROM opens' + NOT).bind(...A).first()) || { n: 0, u: 0 };
   const buy = (await env.DB.prepare('SELECT COUNT(*) n FROM buyreq').first()) || { n: 0 };
   const buy7 = (await env.DB.prepare('SELECT COUNT(*) n FROM buyreq WHERE ts >= ?').bind(now - 7 * 86400000).first()) || { n: 0 };
   let pro = 0, paid = 0, revenue = 0, firstN = 0; const recent = [];
   let cur; do {
     const l = await env.PRO.list({ prefix: 'order:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
-    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (!v) continue; try { const o = JSON.parse(v); paid++; revenue += Number(o.amount) || 0; if (Number(o.amount) === FIRST_30) firstN++; recent.push({ at: o.at, plan: o.plan, amount: o.amount }); } catch (e) {} }
+    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (!v) continue; try { const o = JSON.parse(v); if (skip.has(o.uid)) continue; paid++; revenue += Number(o.amount) || 0; if (Number(o.amount) === FIRST_30) firstN++; recent.push({ at: o.at, plan: o.plan, amount: o.amount }); } catch (e) {} }
   } while (cur);
   cur = undefined; do {
     const l = await env.PRO.list({ prefix: 'pro:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
-    for (const k of l.keys) { const v = await env.PRO.get(k.name); if (Number(v) > now) pro++; }
+    for (const k of l.keys) { if (skip.has(k.name.slice(4))) continue; const v = await env.PRO.get(k.name); if (Number(v) > now) pro++; }
   } while (cur);
   recent.sort((a, b) => b.at - a.at);
   return { ok: true, now, users: { total: users.length, today: cnt(d0), d7: cnt(d7), d30: cnt(d30), days }, pro: { active: pro, orders: paid, revenue, firstPrice: firstN }, gift: { limit: FREE_GIFT, opens: opens.n, users: opens.u }, buy: { total: buy.n, d7: buy7.n }, recent: recent.slice(0, 10) };
@@ -206,12 +207,19 @@ export default {
     const me = await whoami(req);
     if (!me) return J(req, { ok: false, message: '로그인이 필요합니다.' }, 401);
 
+    if (url.pathname === '/reset-gift' && req.method === 'POST') {
+      const ids = String(env.ADMIN_UIDS || '').split(',').map((s) => s.trim()).filter(Boolean);
+      if (!ids.includes(me.uid)) return J(req, { ok: false, message: 'forbidden' }, 403);
+      await init(env); const n = (await env.DB.prepare('SELECT COUNT(*) n FROM opens').first()).n;
+      await env.DB.prepare('DELETE FROM opens').run();
+      return J(req, { ok: true, cleared: n });
+    }
     if (url.pathname === '/stats') {
       const ids = String(env.ADMIN_UIDS || '').split(',').map((s) => s.trim()).filter(Boolean);
       if (!ids.includes(me.uid)) return J(req, { ok: false, message: 'forbidden', uid: me.uid }, 403);
       if (!env.DB) return J(req, { ok: false, message: 'DB 연결이 없습니다.' }, 500);
       await init(env);
-      return J(req, await stats(env));
+      return J(req, await stats(env, ids));
     }
     if (url.pathname === '/status') return J(req, { ok: true, ...(await status(env, me.uid)) });
 

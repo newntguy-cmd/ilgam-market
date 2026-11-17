@@ -35,6 +35,7 @@ code{background:var(--bg);padding:2px 6px;border-radius:4px;word-break:break-all
 <section class="box" id="login" hidden><h2>관리자 로그인</h2><input id="em" type="email" placeholder="이메일" autocomplete="email"><input id="pw" type="password" placeholder="비밀번호" autocomplete="current-password"><button class="btn" id="go" type="button">로그인</button><p class="msg" id="m"></p></section>
 <section class="box" id="deny" hidden><h2>이 계정에는 관리자 권한이 없습니다</h2><p>아래 계정 ID를 결제 서버의 <b>ADMIN_UIDS</b> 설정에 넣으면 이 계정이 관리자가 됩니다.</p><p><code id="uid"></code></p></section>
 <div id="dash" hidden></div>
+<section class="box" id="tools" hidden><h2>관리 도구</h2><p style="margin:0 0 10px;font-size:14px;color:#6b788e">관리자 계정의 가입·결제·열람은 위 통계에서 제외됩니다.</p><button class="btn" id="rg" type="button">가입 선물 기록 전체 초기화</button> <span class="msg" id="rgm"></span></section>
 <p class="msg" id="err"></p>
 </main>
 <script type="module" src="/auth.js"></script>
@@ -50,11 +51,11 @@ function draw(d){
    +kp('가입 선물 사용',d.gift.users+'명','전화·주소 '+d.gift.opens+'곳 열람 (1인 최대 '+d.gift.limit+'곳)')+kp('매입의 신 접수',d.buy.total+'건','최근 7일 '+d.buy.d7+'건')+'</div>';
   h+='<section class="box" style="margin-top:16px"><h2>최근 14일 가입</h2><div class="bars">'+u.days.map(function(x){return '<div><em>'+(x.n||'')+'</em><i style="height:'+Math.round(x.n/max*100)+'%"></i><span>'+x.day.slice(5).replace('-','/')+'</span></div>'}).join('')+'</div></section>';
   h+='<section class="box"><h2>최근 결제</h2>'+(d.recent.length?'<table><tr><th>일시</th><th>이용권</th><th>금액</th></tr>'+d.recent.map(function(r){var t=new Date(r.at);return '<tr><td>'+(t.getMonth()+1)+'/'+t.getDate()+' '+('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)+'</td><td>'+r.plan+'일</td><td>'+won(r.amount)+'</td></tr>'}).join('')+'</table>':'<p style="margin:0;color:#6b788e">아직 결제가 없습니다.</p>')+'</section>';
-  $('dash').innerHTML=h;$('dash').hidden=false;
+  $('dash').innerHTML=h;$('dash').hidden=false;$('tools').hidden=false;
 }
 function load(){
   var A=window.IGAUTH;if(!A||!A.ready)return;
-  $('lo').hidden=!A.user;$('login').hidden=!!A.user;$('dash').hidden=true;$('deny').hidden=true;$('err').textContent='';
+  $('lo').hidden=!A.user;$('login').hidden=!!A.user;$('dash').hidden=true;$('tools').hidden=true;$('deny').hidden=true;$('err').textContent='';
   if(!A.user)return;
   A.token().then(function(t){return fetch(W+'/stats',{headers:{Authorization:'Bearer '+t}})}).then(function(r){return r.json()}).then(function(d){
     if(d.ok)draw(d);else if(d.message==='forbidden'){$('uid').textContent=d.uid||'';$('deny').hidden=false}else $('err').textContent=d.message||'통계를 불러오지 못했습니다.';
@@ -63,7 +64,8 @@ function load(){
 window.addEventListener('ig-auth',load);
 document.addEventListener('DOMContentLoaded',function(){
   $('go').onclick=function(){$('m').textContent='';window.IGAUTH.login($('em').value.trim(),$('pw').value).catch(function(e){$('m').textContent=e.message})};
-  $('lo').onclick=function(){window.IGAUTH.logout()};$('hm').onclick=function(){location.href='/'};load();
+  $('lo').onclick=function(){window.IGAUTH.logout()};$('hm').onclick=function(){location.href='/'};
+  $('rg').onclick=function(){if(!confirm('모든 회원의 가입 선물(전화·주소 10곳) 사용 기록을 지우고 처음부터 다시 줍니다. 계속할까요?'))return;window.IGAUTH.token().then(function(t){return fetch(W+'/reset-gift',{method:'POST',headers:{Authorization:'Bearer '+t}})}).then(function(r){return r.json()}).then(function(d){$('rgm').textContent=d.ok?'초기화했습니다 ('+d.cleared+'건 삭제)':'실패했습니다';load()}).catch(function(){$('rgm').textContent='실패했습니다'})};load();
 });
 })();
 </script></body></html>
