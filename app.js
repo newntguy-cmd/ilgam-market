@@ -13,7 +13,7 @@
     { id: 'con', label: '계약', ready: false, hidden: true },
   ];
   var PAGE = 30;
-  var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'home', region: '전체', kind: '전체', kinds: [], amt: -1, q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
+  var S = { corp: {}, openCo: '', openWin: '', band: 0, tab: 'home', regions: [], kind: '전체', kinds: [], amts: [], q: '', sort: 'd', period: 'd3', shown: PAGE, items: [], sample: false, maxD: '' };
 
   var HT = (location.hash || '').slice(1);
   if (['home', 'win', 'co', 'wl', 'bid', 'con'].indexOf(HT) > -1) S.tab = HT;
@@ -288,12 +288,11 @@
     var q = S.q.trim().toLowerCase();
     var from = '';
     if (S.tab === 'win' && S.maxD) from = S.period === 'last' ? S.maxD : S.period === 'd3' ? ago(2) : S.period === 'week' ? ago(6) : '';
-    var ar = S.amt >= 0 ? AMTR[S.amt] : null;
     return S.items.filter(function (r) {
       if (from && (r.d || '') < from) return false;
-      if (skip !== 'region' && S.region !== '전체' && r.rg !== S.region) return false;
+      if (skip !== 'region' && S.regions.length && S.regions.indexOf(r.rg || '미분류') < 0) return false;
       if (skip !== 'kind' && S.kinds.length && S.kinds.indexOf(r.cat) < 0) return false;
-      if (skip !== 'amt' && ar && !((r.amt || 0) >= ar[1] && (r.amt || 0) < ar[2])) return false;
+      if (skip !== 'amt' && S.amts.length && !S.amts.some(function (i) { return (r.amt || 0) >= AMTR[i][1] && (r.amt || 0) < AMTR[i][2]; })) return false;
       if (q && (r.nm + ' ' + r.co + ' ' + r.dm).toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
@@ -361,7 +360,7 @@
   }
 
   function syncSel() {
-    $('fRegion').value = S.region;
+    $('fRegion').value = S.regions.length === 1 ? S.regions[0] : '전체';
     $('fKind').value = S.kinds.length === 1 ? S.kinds[0] : '전체';
   }
   function chipRow(box, label, items, onPick) {
@@ -377,24 +376,25 @@
     });
     row.appendChild(cs); box.appendChild(row);
   }
+  function toggle(arr, v) { if (v === '' || v === -1) return []; var i = arr.indexOf(v); return i >= 0 ? arr.filter(function (x) { return x !== v; }) : arr.concat([v]); }
   function count(list, fn) { var m = {}; list.forEach(function (r) { var k = fn(r); m[k] = (m[k] || 0) + 1; }); return m; }
   function renderChips() {
     var box = $('regionChips'); box.textContent = '';
     var base = S.items.length ? filtered('region') : [];
     var rc = count(base, function (r) { return r.rg || '미분류'; });
-    var regs = Object.keys(rc).sort(function (a, b) { return a === '미분류' ? 1 : b === '미분류' ? -1 : rc[b] - rc[a]; });
-    chipRow(box, '지역', [{ t: '전체', n: base.length, on: S.region === '전체', v: '전체' }].concat(regs.map(function (g) { return { t: g, n: rc[g], on: S.region === g, v: g }; })), function (it) { S.region = it.v; });
+    var regs = Object.keys(rc).sort(function (a, b) { return a === '서울' ? -1 : b === '서울' ? 1 : a === '미분류' ? 1 : b === '미분류' ? -1 : rc[b] - rc[a]; });
+    chipRow(box, '지역', [{ t: '전체', n: base.length, on: !S.regions.length, v: '' }].concat(regs.map(function (g) { return { t: g, n: rc[g], on: S.regions.indexOf(g) >= 0, v: g }; })), function (it) { S.regions = toggle(S.regions, it.v); });
     if (S.tab === 'st') return;
     var kb = filtered('kind'), kc = count(kb, function (r) { return r.cat; });
     chipRow(box, '공종', [{ t: '전체', n: kb.length, on: !S.kinds.length, v: '' }].concat(CATORDER.filter(function (c) { return kc[c] || S.kinds.indexOf(c) >= 0; }).map(function (c) { return { t: c, n: kc[c] || 0, on: S.kinds.indexOf(c) >= 0, v: c }; })), function (it) {
       if (!it.v) { S.kinds = []; return; }
-      var i = S.kinds.indexOf(it.v); if (i >= 0) S.kinds.splice(i, 1); else S.kinds.push(it.v);
+      S.kinds = toggle(S.kinds, it.v);
     });
     var ab = filtered('amt');
-    chipRow(box, '금액대', [{ t: '전체', n: ab.length, on: S.amt < 0, v: -1 }].concat(AMTR.map(function (x, i) { return { t: x[0], n: ab.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, on: S.amt === i, v: i }; })), function (it) { S.amt = it.v; });
-    if (S.region !== '전체' || S.kinds.length || S.amt >= 0) {
+    chipRow(box, '금액대', [{ t: '전체', n: ab.length, on: !S.amts.length, v: -1 }].concat(AMTR.map(function (x, i) { return { t: x[0], n: ab.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, on: S.amts.indexOf(i) >= 0, v: i }; })), function (it) { S.amts = toggle(S.amts, it.v); });
+    if (S.regions.length || S.kinds.length || S.amts.length) {
       var rs = el('button', 'frs', '조건 모두 지우기'); rs.type = 'button';
-      rs.addEventListener('click', function () { S.region = '전체'; S.kinds = []; S.amt = -1; S.shown = PAGE; syncSel(); render(); });
+      rs.addEventListener('click', function () { S.regions = []; S.kinds = []; S.amts = []; S.shown = PAGE; syncSel(); render(); });
       box.appendChild(rs);
     }
   }
@@ -459,7 +459,7 @@
       if (hasBz) row.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); openCo(); } });
       board.appendChild(row);
       if (ri === 5 && isGuest()) {
-        var gr = (S.region && S.region !== '전체') ? S.region : '';
+        var gr = S.regions.length === 1 ? S.regions[0] : '';
         var mk = el('div', 'nca');
         var tx = el('div', 'nct'); tx.appendChild(el('b', null, (gr || '내 지역') + '에 새 낙찰이 나면, 아침마다 메일로'));
         tx.appendChild(el('span', null, '지역을 정해 두면 그 지역 소식만 보내 드려요.'));
@@ -793,7 +793,7 @@
   function boot(data) {
     S.items = data.items || []; S.items.forEach(function (r) { r.cat = catOf(r); }); S.corp = data.corp || {}; S.sample = !!data.sample;
     S.maxD = S.items.reduce(function (m, r) { return r.d && r.d > m ? r.d : m; }, '');
-    fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), S.region);
+    fillSelect($('fRegion'), ['전체'].concat(uniq('rg')), '전체');
     fillSelect($('fKind'), ['전체'].concat(CATORDER.filter(function (c) { return S.items.some(function (r) { return r.cat === c; }); })), S.kind);
     if (data.updated) $('upd').textContent = data.updated.replace('T', ' ').replace(/(\d{2}:\d{2}).*$/, '$1') + ' 갱신';
     if (S.sample) { var b = el('div', 'banner', '지금 보이는 데이터는 화면 확인용 예시입니다. 실제 낙찰정보가 아닙니다.'); $('banner').appendChild(b); }
@@ -803,10 +803,10 @@
 
   $('form').addEventListener('submit', function (e) {
     e.preventDefault();
-    S.region = $('fRegion').value; S.kinds = $('fKind').value === '전체' ? [] : [$('fKind').value]; S.q = $('fQ').value; S.shown = PAGE;
+    S.regions = $('fRegion').value === '전체' ? [] : [$('fRegion').value]; S.kinds = $('fKind').value === '전체' ? [] : [$('fKind').value]; S.q = $('fQ').value; S.shown = PAGE;
     render();
   });
-  $('fRegion').addEventListener('change', function () { S.region = this.value; S.shown = PAGE; render(); });
+  $('fRegion').addEventListener('change', function () { S.regions = this.value === '전체' ? [] : [this.value]; S.shown = PAGE; render(); });
   $('fKind').addEventListener('change', function () { S.kinds = this.value === '전체' ? [] : [this.value]; S.shown = PAGE; render(); });
 
   // 지금 화면 조건 그대로 엑셀(CSV, 한글 깨짐 방지 BOM)로 저장
@@ -850,7 +850,7 @@
   });
   document.querySelector('.brand').addEventListener('click', function (e) {
     e.preventDefault();
-    S.tab = 'home'; S.region = '전체'; S.kinds = []; S.amt = -1; S.q = ''; S.sort = 'd'; S.period = 'd3'; S.shown = PAGE;
+    S.tab = 'home'; S.regions = []; S.kinds = []; S.amts = []; S.q = ''; S.sort = 'd'; S.period = 'd3'; S.shown = PAGE;
     $('fRegion').value = '전체'; $('fKind').value = '전체'; $('fQ').value = ''; $('fSort').value = 'd'; $('fPeriod').value = 'd3';
     try { history.replaceState(null, '', location.pathname); } catch (x) {}
     render(); window.scrollTo(0, 0);
