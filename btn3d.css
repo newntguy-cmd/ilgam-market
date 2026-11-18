@@ -56,7 +56,7 @@ header.top .brand{color:#0f2342}
 @media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-end}}
 .gnb a.hot,header nav a.hot{order:-1}
 .acc>button.jn{background:#c9a45c!important;color:#0f2342!important;border-color:#8a6a28!important;margin-right:8px;font-weight:800}
-@media (max-width:760px){.acc>button.jn{display:none}.acc>button.jn.pay{display:inline-flex!important;align-items:center;margin-right:6px}}
+@media (max-width:760px){header.top .wrap{gap:8px!important;flex-wrap:nowrap!important}.acc{margin-left:auto}.acc>button.jn{margin-right:6px;padding-left:12px;padding-right:12px;white-space:nowrap}.acc>button.jn.pay{display:inline-flex!important;align-items:center}}
 /* 큼직하게(헤더) */
 .gnb button,.gnb .tablink{font-size:17.5px!important;min-height:54px!important}
 .gnb a.hot,header nav a.hot{font-size:18px!important;min-height:42px!important}
