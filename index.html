@@ -753,7 +753,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261118a"></script>
+<script src="app.js?v=20261118b"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){
@@ -819,7 +819,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function eok(a){a=Math.round(a/1e6)/100;return a>=1e4?(a/1e4).toFixed(1)+'조':a>=100?Math.round(a).toLocaleString('ko-KR')+'억':a.toFixed(1)+'억'}
 function mk(n){var k=String(n).replace(/주식회사|\(주\)|㈜|\s/g,'');return esc(k.charAt(0))+'<i>○○○</i>'}
 window.__phc=function(){paintHC()};
-function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c||!window.igKnown())return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입하면</small><h3>낙찰 현장,<br>업체⁠·⁠금액까지 전부</h3><p>카드 등록은 필요 없습니다. 대표 전화⁠·⁠주소가 담긴 영업 리스트는 일감 마스터에서 이용해요.</p><button type="button" data-act="join">가입하기</button></div><div class="r"><b>0<i>원</i></b><span>가입비</span></div></div>';return}box.innerHTML=''}
+function paintHC(){var box=document.getElementById('hCards'),c=window.__hc;if(!box||!c||!window.igKnown())return;var on=m();var key=(on?'m':'g')+c.nm;if(box.getAttribute('data-k')===key)return;box.setAttribute('data-k',key);if(!on){box.innerHTML='<div class="pt"><img class="stp" src="/img/icon.svg" alt="" width="88" height="88"><div class="l"><small>가입하면</small><h3>낙찰 현장과 업체,<br>금액을 확인해요</h3><p>대표 전화·주소는 10곳까지 열람할 수 있어요. 영업 리스트는 일감 마스터에서 이용해요.</p><button type="button" data-act="join">가입하기</button></div><div class="r"><b>10<i>곳</i></b><span>대표 전화·주소</span></div></div>';return}box.innerHTML=''}
 function sk(){paintHC();var tb=document.getElementById('tb');if(tb)tb.hidden=true;var hs=document.getElementById('hsub');if(hs)hs.hidden=m();var on=m();[].forEach.call(document.querySelectorAll('#home [data-j]'),function(b){if(on){b.textContent='영업 리스트 보기';b.removeAttribute('data-act');b.setAttribute('data-go','pro.html')}else{b.textContent=b.getAttribute('data-j');b.setAttribute('data-act','join');b.removeAttribute('data-go')}})}
 [].forEach.call(document.querySelectorAll('#home [data-act="join"]'),function(b){b.setAttribute('data-j',b.textContent)});
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#home [data-go]');if(t)location.href=t.getAttribute('data-go')});
