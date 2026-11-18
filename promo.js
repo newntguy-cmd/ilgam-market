@@ -26,8 +26,8 @@
   function build() {
     css();
     box = document.createElement('div'); box.id = 'ighold'; box.hidden = true;
-    box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="ighT"><button type="button" class="x" aria-label="닫기">✕</button><h2 id="ighT">잠시만요!</h2><p><em>낙찰 현장 전부</em> 안 보고 가세요?</p>'
-      + '<div class="cmp"><div class="a"><span class="t">가입 안 하면</span><b>둘러보기만</b></div><div class="b"><span class="t">가입하면</span><ul><li><i>현장·업체·금액</i> 전부 보기</li><li><i>매일 아침</i> 새 낙찰 메일</li><li><i>직거래장터</i> 글 올리기</li><li><i>카드 등록</i> 필요 없음</li></ul></div></div>'
+    box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="ighT"><button type="button" class="x" aria-label="닫기">✕</button><h2 id="ighT">잠시만요!</h2><p><em>낙찰 현장,</em> 업체와 금액도 확인해 보세요</p>'
+      + '<div class="cmp"><div class="a"><span class="t">가입 안 하면</span><b>둘러보기만</b></div><div class="b"><span class="t">가입하면</span><ul><li><i>현장·업체·금액</i> 확인</li><li><i>매일 아침</i> 새 낙찰 메일</li><li><i>직거래장터</i> 글 올리기</li><li><i>대표 전화·주소</i> 10곳 열람</li></ul></div></div>'
       + '<button type="button" class="go" data-act="join">가입하기</button><button type="button" class="no">오늘은 그냥 볼게요</button></div>';
     document.body.appendChild(box);
     box.addEventListener('click', function (e) {

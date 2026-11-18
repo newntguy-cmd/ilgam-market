@@ -44,10 +44,10 @@ def build(rows, total=None):
     return f"""<div style="background:#eef0f3;padding:24px 12px;font-family:'Malgun Gothic',Apple SD Gothic Neo,sans-serif">
 <table role="presentation" width="100%" style="max-width:560px;margin:0 auto;background:#fff;border-radius:4px;overflow:hidden;border-collapse:collapse">
 <tr><td style="background:#0f2342;padding:18px 20px;border-bottom:3px solid #c9a45c;color:#fff;font-size:18px;font-weight:700">일감마켓 <span style="font-weight:400;font-size:13px;color:#aebbd1">새 낙찰 알림</span></td></tr>
-<tr><td style="padding:18px 20px 6px;font-size:15px;color:#0f2342">담아 두신 업체와 지역에 새 낙찰 <b>{total}건</b>이 있습니다.{f' 금액이 큰 순서로 {len(rows)}건만 보여 드립니다.' if total > len(rows) else ''}</td></tr>
+<tr><td style="padding:18px 20px 6px;font-size:15px;color:#0f2342">담아 두신 업체와 지역에 새 낙찰 <b>{total}건</b>이 있어요.{f' 금액이 큰 순서로 {len(rows)}건만 보여 드려요.' if total > len(rows) else ''}</td></tr>
 {cards}
 <tr><td style="padding:20px;text-align:center"><a href="{SITE}/#wl" style="display:inline-block;padding:12px 22px;background:#c9a45c;color:#0f2342;font-weight:700;text-decoration:none;border-radius:4px">일감마켓에서 보기</a></td></tr>
-<tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내 드렸습니다. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 통신판매업 신고 완료</td></tr>
+<tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내드렸어요. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 통신판매업 신고 완료</td></tr>
 </table></div>"""
 
 def main():

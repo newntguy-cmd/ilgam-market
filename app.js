@@ -191,7 +191,7 @@
         lockLine(box, '대표 전화', '한 번 열면 다시 열어도 차감되지 않아요', '전화·주소 보기', function () { delete CTLOCK[biz]; box.textContent = ''; row('연락처', '불러오는 중…'); getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 눌러 주세요.'); }); });
         return;
       }
-      lockLine(box, '주소', '일감 마스터 영업 리스트에서', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '가입 선물 ' + (ME && ME.limit || 10) + '곳을 모두 보셨어요 · 30일 49,900원', '전화번호 보기', function () { location.href = 'pro.html'; }); return;
+      lockLine(box, '주소', '일감 마스터 영업 리스트에서', null, null, '••• ••••• ••• ••••'); lockLine(box, '대표 전화', '가입 선물 ' + (ME && ME.limit || 10) + '곳을 모두 열람했어요 · 30일 49,900원', '전화번호 보기', function () { location.href = 'pro.html'; }); return;
     }
     row('연락처', '불러오는 중…');
     getContacts([biz], true).then(function () { paintContact(box, biz); }, function () { box.textContent = ''; row('연락처', '불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.'); });
@@ -230,8 +230,8 @@
   function accountCard() {
     var A = window.IGAUTH, box = el('div', 'acct');
     if (!A || !A.user) {
-      var l = el('div', 'at'); l.appendChild(el('b', null, '로그인하면 새 낙찰을 메일로 알려 드립니다'));
-      l.appendChild(el('span', null, '담은 업체에 새 낙찰이 생기면 아침에 한 통으로 보내고, 폰과 PC에서 같은 목록을 봅니다. 무료입니다.'));
+      var l = el('div', 'at'); l.appendChild(el('b', null, '로그인하면 새 낙찰을 메일로 보내드려요'));
+      l.appendChild(el('span', null, '담은 업체에 새 낙찰이 생기면 아침에 한 통으로 보내고, 폰과 PC에서 같은 목록을 봐요.'));
       box.appendChild(l);
       var b = el('button', 'btn', '로그인 · 가입'); b.type = 'button'; b.addEventListener('click', openLogin); box.appendChild(b);
       return box;
@@ -254,8 +254,8 @@
     var l = el('div', 'at'); l.appendChild(el('b', null, '지역 알림 · 업체를 고르지 않아도 됩니다'));
     l.appendChild(el('span', null, !logged
       ? '지역을 고른 뒤 위에서 로그인하면 그 지역의 새 낙찰을 메일로 받습니다.'
-      : free ? '무료는 1개 지역의 새 낙찰을 매일 아침 메일로 보내 드립니다. 여러 지역은 일감 마스터에서 받으실 수 있습니다.'
-             : '고른 지역의 새 낙찰을 매일 아침 한 통으로 보내 드립니다. 여러 지역을 고를 수 있습니다.'));
+      : free ? '1개 지역의 새 낙찰을 매일 아침 메일로 보내드려요. 여러 지역은 일감 마스터에서 받을 수 있어요.'
+             : '고른 지역의 새 낙찰을 매일 아침 한 통으로 보내드려요. 여러 지역을 고를 수 있어요.'));
     box.appendChild(l);
     var chips = el('div', 'chips rgchips'); chips.setAttribute('role', 'group'); chips.setAttribute('aria-label', '알림 받을 지역');
     uniq('rg').filter(function (g) { return g !== '미분류'; }).forEach(function (g) {
@@ -266,7 +266,7 @@
         if (i > -1) RG.splice(i, 1);
         else if (RG.length >= cap) {
           if (free) { var m = box.querySelector('.rgfull'); if (!m) { m = el('div', 'rgfull'); box.appendChild(m); }
-            m.textContent = ''; m.appendChild(document.createTextNode('무료는 지역 1곳까지 받을 수 있습니다. ')); var pb = el('button', 'lo', '일감 마스터 보기'); pb.type = 'button'; pb.addEventListener('click', function () { location.href = 'pro.html'; }); m.appendChild(pb); }
+            m.textContent = ''; m.appendChild(document.createTextNode('지역은 1곳까지 받을 수 있어요. ')); var pb = el('button', 'lo', '일감 마스터 보기'); pb.type = 'button'; pb.addEventListener('click', function () { location.href = 'pro.html'; }); m.appendChild(pb); }
           return;
         } else RG.push(g);
         rgSave(); cloudPush(); render();
@@ -580,7 +580,7 @@
     d.appendChild(tb);
     if (!member) {
       var cta = el('div', 'wcta');
-      var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하면 현장명 · 발주처 · 낙찰 업체가 모두 보여요'));
+      var t = el('span', null); t.innerHTML = LOCK_SVG; t.appendChild(document.createTextNode(' 가입하면 현장명과 발주처, 낙찰 업체를 볼 수 있어요'));
       cta.appendChild(t);
       var jb = el('button', 'go', '가입하기'); jb.type = 'button'; jb.addEventListener('click', function () { openLogin('signup'); });
       cta.appendChild(jb); d.appendChild(cta);
@@ -608,7 +608,7 @@
       var em = el('div', 'soon');
       if (wl) {
         em.appendChild(el('b', null, '아직 담은 업체가 없습니다.'));
-        em.appendChild(el('p', null, '업체 이름 옆의 ☆를 누르면 여기에 모입니다. 새 낙찰이 생기면 NEW로 알려 드립니다.'));
+        em.appendChild(el('p', null, '업체 이름 옆의 ☆를 누르면 여기에 모여요. 새 낙찰이 생기면 NEW로 알려 드려요.'));
         var go = el('button', 'btn', '낙찰 업체 둘러보기'); go.type = 'button';
         go.addEventListener('click', function () { S.tab = 'co'; S.shown = PAGE; try { history.replaceState(null, '', '#co'); } catch (e) {} render(); });
         em.appendChild(go);
