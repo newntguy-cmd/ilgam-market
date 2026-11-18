@@ -218,3 +218,7 @@ form.search{margin-top:18px!important}
 @media (max-width:860px){#hjoin{display:none!important}}
 /* v72: 첫 화면 버튼은 하나만(가입하기는 상단 메뉴에 있음) */
 .ab-hero .ab-r1 .ab-jn,.ab-hero .ab-r1 .ab-pm{display:none!important}
+/* v73: 홈 안내 카드 3장 */
+.qwrap{padding-top:34px}.mkg.q3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mkg.q3 .mkc b{font-size:22px!important;line-height:1.3}.mkg.q3 .mkc p{font-size:16px!important;min-height:3.3em}
+@media (max-width:860px){.mkg.q3{grid-template-columns:minmax(0,1fr)}}
