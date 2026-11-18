@@ -216,3 +216,5 @@ form.search{margin-top:18px!important}
 @media (max-width:860px){.hero h1{font-size:30px!important}.hero .lead{font-size:15px!important}}
 .hstat li:nth-child(n+2){display:none!important}
 @media (max-width:860px){#hjoin{display:none!important}}
+/* v72: 첫 화면 버튼은 하나만(가입하기는 상단 메뉴에 있음) */
+.ab-hero .ab-r1 .ab-jn,.ab-hero .ab-r1 .ab-pm{display:none!important}
