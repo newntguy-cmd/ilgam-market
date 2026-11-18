@@ -69,12 +69,14 @@
   nav.appendChild(mb);
   var sheet = document.createElement('div'); sheet.id = 'igmore';
   var REG = ['서울','경기','인천','부산','대구','대전','광주-전남','울산','세종','강원','충북','충남','전북','경북','경남','제주'];
+  var CATS = [['전기','전기'],['통신','통신'],['소방','소방'],['기계설비','기계설비'],['토목·도로','토목-도로'],['건축','건축'],['조경','조경'],['상하수도','상하수도'],['산림','산림'],['인테리어','인테리어'],['도장·방수','도장-방수'],['철거·해체','철거-해체'],['승강기','승강기']];
   var X = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   function ti(h, ic, t, dt) { return '<a href="' + h + '"' + (dt ? ' data-go="' + dt + '"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[ic] + '</svg>' + t + '</a>'; }
   var logged = false; try { logged = !!localStorage.getItem('ig_me'); } catch (e) {}
   sheet.innerHTML = '<div class="hd"><span>전체메뉴</span><button type="button" class="x" aria-label="닫기">' + X + '</button></div><div class="bd">'
     + '<h4>바로가기</h4><div class="tl">' + ti('/#win', 'win', '낙찰정보', '낙찰정보') + ti('/market/', 'mk', '직거래장터') + ti('/#wl', 'wl', '관심업체', '관심업체') + ti('/buy.html', 'buy', '매입의 신') + ti('/pro.html', 'ms', '일감 마스터') + ti('/help.html', 'cs', '고객센터') + '</div>'
     + '<h4>지역별 낙찰</h4><div class="rg">' + REG.map(function (r) { return '<a href="/a/' + r + '/">' + r.replace('-', '·') + '</a>'; }).join('') + '</div>'
+    + '<h4>분야별 낙찰</h4><div class="rg">' + CATS.map(function (c) { return '<a href="/a/전국/' + c[1] + '/">' + c[0] + '</a>'; }).join('') + '</div>'
     + '<h4>발주처별 낙찰</h4><div class="ls"><a href="/o/">발주처 이름으로 찾기<small>공사를 낸 곳의 최근 낙찰 현장과 업체</small></a></div>'
     + '<h4>직거래장터</h4><div class="ls"><a href="/market/?c=sell">팔고 싶은 물건 올리기<small>사진 한 장으로 등록해요</small></a><a href="/market/?c=need">필요한 물품 적어 올리기<small>판매자가 견적을 보내요</small></a></div>'
     + '<h4>더 보기</h4><div class="ls"><a href="/#home" data-go="회사소개">회사소개</a><a href="/help.html">자주 묻는 질문</a><a href="/market/policy.html">약관·환불규정</a><a href="mailto:help@ilgammarket.co.kr">이메일 문의</a></div></div>'

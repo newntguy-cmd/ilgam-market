@@ -96,11 +96,12 @@ def build(d, out, site, linked):
             trs += (f'<tr><td class="dt">{md(r["d"])}</td><td><b>{e(r["nm"])}</b><small>{olink(r["dm"])} {cat}</small></td>'
                     f'<td class="co">{co}</td><td class="amt">{money(r["amt"])}</td></tr>')
         chip = "".join(f'<a class="chip" href="{h}">{e(t)} <i>{n}</i></a>' for h, t, n in chips)
+        CTA = f'''<section class="card cta"><h2>{e(rg)}에 새 낙찰이 나면, 아침마다 메일로</h2><p>매일 아침 7:30, {e(rg)}의 새 낙찰 현장과 업체를 보내드려요.</p><a class="btn" href="/?join=1&amp;rg={quote(rg)}">알림 받아보기</a></section>'''
         crumb = " › ".join(f'<a href="{h}">{e(t)}</a>' for h, t in parent)
         body = f'''<main class="wrap"><p class="crumb">{crumb}</p>
 <h1>{e(label)} 낙찰 현장</h1>
 <p class="sum">최근 낙찰 <b>{len(rows):,}건</b> · 낙찰 업체 <b>{cos:,}곳</b> · 합계 <b>{money(total)}</b> · {md(lo)}~{md(hi)} 기준</p>
-<section class="card cta"><h2>{e(rg)}에 새 낙찰이 나면, 아침마다 메일로</h2><p>매일 아침 7:30, {e(rg)}의 새 낙찰 현장과 업체를 보내드려요.</p><a class="btn" href="/?join=1&amp;rg={quote(rg)}">알림 받아보기</a></section>
+{(CTA) if rg else ''}
 {('<section class="card"><h2>더 좁혀 보기</h2><p class="chips">' + chip + '</p></section>') if chip else ''}
 <section class="card"><h2>최근 낙찰</h2><table><tbody>{trs}</tbody></table>{'<p class="note">최근 ' + str(ROWS) + '건만 보여 드려요. 전체 목록은 일감마켓에서 확인할 수 있어요.</p>' if len(rows) > ROWS else ''}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 전체 낙찰 보기</a></p>
@@ -132,6 +133,18 @@ def build(d, out, site, linked):
                 add(f"{rs}/{slug(g)}", f"{rg} {g}", [("/", "일감마켓"), (f"/a/{quote(rs)}/", f"{rg} 낙찰")], gr, [], rg)
         add(rs, f"{rg}", [("/", "일감마켓")], rows, chips, rg)
         hub_links.append((f"/a/{quote(rs)}/", f"{rg} 낙찰 현장", len(rows)))
+
+    by_cat = {}
+    for r in items:
+        if r["_c"]:
+            by_cat.setdefault(r["_c"], []).append(r)
+    kind_links = []
+    for (label, cs), rows in sorted(by_cat.items(), key=lambda kv: -len(kv[1])):
+        add(f"전국/{cs}", f"전국 {label}", [("/", "일감마켓"), ("/a/", "지역별 낙찰")], rows, [], "")
+        kind_links.append((f"/a/{quote('전국')}/{quote(cs)}/", f"{label}", len(rows)))
+    kind_hub = '<main class="wrap"><p class="crumb"><a href="/">일감마켓</a></p><h1>분야별 낙찰 현장</h1><p class="sum">분야를 고르면 전국의 최근 낙찰 현장과 업체를 볼 수 있어요.</p><section class="card"><p class="chips">' + "".join(
+        f'<a class="chip" href="{h}">{e(t)} <i>{n}</i></a>' for h, t, n in kind_links) + '</p></section></main>'
+    pages["전국"] = ("분야별 공공 공사 낙찰 현장 | 일감마켓", f"전기·통신·소방·토목·건축 등 분야별 최근 공공 공사 낙찰 현장과 낙찰 업체. {md(lo)}~{md(hi)} 조달청 나라장터 공공데이터 기준.", kind_hub, len(items))
 
     hub = '<main class="wrap"><p class="crumb"><a href="/">일감마켓</a></p><h1>지역별 낙찰 현장</h1><p class="sum">지역을 고르면 최근 낙찰 현장과 업체를 보실 수 있습니다.</p><section class="card"><p class="chips">' + "".join(
         f'<a class="chip" href="{h}">{e(t)} <i>{n}</i></a>' for h, t, n in hub_links) + '</p></section></main>'
