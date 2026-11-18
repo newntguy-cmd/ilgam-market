@@ -19,6 +19,9 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else ROOT
 SITE = "https://ilgammarket.co.kr"
 d = json.load(open(os.path.join(ROOT, "data", "public.json"), encoding="utf-8"))
 corp = d.get("corp") or {}
+import gen_orgs
+ORG_OK = gen_orgs.eligible(d)
+olink = lambda dm: (f'<a href="/o/{quote(gen_orgs.oslug(dm))}/">{html.escape(dm)}</a>' if dm in ORG_OK else html.escape(dm))
 e = html.escape
 
 
@@ -71,7 +74,7 @@ for biz, rows in by.items():
     url = f"{SITE}/c/{biz}/"
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": name, "taxID": fmt_biz(biz), "url": url}
     hist = "".join(
-        f'<tr><td class="dt">{e(r["d"][5:].replace("-", "."))}{"<small>낙찰 예정</small>" if r.get("s") == "낙찰예정" else ""}</td><td><b>{e(r["nm"])}</b><small>{e(r["dm"])}</small></td>'
+        f'<tr><td class="dt">{e(r["d"][5:].replace("-", "."))}{"<small>낙찰 예정</small>" if r.get("s") == "낙찰예정" else ""}</td><td><b>{e(r["nm"])}</b><small>{olink(r["dm"])}</small></td>'
         f'<td class="amt">{money(r["amt"])}</td><td class="lk"></td></tr>'
         for r in rows[:50]
     )
@@ -117,9 +120,12 @@ for name in os.listdir(cdir):  # 60일 창에서 빠진 업체는 지웁니다
 import gen_areas
 AREA_URLS = gen_areas.build(d, OUT, SITE, set(made))
 print(f"지역 페이지 {len(AREA_URLS)}개")
+import gen_orgs
+ORG_URLS = gen_orgs.build(d, OUT, SITE, set(made))
+print(f"발주처 페이지 {len(ORG_URLS)}개")
 core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"]
 comp = [f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)]
-urls = core + list(AREA_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
+urls = core + list(AREA_URLS) + list(ORG_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
 # 사이트맵 인덱스: 파일 하나에 3,000개씩 나눕니다(네이버⁠·⁠구글 모두 대량 URL은 인덱스를 권장)
 CHUNK = 3000
 for old in os.listdir(OUT):

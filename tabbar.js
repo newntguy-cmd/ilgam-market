@@ -75,6 +75,7 @@
   sheet.innerHTML = '<div class="hd"><span>전체메뉴</span><button type="button" class="x" aria-label="닫기">' + X + '</button></div><div class="bd">'
     + '<h4>바로가기</h4><div class="tl">' + ti('/#win', 'win', '낙찰정보', '낙찰정보') + ti('/market/', 'mk', '직거래장터') + ti('/#wl', 'wl', '관심업체', '관심업체') + ti('/buy.html', 'buy', '매입의 신') + ti('/pro.html', 'ms', '일감 마스터') + ti('/help.html', 'cs', '고객센터') + '</div>'
     + '<h4>지역별 낙찰</h4><div class="rg">' + REG.map(function (r) { return '<a href="/a/' + r + '/">' + r.replace('-', '·') + '</a>'; }).join('') + '</div>'
+    + '<h4>발주처별 낙찰</h4><div class="ls"><a href="/o/">발주처 이름으로 찾기<small>공사를 낸 곳의 최근 낙찰 현장과 업체</small></a></div>'
     + '<h4>직거래장터</h4><div class="ls"><a href="/market/?c=sell">팔고 싶은 물건 올리기<small>사진 한 장으로 등록해요</small></a><a href="/market/?c=need">필요한 물품 적어 올리기<small>판매자가 견적을 보내요</small></a></div>'
     + '<h4>더 보기</h4><div class="ls"><a href="/#home" data-go="회사소개">회사소개</a><a href="/help.html">자주 묻는 질문</a><a href="/market/policy.html">약관·환불규정</a><a href="mailto:help@ilgammarket.co.kr">이메일 문의</a></div></div>'
     + '<div class="ft">' + (logged ? '<a class="p" href="/pro.html#buy">일감 마스터 결제하기</a>' : '<a href="/#login" data-login="1">로그인</a><a class="p" href="/#join" data-join="1">가입하기</a>') + '</div>';

@@ -67,6 +67,9 @@ def money(n):
 def build(d, out, site, linked):
     """linked: 업체 전용 페이지가 있는 사업자번호 집합. 만든 주소 목록을 돌려줍니다."""
     items = [r for r in d["items"] if r.get("s") == "낙찰" and r.get("rg") and r["rg"] != "미분류" and r.get("amt")]
+    import gen_orgs
+    org_ok = gen_orgs.eligible(d)
+    olink = lambda dm: (f'<a href="/o/{quote(gen_orgs.oslug(dm))}/">{e(dm)}</a>' if dm in org_ok else e(dm))
     for r in items:
         c = cat_of(r)
         r["_c"] = c
@@ -90,7 +93,7 @@ def build(d, out, site, linked):
             if r.get("b") in linked:
                 co = f'<a href="/c/{r["b"]}/">{co}</a>'
             cat = f'<span class="tg">{e(r["_c"][0])}</span>' if r["_c"] else ""
-            trs += (f'<tr><td class="dt">{md(r["d"])}</td><td><b>{e(r["nm"])}</b><small>{e(r["dm"])} {cat}</small></td>'
+            trs += (f'<tr><td class="dt">{md(r["d"])}</td><td><b>{e(r["nm"])}</b><small>{olink(r["dm"])} {cat}</small></td>'
                     f'<td class="co">{co}</td><td class="amt">{money(r["amt"])}</td></tr>')
         chip = "".join(f'<a class="chip" href="{h}">{e(t)} <i>{n}</i></a>' for h, t, n in chips)
         crumb = " › ".join(f'<a href="{h}">{e(t)}</a>' for h, t in parent)
