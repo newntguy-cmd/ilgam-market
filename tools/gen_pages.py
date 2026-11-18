@@ -123,9 +123,13 @@ print(f"지역 페이지 {len(AREA_URLS)}개")
 import gen_orgs
 ORG_URLS = gen_orgs.build(d, OUT, SITE, set(made))
 print(f"발주처 페이지 {len(ORG_URLS)}개")
+import gen_bids
+_bp = os.path.join(ROOT, "data", "bids.json")
+BID_URLS = gen_bids.build(json.load(open(_bp, encoding="utf-8")), OUT, SITE) if os.path.exists(_bp) else []
+print(f"입찰공고 페이지 {len(BID_URLS)}개")
 core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"]
 comp = [f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)]
-urls = core + list(AREA_URLS) + list(ORG_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
+urls = core + list(AREA_URLS) + list(ORG_URLS) + list(BID_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
 # 사이트맵 인덱스: 파일 하나에 3,000개씩 나눕니다(네이버⁠·⁠구글 모두 대량 URL은 인덱스를 권장)
 CHUNK = 3000
 for old in os.listdir(OUT):

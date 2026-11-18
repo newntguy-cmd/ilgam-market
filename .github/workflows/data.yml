@@ -19,6 +19,7 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/newntguy-cmd/remarket-bids/main/docs/public.json -o /tmp/p.json
           python3 -c "import json;d=json.load(open('/tmp/p.json'));assert d.get('items') is not None"
           cp /tmp/p.json data/public.json
+          curl -fsSL https://raw.githubusercontent.com/newntguy-cmd/remarket-bids/main/docs/bids.json -o /tmp/b.json && python3 -c "import json;d=json.load(open('/tmp/b.json'));assert d.get('items') is not None" && cp /tmp/b.json data/bids.json || echo '입찰공고 파일 없음(건너뜀)'
       - name: 연락처를 서버(D1)에 올리기
         env:
           ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
@@ -60,7 +61,7 @@ jobs:
         run: |
           git config user.name "data-bot"
           git config user.email "data-bot@users.noreply.github.com"
-          git add -A data/public.json data/recent.json data/about.json data/pv.json index.html c a o sitemap.xml 'sitemap-*.xml' robots.txt
+          git add -A data/public.json data/bids.json data/recent.json data/about.json data/pv.json index.html c a o b sitemap.xml 'sitemap-*.xml' robots.txt
           git diff --cached --quiet || git commit -m "update data"
           git pull --rebase origin main
           git push

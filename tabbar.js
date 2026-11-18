@@ -76,6 +76,7 @@
   sheet.innerHTML = '<div class="hd"><span>전체메뉴</span><button type="button" class="x" aria-label="닫기">' + X + '</button></div><div class="bd">'
     + '<h4>바로가기</h4><div class="tl">' + ti('/#win', 'win', '낙찰정보', '낙찰정보') + ti('/market/', 'mk', '직거래장터') + ti('/#wl', 'wl', '관심업체', '관심업체') + ti('/buy.html', 'buy', '매입의 신') + ti('/pro.html', 'ms', '일감 마스터') + ti('/help.html', 'cs', '고객센터') + '</div>'
     + '<h4>지역별 낙찰</h4><div class="rg">' + REG.map(function (r) { return '<a href="/a/' + r + '/">' + r.replace('-', '·') + '</a>'; }).join('') + '</div>'
+    + '<h4>입찰공고</h4><div class="ls"><a href="/b/">입찰 중인 공사 공고<small>마감이 가까운 순, 지역별로 모았어요</small></a></div>'
     + '<h4>분야별 낙찰</h4><div class="rg">' + CATS.map(function (c) { return '<a href="/a/전국/' + c[1] + '/">' + c[0] + '</a>'; }).join('') + '</div>'
     + '<h4>발주처별 낙찰</h4><div class="ls"><a href="/o/">발주처 이름으로 찾기<small>공사를 낸 곳의 최근 낙찰 현장과 업체</small></a></div>'
     + '<h4>직거래장터</h4><div class="ls"><a href="/market/?c=sell">팔고 싶은 물건 올리기<small>사진 한 장으로 등록해요</small></a><a href="/market/?c=need">필요한 물품 적어 올리기<small>판매자가 견적을 보내요</small></a></div>'
