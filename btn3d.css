@@ -204,3 +204,15 @@ header.top{view-transition-name:igh}
 .gnb .cnt{position:absolute;right:-2px;top:4px;margin:0;min-width:17px;padding:0 4px;line-height:17px;font-size:11.5px;pointer-events:none}
 .d{position:relative}
 .d::after{content:"";position:absolute;inset:-15px}
+/* v71: 낙찰정보 첫 화면을 압축해 검색창과 목록이 한 화면 안에 보이게 */
+.hero{padding-top:28px!important}
+.hero .pill{display:none}
+.hero h1{margin:0!important;font-size:clamp(30px,3.6vw,46px)!important;line-height:1.2!important;font-weight:700!important;max-width:760px!important}
+.hero .lead{margin:10px 0 0!important;font-size:16px!important;line-height:1.6!important}
+.hstat{top:0!important;width:380px!important;padding:16px 20px!important}
+.hstat .nums{margin:8px 0 10px!important}
+.hstat .nums b{font-size:26px!important}
+form.search{margin-top:18px!important}
+@media (max-width:860px){.hero h1{font-size:30px!important}.hero .lead{font-size:15px!important}}
+.hstat li:nth-child(n+2){display:none!important}
+@media (max-width:860px){#hjoin{display:none!important}}
