@@ -222,3 +222,15 @@ form.search{margin-top:18px!important}
 .qwrap{padding-top:34px}.mkg.q3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .mkg.q3 .mkc b{font-size:22px!important;line-height:1.3}.mkg.q3 .mkc p{font-size:16px!important;min-height:3.3em}
 @media (max-width:860px){.mkg.q3{grid-template-columns:minmax(0,1fr)}}
+/* v74: 투박한 두꺼운 테두리·밑그림자·사선 무늬를 걷어내고, 둥근 모서리와 부드러운 그림자로 입체감만 남김 */
+.go,.btn,.btn.go,.btn.ghost,.ab-pay,.pbtn,.corner button,.fcta button,.more button,.pt button,.go.sub,.ab-hero .s2 .go,.mkc i,.pv .tk,.gnb a.hot,header nav a.hot{border-radius:12px!important;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 6px 16px rgba(10,24,48,.22)!important;transition:transform .15s,box-shadow .15s,filter .15s}
+.go:hover,.btn:hover,.ab-pay:hover,.pbtn:hover,.fcta button:hover,.more button:hover,.mkc:hover i{filter:brightness(1.06);transform:translateY(-1px)}
+.go:active,.btn:active,.ab-pay:active,.pbtn:active,.fcta button:active,.more button:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 2px 6px rgba(10,24,48,.2)!important;filter:none}
+.mkc,.mkc.sell{border-radius:20px!important;background-image:linear-gradient(160deg,#1f3f73,#0f2342 70%)!important;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 14px 30px rgba(8,18,40,.22)!important}
+.mkc.sell{background-image:linear-gradient(160deg,#f1d995,#c9a45c 75%)!important}
+.mkc:hover{transform:translateY(-3px)!important}.mkc:active{transform:translateY(1px)!important}
+.mkc .mki{box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 4px 10px rgba(10,24,48,.25)!important}
+.ab-nums>div{border-radius:18px!important}
+/* 큰 숫자는 고정폭 숫자(1에 받침이 붙는 모양)를 끄고 깔끔한 숫자로 */
+.ab-nums b,#mkn,#bnn,.ab-ln b,.qt b,.hstat b{font-variant-numeric:normal!important;font-feature-settings:"tnum" 0!important}
+.ab-nums b{text-shadow:none!important;font-weight:700!important}
