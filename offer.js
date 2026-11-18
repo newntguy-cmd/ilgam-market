@@ -8,7 +8,7 @@
     document.documentElement.classList.toggle('ig-offer', on);
     document.querySelectorAll('[data-of]').forEach(function (e) {
       if (e._o === undefined) e._o = e.innerHTML;
-      e.innerHTML = on ? e._o.split(won(O.list)).join(won(avail)) : e._o;
+      e.innerHTML = on ? e._o.split(won(O.list)).join(won(avail)).split(won(Math.round(O.list / 30))).join(won(Math.round(avail / 30))) : e._o;
     });
     window.dispatchEvent(new Event('ig-offer'));
   }

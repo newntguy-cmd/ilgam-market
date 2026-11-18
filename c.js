@@ -28,7 +28,7 @@
           ob.addEventListener('click', function (e) { e.preventDefault(); var ph = document.createElement('div'); ph.id = 'ct'; ph.setAttribute('data-biz', biz); parent.insertBefore(ph, rows[0]); rows.forEach(function (n) { if (n.parentNode) n.parentNode.removeChild(n); }); box = ph; busy = false; paint(true); });
           rows.push(line('대표 전화', ob));
         } else {
-          rows.push(line('주소', mk('••• ••••• ••• ••••', '일감 마스터에서 확인')));
+          rows.push(line('주소', mk('••• ••••• ••• ••••', '일감 마스터에서 확인해요')));
           rows.push(line('대표 전화', mk('031-•••-••••', '영업 리스트 보기 · 30일 49,900원')));
         }
       } else rows.push(line('연락처', txt('등록된 정보가 없습니다')));
