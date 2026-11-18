@@ -18,10 +18,11 @@
   var box, cur, tm;
   function css() {
     var s = document.createElement('style');
-    s.textContent = '#igsub{position:fixed;left:0;right:0;z-index:2147482000;display:none;background:#0f2342;border-top:1px solid rgba(201,164,92,.5);border-bottom:3px solid #c9a45c;box-shadow:0 22px 40px rgba(5,14,30,.45)}'
-      + '#igsub .in{max-width:1180px;margin:0 auto;padding:22px 28px 26px;display:flex;gap:44px}#igsub .c h4{margin:0 0 10px;font-size:15px;font-weight:700;color:#e6c883;letter-spacing:-.01em}'
+    s.textContent = '#igsub{position:fixed;border-radius:0 0 16px 16px;border:1px solid rgba(201,164,92,.5);border-top:0;z-index:2147482000;display:none;background:#0f2342;border-top:1px solid rgba(201,164,92,.5);border-bottom:3px solid #c9a45c;box-shadow:0 22px 40px rgba(5,14,30,.45)}'
+      + '#igsub .in{padding:22px 28px 26px;display:flex;gap:44px;width:max-content;max-width:calc(100vw - 32px)}#igsub .c h4{margin:0 0 10px;font-size:15px;font-weight:700;color:#e6c883;letter-spacing:-.01em}'
       + '#igsub .c ul{margin:0;padding:0;list-style:none}#igsub .g ul{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,auto);grid-template-columns:repeat(4,104px);column-gap:14px}'
       + '#igsub a{display:block;padding:7px 0;color:#fff;font-size:17px;font-weight:600;text-decoration:none;white-space:nowrap}#igsub a small{display:block;margin-top:2px;font-size:13.5px;font-weight:400;color:#9fb2d0}'
+      + '.gnb .igh{color:#0f2342!important;background:#fff!important;box-shadow:inset 0 -3px 0 #c9a45c!important}.igopen [aria-current=true]:not(.igh),.igopen [aria-current=page]:not(.igh){background:transparent!important;box-shadow:none!important}'
       + '#igsub a:hover,#igsub a:focus-visible{color:#e6c883;outline:0}';
     document.head.appendChild(s);
   }
@@ -48,8 +49,11 @@
       }).join('') + '</ul></div>';
     }).join('') + '</div>';
     box.style.display = 'block';
+    var inn = box.firstChild, L = el.getBoundingClientRect().left - 28, mx = window.innerWidth - inn.offsetWidth - 16;
+    box.style.left = Math.max(16, Math.min(L, mx)) + 'px'; box.style.right = 'auto';
+    var nv = nav(); nv.classList.add('igopen'); [].forEach.call(nv.querySelectorAll('.igh'), function (x) { x.classList.remove('igh'); }); el.classList.add('igh');
   }
-  function hideNow() { if (box) box.style.display = 'none'; cur = null; }
+  function hideNow() { if (box) box.style.display = 'none'; cur = null; var nv = nav(); if (nv) { nv.classList.remove('igopen'); [].forEach.call(nv.querySelectorAll('.igh'), function (x) { x.classList.remove('igh'); }); } }
   function hide() { clearTimeout(tm); tm = setTimeout(hideNow, 140); }
   function init() {
     var g = nav(); if (!g) return;
