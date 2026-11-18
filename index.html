@@ -140,7 +140,7 @@ form.search{position:relative;margin:28px 0 -46px;top:46px;max-width:none;backgr
 .frow+.frow{border-top:1px solid var(--line2)}
 .frow .fl{flex:0 0 48px;line-height:38px;font-size:14px;font-weight:600;color:var(--navy)}
 .frow .chips{flex:1;gap:7px}
-.chip .n{font-style:normal;margin-left:7px;font-size:12.5px;opacity:.65;font-variant-numeric:tabular-nums}
+.chip .n{display:inline-block;text-align:left;font-style:normal;margin-left:7px;font-size:12.5px;opacity:.65;font-variant-numeric:tabular-nums}
 .chip[aria-pressed=true] .n{opacity:.85}
 .frs{display:block;margin:0 0 8px auto;padding:6px 4px;border:0;background:none;color:var(--sub);font-size:13px;text-decoration:underline;cursor:pointer}
 @media (max-width:640px){.fpan{padding:4px 12px}.frow{flex-direction:column;align-items:stretch;gap:2px;padding:8px 0;min-width:0}.frow .fl{line-height:22px;flex:none}.frow .chips{flex:none;min-width:0;flex-wrap:nowrap;overflow-x:auto;margin:0 -12px;padding:0 12px 4px;scrollbar-width:none}.frow .chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;flex:none}}
@@ -633,7 +633,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 <div class="ab-ht">
 <h1>당신의 이야기가<br><em>일감이 되는 곳</em></h1>
 <p><button type="button" class="ab-ln" data-act="tab:win">이번 주 낙찰된 공사 <b id="hN">2,017</b>건 <span>보기 ›</span></button><br>어서오세요,<br>여러분의 일감마켓입니다.</p>
-<div class="ab-r1"><div class="ab-bt ab-ask"><b>일감마켓 둘러보기</b><button type="button" class="go" data-guide="1" aria-label="일감마켓 둘러보기">바로가기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div><button type="button" class="ab-pay ab-jn" data-act="join">가입하기</button><a class="ab-pay ab-pm" href="pro.html#buy">결제하기<b>49,900원</b></a></div>
+<div class="ab-r1"><div class="ab-bt ab-ask"><b>일감마켓 둘러보기</b><button type="button" class="go" data-act="tab:win" aria-label="일감마켓 둘러보기">바로가기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div><button type="button" class="ab-pay ab-jn" data-act="join">가입하기</button><a class="ab-pay ab-pm" href="pro.html#buy">결제하기<b>49,900원</b></a></div>
 </div>
 <div class="ab-hl" id="hCards" aria-label="최근 낙찰 한 건"></div>
 </div></div>
@@ -753,7 +753,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </form>
 </dialog>
 <script type="module" src="auth.js"></script>
-<script src="app.js?v=20261118b"></script>
+<script src="app.js?v=20261118c"></script>
 <script>(function(){var d=document.getElementById("biz");function o(){if(d&&location.hash==="#biz")d.open=true}o();addEventListener("hashchange",o)})()</script>
 <script>fetch("data/about.json").then(function(r){return r.json()}).then(function(a){var e=document.getElementById("mkn");if(e&&a.week)e.textContent=a.week.n.toLocaleString("ko-KR");e.className="ok"}).catch(function(){})</script><script>
 (function(){
@@ -839,6 +839,6 @@ for(var q=0;q<ar.length;q++)ar[q].addEventListener('click',function(){go(i?0:1);
 var x0=null;hero.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});hero.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(d<0?1:0);auto()}});
 function chk(){if(!window.igKnown||!window.igKnown())return;var u=window.IGAUTH&&window.IGAUTH.user;var jb=s2.querySelector('.ab-bt');if(jb)jb.style.display=u?'none':'';s2.style.display='';ds.style.display='';auto()}
 window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);chk();go(0)})();</script>
-<script src="/guide.js?v=2y" defer></script><script src="/promo.js?v=3" defer></script><script src="/cs.js?v=9zC" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
+<script src="/promo.js?v=3" defer></script><script src="/cs.js?v=9zC" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var t=n&&n.children[+a.getAttribute("data-m")];if(t)t.click()});</script>
 </body>
 </html>

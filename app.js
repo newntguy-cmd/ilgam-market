@@ -303,6 +303,7 @@
     if (S.tab === 'win' && S.maxD) from = S.period === 'last' ? S.maxD : S.period === 'd3' ? ago(2) : S.period === 'week' ? ago(6) : '';
     return S.items.filter(function (r) {
       if (from && (r.d || '') < from) return false;
+      if (skip === 'all') return true;
       if (skip !== 'region' && S.regions.length && S.regions.indexOf(r.rg || '미분류') < 0) return false;
       if (skip !== 'kind' && S.kinds.length && S.kinds.indexOf(r.cat) < 0) return false;
       if (skip !== 'amt' && S.amts.length && !S.amts.some(function (i) { return (r.amt || 0) >= AMTR[i][1] && (r.amt || 0) < AMTR[i][2]; })) return false;
@@ -382,7 +383,7 @@
     items.forEach(function (it) {
       var b = el('button', 'chip'); b.type = 'button';
       b.appendChild(document.createTextNode(it.t));
-      if (it.n != null) b.appendChild(el('i', 'n', it.n.toLocaleString('ko-KR')));
+      if (it.n != null) { var nn = el('i', 'n', it.n.toLocaleString('ko-KR')); if (it.m != null) nn.style.minWidth = Math.max(String(it.m.toLocaleString('ko-KR')).length, String(it.n.toLocaleString('ko-KR')).length) + 'ch'; b.appendChild(nn); }
       b.setAttribute('aria-pressed', String(!!it.on));
       b.addEventListener('click', function () { S.shown = PAGE; onPick(it); syncSel(); render(); });
       cs.appendChild(b);
@@ -395,16 +396,17 @@
     var box = $('regionChips'); box.textContent = '';
     var base = S.items.length ? filtered('region') : [];
     var rc = count(base, function (r) { return r.rg || '미분류'; });
-    var regs = Object.keys(rc).sort(function (a, b) { return a === '서울' ? -1 : b === '서울' ? 1 : a === '미분류' ? 1 : b === '미분류' ? -1 : rc[b] - rc[a]; });
-    chipRow(box, '지역', regs.map(function (g) { return { t: g, n: rc[g], on: S.regions.indexOf(g) >= 0, v: g }; }).filter(function (x) { return x.t === '서울'; }).concat([{ t: '전체', n: base.length, on: !S.regions.length, v: '' }], regs.filter(function (g) { return g !== '서울'; }).map(function (g) { return { t: g, n: rc[g], on: S.regions.indexOf(g) >= 0, v: g }; })), function (it) { S.regions = toggle(S.regions, it.v); });
+    var all = S.items.length ? filtered('all') : [], rcA = count(all, function (r) { return r.rg || '미분류'; });
+    var regs = Object.keys(rcA).sort(function (a, b) { return a === '서울' ? -1 : b === '서울' ? 1 : a === '미분류' ? 1 : b === '미분류' ? -1 : rcA[b] - rcA[a]; });
+    chipRow(box, '지역', regs.map(function (g) { return { t: g, n: rc[g] || 0, m: rcA[g], on: S.regions.indexOf(g) >= 0, v: g }; }).filter(function (x) { return x.t === '서울'; }).concat([{ t: '전체', n: base.length, m: all.length, on: !S.regions.length, v: '' }], regs.filter(function (g) { return g !== '서울'; }).map(function (g) { return { t: g, n: rc[g] || 0, m: rcA[g], on: S.regions.indexOf(g) >= 0, v: g }; })), function (it) { S.regions = toggle(S.regions, it.v); });
     if (S.tab === 'st') return;
-    var kb = filtered('kind'), kc = count(kb, function (r) { return r.cat; });
-    chipRow(box, '공종', [{ t: '전체', n: kb.length, on: !S.kinds.length, v: '' }].concat(CATORDER.filter(function (c) { return kc[c] || S.kinds.indexOf(c) >= 0; }).map(function (c) { return { t: c, n: kc[c] || 0, on: S.kinds.indexOf(c) >= 0, v: c }; })), function (it) {
+    var kb = filtered('kind'), kc = count(kb, function (r) { return r.cat; }), kcA = count(all, function (r) { return r.cat; });
+    chipRow(box, '공종', [{ t: '전체', n: kb.length, m: all.length, on: !S.kinds.length, v: '' }].concat(CATORDER.filter(function (c) { return kcA[c] || S.kinds.indexOf(c) >= 0; }).map(function (c) { return { t: c, n: kc[c] || 0, m: kcA[c] || 0, on: S.kinds.indexOf(c) >= 0, v: c }; })), function (it) {
       if (!it.v) { S.kinds = []; return; }
       S.kinds = toggle(S.kinds, it.v);
     });
     var ab = filtered('amt');
-    chipRow(box, '금액대', [{ t: '전체', n: ab.length, on: !S.amts.length, v: -1 }].concat(AMTR.map(function (x, i) { return { t: x[0], n: ab.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, on: S.amts.indexOf(i) >= 0, v: i }; })), function (it) { S.amts = toggle(S.amts, it.v); });
+    chipRow(box, '금액대', [{ t: '전체', n: ab.length, m: all.length, on: !S.amts.length, v: -1 }].concat(AMTR.map(function (x, i) { return { t: x[0], m: all.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, n: ab.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, on: S.amts.indexOf(i) >= 0, v: i }; })), function (it) { S.amts = toggle(S.amts, it.v); });
     if (S.regions.length || S.kinds.length || S.amts.length) {
       var rs = el('button', 'frs', '조건 모두 지우기'); rs.type = 'button';
       rs.addEventListener('click', function () { S.regions = []; S.kinds = []; S.amts = []; S.shown = PAGE; syncSel(); render(); });
