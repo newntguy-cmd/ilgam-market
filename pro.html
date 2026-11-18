@@ -55,6 +55,22 @@
 .ord{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #e3e7ed;font-size:14.5px;color:#0f2342}.ord:first-child{border-top:0}
 .bmsg{min-height:20px;margin:8px 0 0;font-size:14px;color:#46556d}.bmsg.bad{color:#b3261e}
 .fn{font-size:13.5px;color:#46556d}.fn li{margin:4px 0}
+</style><style id="lux">
+.hero2{position:relative;margin:8px -4px 26px;padding:30px 22px 26px;border-radius:20px;color:#fff;overflow:hidden;
+background:radial-gradient(120% 80% at 85% -10%,rgba(201,164,92,.38),transparent 55%),radial-gradient(90% 70% at -10% 110%,rgba(46,108,200,.28),transparent 60%),linear-gradient(165deg,#12305c,#0a1c38 70%);
+box-shadow:0 22px 50px rgba(10,28,56,.35),inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 1px rgba(201,164,92,.25)}
+.hero2 .badge{background:rgba(201,164,92,.16);border:1px solid rgba(232,200,130,.55);color:#f0d99b;font-weight:700}
+.hero2 h1{color:#fff;font-weight:800;letter-spacing:-.04em;text-shadow:none}
+.hero2 .hl p{color:#d6deeb}.hero2 .hl p b{color:#fff}
+.hero2 .st{color:#9fb2d0}.hero2 .st b{color:#f0d99b}
+.hero2 .fine{color:#9fb2d0!important}
+.hero2 .cta .btn.ghost{background:linear-gradient(180deg,#e9eef8,#c7d2e6)!important;color:#0f2342!important;text-shadow:none!important}
+.plan{border-radius:16px;border:1px solid #e3e7ed;border-top:1px solid #e3e7ed;box-shadow:0 8px 24px rgba(15,35,66,.07)}
+.plan.pro{position:relative;color:#fff;border:1px solid rgba(232,200,130,.6);background:radial-gradient(120% 70% at 90% -10%,rgba(201,164,92,.35),transparent 55%),linear-gradient(165deg,#12305c,#0a1c38);box-shadow:0 18px 40px rgba(10,28,56,.35),inset 0 1px 0 rgba(255,255,255,.18)}
+.plan.pro h2{color:#f0d99b}.plan.pro .sub,.plan.pro .pr small{color:#9fb2d0}.plan.pro li{color:#d6deeb}.plan.pro li b{color:#fff}
+.plan.pro .pr{font-size:44px;background:linear-gradient(180deg,#fff3cf,#e0b765 65%,#b98a3a);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.plan.pro .pr small{-webkit-text-fill-color:#9fb2d0}
+.plan .pr{font-size:38px}
 </style></head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="/" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav class="gnb" aria-label="메뉴"><a href="/#home" title="일감마켓이 시작된 이야기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>회사소개</a><a href="/#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰정보</a><a href="/market/" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래장터</a><a href="/#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심업체</a><a href="/buy.html" data-buy="buy" title="냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>매입의 신</a><a href="/help.html" data-cs="1" title="문의와 자주 묻는 질문"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></span>고객센터</a></nav><div class="acc" id="acc"><button type="button" id="tjn" class="jn">가입하기</button><button type="button" id="tme">로그인</button></div><script>try{var m=localStorage.getItem('ig_me');if(m){var j=document.getElementById('tjn');document.getElementById('tme').textContent='내 계정 ▾';if((JSON.parse(m)||{}).tier==='pro'){j.hidden=true}else{j.textContent='결제하기';j.className='jn pay'}}}catch(e){}</script></div></header>
@@ -79,7 +95,7 @@
 <div class="prodrow"><img src="/img/master.png" alt="일감 마스터 상품 이미지: 대표 전화⁠·⁠주소 조회, 영업 리스트 엑셀, 지역⁠·⁠업체 알림 메일" width="88" height="88">
 <dl class="pl"><div><dt>상품</dt><dd>일감 마스터 이용권</dd></div><div><dt>금액</dt><dd>30일 49,900원 · 90일 129,900원 (부가세 포함)<span class="evt"> · 처음 결제하는 계정은 30일 39,900원</span></dd></div><div><dt>이용 기간</dt><dd>결제한 날부터 30일 또는 90일 · 자동 갱신 없음</dd></div><div><dt>환불</dt><dd>결제 후 7일 안에, 쓰기 전이면 전액 환불 · <a href="/market/policy.html#refund">환불규정</a></dd></div></dl></div>
 <div class="plans">
-<section class="plan"><h2>가입만 했을 때</h2><div class="pr">가입</div><p class="sub">대표 전화·주소 10곳 열람</p>
+<section class="plan"><h2>가입만 했을 때</h2><div class="pr">10곳<small>대표 전화·주소</small></div><p class="sub">가입하면 열람할 수 있어요</p>
 <ul><li>낙찰⁠·⁠업체⁠·⁠금액 조회와 통계</li><li>대표 전화⁠·⁠주소 <b>가려짐</b> (031-•••-••••)</li><li>지역 알림 <b>1곳</b></li><li>관심업체 담기, 직거래장터 글 올리기와 보기</li></ul></section>
 <section class="plan pro"><h2>일감 마스터</h2><div class="pr" data-of>49,900원<small>/ 30일 · 부가세 포함</small></div><p class="sub">결제한 날부터 30일 동안 이용해요</p>
 <ul><li><b>대표 전화⁠·⁠주소 조회</b> · 보고 싶은 업체 모두</li><li><b>영업 리스트 엑셀</b> · 낙찰 업체명, 금액, 지역, 법인 대표전화⁠·⁠주소를 조건 그대로 파일로 저장</li><li><b>지역 알림</b> · 내 영업 지역의 새 낙찰을 매일 아침 이메일로</li><li><b>업체 알림</b> · 관심업체 최대 200곳의 새 낙찰을 이메일로</li></ul></section>
