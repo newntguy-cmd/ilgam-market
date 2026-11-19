@@ -236,8 +236,15 @@ form.search{margin-top:18px!important}
 .ab-nums b{text-shadow:none!important;font-weight:700!important}
 /* v76: 회사소개 철학 */
 .ab-phil{padding-top:64px}.ab-phil h2{margin:0 0 26px}
-.ab-pg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.ab-pg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .ab-pg>div{padding:26px 28px;border-radius:20px;background:#fff;border:1px solid #e3e7ed;box-shadow:0 12px 28px rgba(8,18,40,.08)}
 .ab-pg b{display:block;font-size:22px;line-height:1.35;color:#0f2342;letter-spacing:-.02em;padding-left:14px;border-left:4px solid #c9a45c}
 .ab-pg p{margin:14px 0 0;font-size:17px;line-height:1.75;color:#2c3a52;word-break:keep-all;text-wrap:pretty}
 @media (max-width:860px){.ab-pg{grid-template-columns:minmax(0,1fr)}.ab-pg>div{padding:22px 20px}.ab-pg b{font-size:20px}.ab-pg p{font-size:16px}}
+
+.ab-who{margin-top:18px;padding:30px 34px;border-radius:20px;background:linear-gradient(160deg,#1f3f73,#0f2342 70%);color:#fff;box-shadow:0 14px 30px rgba(8,18,40,.22)}
+.ab-who b{display:block;font-size:24px;line-height:1.35;color:#e6c883;letter-spacing:-.02em}
+.ab-who p{margin:12px 0 0;max-width:860px;font-size:18px;line-height:1.8;color:#fff;word-break:keep-all;text-wrap:pretty}
+.ab-who small{display:block;margin-top:14px;font-size:14.5px;line-height:1.6;color:#b7c4da}
+@media (max-width:1000px){.ab-pg{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:860px){.ab-who{padding:24px 20px}.ab-who b{font-size:21px}.ab-who p{font-size:16px}}
