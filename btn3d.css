@@ -234,3 +234,10 @@ form.search{margin-top:18px!important}
 /* 큰 숫자는 고정폭 숫자(1에 받침이 붙는 모양)를 끄고 깔끔한 숫자로 */
 .ab-nums b,#mkn,#bnn,.ab-ln b,.qt b,.hstat b{font-variant-numeric:normal!important;font-feature-settings:"tnum" 0!important}
 .ab-nums b{text-shadow:none!important;font-weight:700!important}
+/* v76: 회사소개 철학 */
+.ab-phil{padding-top:64px}.ab-phil h2{margin:0 0 26px}
+.ab-pg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.ab-pg>div{padding:26px 28px;border-radius:20px;background:#fff;border:1px solid #e3e7ed;box-shadow:0 12px 28px rgba(8,18,40,.08)}
+.ab-pg b{display:block;font-size:22px;line-height:1.35;color:#0f2342;letter-spacing:-.02em;padding-left:14px;border-left:4px solid #c9a45c}
+.ab-pg p{margin:14px 0 0;font-size:17px;line-height:1.75;color:#2c3a52;word-break:keep-all;text-wrap:pretty}
+@media (max-width:860px){.ab-pg{grid-template-columns:minmax(0,1fr)}.ab-pg>div{padding:22px 20px}.ab-pg b{font-size:20px}.ab-pg p{font-size:16px}}
