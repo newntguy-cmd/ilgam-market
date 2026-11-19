@@ -248,3 +248,5 @@ form.search{margin-top:18px!important}
 .ab-who small{display:block;margin-top:14px;font-size:14.5px;line-height:1.6;color:#b7c4da}
 @media (max-width:1000px){.ab-pg{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:860px){.ab-who{padding:24px 20px}.ab-who b{font-size:21px}.ab-who p{font-size:16px}}
+/* v78 phone: hero ticket card must fit the screen width */
+@media (max-width:860px){html .ab-hero .ab-hl{width:100%!important;max-width:100%!important}html .ab-hl .pt{grid-template-columns:minmax(0,1fr) 96px!important}html .ab-hl .pt .l{padding:22px 18px!important}html .ab-hl .pt h3{font-size:24px!important}html .ab-hl .pt p{font-size:16px!important}html .ab-hl .pt .r b{font-size:44px!important}html .ab-hl .pt .r span{font-size:13px!important;text-align:center}html .ab-hl .pt button{padding:0 24px!important}}
