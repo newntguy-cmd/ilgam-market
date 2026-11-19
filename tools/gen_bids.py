@@ -16,10 +16,26 @@ from gen_areas import money
 
 e = html.escape
 ROWS = 150
+POP = '''<div id="bdp" role="dialog" aria-modal="true" aria-label="입찰공고 상세"><div class="bx"><button type="button" class="x" aria-label="닫기">×</button><div id="bdc"></div></div></div>
+<script>(function(){var P=document.getElementById('bdp'),C=document.getElementById('bdc');function E(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function R(k,v){return v?'<dt>'+k+'</dt><dd>'+E(v)+'</dd>':''}
+function open(i){var d=(window.BDS||[])[i];if(!d)return;C.innerHTML=(d.dd?'<span class="dd'+(/^D-(0|1|2)$|D-day/.test(d.dd)?' hot':'')+'">'+E(d.dd)+'</span>':'')+'<h3>'+E(d.nm)+'</h3><dl>'+R('발주처',d.dm||d.og)+R('공고기관',d.og&&d.og!==d.dm?d.og:'')+R('업종',d.kind)+R('지역',d.ar||d.rg)+R('추정가격',d.pr)+R('입찰 마감',d.cl.replace('T',' '))+R('개찰',d.op)+R('입찰 방식',d.m)+R('공고 게시',d.pd)+'</dl><div class="ac">'+(d.ol?'<a href="'+E(d.ol)+'">이 발주처 지난 낙찰 현장 보기</a>':(d.al?'<a href="'+E(d.al)+'">'+E(d.rg)+' 지난 낙찰 현장 보기</a>':''))+'<a class="g" href="/#win">가입하고 낙찰 현장 보기</a></div><small>입찰 참가 전 나라장터의 공고문을 꼭 확인하세요. 일감마켓은 입찰을 주관·대행하지 않는 정보서비스입니다.</small>';P.classList.add('on');P.querySelector('.x').focus()}
+function close(){P.classList.remove('on')}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.bdo');if(b){open(+b.getAttribute('data-i'));return}if(e.target===P||(e.target.closest&&e.target.closest('#bdp .x')))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})()</script>
+'''
 
 
-def build(bids, out, site):
+def build(bids, out, site, org_ok=None, oslug=None):
     items = bids.get("items") or []
+    _seen, _u = set(), []
+    for r in items:
+        k = (r.get("nm"), r.get("dm"), r.get("cl"), r.get("pr"))
+        if k not in _seen:
+            _seen.add(k)
+            _u.append(r)
+    items = _u
+    org_ok = org_ok or set()
     if not items:
         return []
     upd = (bids.get("updated") or "")[:10]
@@ -34,7 +50,9 @@ def build(bids, out, site):
         by.setdefault(r["_k"] or "기타", []).append(r)
     css = ('.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0}.chip{display:inline-block;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid #d5dbe5;color:#0f2342;text-decoration:none;font-weight:600}'
            '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.dd{display:inline-block;white-space:nowrap;padding:3px 10px;border-radius:999px;background:#0f2342;color:#fff;font-size:13.5px;font-weight:700;line-height:1.3}td.dt{white-space:nowrap;vertical-align:top}td.dt small{display:block;margin-top:5px;color:#6b788e}.dd.hot{background:#b3261e}'
-           'td.co{white-space:nowrap}@media(max-width:640px){.card table,.card tbody{display:block}.card tr{display:grid;grid-template-columns:78px minmax(0,1fr) auto;grid-template-areas:"d n a" "d c c";column-gap:10px;row-gap:3px;padding:11px 0;border-bottom:1px solid #ece7da}.card td{display:block;padding:0;border:0;min-width:0}td.dt{grid-area:d}.card td:nth-child(2){grid-area:n}td.co{grid-area:c;white-space:normal;font-size:13px;color:#4a5a73}td.amt{grid-area:a;text-align:right;white-space:nowrap}}')
+           'td.co{white-space:nowrap}.bdo{all:unset;cursor:pointer;font-weight:800;color:#0f2342;border-bottom:2px solid #c9a45c;line-height:1.5}.bdo:hover{color:#8a6a28}.bdo:focus-visible{outline:3px solid #c9a45c;outline-offset:2px}'
+           '#bdp{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(8,18,40,.6)}#bdp.on{display:flex}#bdp .bx{position:relative;width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:22px;padding:28px 26px 24px;box-shadow:0 24px 60px rgba(0,0,0,.35)}#bdp h3{margin:0 40px 6px 0;font-size:23px;line-height:1.4;color:#0f2342;word-break:keep-all}#bdp .dd{margin-bottom:10px}#bdp dl{margin:16px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px 12px;font-size:17px}#bdp dt{color:#6b788e}#bdp dd{margin:0;font-weight:700;color:#0f2342}#bdp .x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:0;background:#efe9da;font-size:22px;cursor:pointer}#bdp .ac{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}#bdp .ac a{flex:1;min-width:180px;text-align:center;padding:15px 18px;border-radius:12px;font-size:17px;font-weight:800;text-decoration:none;background:#0f2342;color:#fff}#bdp .ac a.g{background:#c9a45c;color:#0f2342}#bdp small{display:block;margin-top:16px;font-size:14px;line-height:1.6;color:#6b788e}'
+           '@media(max-width:640px){.card table,.card tbody{display:block}.card tr{display:grid;grid-template-columns:78px minmax(0,1fr) auto;grid-template-areas:"d n a" "d c c";column-gap:10px;row-gap:3px;padding:11px 0;border-bottom:1px solid #ece7da}.card td{display:block;padding:0;border:0;min-width:0}td.dt{grid-area:d}.card td:nth-child(2){grid-area:n}td.co{grid-area:c;white-space:normal;font-size:13px;color:#4a5a73}td.amt{grid-area:a;text-align:right;white-space:nowrap}}')
     md = lambda x: x[5:10].replace("-", ".")
 
     def dday(cl):
@@ -50,12 +68,15 @@ def build(bids, out, site):
         rows = sorted(rows, key=lambda r: (r["cl"], r["id"]))
         total = len(rows)
         trs = ""
+        det = []
         for r in rows[:ROWS]:
             dd = dday(r["cl"])
             ddh = f'<span class="dd{" hot" if dd and dd[1] else ""}">{dd[0]}</span>' if dd else ""
-            nm = e(r["nm"])
-            if r.get("u"):
-                nm = f'<a href="{e(r["u"])}" target="_blank" rel="noopener nofollow">{nm}</a>'
+            nm = f'<button type="button" class="bdo" data-i="{len(det)}">{e(r["nm"])}</button>'
+            ol = f'/o/{quote(oslug(r["dm"]))}/' if (oslug and r.get("dm") in org_ok) else ""
+            det.append({"nm": r["nm"], "og": r.get("og") or "", "dm": r.get("dm") or "", "kind": r.get("kind") or "", "rg": r.get("rg") or "", "ar": r.get("ar") or "",
+                        "pr": money(r["pr"]) if r.get("pr") else "", "cl": r["cl"][:16], "op": (r.get("op") or "")[:16], "m": r.get("m") or "", "pd": r.get("pd") or "", "ol": ol,
+                        "dd": dd[0] if dd else "", "al": (f'/a/{quote(r["rg"])}/' if r.get("rg") and r["rg"] not in ("미분류", "기타") and os.path.isdir(os.path.join(out, "a", r["rg"])) else "")})
             org = e(r.get("og") or r.get("dm") or "")
             kind = f' · {e(r["kind"])}' if r.get("kind") else ""
             trs += (f'<tr><td class="dt">{ddh}<small>{md(r["cl"])} 마감</small></td><td><b>{nm}</b><small>{org}{kind}</small></td>'
@@ -67,7 +88,7 @@ def build(bids, out, site):
 <h1>{e(label)} 입찰공고</h1>
 <p class="sum">입찰 중인 공사 <b>{total:,}건</b> · 마감이 가까운 순 · {md(upd)} 기준</p>
 {('<section class="card"><h2>지역별로 보기</h2><p class="chips">' + chip + '</p></section>') if chip else ''}
-<section class="card"><h2>마감 임박</h2><table><tbody>{trs}</tbody></table>{'<p class="note">마감이 가까운 ' + str(ROWS) + '건만 보여 드려요. 공고 제목을 누르면 나라장터에서 열려요.</p>' if total > ROWS else '<p class="note">공고 제목을 누르면 나라장터에서 열려요.</p>'}</section>
+<section class="card"><h2>마감 임박</h2><table><tbody>{trs}</tbody></table><script>window.BDS={json.dumps(det, ensure_ascii=False).replace('</','<\\/')};</script>{'<p class="note">마감이 가까운 ' + str(ROWS) + '건만 보여 드려요. 공고 제목을 누르면 자세한 내용이 열려요.</p>' if total > ROWS else '<p class="note">공고 제목을 누르면 자세한 내용이 열려요.</p>'}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 낙찰 현장 보기</a></p>
 <p class="note">※ 조달청 나라장터 공공데이터를 가공한 정보이며, 일감마켓은 입찰을 주관⁠·⁠대행하지 않는 정보서비스입니다. 입찰 참가 전 나라장터의 공고문을 꼭 확인하세요. 정확성과 완전성을 보장하지 않습니다.</p></main>'''
         pages[path] = (title, desc, body)
@@ -89,11 +110,11 @@ def build(bids, out, site):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=80"><style>{css}</style>
+<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=81"><style>{css}</style>
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {body}
-{FOOTER}{SCRIPTS}</body></html>
+{POP}{FOOTER}{SCRIPTS}</body></html>
 '''
         d_ = os.path.join(bdir, path) if path else bdir
         os.makedirs(d_, exist_ok=True)

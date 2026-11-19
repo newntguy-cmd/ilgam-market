@@ -125,7 +125,7 @@ ORG_URLS = gen_orgs.build(d, OUT, SITE, set(made))
 print(f"발주처 페이지 {len(ORG_URLS)}개")
 import gen_bids
 _bp = os.path.join(ROOT, "data", "bids.json")
-BID_URLS = gen_bids.build(json.load(open(_bp, encoding="utf-8")), OUT, SITE) if os.path.exists(_bp) else []
+BID_URLS = gen_bids.build(json.load(open(_bp, encoding="utf-8")), OUT, SITE, ORG_OK, gen_orgs.oslug) if os.path.exists(_bp) else []
 print(f"입찰공고 페이지 {len(BID_URLS)}개")
 core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"]
 comp = [f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)]
