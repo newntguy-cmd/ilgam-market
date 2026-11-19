@@ -295,3 +295,4 @@ header.top .acc>button:not(.jn){background:transparent!important;border:1px soli
 .mkc i{background:transparent!important;color:var(--ink)!important;box-shadow:none!important;border-bottom:2px solid #c9a45c!important;border-radius:0!important;padding:0 0 3px!important}
 .pv .tk{border-radius:30px!important}
 .tier.pro{color:#e6c883!important}
+@media (max-width:760px){.ab-nums{display:block!important}.ab-nums>div{border-left:0!important;padding:14px 4px!important;border-bottom:1px solid var(--line)!important;display:flex!important;align-items:baseline!important;justify-content:space-between!important;gap:12px}.ab-nums>div:last-child{border-bottom:0!important}.ab-nums span{margin-top:0!important;order:-1}.ab-nums b{font-size:34px!important}}
