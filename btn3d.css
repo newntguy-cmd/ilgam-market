@@ -251,3 +251,17 @@ form.search{margin-top:18px!important}
 /* v78 phone: hero ticket card must fit the screen width */
 @media (max-width:860px){html .ab-hero .ab-hl{width:100%!important;max-width:100%!important}html .ab-hl .pt{grid-template-columns:minmax(0,1fr) 96px!important}html .ab-hl .pt .l{padding:22px 18px!important}html .ab-hl .pt h3{font-size:24px!important}html .ab-hl .pt p{font-size:16px!important}html .ab-hl .pt .r b{font-size:44px!important}html .ab-hl .pt .r span{font-size:13px!important;text-align:center}html .ab-hl .pt button{padding:0 24px!important}}
 .ab-who p span,.ab-who small span{display:inline-block}
+/* v80 home: 이번 주 마감 입찰공고 (산군 '질문+미리보기' 구조를 실제 데이터로) */
+.ab-bd .ab-bds{margin:-12px 0 24px;font-size:18px;color:#5b6577}
+.ab-bdg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.ab-bdc{display:flex;flex-direction:column;gap:10px;padding:24px 22px;border-radius:20px;background:#fff;color:#0f2342;text-decoration:none;box-shadow:0 10px 26px rgba(15,35,66,.12);transition:transform .2s,box-shadow .2s}
+.ab-bdc:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(15,35,66,.18)}
+.ab-bdc .dd{align-self:flex-start;padding:6px 14px;border-radius:30px;background:#efe9da;color:#0f2342;font-size:16px;font-weight:800;white-space:nowrap}
+.ab-bdc .dd.hot{background:#c4381f;color:#fff}
+.ab-bdc b{font-size:20px;line-height:1.4;font-weight:800;letter-spacing:-.03em;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.ab-bdc small{font-size:16px;color:#5b6577;line-height:1.4}
+.ab-bdc em{margin-top:auto;font-style:normal;font-size:26px;font-weight:900;color:#9a7421;letter-spacing:-.03em}
+.ab-bdm{display:inline-block;margin-top:22px;padding:15px 30px;border-radius:12px;background:#0f2342;color:#fff;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 6px 16px rgba(10,24,48,.22)}
+@media (max-width:1000px){.ab-bdg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.ab-bdg{grid-template-columns:minmax(0,1fr)}.ab-bdc b{min-height:0}}
+@media (max-width:560px){.ab-bdc:nth-child(n+3){display:none}}
