@@ -319,7 +319,5 @@ html .ab-pl p{font-size:clamp(19px,1.45vw,32px)!important}
 html .ab-pl small{font-size:clamp(15.5px,1.15vw,24px)!important}
 html .ab-hero .ab-hl{width:clamp(420px,32vw,700px)!important}
 }
-@media (min-width:1200px){html header.top .wrap{max-width:none!important;padding-left:calc(18px + clamp(48px,5.5vw,150px))!important;padding-right:calc(18px + clamp(48px,5.5vw,150px))!important}}
 /* v88 hero 풀블리드: 좌우 여백·둥근 모서리 없이 화면 끝까지 */
 html .ab-hero{margin:0!important;border-radius:0!important}
-@media (min-width:1200px){html header.top .wrap{padding-left:clamp(48px,5.5vw,150px)!important;padding-right:clamp(48px,5.5vw,150px)!important}}
