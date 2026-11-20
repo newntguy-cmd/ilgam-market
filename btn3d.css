@@ -321,3 +321,7 @@ html .ab-hero .ab-hl{width:clamp(420px,32vw,700px)!important}
 }
 /* v88 hero 풀블리드: 좌우 여백·둥근 모서리 없이 화면 끝까지 */
 html .ab-hero{margin:0!important;border-radius:0!important}
+/* v90 메뉴 고정: 스크롤바 유무로 화면 폭이 달라져 메뉴가 밀리는 것을 막음 (모든 페이지 스크롤바 자리 항상 확보) */
+html{overflow-y:scroll!important;scrollbar-gutter:stable}
+/* v91 메뉴 완전 고정: 현재 위치 표시 항목도 굵기·크기가 같아 어떤 페이지에서도 항목 폭·위치가 1px도 변하지 않음 */
+html header.top .gnb>*,html header.top .gnb>*[aria-current],html header.top .gnb>a,html header.top .gnb>button{font-weight:700!important;letter-spacing:-.01em!important}

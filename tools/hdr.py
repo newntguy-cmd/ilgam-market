@@ -41,4 +41,5 @@ if __name__ == '__main__':
     patch('buy.html', '매입의 신'); patch('help.html', '고객센터'); patch('pro.html', '')
     patch('receipt.html', ''); patch('pay-result.html', '')
     patch('market/index.html', '직거래장터', '../')
+    patch('market/policy.html', '', '../')
     print('ok')
