@@ -306,3 +306,20 @@ html .ab-hero.has-photo::before{background-image:linear-gradient(90deg,rgba(8,18
 html .ab-ph::after{background:linear-gradient(180deg,rgba(8,18,38,.0) 0%,rgba(8,18,38,0) 70%,rgba(8,18,38,.30) 100%)!important}
 html .ab-hero .ab-ht h1,html .ab-hero .ab-ht h1 em,html .ab-hero .ab-ht p{text-shadow:0 2px 18px rgba(6,14,30,.55),0 1px 3px rgba(6,14,30,.5)}
 @media (max-width:760px){html .ab-hero.has-photo::before{background-image:linear-gradient(180deg,rgba(8,18,38,.58) 0%,rgba(8,18,38,.40) 45%,rgba(8,18,38,.12) 80%,rgba(8,18,38,0) 100%)!important}}
+/* v86 hero 꽉 채우기: 큰 화면에서 컨텐츠 폭을 넓히고 글씨·카드를 화면 크기에 맞춰 키움 */
+@media (min-width:1200px){
+html .ab-hero .wrap{max-width:none!important;padding-left:clamp(48px,5.5vw,150px)!important;padding-right:clamp(48px,5.5vw,150px)!important}
+html .ab-hero .ab2h{font-size:clamp(60px,5.2vw,112px)!important}
+html .ab-hero .ab-pay{font-size:clamp(24px,1.7vw,34px)!important;padding:clamp(20px,1.4vw,30px) clamp(36px,2.6vw,56px)!important}
+html .ab-pl{width:clamp(520px,34vw,760px)!important}
+html .ab-pl li{grid-template-columns:clamp(132px,9.5vw,210px) 1fr!important;padding:clamp(20px,1.6vw,34px) clamp(26px,2vw,44px)!important}
+html .ab-pl .f{font-size:clamp(30px,2.3vw,52px)!important}
+html .ab-pl em{font-size:clamp(15px,1.1vw,22px)!important}
+html .ab-pl p{font-size:clamp(19px,1.45vw,32px)!important}
+html .ab-pl small{font-size:clamp(15.5px,1.15vw,24px)!important}
+html .ab-hero .ab-hl{width:clamp(420px,32vw,700px)!important}
+}
+@media (min-width:1200px){html header.top .wrap{max-width:none!important;padding-left:calc(18px + clamp(48px,5.5vw,150px))!important;padding-right:calc(18px + clamp(48px,5.5vw,150px))!important}}
+/* v88 hero 풀블리드: 좌우 여백·둥근 모서리 없이 화면 끝까지 */
+html .ab-hero{margin:0!important;border-radius:0!important}
+@media (min-width:1200px){html header.top .wrap{padding-left:clamp(48px,5.5vw,150px)!important;padding-right:clamp(48px,5.5vw,150px)!important}}

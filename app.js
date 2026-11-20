@@ -408,8 +408,11 @@
     });
     var ab = filtered('amt');
     chipRow(box, '금액대', [{ t: '전체', n: ab.length, m: all.length, on: !S.amts.length, v: -1 }].concat(AMTR.map(function (x, i) { return { t: x[0], m: all.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, n: ab.filter(function (r) { return (r.amt || 0) >= x[1] && (r.amt || 0) < x[2]; }).length, on: S.amts.indexOf(i) >= 0, v: i }; })), function (it) { S.amts = toggle(S.amts, it.v); });
-    if (S.regions.length || S.kinds.length || S.amts.length) {
+    {
+      // 자리는 항상 잡아 두고 보이기만 바꿉니다 (조건을 고를 때 아래 칸이 밀리지 않게)
+      var on = !!(S.regions.length || S.kinds.length || S.amts.length);
       var rs = el('button', 'frs', '조건 모두 지우기'); rs.type = 'button';
+      if (!on) { rs.style.visibility = 'hidden'; rs.tabIndex = -1; rs.setAttribute('aria-hidden', 'true'); }
       rs.addEventListener('click', function () { S.regions = []; S.kinds = []; S.amts = []; S.shown = PAGE; syncSel(); render(); });
       box.appendChild(rs);
     }
