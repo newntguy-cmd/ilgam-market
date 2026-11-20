@@ -296,3 +296,7 @@ header.top .acc>button:not(.jn){background:transparent!important;border:1px soli
 .pv .tk{border-radius:30px!important}
 .tier.pro{color:#e6c883!important}
 @media (max-width:760px){.ab-nums{display:block!important}.ab-nums>div{border-left:0!important;padding:14px 4px!important;border-bottom:1px solid var(--line)!important;display:flex!important;align-items:baseline!important;justify-content:space-between!important;gap:12px}.ab-nums>div:last-child{border-bottom:0!important}.ab-nums span{margin-top:0!important;order:-1}.ab-nums b{font-size:34px!important}}
+/* v83 menu: bigger, bolder, tighter */
+@media (min-width:761px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:20px!important;padding-right:20px!important;font-size:19px!important;font-weight:700!important;letter-spacing:-.01em}}
+@media (min-width:761px) and (max-width:1300px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:14px!important;padding-right:14px!important;font-size:18px!important}}
+@media (min-width:761px) and (max-width:1040px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:9px!important;padding-right:9px!important;font-size:16.5px!important}}
