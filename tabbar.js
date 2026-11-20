@@ -86,7 +86,7 @@
   mb.addEventListener('click', function () { sheet.classList.add('on'); document.documentElement.style.overflow = 'hidden'; });
   sheet.querySelector('.x').addEventListener('click', close);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-  function gnbClick(label) { var b = document.querySelectorAll('header.top .gnb button, header.top .gnb a'); for (var i = 0; i < b.length; i++) if ((b[i].textContent || '').replace(/\s|\d/g, '') === label) { b[i].click(); window.scrollTo(0, 0); setTimeout(sync, 60); return true; } return false; }
+  function gnbClick(label) { if (label === '회사소개') { var br = document.querySelector('.brand'); if (br && document.getElementById('gnb') && document.getElementById('gnb').getAttribute('data-ok')) { br.click(); window.scrollTo(0, 0); setTimeout(sync, 60); return true; } return false; } var b = document.querySelectorAll('header.top .gnb button, header.top .gnb a'); for (var i = 0; i < b.length; i++) if ((b[i].textContent || '').replace(/\s|\d/g, '') === label) { b[i].click(); window.scrollTo(0, 0); setTimeout(sync, 60); return true; } return false; }
   sheet.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a'); if (!a) return;
     var g = a.getAttribute('data-go');

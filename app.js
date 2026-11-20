@@ -2,7 +2,7 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var TABS = [
-    { id: 'home', label: '회사소개', desc: '일감마켓이 시작된 이야기', ready: true },
+    { id: 'home', label: '회사소개', desc: '일감마켓이 시작된 이야기', ready: true, hidden: true },
     { id: 'win', label: '낙찰정보', desc: '방금 낙찰된 현장과 업체', ready: true },
     { id: 'co', label: '업체', ready: true, hidden: true },
     { id: 'sell', label: '직거래장터', desc: '내 물건 팔고, 필요한 물품 견적받기', href: 'market/' },
