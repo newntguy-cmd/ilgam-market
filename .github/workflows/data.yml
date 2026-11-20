@@ -65,3 +65,10 @@ jobs:
           git diff --cached --quiet || git commit -m "update data"
           git pull --rebase origin main
           git push
+      - name: 검색엔진에 새 페이지 알리기 (네이버·빙)
+        env:
+          ALL: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
+        run: |
+          sleep 150
+          python3 tools/indexnow.py
+        continue-on-error: true
