@@ -268,7 +268,7 @@ form.search{margin-top:18px!important}
 /* v82 세련·가독성: 밝은 아이보리 바탕, 절제된 선, 진한 금색 글자(흰 바탕), 큰 둥근 히어로 */
 :root{--bg:#faf7f0!important;--ink:#0f2342;--ink2:#3b4559;--gold-d:#7a5710;--line:#e6dcc2}
 body{background:#faf7f0!important;-webkit-font-smoothing:antialiased}
-header.top{background:#fff!important;border-bottom:1px solid #efe8d6!important;box-shadow:none!important}
+header.top{background:#faf7f0!important;border-bottom:1px solid #e6dcc2!important;box-shadow:none!important}
 header.top .gnb>a,header.top .gnb>button{color:var(--ink)!important;font-weight:600}
 header.top .acc>button.jn{background:#0f2342!important;color:#e6c883!important;border:0!important;box-shadow:none!important;border-radius:10px!important}
 header.top .acc>button:not(.jn){background:transparent!important;border:1px solid #e3d9bf!important;box-shadow:none!important;border-radius:10px!important}
