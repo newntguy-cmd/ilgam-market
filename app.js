@@ -59,7 +59,7 @@
     var key = 'ilgam_rgask_' + (A.user.uid || ''); try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch (e) {}
     if (!document.getElementById('rgask-css')) {
       var st = document.createElement('style'); st.id = 'rgask-css';
-      st.textContent = '#rgask{border:0;border-radius:18px;padding:26px 24px;max-width:min(520px,92vw);box-shadow:0 20px 60px rgba(15,35,66,.35)}#rgask::backdrop{background:rgba(15,35,66,.55)}#rgask h3{margin:0 0 6px;font-size:22px;color:#0f2342}#rgask p{margin:0 0 16px;font-size:16px;line-height:1.6;color:#33425b}#rgask .rgo{display:flex;flex-wrap:wrap;gap:8px}#rgask .rgo button{font:inherit;font-size:17px;font-weight:700;padding:11px 16px;border-radius:999px;border:1px solid #cfd6e1;background:#fff;color:#0f2342;cursor:pointer}#rgask .rgo button:hover{background:#0f2342;color:#fff}#rgask .rgx{margin-top:16px;background:none;border:0;font:inherit;font-size:15px;color:#6b788e;cursor:pointer;text-decoration:underline}';
+      st.textContent = '#rgask{border:0;border-radius:18px;padding:26px 24px;max-width:min(520px,92vw);box-shadow:0 20px 60px rgba(15,35,66,.35)}#rgask::backdrop{background:rgba(15,35,66,.55)}#rgask h3{margin:0 0 6px;font-size:22px;color:#0f2342}#rgask p{margin:0 0 16px;font-size:16px;line-height:1.6;color:#33425b}#rgask .rgo{display:flex;flex-wrap:wrap;gap:8px}#rgask .rgo button{font:inherit;font-size:17px;font-weight:700;padding:11px 16px;border-radius:999px;border:1px solid #cfd6e1;background:#fff;color:#0f2342;cursor:pointer}#rgask .rgo button:hover{background:#0f2342;color:#fff}#rgask .rgh{background:#faf6ea;border:1px solid #eadfbf;border-radius:12px;padding:14px 16px;margin:0 0 16px}#rgask .rgh b{display:block;font-size:16px;color:#0f2342;margin-bottom:6px}#rgask .rgh span{display:block;font-size:15.5px;line-height:1.6;color:#33425b;margin-top:3px}#rgask .rgg{font:inherit;font-size:17px;font-weight:700;padding:12px 18px;border-radius:12px;border:0;background:#0f2342;color:#e6c883;cursor:pointer}#rgask .rgx{margin-top:16px;background:none;border:0;font:inherit;font-size:15px;color:#6b788e;cursor:pointer;text-decoration:underline}';
       document.head.appendChild(st);
     }
     var d = document.createElement('dialog'); d.id = 'rgask'; d.setAttribute('aria-labelledby', 'rgaskt');
@@ -73,6 +73,14 @@
         d.textContent = '';
         d.appendChild(el('h3', null, g + ' 알림이 켜졌어요'));
         d.appendChild(el('p', null, '새 낙찰이 나오면 아침에 메일로 보내 드려요. 첫 메일에는 최근 ' + g + ' 낙찰 몇 건도 함께 보내 드려요.'));
+        var hw = el('div', 'rgh');
+        hw.appendChild(el('b', null, '지역을 바꾸거나 더 추가하려면'));
+        hw.appendChild(el('span', null, '위 메뉴 \'관심업체\'를 누르면 맨 위에 지역 알림이 있어요. 지역을 눌러 켜고 끌 수 있어요.'));
+        hw.appendChild(el('span', null, (ME && ME.tier === 'pro') ? '일감 마스터는 여러 지역을 함께 받을 수 있어요.' : '가입만 했을 때는 1곳, 일감 마스터는 여러 지역을 함께 받을 수 있어요.'));
+        d.appendChild(hw);
+        var go = el('button', 'rgg', '관심업체에서 지역 보기'); go.type = 'button';
+        go.addEventListener('click', function () { d.close(); var t = null; Array.prototype.forEach.call(document.querySelectorAll('#gnb > *'), function (x) { if (x.textContent.indexOf('관심업체') > -1) t = x; }); if (t) t.click(); else location.href = '/#wl'; });
+        d.appendChild(go);
         var c = el('button', 'rgx', '닫기'); c.type = 'button'; c.addEventListener('click', function () { d.close(); }); d.appendChild(c);
       });
       o.appendChild(b);
