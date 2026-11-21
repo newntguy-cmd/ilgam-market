@@ -80,6 +80,11 @@ def load_corp():
         except Exception: pass
     return {}
 
+def _only():
+    try: return open("tools/alert_only.txt", encoding="utf-8").read().strip().lower()
+    except Exception: return ""
+ONLY = _only()
+
 def main():
     if not need("FB_BOT_EMAIL", "FB_BOT_PASSWORD", "SMTP_USER", "SMTP_PASS"):
         print("알림 비밀값이 아직 없어 건너뜁니다."); return
@@ -105,6 +110,7 @@ def main():
     for d in docs:
         f = d["fields"]
         email = f.get("email", {}).get("stringValue", "")
+        if ONLY and email.lower() != ONLY: continue   # 시험 발송: 지정한 한 사람에게만
         allc = [v.get("stringValue", "") for v in f.get("cos", {}).get("arrayValue", {}).get("values", [])]
         cos = [c for c in allc if not c.startswith("@지역:")]
         regs = {c[4:] for c in allc if c.startswith("@지역:")}   # 지역 알림은 같은 목록에 '@지역:이름'으로 저장됩니다
@@ -119,7 +125,7 @@ def main():
                 last = (datetime.date.fromisoformat(last) - datetime.timedelta(days=1)).isoformat()
             except Exception:
                 last = max_d
-        flag = os.path.exists("tools/alert_test.flag"); test = flag or first   # 시험용: 기준일을 무시하고 최근 낙찰 몇 건을 보냅니다
+        flag = os.path.exists("tools/alert_test.flag") or bool(ONLY); test = flag or first   # 시험용: 기준일을 무시하고 최근 낙찰 몇 건을 보냅니다
         rows = [r for c in cos for r in by_co.get(c, []) if test or (r.get("d") or "") > last]
         if regs:
             rows += [r for r in by_rg_new(items, regs, last, test)]
