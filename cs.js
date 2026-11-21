@@ -35,9 +35,9 @@
     ['낙찰 정보는 어디서 오고, 얼마나 자주 바뀌나요?', '조달청 나라장터 등 공공데이터포털의 자료를 가공해 보여 드려요. 매일 아침 새로 낙찰된 현장으로 갱신해요. 공공데이터를 가공한 정보라 정확성과 완전성을 보장하지 않으니, 중요한 판단 전에는 원문을 함께 확인해 주세요.'],
     ['일감 마스터는 무엇이고 얼마인가요?', '대표 전화⁠·⁠주소 조회와 영업 리스트 엑셀, 지역·업체 알림을 쓸 수 있는 이용권이에요. 30일 49,900원, 90일 129,900원이고 부가세가 포함돼 있어요. 자동으로 다시 결제되지 않아요.'],
     ['영수증과 세금계산서는 어떻게 받나요?', '결제 후 일감 마스터 페이지의 ‘내 결제 내역’에서 영수증을 보고 PDF로 저장할 수 있어요. 카드로 결제하면 카드 매출전표와 일감마켓 영수증이 증빙이 돼요. 일감마켓은 간이과세 사업자여서 세금계산서와 현금영수증은 발행하지 않아요.'],
-    ['이용권 환불은 어떻게 하나요?', '결제 후 7일 안에 쓰기 전이면 전액 환불해요. 아래 이메일로 가입 이메일을 적어 보내 주시면 영업일 기준 3일 안에 확인해요. 자세한 내용은 <a href="/market/policy.html#refund" target="_blank" rel="noopener">환불규정</a>에서 볼 수 있어요.'],
+    ['이용권 환불은 어떻게 하나요?', '결제 후 7일 안에 쓰기 전이면 전액 환불해요. 아래 이메일로 가입 이메일을 적어 보내 주시면 영업일 기준 3일 안에 확인해요. 자세한 내용은 <a href="/market/policy.html#refund" target="_blank" rel="noopener">환불규정</a>에서 볼 수 있어요.<br><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a>'],
     ['직거래장터는 어떻게 이용하나요?', '팔고 싶은 물건은 사진과 함께 올리고, 필요한 물품은 적어 올리면 판매자가 견적을 보내요. 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아니에요.'],
-    ['글 신고, 삭제, 회원 탈퇴는 어떻게 하나요?', '아래 이메일로 보내 주시면 접수해 드려요.']
+    ['글 신고, 삭제, 회원 탈퇴는 어떻게 하나요?', '아래 이메일로 보내 주시면 접수해 드려요.<br><a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a>']
   ];
   var box;
   function css() {
@@ -46,7 +46,7 @@
     + '#igcs .p{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fffdf8;color:#0f2342;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.45);border-top:4px solid #c9a45c}'
     + '#igcs .h{display:flex;align-items:center;justify-content:space-between;padding:22px 26px 6px}#igcs h2{margin:0;font-size:24px;font-weight:800;letter-spacing:-.02em}'
     + '#igcs .x{width:40px;height:40px;border:0;border-radius:50%;background:#efe9da;color:#0f2342;font-size:22px;cursor:pointer}'
-    + '#igcs .b{padding:8px 26px 26px}#igcs .ct{margin:10px 0 18px;padding:18px 20px;border-radius:10px;background:#0f2342;color:#fff}'
+    + '#igcs .b{padding:8px 26px 26px}#igcs .ct{margin:10px 0 18px;padding:18px 20px;border-radius:14px;background:radial-gradient(120% 90% at 90% -20%,rgba(201,164,92,.34),transparent 55%),linear-gradient(165deg,#12305c,#0a1c38 72%);color:#fff;box-shadow:0 14px 30px rgba(10,28,56,.28),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)}'
     + '#igcs .ct b{display:block;font-size:15px;color:#e6c883;margin-bottom:8px}#igcs .ct a{display:block;color:#fff;font-size:20px;font-weight:800;text-decoration:none;margin-top:4px;word-break:break-all}'
     + '#igcs details{border-bottom:1px solid #e6dcc4}#igcs summary{padding:15px 2px;font-size:18px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}#igcs summary::-webkit-details-marker{display:none}'
     + '#igcs summary::after{content:"+";color:#8a6a28;font-size:22px;line-height:1}#igcs details[open] summary::after{content:"−"}'

@@ -90,13 +90,13 @@ for biz, rows in by.items():
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(name)} · 낙찰 {len(rows)}건 {money(total)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ilgammarket.co.kr/og.png">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=94">
+<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="{STYLE}"><link rel="stylesheet" href="/btn3d.css?v=95">
 <script>if(location.search.indexOf("embed")>-1)document.documentElement.className="embed"</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 <main class="wrap"><p class="crumb"><a href="/">일감마켓</a> › 업체</p>
-<h1>{e(name)}</h1>
-<p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p>
+<div class="pgband"><h1>{e(name)}</h1>
+<p class="sum">최근 낙찰 <b>{len(rows)}건</b> · 합계 <b>{money(total)}</b> · 주요 지역 <b>{e(top)}</b> · 가장 최근 낙찰 {e(latest)}</p></div>
 <section class="card"><h2>업체 정보</h2>{info}<p class="note">※ 조달청(나라장터) 등록 정보입니다. 최신 정보와 다를 수 있습니다.</p></section>
 <section class="card"><h2>낙찰 이력</h2><table><tbody>{hist}</tbody></table></section>
 <aside class="nca"><div><b>{e(top)}에 새 낙찰이 나면, 아침마다 메일로</b><span>지역을 정해 두면 그 지역 소식만 보내 드려요.</span></div><a href="/?join=1&amp;rg={quote(top)}">알림 받아보기</a></aside>

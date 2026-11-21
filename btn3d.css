@@ -338,3 +338,8 @@ html form.search{background:linear-gradient(180deg,#183762,#0f2547)!important;bo
 html form.search .fld{background:linear-gradient(180deg,#0b1d3a,#0e2446)!important;border-radius:11px!important;box-shadow:0 2px 6px rgba(0,0,0,.35) inset,0 1px 0 rgba(255,255,255,.07)!important}
 html form.search .go.sub{background:linear-gradient(180deg,#f0d99b,#d2a94f 55%,#b98a3a)!important;color:#0f2342!important;border:0!important;border-radius:11px!important;box-shadow:0 8px 18px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.55) inset,0 -2px 0 rgba(0,0,0,.18) inset!important;font-weight:800}
 html form.search .go.sub:active{transform:translateY(1px);box-shadow:0 3px 8px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.4) inset!important}
+/* v95 목록 페이지(공고·지역·발주처·업체) 상단 띠: 낙찰정보·결제·매입의 신과 같은 입체 남색 */
+.pgband{position:relative;margin:10px 0 20px;padding:26px 28px 24px;border-radius:20px;color:#fff;background:radial-gradient(120% 80% at 88% -10%,rgba(201,164,92,.34),transparent 55%),radial-gradient(90% 70% at -8% 115%,rgba(46,108,200,.30),transparent 60%),linear-gradient(165deg,#12305c,#0a1c38 72%);box-shadow:0 22px 48px rgba(10,28,56,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)}
+.pgband h1{margin:0 0 8px!important;color:#fff!important;text-shadow:0 2px 18px rgba(0,0,0,.3)}
+.pgband .sum{margin:0!important;color:#c9d4e8!important}.pgband .sum b{color:#f0d99b!important}
+html .card.hero.drop{box-shadow:0 22px 48px rgba(10,28,56,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)!important}
