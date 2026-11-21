@@ -50,8 +50,37 @@
         });
         NOTIFY = r.notify !== false;
       }
-      wlSave(); rgSave(); render(); return A.push(cloudList(), NOTIFY);
+      wlSave(); rgSave(); render(); rgAsk(); return A.push(cloudList(), NOTIFY);
     }).catch(function () {});
+  }
+  // 가입 직후 한 번: 어느 지역 영업하는지 물어 그 자리에서 지역 알림을 켭니다.
+  function rgAsk() {
+    var A = window.IGAUTH; if (!A || !A.user || RG.length) return;
+    var key = 'ilgam_rgask_' + (A.user.uid || ''); try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch (e) {}
+    if (!document.getElementById('rgask-css')) {
+      var st = document.createElement('style'); st.id = 'rgask-css';
+      st.textContent = '#rgask{border:0;border-radius:18px;padding:26px 24px;max-width:min(520px,92vw);box-shadow:0 20px 60px rgba(15,35,66,.35)}#rgask::backdrop{background:rgba(15,35,66,.55)}#rgask h3{margin:0 0 6px;font-size:22px;color:#0f2342}#rgask p{margin:0 0 16px;font-size:16px;line-height:1.6;color:#33425b}#rgask .rgo{display:flex;flex-wrap:wrap;gap:8px}#rgask .rgo button{font:inherit;font-size:17px;font-weight:700;padding:11px 16px;border-radius:999px;border:1px solid #cfd6e1;background:#fff;color:#0f2342;cursor:pointer}#rgask .rgo button:hover{background:#0f2342;color:#fff}#rgask .rgx{margin-top:16px;background:none;border:0;font:inherit;font-size:15px;color:#6b788e;cursor:pointer;text-decoration:underline}';
+      document.head.appendChild(st);
+    }
+    var d = document.createElement('dialog'); d.id = 'rgask'; d.setAttribute('aria-labelledby', 'rgaskt');
+    var h = el('h3', null, '어느 지역 영업하세요?'); h.id = 'rgaskt'; d.appendChild(h);
+    d.appendChild(el('p', null, '고르신 지역에 새 낙찰이 나오면 아침마다 메일로 보내 드려요.'));
+    var o = el('div', 'rgo');
+    ['서울', '경기', '인천', '강원', '충북', '충남', '대전', '세종', '전북', '광주·전남', '경북', '대구', '경남', '부산', '울산', '제주'].forEach(function (g) {
+      var b = el('button', null, g); b.type = 'button';
+      b.addEventListener('click', function () {
+        RG = [g]; rgSave(); cloudPush(); render();
+        d.textContent = '';
+        d.appendChild(el('h3', null, g + ' 알림이 켜졌어요'));
+        d.appendChild(el('p', null, '새 낙찰이 나오면 아침에 메일로 보내 드려요. 첫 메일에는 최근 ' + g + ' 낙찰 몇 건도 함께 보내 드려요.'));
+        var c = el('button', 'rgx', '닫기'); c.type = 'button'; c.addEventListener('click', function () { d.close(); }); d.appendChild(c);
+      });
+      o.appendChild(b);
+    });
+    d.appendChild(o);
+    var x = el('button', 'rgx', '나중에'); x.type = 'button'; x.addEventListener('click', function () { d.close(); }); d.appendChild(x);
+    d.addEventListener('close', function () { d.remove(); });
+    document.body.appendChild(d); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function bizOf(name) { for (var i = 0; i < S.items.length; i++) if (S.items[i].co === name && S.items[i].b) return S.items[i].b; return ''; }
   var joinShown = false;
