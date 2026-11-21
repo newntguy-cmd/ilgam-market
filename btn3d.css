@@ -345,3 +345,7 @@ html form.search .go.sub:active{transform:translateY(1px);box-shadow:0 3px 8px r
 html .card.hero.drop{box-shadow:0 22px 48px rgba(10,28,56,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)!important}
 /* v96 상단 메뉴 아래 줄: 모든 페이지에서 같은 굵기·색·그림자 (남색 영역 위에서도 사라지지 않게 안쪽 흰 선을 한 겹 더) */
 html header.top{border-bottom:1px solid #d6c79f!important;box-shadow:0 4px 12px rgba(15,35,66,.08),0 1px 0 rgba(255,255,255,.7) inset!important}
+/* v97 계정 버튼 글씨꼴 통일: 정적 페이지에서 Arial·보통 굵기로 나오던 것을 index와 같게 */
+html header.top .acc>button{font-family:"Noto Sans KR",system-ui,sans-serif!important;font-size:16px!important;letter-spacing:-.01em!important}
+html header.top .acc>button:not(.jn){font-weight:600!important}
+html header.top .acc>button.jn{font-weight:800!important}
