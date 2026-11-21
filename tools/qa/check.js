@@ -7,10 +7,10 @@ const W=[1890,1494,1272,1100,820,390];
 let bad=0;const fail=m=>{bad++;console.log('  ✗',m)};
 (async()=>{const b=await chromium.launch({ignoreDefaultArgs:['--hide-scrollbars']});
 for(const w of W){const c=await b.newContext({viewport:{width:w,height:700}});const p=await c.newPage();
-await p.addInitScript(()=>{try{localStorage.setItem('ig_bn_until',String(Date.now()+9e9))}catch(e){}});
+await p.addInitScript(()=>{try{localStorage.setItem('ig_bn_until',String(Date.now()+9e9));localStorage.setItem('ig_me',JSON.stringify({tier:'free'}))}catch(e){}});
 const sig=[];
 for(const u of URLS){try{await p.goto(BASE+u,{timeout:8000});await p.waitForTimeout(450);
-const r=await p.evaluate(()=>{const h=document.querySelector('header.top');const m=h?[...h.querySelectorAll('.gnb>*,.brand,.acc button')].map(x=>{const r=x.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(v=>v.toFixed(1)).join(',')}).join('|'):'nohdr';
+const r=await p.evaluate(()=>{const h=document.querySelector('header.top');const m=h?[...h.querySelectorAll('.gnb>*,.brand,.acc button')].map(x=>{const r=x.getBoundingClientRect();const c=getComputedStyle(x);return [r.left,r.top,r.width,r.height].map(v=>v.toFixed(1)).join(',')+','+c.fontFamily.split(',')[0]+c.fontSize+c.fontWeight+c.borderTopWidth}).join('|'):'nohdr';
 const ext=[...document.querySelectorAll('a[href^="http"]')].map(a=>a.href).filter(h=>!/ilgammarket\.co\.kr|mailto:/.test(h)&&/g2b\.go\.kr/.test(h));
 return {m,ov:document.documentElement.scrollWidth>innerWidth+1,ext:ext.length}});
 sig.push(r.m);if(r.ov)fail(w+'px '+u+' 가로 넘침');if(r.ext)fail(w+'px '+u+' 나라장터 바깥 링크 '+r.ext+'개');}catch(e){fail(w+'px '+u+' 열리지 않음')}}
