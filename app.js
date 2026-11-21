@@ -259,7 +259,8 @@
     if (ME && ME.admin) { var ad = el('button', null, '관리자 통계'); ad.type = 'button'; ad.addEventListener('click', function () { location.href = 'admin.html'; }); m.appendChild(ad); }
     m.appendChild(o);
     b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
-    if (!(ME && ME.tier === 'pro')) box.appendChild(payBtn());
+    var tk = ME ? ME.tier : null; if (!tk) { try { tk = (JSON.parse(localStorage.getItem('ig_me')) || {}).tier || null; } catch (e) {} }
+    if (tk && tk !== 'pro') box.appendChild(payBtn()); // 등급을 알기 전에는 결제하기를 띄웠다 지우지 않습니다
     box.appendChild(b2); box.appendChild(m);
   }
   try { renderAcc(); } catch (e) {} // 로그인 확인 전에도 자리를 먼저 채워 둬서, 나중에 나타나며 깜빡이지 않게 함
