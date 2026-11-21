@@ -32,7 +32,7 @@ def money(n):
 def by_rg_new(items, regs, last, test):
     return [r for r in items if r.get("rg") in regs and (test or (r.get("d") or "") > last)]
 
-def build(rows, total=None):
+def build(rows, total=None, first=False):
     total = total or len(rows)
     cards = ""
     for r in rows:
@@ -44,7 +44,7 @@ def build(rows, total=None):
     return f"""<div style="background:#eef0f3;padding:24px 12px;font-family:'Malgun Gothic',Apple SD Gothic Neo,sans-serif">
 <table role="presentation" width="100%" style="max-width:560px;margin:0 auto;background:#fff;border-radius:4px;overflow:hidden;border-collapse:collapse">
 <tr><td style="background:#0f2342;padding:18px 20px;border-bottom:3px solid #c9a45c;color:#fff;font-size:18px;font-weight:700">일감마켓 <span style="font-weight:400;font-size:13px;color:#aebbd1">새 낙찰 알림</span></td></tr>
-<tr><td style="padding:18px 20px 6px;font-size:15px;color:#0f2342">담아 두신 업체와 지역에 새 낙찰 <b>{total}건</b>이 있어요.{f' 금액이 큰 순서로 {len(rows)}건만 보여 드려요.' if total > len(rows) else ''}</td></tr>
+<tr><td style="padding:18px 20px 6px;font-size:15px;color:#0f2342">{'알림이 켜졌어요. 담아 두신 업체와 지역의 <b>최근 낙찰 '+str(total)+'건</b>을 먼저 보여 드려요. 다음부터는 새 낙찰이 나올 때만 보내요.' if first else '담아 두신 업체와 지역에 새 낙찰 <b>'+str(total)+'건</b>이 있어요.'}{f' 금액이 큰 순서로 {len(rows)}건만 보여 드려요.' if total > len(rows) else ''}</td></tr>
 {cards}
 <tr><td style="padding:20px;text-align:center"><a href="{SITE}/#wl" style="display:inline-block;padding:12px 22px;background:#c9a45c;color:#0f2342;font-weight:700;text-decoration:none;border-radius:4px">일감마켓에서 보기</a></td></tr>
 <tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내드렸어요. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 통신판매업 신고 완료</td></tr>
@@ -78,6 +78,7 @@ def main():
         cos = [c for c in allc if not c.startswith("@지역:")]
         regs = {c[4:] for c in allc if c.startswith("@지역:")}   # 지역 알림은 같은 목록에 '@지역:이름'으로 저장됩니다
         last = f.get("lastSent", {}).get("stringValue", "")
+        first = not last   # 알림을 처음 켠 경우: 가입 전 낙찰이라도 최근 것을 먼저 보내 첫 메일이 비지 않게 합니다
         if not last:
             # 처음이면 가입(수정)일 기준으로, 그 전 낙찰은 보내지 않습니다.
             last = (f.get("updatedAt", {}).get("timestampValue", "") or "")[:10]
@@ -87,7 +88,7 @@ def main():
                 last = (datetime.date.fromisoformat(last) - datetime.timedelta(days=1)).isoformat()
             except Exception:
                 last = max_d
-        test = os.path.exists("tools/alert_test.flag")   # 시험용: 기준일을 무시하고 최근 낙찰 몇 건을 보냅니다
+        flag = os.path.exists("tools/alert_test.flag"); test = flag or first   # 시험용: 기준일을 무시하고 최근 낙찰 몇 건을 보냅니다
         rows = [r for c in cos for r in by_co.get(c, []) if test or (r.get("d") or "") > last]
         if regs:
             rows += [r for r in by_rg_new(items, regs, last, test)]
@@ -96,22 +97,22 @@ def main():
             if r["id"] in seen_ids: continue
             seen_ids.add(r["id"]); uniq_rows.append(r)
         rows = uniq_rows
-        if test: rows = sorted(rows, key=lambda r: r.get("d") or "", reverse=True)[:3]
+        if test: rows = sorted(rows, key=lambda r: r.get("d") or "", reverse=True)[:5 if first else 3]
         rows.sort(key=lambda r: (r.get("d") or "", r.get("amt") or 0), reverse=True)
         total = len(rows)
         if email and rows:
             m = MIMEMultipart("alternative")
-            m["Subject"] = f"[일감마켓] 새 낙찰 {total}건"
+            m["Subject"] = (f"[일감마켓] 알림이 켜졌어요 · 최근 낙찰 {total}건" if first else f"[일감마켓] 새 낙찰 {total}건")
             m["From"] = formataddr(("일감마켓", FROM)); m["To"] = email
             m["List-Unsubscribe"] = f"<mailto:{FROM}?subject=알림해제>"
             m.attach(MIMEText(f"관심 업체·지역에 새 낙찰 {total}건이 있습니다. {SITE}/#wl", "plain", "utf-8"))
             show = rows if total <= 30 else sorted(rows, key=lambda r: r.get("amt") or 0, reverse=True)[:30]
-            m.attach(MIMEText(build(show, total), "html", "utf-8"))
+            m.attach(MIMEText(build(show, total, first), "html", "utf-8"))
             try:
                 smtp.sendmail(FROM, [email], m.as_string()); sent += 1
             except Exception as e:
                 print("발송 실패", type(e).__name__); continue
-        if not test and max_d and max_d != f.get("lastSent", {}).get("stringValue", ""):
+        if not flag and max_d and max_d != f.get("lastSent", {}).get("stringValue", ""):
             try:
                 call(f"https://firestore.googleapis.com/v1/{d['name']}?updateMask.fieldPaths=lastSent",
                      {"fields": {"lastSent": {"stringValue": max_d}}}, method="PATCH", headers=auth)

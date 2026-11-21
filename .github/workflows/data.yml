@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: "30 22 * * *"   # 매일 한국시간 07:30
   workflow_dispatch:
+    inputs:
+      all:
+        description: "검색엔진에 전체 주소 다시 알리기 (true일 때만)"
+        default: "false"
   push:
     paths:
       - "tools/**"
@@ -67,7 +71,7 @@ jobs:
           git push
       - name: 검색엔진에 새 페이지 알리기 (네이버·빙)
         env:
-          ALL: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
+          ALL: ${{ github.event.inputs.all == 'true' && '1' || '0' }}
         run: |
           sleep 150
           python3 tools/indexnow.py
