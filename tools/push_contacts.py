@@ -21,7 +21,13 @@ if not SECRET:
 
 d = json.load(open(os.path.join(ROOT, "data", "public.json"), encoding="utf-8"))
 corp = d.get("corp") or {}
-rows = [[b, (c.get("t") or "").strip(), (c.get("a") or "").strip()] for b, c in sorted(corp.items()) if len(b) == 10 and b.isdigit()]
+def _ok(v):
+    v = (v or "").strip()
+    return "" if "*" in v else v   # 출처에서 가려진(***) 값은 손님에게 보여 주지 않습니다
+
+
+rows = [[b, _ok(c.get("t")), _ok(c.get("a"))] for b, c in sorted(corp.items()) if len(b) == 10 and b.isdigit()]
+rows = [r for r in rows if r[1] or r[2]]
 print(f"올릴 연락처 {len(rows)}건")
 
 
