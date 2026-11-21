@@ -111,7 +111,7 @@ function needLogin(){
 }
 function updateWho(){
   $('who').textContent='';
-  const t=$('tme');if(t){t.textContent=S.user?'내 계정':'로그인';}const j=$('tjn');if(j){let pro=false;try{pro=(JSON.parse(localStorage.getItem('ig_me'))||{}).tier==='pro'}catch(e){}if(S.user){j.hidden=pro;if(!pro){j.textContent='결제하기';j.className='jn pay';}}else{j.hidden=false;j.textContent='가입하기';j.className='jn';}}
+  const t=$('tme');if(t){t.textContent=S.user?'내 계정 ▾':'로그인';}const j=$('tjn');if(j){let pro=false;try{pro=(JSON.parse(localStorage.getItem('ig_me'))||{}).tier==='pro'}catch(e){}if(S.user){j.hidden=pro;if(!pro){j.textContent='결제하기';j.className='jn pay';}}else{j.hidden=false;j.textContent='가입하기';j.className='jn';}}
 }
 $('tjn').addEventListener('click',()=>{if(S.user){location.href='../pro.html#buy';return;}S.authMode='signup';go('me');});
 $('tme').addEventListener('click',()=>{if(!S.user)S.authMode='login';go('me');});

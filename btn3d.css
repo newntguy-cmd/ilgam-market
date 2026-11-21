@@ -343,3 +343,5 @@ html form.search .go.sub:active{transform:translateY(1px);box-shadow:0 3px 8px r
 .pgband h1{margin:0 0 8px!important;color:#fff!important;text-shadow:0 2px 18px rgba(0,0,0,.3)}
 .pgband .sum{margin:0!important;color:#c9d4e8!important}.pgband .sum b{color:#f0d99b!important}
 html .card.hero.drop{box-shadow:0 22px 48px rgba(10,28,56,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)!important}
+/* v96 상단 메뉴 아래 줄: 모든 페이지에서 같은 굵기·색·그림자 (남색 영역 위에서도 사라지지 않게 안쪽 흰 선을 한 겹 더) */
+html header.top{border-bottom:1px solid #d6c79f!important;box-shadow:0 4px 12px rgba(15,35,66,.08),0 1px 0 rgba(255,255,255,.7) inset!important}
