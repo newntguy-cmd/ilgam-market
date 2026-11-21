@@ -886,6 +886,10 @@
     chain.then(function () {
       var head = ['낙찰일', '공고명', '발주기관', '지역', '분야', '낙찰업체', '낙찰금액(원)', '낙찰률(%)', '사업자번호', '대표전화', '업체 주소', '공고 링크'];
       var out = [head.map(csvCell).join(',')];
+      // 전화할 사람 입장: 번호가 있는 업체를 위에, 없는 업체는 아래로 (각 묶음 안에서는 기존 순서 유지)
+      var has = function (r) { var c = r.b ? CT[r.b] : null; return c && c.t ? 1 : 0; };
+      list = list.map(function (r, i) { return [r, i]; }).sort(function (a, b) { return (has(b[0]) - has(a[0])) || (a[1] - b[1]); }).map(function (x) { return x[0]; });
+      var withTel = list.filter(has).length;
       list.forEach(function (r) {
         var ct = r.b ? CT[r.b] : null;
         out.push([r.d, r.nm, r.dm, r.rg, r.kind, r.co, r.amt || '', r.rate || '', r.b || '', ct && ct.t ? ct.t : '', ct && ct.a ? ct.a : '', srcOf(r)].map(csvCell).join(','));
@@ -895,7 +899,7 @@
       var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
       a.download = '일감마켓_낙찰_' + (S.maxD || 'data') + '.csv'; document.body.appendChild(a); a.click();
       setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-      say(list.length.toLocaleString('ko-KR') + '건을 엑셀 파일로 저장했습니다');
+      say(list.length.toLocaleString('ko-KR') + '건 저장 · 전화번호가 있는 ' + withTel.toLocaleString('ko-KR') + '건을 맨 위에 모았어요');
     }, function () { say('연락처를 불러오지 못했습니다. 잠시 뒤 다시 눌러 주세요'); });
   }
   $('dl').addEventListener('click', downloadList);
