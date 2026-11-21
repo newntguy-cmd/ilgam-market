@@ -32,7 +32,7 @@ def money(n):
 def by_rg_new(items, regs, last, test):
     return [r for r in items if r.get("rg") in regs and (test or (r.get("d") or "") > last)]
 
-def build(rows, total=None, first=False):
+def build(rows, total=None, first=False, corp=None):
     total = total or len(rows)
     cards = ""
     for r in rows:
@@ -40,7 +40,7 @@ def build(rows, total=None, first=False):
                   f'<div style="font-size:16px;font-weight:700;color:#0f2342">{html.escape(r["co"])}</div>'
                   f'<div style="font-size:14px;color:#46556d;margin-top:4px">{html.escape(r["nm"])}</div>'
                   f'<div style="font-size:13px;color:#6b788e;margin-top:4px">{html.escape(r.get("rg") or "")} · {html.escape(r.get("d") or "")} · '
-                  f'<b style="color:#0f2342">{money(r.get("amt"))}</b></div></td></tr>')
+                  f'<b style="color:#0f2342">{money(r.get("amt"))}</b></div>{tel_line(r, corp)}</td></tr>')
     return f"""<div style="background:#eef0f3;padding:24px 12px;font-family:'Malgun Gothic',Apple SD Gothic Neo,sans-serif">
 <table role="presentation" width="100%" style="max-width:560px;margin:0 auto;background:#fff;border-radius:4px;overflow:hidden;border-collapse:collapse">
 <tr><td style="background:#0f2342;padding:18px 20px;border-bottom:3px solid #c9a45c;color:#fff;font-size:18px;font-weight:700">일감마켓 <span style="font-weight:400;font-size:13px;color:#aebbd1">새 낙찰 알림</span></td></tr>
@@ -50,11 +50,42 @@ def build(rows, total=None, first=False):
 <tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내드렸어요. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 통신판매업 신고 완료</td></tr>
 </table></div>"""
 
+WORKER = os.environ.get("WORKER_URL", "https://ilgam-pay.newntguy.workers.dev")
+
+def tel_line(r, corp):
+    """일감 마스터 회원에게만: 낙찰 업체 대표 전화를 메일에 바로 담습니다(눌러서 전화)."""
+    if not corp: return ""
+    c = corp.get(r.get("b") or "") or {}
+    t = (c.get("t") or "").strip()
+    if not t or "*" in t: return ""
+    num = "".join(ch for ch in t if ch.isdigit())
+    return (f'<div style="margin-top:8px"><a href="tel:{num}" style="display:inline-block;padding:7px 12px;background:#0f2342;color:#f0d99b;'
+            f'font-size:15px;font-weight:700;border-radius:6px;text-decoration:none">대표 전화 {html.escape(t)}</a></div>')
+
+def pro_emails():
+    sec = os.environ.get("ADMIN_SECRET", "").strip()
+    if not sec: return set()
+    try:
+        req = urllib.request.Request(WORKER + "/admin/pro", headers={"X-Admin": sec, "User-Agent": "ilgam-market-bot/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return set(json.loads(r.read()).get("emails") or [])
+    except Exception as e:
+        print("결제 회원 목록을 받지 못해 전화번호 없이 보냅니다", type(e).__name__); return set()
+
+def load_corp():
+    for p in ("/tmp/p.json", "data/public.json"):
+        try:
+            c = json.load(open(p, encoding="utf-8")).get("corp")
+            if c: return c
+        except Exception: pass
+    return {}
+
 def main():
     if not need("FB_BOT_EMAIL", "FB_BOT_PASSWORD", "SMTP_USER", "SMTP_PASS"):
         print("알림 비밀값이 아직 없어 건너뜁니다."); return
     data = json.load(open("data/public.json", encoding="utf-8"))
     items = data.get("items", [])
+    corp = load_corp(); pros = pro_emails(); print("결제 회원", len(pros), "명, 연락처", len(corp), "곳")
     max_d = max((r.get("d") or "" for r in items), default="")
     by_co = {}
     for r in items:
@@ -107,7 +138,7 @@ def main():
             m["List-Unsubscribe"] = f"<mailto:{FROM}?subject=알림해제>"
             m.attach(MIMEText(f"관심 업체·지역에 새 낙찰 {total}건이 있습니다. {SITE}/#wl", "plain", "utf-8"))
             show = rows if total <= 30 else sorted(rows, key=lambda r: r.get("amt") or 0, reverse=True)[:30]
-            m.attach(MIMEText(build(show, total, first), "html", "utf-8"))
+            m.attach(MIMEText(build(show, total, first, corp if email.lower() in pros else None), "html", "utf-8"))
             try:
                 smtp.sendmail(FROM, [email], m.as_string()); sent += 1
             except Exception as e:

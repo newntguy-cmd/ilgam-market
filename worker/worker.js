@@ -161,6 +161,18 @@ async function admin(req, env, url) {
     if (ids.length) await env.DB.prepare('UPDATE buyreq SET sent = 1 WHERE id IN (' + ids.map(() => '?').join(',') + ')').bind(...ids).run();
     return J(req, { ok: true, n: ids.length });
   }
+  if (url.pathname === '/admin/pro') {   // 알림 메일에 전화번호를 담을 결제 회원(이용 기간이 남은 사람)의 이메일
+    const mail = {}; const out = []; const now = Date.now();
+    let cur; do {
+      const l = await env.PRO.list({ prefix: 'order:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
+      for (const k of l.keys) { const v = await env.PRO.get(k.name); if (!v) continue; try { const o = JSON.parse(v); if (o.email) mail[o.uid] = o.email; } catch (e) {} }
+    } while (cur);
+    cur = undefined; do {
+      const l = await env.PRO.list({ prefix: 'pro:', cursor: cur }); cur = l.list_complete ? undefined : l.cursor;
+      for (const k of l.keys) { const v = await env.PRO.get(k.name); const em = mail[k.name.slice(4)]; if (em && Number(v) > now) out.push(em.toLowerCase()); }
+    } while (cur);
+    return J(req, { ok: true, emails: out });
+  }
   if (url.pathname === '/admin/count') {
     const c = await env.DB.prepare('SELECT COUNT(*) n FROM contacts').first();
     const u = await env.DB.prepare('SELECT COUNT(*) n FROM users').first();

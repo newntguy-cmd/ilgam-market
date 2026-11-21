@@ -59,6 +59,7 @@ jobs:
           FB_BOT_PASSWORD: ${{ secrets.FB_BOT_PASSWORD }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
         run: python3 tools/send_alerts.py
         continue-on-error: true
       - name: Commit
