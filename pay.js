@@ -2,7 +2,7 @@
 (function(){
   var CLIENT_KEY='live_ck_6BYq7GWPVvDjmOGMJDvn8NE5vbo1';
   window.IGPAY={WORKER:'https://ilgam-pay.newntguy.workers.dev',CLIENT_KEY:CLIENT_KEY,
-    plans:{'30':{amount:49900,name:'일감 마스터 30일 이용권'},'90':{amount:129900,name:'일감 마스터 90일 이용권'}}};
+    plans:{'30':{amount:49900,name:'일감 마스터 30일 이용권'},'90':{amount:129900,name:'일감 마스터 90일 이용권'},'180':{amount:239000,name:'일감 마스터 180일 이용권'},'365':{amount:399000,name:'일감 마스터 12개월(365일) 이용권'}}};
   var $=function(i){return document.getElementById(i);};
   function p30(){var O=window.IGOFFER;return O&&O.on?O.price:IGPAY.plans['30'].amount;}
   function fmt(t){var d=new Date(t);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';}
@@ -63,7 +63,7 @@
   window.addEventListener('ig-auth',render);window.addEventListener('ig-offer',render);
   document.addEventListener('DOMContentLoaded',function(){
     if(!$('b30'))return;
-    $('b30').onclick=function(){buy('30');};$('b90').onclick=function(){buy('90');};
+    $('b30').onclick=function(){buy('30');};$('b90').onclick=function(){buy('90');};$('b180').onclick=function(){buy('180');};$('b365').onclick=function(){buy('365');};
     $('lg').onclick=function(){auth('login');};$('su').onclick=function(){auth('signup');};
     $('lo').onclick=function(){window.IGAUTH.logout();};
     render();

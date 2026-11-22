@@ -3,7 +3,7 @@
 // 저장소: KV 바인딩 PRO (프로 기간·결제), D1 바인딩 DB (사용자 첫 접속일·법인 연락처·하루 열람 기록)
 const TRIAL_DAYS = 0;    // 맛보기 없음: 연락처는 결제한 일감 마스터에게만 공개
 const FREE_GIFT = 10;    // 가입 선물: 무료 회원이 대표 전화·주소를 열 수 있는 업체 수(계정당 총 10곳, 소진되면 일감 마스터)
-const PLANS = { '30': { amount: 49900, days: 30 }, '90': { amount: 129900, days: 90 } };
+const PLANS = { '30': { amount: 49900, days: 30 }, '90': { amount: 129900, days: 90 }, '180': { amount: 239000, days: 180 }, '365': { amount: 399000, days: 365 } };
 const FIRST_30 = 39900;  // 신규 고객가(정상가 49,900원): 일감 마스터 30일 이용권, 결제 내역이 없는 계정의 첫 결제 1회
 const ORIGINS = ['https://ilgammarket.co.kr', 'https://www.ilgammarket.co.kr', 'http://localhost:8077', 'capacitor://localhost', 'https://localhost'];
 
@@ -256,7 +256,7 @@ export default {
       let b; try { b = await req.json(); } catch (e) { return J(req, { ok: false, message: '요청이 올바르지 않습니다.' }, 400); }
       const { paymentKey, orderId } = b; const amount = Number(b.amount);
       // orderId 형식: ig_{플랜}_{uid 앞 8자}_{시각}
-      const m = /^ig_(30|90)_([A-Za-z0-9]{1,8})_(\d{10,14})$/.exec(orderId || '');
+      const m = /^ig_(30|90|180|365)_([A-Za-z0-9]{1,8})_(\d{10,14})$/.exec(orderId || '');
       if (!paymentKey || !m) return J(req, { ok: false, message: '주문 정보가 올바르지 않습니다.' }, 400);
       const plan = PLANS[m[1]];
       // 허용 금액: 정상가, 그리고 첫 결제인 계정의 30일권에 한해 이벤트가
