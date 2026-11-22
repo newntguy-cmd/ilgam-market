@@ -151,7 +151,7 @@
 
   // ---- 이용 상태·연락처: 번호는 서버가 가입 상태를 확인한 뒤에만 내려 줍니다 ----
   var API = 'https://ilgam-pay.newntguy.workers.dev';
-  var ME = null, CT = {}, CTLOCK = {}, CTNONE = {};
+  var MEDONE = false, ME = null, CT = {}, CTLOCK = {}, CTNONE = {};
   function srv(path, body) {
     var A = window.IGAUTH;
     if (!A || !A.user) return Promise.reject(new Error('login'));
@@ -160,7 +160,8 @@
     });
   }
   function loadMe() {
-    return srv('/me').then(function (r) { ME = r && r.ok ? r : null; try { if (ME) localStorage.setItem('ig_me', JSON.stringify(ME)); else localStorage.removeItem('ig_me'); } catch (e) {} paintTier(); return ME; }, function () { ME = null; paintTier(); return null; });
+    if (!MEDONE) setTimeout(function () { if (!MEDONE) { MEDONE = true; renderAcc(); } }, 4000); // 서버가 늦어도 새로 온 분께는 결제하기를 보여 줍니다
+    return srv('/me').then(function (r) { MEDONE = true; ME = r && r.ok ? r : null; try { if (ME) localStorage.setItem('ig_me', JSON.stringify(ME)); else localStorage.removeItem('ig_me'); } catch (e) {} paintTier(); renderAcc(); return ME; }, function () { MEDONE = true; ME = null; paintTier(); renderAcc(); return null; });
   }
   // 업체 번호를 요청합니다. 무료 회원에게는 서버가 번호를 내주지 않고 잠금으로 돌려줍니다.
   function getContacts(bizs, open) {
@@ -236,8 +237,9 @@
   function payBtn() { var p = el('button', 'jn pay', '결제하기'); p.type = 'button'; p.addEventListener('click', function () { location.href = 'pro.html#buy'; }); return p; }
   function renderAcc() {
     var A = window.IGAUTH, box = $('acc');
+    if (A && A.user && !MEDONE && !window.__medt) window.__medt = setTimeout(function () { if (!MEDONE) { MEDONE = true; renderAcc(); } }, 4000); // 등급 확인이 늦어도 새로 온 분께는 결제하기를 보여 줍니다
     var ck = '0'; try { ck = localStorage.getItem('ig_me') ? '1' : '0'; } catch (e) {}
-    var key = [A && A.user ? A.user.email : '', ME && ME.tier, ME && ME.until, ME && ME.admin ? 'A' : '', ck, window.igKnown && window.igKnown() ? 1 : 0].join('|');
+    var key = [A && A.user ? A.user.email : '', ME && ME.tier, ME && ME.until, ME && ME.admin ? 'A' : '', ck, MEDONE ? 1 : 0, window.igKnown && window.igKnown() ? 1 : 0].join('|');
     if (box.getAttribute('data-k') === key && box.firstChild) return; // 같은 상태면 다시 그리지 않아 메뉴를 옮겨도 깜빡이지 않게
     box.setAttribute('data-k', key); box.textContent = '';
     document.documentElement.classList.toggle('ig-in', !!(A && A.user) || (ck === '1' && !(window.igKnown && window.igKnown())));
@@ -260,6 +262,7 @@
     m.appendChild(o);
     b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
     var tk = ME ? ME.tier : null; if (!tk) { try { tk = (JSON.parse(localStorage.getItem('ig_me')) || {}).tier || null; } catch (e) {} }
+    if (!tk && MEDONE) tk = 'free'; // 등급 확인이 끝났는데 알 수 없으면 결제 전 손님으로 봅니다
     if (tk && tk !== 'pro') box.appendChild(payBtn()); // 등급을 알기 전에는 결제하기를 띄웠다 지우지 않습니다
     box.appendChild(b2); box.appendChild(m);
   }
