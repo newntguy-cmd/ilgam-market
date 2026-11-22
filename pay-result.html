@@ -24,7 +24,8 @@
   function show(h,p,rows,ok,oid2){
     res.innerHTML='<h1></h1><p></p>'+(rows?'<div class="big">'+rows+'</div>':'')
       +(ok&&oid2?'<a class="btn ghost" target="_blank" rel="noopener" href="/receipt.html?o='+encodeURIComponent(oid2)+'">영수증 보기</a> ':'')
-      +'<a class="btn" href="'+(ok?'/#wl':'/pro.html')+'">'+(ok?'지역 알림 설정하기':'일감 마스터 안내로 돌아가기')+'</a>'
+      +'<a class="btn" href="'+(ok?'/#wl':'/pro.html#buy')+'">'+(ok?'지역 알림 설정하기':'다른 카드로 다시 결제하기')+'</a>'
+      +(!ok?'<p class="fine">카드사 거절은 한도, 해외·온라인 결제 차단, 카드 본인 인증 문제일 때가 많아요. 다른 카드로 다시 결제하거나 카드사에 문의해 주세요. 도움이 필요하면 <a href="mailto:help@ilgammarket.co.kr">help@ilgammarket.co.kr</a> 로 알려 주세요.</p>':'')
       +(ok?'<p class="fine">영수증과 지난 결제 내역은 <a href="/pro.html">일감 마스터 페이지</a>의 \'내 결제 내역\'에서 언제든 다시 볼 수 있습니다.</p>':'');
     res.querySelector('h1').textContent=h;res.querySelector('p').textContent=p;
   }
