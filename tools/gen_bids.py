@@ -26,6 +26,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})(
 '''
 
 
+JSX = r'''<script>(function(){var C=document.querySelector('.chips');if(!C)return;var cache={};function put(h,html,push){var d=new DOMParser().parseFromString(html,'text/html');var L=d.getElementById('bl'),H=d.getElementById('bh'),S=d.getElementById('bs');if(!L)return false;var m=/window\.BDS=(\[[\s\S]*?\]);/.exec(html);document.getElementById('bl').innerHTML=L.innerHTML;document.getElementById('bh').textContent=H.textContent;document.getElementById('bs').innerHTML=S.innerHTML;document.title=d.title;try{window.BDS=m?JSON.parse(m[1]):[]}catch(x){window.BDS=[]}C.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.getAttribute('href')===h)});if(push){try{history.pushState({h:h},'',h)}catch(x){}}return true}
+function go(h,push){if(cache[h])return put(h,cache[h],push);fetch(h).then(function(r){return r.text()}).then(function(t){cache[h]=t;put(h,t,push)}).catch(function(){location.href=h})}
+C.addEventListener('click',function(e){var a=e.target.closest('a.chip');if(!a||e.metaKey||e.ctrlKey)return;e.preventDefault();go(a.getAttribute('href'),true)});
+window.addEventListener('popstate',function(){var p=location.pathname.replace(/%[0-9A-F]{2}/gi,function(x){return x});go(location.pathname,false)})})()</script>'''
+
+
 def build(bids, out, site, org_ok=None, oslug=None):
     items = bids.get("items") or []
     _seen, _u = set(), []
@@ -49,7 +55,7 @@ def build(bids, out, site, org_ok=None, oslug=None):
     for r in items:
         by.setdefault(r["_k"] or "기타", []).append(r)
     css = ('.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0}.chip{display:inline-block;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid #d5dbe5;color:#0f2342;text-decoration:none;font-weight:600}'
-           '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.dd{display:inline-block;white-space:nowrap;padding:3px 10px;border-radius:999px;background:#0f2342;color:#fff;font-size:13.5px;font-weight:700;line-height:1.3}td.dt{white-space:nowrap;vertical-align:top}td.dt small{display:block;margin-top:5px;color:#6b788e}.dd.hot{background:#b3261e}'
+           '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.chip.on{background:#0f2342;color:#fff;border-color:#0f2342}.chip.on i{color:#e6c883}.dd{display:inline-block;white-space:nowrap;padding:3px 10px;border-radius:999px;background:#0f2342;color:#fff;font-size:13.5px;font-weight:700;line-height:1.3}td.dt{white-space:nowrap;vertical-align:top}td.dt small{display:block;margin-top:5px;color:#6b788e}.dd.hot{background:#b3261e}'
            'td.co{white-space:nowrap}.bdo{all:unset;cursor:pointer;font-weight:800;color:#0f2342;border-bottom:2px solid #c9a45c;line-height:1.5}.bdo:hover{color:#8a6a28}.bdo:focus-visible{outline:3px solid #c9a45c;outline-offset:2px}'
            '#bdp{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(8,18,40,.6)}#bdp.on{display:flex}#bdp .bx{position:relative;width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:22px;padding:28px 26px 24px;box-shadow:0 24px 60px rgba(0,0,0,.35)}#bdp h3{margin:0 40px 6px 0;font-size:23px;line-height:1.4;color:#0f2342;word-break:keep-all}#bdp .dd{margin-bottom:10px}#bdp dl{margin:16px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px 12px;font-size:17px}#bdp dt{color:#6b788e}#bdp dd{margin:0;font-weight:700;color:#0f2342}#bdp .x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:0;background:#efe9da;font-size:22px;cursor:pointer}#bdp .ac{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}#bdp .ac a{flex:1;min-width:180px;text-align:center;padding:15px 18px;border-radius:12px;font-size:17px;font-weight:800;text-decoration:none;background:#0f2342;color:#fff}#bdp .ac a.g{background:#c9a45c;color:#0f2342}#bdp .ac button.sh{flex:1;min-width:180px;padding:15px 18px;border-radius:12px;font-family:inherit;font-size:17px;font-weight:800;cursor:pointer;background:#fff;color:#0f2342;border:2px solid #0f2342}#bdp small{display:block;margin-top:16px;font-size:14px;line-height:1.6;color:#6b788e}'
            '@media(max-width:640px){.card table,.card tbody{display:block}.card tr{display:grid;grid-template-columns:78px minmax(0,1fr) auto;grid-template-areas:"d n a" "d c c";column-gap:10px;row-gap:3px;padding:11px 0;border-bottom:1px solid #ece7da}.card td{display:block;padding:0;border:0;min-width:0}td.dt{grid-area:d}.card td:nth-child(2){grid-area:n}td.co{grid-area:c;white-space:normal;font-size:13px;color:#4a5a73}td.amt{grid-area:a;text-align:right;white-space:nowrap}}')
@@ -84,12 +90,15 @@ def build(bids, out, site, org_ok=None, oslug=None):
         title = f"{label} 입찰공고 {total:,}건 · 마감 임박순 | 일감마켓"
         desc = f"{label}에서 지금 입찰 중인 공사 공고 {total:,}건. 마감이 가까운 순서로 정리했고, 조달청 나라장터 공공데이터를 매일 갱신합니다."
         chip = "".join(f'<a class="chip" href="{h}">{e(t)} <i>{n}</i></a>' for h, t, n in chips)
+        if chip:
+            chip = f'<a class="chip on" href="/b/" data-all="1">전체 <i>{total}</i></a>' + chip
         body = f'''<main class="wrap"><p class="crumb">{crumb}</p>
-<h1>{e(label)} 입찰공고</h1>
-<p class="sum">입찰 중인 공사 <b>{total:,}건</b> · 마감이 가까운 순 · {md(upd)} 기준</p>
+<h1 id="bh">{e(label)} 입찰공고</h1>
+<p class="sum" id="bs">입찰 중인 공사 <b>{total:,}건</b> · 마감이 가까운 순 · {md(upd)} 기준</p>
 {('<section class="card"><h2>지역별로 보기</h2><p class="chips">' + chip + '</p></section>') if chip else ''}
-<section class="card"><h2>마감 임박</h2><table><tbody>{trs}</tbody></table><script>window.BDS={json.dumps(det, ensure_ascii=False).replace('</','<\\/')};</script>{'<p class="note">마감이 가까운 ' + str(ROWS) + '건만 보여 드려요. 공고 제목을 누르면 자세한 내용이 열려요.</p>' if total > ROWS else '<p class="note">공고 제목을 누르면 자세한 내용이 열려요.</p>'}</section>
+<section class="card" id="bl"><h2>마감 임박</h2><table><tbody>{trs}</tbody></table><script>window.BDS={json.dumps(det, ensure_ascii=False).replace('</','<\\/')};</script>{'<p class="note">마감이 가까운 ' + str(ROWS) + '건만 보여 드려요. 공고 제목을 누르면 자세한 내용이 열려요.</p>' if total > ROWS else '<p class="note">공고 제목을 누르면 자세한 내용이 열려요.</p>'}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 낙찰 현장 보기</a></p>
+{JSX if chip else ''}
 <p class="note">※ 조달청 나라장터 공공데이터를 가공한 정보이며, 일감마켓은 입찰을 주관⁠·⁠대행하지 않는 정보서비스입니다. 입찰 참가 전 나라장터의 공고문을 꼭 확인하세요. 정확성과 완전성을 보장하지 않습니다.</p></main>'''
         pages[path] = (title, desc, body)
 
@@ -110,7 +119,7 @@ def build(bids, out, site, org_ok=None, oslug=None):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=97"><style>{css}</style>
+<meta name="theme-color" content="#0f2342"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=98"><style>{css}</style>
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {band(body)}
