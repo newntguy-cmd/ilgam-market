@@ -274,7 +274,7 @@ export default {
       });
       const d = await r.json();
       if (!r.ok || d.status !== 'DONE' || d.totalAmount !== amount)
-        return J(req, { ok: false, message: d.message || '결제를 확인하지 못했습니다.' }, 400);
+        return J(req, { ok: false, message: d.message || '결제를 확인하지 못했습니다.', code: d.code || '' }, 400);
 
       const cur = (await status(env, me.uid)).until;
       const until = Math.max(Date.now(), cur) + plan.days * 86400000;
