@@ -485,3 +485,10 @@ html .pk .km{font-size:13.5px;height:24%}
 html .pk .kb{top:10px;left:12px;font-size:12.5px;padding:4px 10px}
 html .pk:hover,html .pk:nth-child(even):hover,html .pk.rec:hover{transform:none}
 }
+/* 작은 폰(360px대): 첫 화면 둘러보기 알약이 넘치지 않게 */
+@media (max-width:400px){
+html .ab-hero .ab-ask{padding:6px 6px 6px 18px!important;gap:8px!important}
+html .ab-hero .ab-ask b{font-size:clamp(16px,5vw,19px)!important;white-space:nowrap}
+html .ab-hero .ab-ask .go{height:46px!important;padding:0 16px!important;font-size:16px!important;white-space:nowrap}
+html .ab-hero .ab-pay{padding-left:20px!important;gap:10px!important;font-size:16px!important}
+}
