@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light"><link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#351b11">
+<meta name="theme-color" content="#3f2b1e">
 <title>직거래장터 · 일감마켓</title>
 <!-- build 6 -->
 <style>
 @media (min-width:561px) and (max-width:1120px){.gnb .em{display:none}.gnb a{padding:0 9px}}
-.corner{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;padding:22px 22px 22px 20px;border-radius:6px;border-bottom:3px solid var(--hi);color:#fff;background:linear-gradient(135deg,#351b11 0%,#4a2617 100%)}
+.corner{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;padding:22px 22px 22px 20px;border-radius:6px;border-bottom:3px solid var(--hi);color:#fff;background:linear-gradient(135deg,#3f2b1e 0%,#573b29 100%)}
 .corner::before{content:"";position:absolute;inset:0;background-image:none;-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000);mask-image:linear-gradient(90deg,transparent 30%,#000);pointer-events:none}
 .corner>*{position:relative}
 .corner .ci{flex:none;width:54px;height:54px;display:grid;place-items:center;border-radius:12px;background:rgba(201,164,92,.16);border:1px solid rgba(201,164,92,.45);font-size:28px;color:#e6c883}
@@ -27,7 +27,7 @@
 .door .em{font-size:30px;line-height:1;margin-bottom:6px}
 .door b{font-size:18px;font-weight:800;letter-spacing:-.01em}
 .door small{font-size:13.5px;color:var(--mute)}
-.door:hover{border-color:var(--hi);box-shadow:0 6px 18px rgba(53,27,17,.12)}
+.door:hover{border-color:var(--hi);box-shadow:0 6px 18px rgba(63,43,30,.12)}
 .door.sell{background:var(--navy);border-color:var(--navy);color:#fff}
 .door.sell small{color:#b9c4d6}
 .door.sell:hover{border-color:var(--hi)}
@@ -37,9 +37,9 @@
 /* 배치: 상단 앱바 -> 올리기 카드 -> 구분 탭 -> 검색/필터 -> 품목 카드 목록 -> 하단 선택 바 -> 요청서 시트.
    일감마켓 홈페이지와 같은 딥네이비 + 황동 디자인을 씁니다. */
 :root{
-  --bg:#eef0f3;--surface:#fff;--ink:#351b11;--mute:#6b788e;--line:#dde1e8;--soft:#e8ecf2;--tint:#f7efdc;
-  --accent:#351b11;--accent-ink:#fff;--hi:#c9a45c;--hi-ink:#351b11;--ok:#a25233;
-  --navy:#351b11;--brass:#c9a45c;
+  --bg:#eef0f3;--surface:#fff;--ink:#3f2b1e;--mute:#6b788e;--line:#dde1e8;--soft:#e8ecf2;--tint:#f7efdc;
+  --accent:#3f2b1e;--accent-ink:#fff;--hi:#c9a45c;--hi-ink:#3f2b1e;--ok:#ad7652;
+  --navy:#3f2b1e;--brass:#c9a45c;
   --kind-m:#8a6a28;--kind-r:#b4540a;--kind-s:#6b788e;
   --sans:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
   --mono:ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
@@ -47,7 +47,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
-header.top{border-bottom:1px solid #2e170e;background:var(--bg)}
+header.top{border-bottom:1px solid #362519;background:var(--bg)}
 header.top .wrap{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px 28px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px}
 header.top .brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
 
@@ -57,7 +57,7 @@ header.top .brand{display:flex;align-items:center;gap:12px;font-size:18px;font-w
 .gnb a:hover{color:var(--ink)}
 .gnb a[aria-current=true]{color:var(--ink);border-bottom-color:var(--accent)}
 @media (max-width:760px){.gnb a{padding:0 10px}}
-.appbar{position:sticky;top:0;z-index:6;background:var(--bg);color:var(--ink);border-bottom:1px solid #2e170e;
+.appbar{position:sticky;top:0;z-index:6;background:var(--bg);color:var(--ink);border-bottom:1px solid #362519;
   padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
 .appbar .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:10px}
 .logo{display:inline-block;width:52px;height:52px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%224 4 192 196%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff0c4%22/%3E%3Cstop offset=%22.3%22 stop-color=%22%23e3be70%22/%3E%3Cstop offset=%22.7%22 stop-color=%22%23b8903f%22/%3E%3Cstop offset=%221%22 stop-color=%22%2385621f%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22sh%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22 stop-opacity=%22.45%22/%3E%3Cstop offset=%22.45%22 stop-color=%22%23fff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22nv%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%231c3a69%22/%3E%3Cstop offset=%221%22 stop-color=%22%230a1830%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform=%22rotate%28-4 100 100%29%22%3E%3Crect x=%2217%22 y=%2217%22 width=%22170%22 height=%22170%22 rx=%2212%22 fill=%22%2302060f%22 opacity=%22.5%22 transform=%22translate%284 8%29%22/%3E%3Cg%3E%3Crect x=%2212%22 y=%2212%22 width=%22176%22 height=%22176%22 rx=%2212%22 fill=%22url%28%23g%29%22/%3E%3C/g%3E%3Crect x=%2212%22 y=%2212%22 width=%22176%22 height=%22176%22 rx=%2212%22 fill=%22url%28%23sh%29%22/%3E%3Crect x=%2222%22 y=%2222%22 width=%22156%22 height=%22156%22 rx=%225%22 fill=%22none%22 stroke=%22url%28%23nv%29%22 stroke-width=%226%22/%3E%3Cg fill=%22%23fff3cf%22 opacity=%22.7%22 transform=%22translate%280 1.6%29%22%3E%3Cpath d=%22M58 48.1C49.9 48.1 43.8 53.2 43.8 60.3C43.8 67.3 49.9 72.4 58 72.4C66.2 72.4 72.3 67.3 72.3 60.3C72.3 53.2 66.2 48.1 58 48.1ZM58 55.4C61.2 55.4 63.6 57 63.6 60.3C63.6 63.6 61.2 65.2 58 65.2C54.8 65.2 52.5 63.6 52.5 60.3C52.5 57 54.8 55.4 58 55.4ZM78.1 46.8V72.7H87.2V46.8ZM51.7 91.9V98.8H88.3V91.9H60.6V89.9H87.2V74.6H51.6V81.5H78.3V83.5H51.7Z%22/%3E%3Cpath d=%22M116.3 77.6V98.8H150.9V77.6ZM142 84.7V91.8H125.2V84.7ZM141.8 46.7V75.8H150.9V64.8H157.4V57.4H150.9V46.7ZM111 49.5V56.6H126.3C125 62.6 119.3 67.6 108.4 70.3L111.9 77.4C127.6 73.4 136.1 63.9 136.1 49.5Z%22/%3E%3Cpath d=%22M44.5 110.5V145.8H70.2V110.5ZM61.3 117.6V138.8H53.4V117.6ZM75.7 105.8V158.3H84.8V132.3H91.9V124.9H84.8V105.8Z%22/%3E%3Cpath d=%22M146.2 105.7V140.5H154.8V105.7ZM111.4 109.5V116.7H123.2C123.1 117.7 122.9 118.6 122.6 119.6L109.4 120.1L110.4 127.1L119.4 126.1C117.1 129 113.6 131.6 108.4 133.8L112.6 140.1C120.4 136.7 125.4 132.3 128.4 126.9H135.1V135.9H143.5V106.5H135.1V119.8H131.1C131.8 116.7 132.2 113.2 132.2 109.5ZM131.5 137.8V138.4C131.5 143.4 127.8 149.5 115.2 151.1L118.6 158.2C127.2 156.9 132.8 153.6 136 149C139.2 153.6 144.9 156.9 153.4 158.2L156.8 151.1C144.3 149.5 140.5 143.4 140.5 138.4V137.8Z%22/%3E%3C/g%3E%3Cg fill=%22url%28%23nv%29%22%3E%3Cpath d=%22M58 48.1C49.9 48.1 43.8 53.2 43.8 60.3C43.8 67.3 49.9 72.4 58 72.4C66.2 72.4 72.3 67.3 72.3 60.3C72.3 53.2 66.2 48.1 58 48.1ZM58 55.4C61.2 55.4 63.6 57 63.6 60.3C63.6 63.6 61.2 65.2 58 65.2C54.8 65.2 52.5 63.6 52.5 60.3C52.5 57 54.8 55.4 58 55.4ZM78.1 46.8V72.7H87.2V46.8ZM51.7 91.9V98.8H88.3V91.9H60.6V89.9H87.2V74.6H51.6V81.5H78.3V83.5H51.7Z%22/%3E%3Cpath d=%22M116.3 77.6V98.8H150.9V77.6ZM142 84.7V91.8H125.2V84.7ZM141.8 46.7V75.8H150.9V64.8H157.4V57.4H150.9V46.7ZM111 49.5V56.6H126.3C125 62.6 119.3 67.6 108.4 70.3L111.9 77.4C127.6 73.4 136.1 63.9 136.1 49.5Z%22/%3E%3Cpath d=%22M44.5 110.5V145.8H70.2V110.5ZM61.3 117.6V138.8H53.4V117.6ZM75.7 105.8V158.3H84.8V132.3H91.9V124.9H84.8V105.8Z%22/%3E%3Cpath d=%22M146.2 105.7V140.5H154.8V105.7ZM111.4 109.5V116.7H123.2C123.1 117.7 122.9 118.6 122.6 119.6L109.4 120.1L110.4 127.1L119.4 126.1C117.1 129 113.6 131.6 108.4 133.8L112.6 140.1C120.4 136.7 125.4 132.3 128.4 126.9H135.1V135.9H143.5V106.5H135.1V119.8H131.1C131.8 116.7 132.2 113.2 132.2 109.5ZM131.5 137.8V138.4C131.5 143.4 127.8 149.5 115.2 151.1L118.6 158.2C127.2 156.9 132.8 153.6 136 149C139.2 153.6 144.9 156.9 153.4 158.2L156.8 151.1C144.3 149.5 140.5 143.4 140.5 138.4V137.8Z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}.logo i{display:none}
@@ -122,7 +122,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .bar .primary{min-height:50px;padding:0 20px}
 .sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center}
 .sheet[hidden]{display:none}
-.sh-bg{position:absolute;inset:0;background:rgba(20,10,6,.55)}
+.sh-bg{position:absolute;inset:0;background:rgba(23,16,11,.55)}
 .panel{position:relative;width:100%;max-width:760px;max-height:92vh;overflow:auto;background:var(--surface);border-radius:20px 20px 0 0;
   padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:12px}
 .panel header{display:flex;align-items:center;justify-content:space-between}
@@ -288,8 +288,8 @@ button{border-radius:3px}
 .k{border-radius:2px}
 .ghost{color:var(--kind-m);border-color:var(--brass)}
 .danger{color:#b3261e;border-color:#b3261e}.err{color:#b3261e}
-.ph .mn{background:rgba(53,27,17,.88);color:#fff}
-.sh-bg{background:rgba(53,27,17,.55)}
+.ph .mn{background:rgba(63,43,30,.88);color:#fff}
+.sh-bg{background:rgba(63,43,30,.55)}
 .panel{border-radius:4px 4px 0 0}
 button:focus-visible,input:focus-visible,select:focus-visible{outline-color:var(--brass)}
 /* 홈페이지 상단과 똑같은 머리글 */
@@ -326,11 +326,11 @@ body>.appbar{display:none}body[data-tool] >.appbar{display:block}
 .ie svg{width:22px;height:22px;stroke:#c9a45c}
 .ab-do .ie svg{stroke:#8a6a28}
 .gnb [aria-current=true] .em,header nav a[aria-current=page] .em{opacity:1!important}
-#ftype{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;border-radius:10px;background:#fff;border:2px solid #351b11;overflow:hidden}
-#ftype button{min-height:56px;font-size:18px;font-weight:800;border-radius:0;border:0;background:#fff;color:#351b11;cursor:pointer}#ftype button:hover{background:#f3eee2}
-#ftype button[aria-pressed="true"]{color:#fff;background:#351b11;box-shadow:none;cursor:default}
+#ftype{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;border-radius:10px;background:#fff;border:2px solid #3f2b1e;overflow:hidden}
+#ftype button{min-height:56px;font-size:18px;font-weight:800;border-radius:0;border:0;background:#fff;color:#3f2b1e;cursor:pointer}#ftype button:hover{background:#f3eee2}
+#ftype button[aria-pressed="true"]{color:#fff;background:#3f2b1e;box-shadow:none;cursor:default}
 </style>
-<link rel="stylesheet" href="../btn3d.css?v=105"><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"><style>#nav{display:none!important}body{padding-bottom:24px!important}.bar{bottom:0!important}.mknote{margin:22px 24px 28px;padding:14px 18px;border:1px solid #d5dbe5;border-radius:12px;background:#f6f8fb;color:#4c2718;font-size:15px;line-height:1.65}.mknote b{display:block;margin-bottom:4px;color:#351b11;font-size:16px}.mknote p{margin:4px 0;word-break:keep-all}</style></head>
+<link rel="stylesheet" href="../btn3d.css?v=105"><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"><style>#nav{display:none!important}body{padding-bottom:24px!important}.bar{bottom:0!important}.mknote{margin:22px 24px 28px;padding:14px 18px;border:1px solid #d5dbe5;border-radius:12px;background:#f6f8fb;color:#5a3d2a;font-size:15px;line-height:1.65}.mknote b{display:block;margin-bottom:4px;color:#3f2b1e;font-size:16px}.mknote p{margin:4px 0;word-break:keep-all}</style></head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="../" aria-label="일감마켓"><span class="logo"><i></i><i></i><i></i><i></i></span></a><nav class="gnb" aria-label="메뉴"><a href="../#win" title="방금 낙찰된 현장과 업체"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>낙찰정보</a><a href="./" aria-current="true" title="내 물건 팔고, 필요한 물품 견적받기"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg></span>직거래장터</a><a href="../#wl" title="담아 둔 업체의 새 낙찰 알림"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span>관심업체</a><a href="../buy.html" data-buy="buy" title="냉난방기·에어컨·사무집기 매입을 일감마켓에서 검토합니다"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>매입의 신</a><a href="../help.html" data-cs="1" title="문의와 자주 묻는 질문"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></span>고객센터</a></nav><div class="acc" id="acc"><button type="button" id="tjn" class="jn">가입하기</button><button type="button" id="tme">로그인</button></div><script>try{var m=localStorage.getItem('ig_me');if(m){var j=document.getElementById('tjn');document.getElementById('tme').textContent='내 계정 ▾';if((JSON.parse(m)||{}).tier==='pro'){j.hidden=true}else{j.textContent='결제하기';j.className='jn pay'}}}catch(e){}</script></div></header>
 <div class="appbar"><div class="in">
