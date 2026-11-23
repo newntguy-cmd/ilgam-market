@@ -1,35 +1,35 @@
 /* 입체(볼록) 버튼 공통 */
 :root{--lift:0 1px 0 rgba(255,255,255,.55) inset,0 -2px 0 rgba(0,0,0,.16) inset}
-.go,.fcta button,.btn.go,.corner button{background:linear-gradient(180deg,#ecd08c 0%,#d2ac62 48%,#b48f47 100%)!important;color:#38261a;border:0;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 -2px 0 rgba(0,0,0,.18) inset,0 3px 0 #8a6a28,0 9px 16px rgba(0,0,0,.28)!important;text-shadow:0 1px 0 rgba(255,255,255,.35);transition:transform .08s,box-shadow .08s,filter .15s}
+.go,.fcta button,.btn.go,.corner button{background:linear-gradient(180deg,#ecd08c 0%,#d2ac62 48%,#b48f47 100%)!important;color:#351b11;border:0;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 -2px 0 rgba(0,0,0,.18) inset,0 3px 0 #8a6a28,0 9px 16px rgba(0,0,0,.28)!important;text-shadow:0 1px 0 rgba(255,255,255,.35);transition:transform .08s,box-shadow .08s,filter .15s}
 .go:hover,.fcta button:hover,.btn.go:hover,.corner button:hover{filter:brightness(1.07);transform:translateY(-1px)}
 .go:active,.fcta button:active,.btn.go:active,.corner button:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 -1px 0 rgba(0,0,0,.18) inset,0 0 0 #8a6a28,0 2px 4px rgba(0,0,0,.3)!important}
 .go.sub{background:linear-gradient(180deg,rgba(201,164,92,.22),rgba(201,164,92,.06))!important;color:#e6c883;border:1px solid #c9a45c;text-shadow:none;box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 3px 0 #6e5524,0 8px 14px rgba(0,0,0,.25)!important}
-.pbtn,.btn{background:linear-gradient(180deg,#734f36 0%,#533827 50%,#38261a 100%);box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 -2px 0 rgba(0,0,0,.25) inset,0 3px 0 #17100b,0 8px 14px rgba(33,23,16,.3);transition:transform .08s,box-shadow .08s,filter .15s}
+.pbtn,.btn{background:linear-gradient(180deg,#6d3822 0%,#4f2819 50%,#351b11 100%);box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 -2px 0 rgba(0,0,0,.25) inset,0 3px 0 #160b07,0 8px 14px rgba(32,16,10,.3);transition:transform .08s,box-shadow .08s,filter .15s}
 .pbtn:hover,.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
-.pbtn:active,.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 0 0 #17100b,0 2px 4px rgba(33,23,16,.3)}
-.btn.ghost,.more button{background:linear-gradient(180deg,#fff,#e9edf3)!important;color:#38261a;box-shadow:0 1px 0 #fff inset,0 -2px 0 rgba(0,0,0,.07) inset,0 3px 0 #b8c1cf,0 8px 12px rgba(56,38,26,.14);transition:transform .08s,box-shadow .08s}
-.btn.ghost:hover,.more button:hover{transform:translateY(-1px);color:#38261a}
+.pbtn:active,.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 0 0 #160b07,0 2px 4px rgba(32,16,10,.3)}
+.btn.ghost,.more button{background:linear-gradient(180deg,#fff,#e9edf3)!important;color:#351b11;box-shadow:0 1px 0 #fff inset,0 -2px 0 rgba(0,0,0,.07) inset,0 3px 0 #b8c1cf,0 8px 12px rgba(53,27,17,.14);transition:transform .08s,box-shadow .08s}
+.btn.ghost:hover,.more button:hover{transform:translateY(-1px);color:#351b11}
 .btn.ghost:active,.more button:active{transform:translateY(3px);box-shadow:0 1px 0 #fff inset,0 0 0 #b8c1cf}
 /* 메뉴 탭: 선택된 탭이 도톰하게 올라온 느낌 */
 .gnb button[aria-current=true],header nav a[aria-current=page],.gnb a[aria-current=true]{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(201,164,92,.10));box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 6px 10px -4px rgba(0,0,0,.45);border-radius:6px 6px 0 0}
 @media (prefers-reduced-motion:reduce){.go,.pbtn,.btn,.more button,.corner button{transition:none}}
 /* 엠보싱: 글자는 눌러 새긴 듯, 표면은 미세한 결 */
 .go,.fcta button,.btn.go,.corner button{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 1px,transparent 1px 4px),linear-gradient(180deg,#ecd08c 0%,#d2ac62 48%,#b48f47 100%)!important;text-shadow:0 1px 0 rgba(255,255,255,.65),0 -1px 0 rgba(90,60,10,.45);letter-spacing:.03em}
-.pbtn,.btn{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px),linear-gradient(180deg,#734f36 0%,#533827 50%,#38261a 100%);text-shadow:0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.12)}
+.pbtn,.btn{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px),linear-gradient(180deg,#6d3822 0%,#4f2819 50%,#351b11 100%);text-shadow:0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.12)}
 .go.sub{text-shadow:0 -1px 0 rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.18)}
 .btn.ghost,.more button{text-shadow:0 1px 0 #fff,0 -1px 0 rgba(0,0,0,.12)}
 /* 장터 메뉴 강조: 직거래 장터 */
-.gnb a.hot,header nav a.hot{margin:6px 3px;min-height:36px!important;padding:0 16px!important;border-radius:20px;color:#38261a!important;font-weight:700!important;border-bottom:0!important;background-image:linear-gradient(180deg,#f1d795,#c9a45c 55%,#b08c44)!important;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 2px 0 #8a6a28,0 6px 12px rgba(0,0,0,.3);text-shadow:0 1px 0 rgba(255,255,255,.4);animation:hotp 2.8s ease-in-out 1.2s 3}
+.gnb a.hot,header nav a.hot{margin:6px 3px;min-height:36px!important;padding:0 16px!important;border-radius:20px;color:#351b11!important;font-weight:700!important;border-bottom:0!important;background-image:linear-gradient(180deg,#f1d795,#c9a45c 55%,#b08c44)!important;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 2px 0 #8a6a28,0 6px 12px rgba(0,0,0,.3);text-shadow:0 1px 0 rgba(255,255,255,.4);animation:hotp 2.8s ease-in-out 1.2s 3}
 .gnb a.hot:hover,header nav a.hot:hover{transform:translateY(-1px);filter:brightness(1.06)}
-.gnb a.hot .em,header nav a.hot .em{filter:none!important;opacity:1!important;color:#38261a}
+.gnb a.hot .em,header nav a.hot .em{filter:none!important;opacity:1!important;color:#351b11}
 .gnb a.hot::before,header nav a.hot::before{display:none!important}
 @keyframes hotp{0%,100%{box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 2px 0 #8a6a28,0 6px 12px rgba(0,0,0,.3)}50%{box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 2px 0 #8a6a28,0 0 0 6px rgba(201,164,92,.35),0 6px 12px rgba(0,0,0,.3)}}
 @media (prefers-reduced-motion:reduce){.gnb a.hot{animation:none}}
 /* 메인 장터 카드: 팔기는 황금색으로 */
-.mkc.sell{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 1px,transparent 1px 4px),linear-gradient(160deg,#f1d795,#d2ac62 55%,#a98439)!important;color:#38261a;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 -2px 0 rgba(0,0,0,.18) inset,0 5px 0 #6e5524,0 16px 26px rgba(33,23,16,.3)!important}
+.mkc.sell{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 1px,transparent 1px 4px),linear-gradient(160deg,#f1d795,#d2ac62 55%,#a98439)!important;color:#351b11;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 -2px 0 rgba(0,0,0,.18) inset,0 5px 0 #6e5524,0 16px 26px rgba(32,16,10,.3)!important}
 .mkc.sell b{text-shadow:0 1px 0 rgba(255,255,255,.5)}.mkc.sell p{color:#3b3014}
-.mkc.sell .mki{color:#f1d795;background:linear-gradient(180deg,#734f36,#38261a);box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 3px 0 #17100b}
-.mkc.sell i{color:#fff;background:linear-gradient(180deg,#734f36,#38261a);box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 3px 0 #17100b}
+.mkc.sell .mki{color:#f1d795;background:linear-gradient(180deg,#6d3822,#351b11);box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 3px 0 #160b07}
+.mkc.sell i{color:#fff;background:linear-gradient(180deg,#6d3822,#351b11);box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 3px 0 #160b07}
 /* 메뉴 고정: 위에 붙어 따라오고, 스크롤바 유무로 화면이 좌우로 흔들리지 않게 */
 html{scrollbar-gutter:stable;overflow-y:scroll}
 header.top{position:sticky;top:0;z-index:60}
@@ -38,24 +38,24 @@ header.top{position:sticky;top:0;z-index:60}
 /* 직거래 장터 메뉴: 도톰한 엠보싱 금속 알약 */
 .gnb a.hot,header nav a.hot{padding:0 20px!important;font-size:16px!important;font-weight:800!important;letter-spacing:.01em;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.14) 0 1px,transparent 1px 4px),linear-gradient(180deg,#fbe7ae 0%,#e0bd70 38%,#c9a45c 62%,#a98439 100%)!important;text-shadow:0 1px 0 rgba(255,255,255,.75),0 -1px 0 rgba(90,60,10,.5)!important;box-shadow:0 2px 0 rgba(255,255,255,.8) inset,0 -3px 0 rgba(100,70,15,.35) inset,0 0 0 1px #8a6a28,0 3px 0 #6e5524,0 10px 18px rgba(0,0,0,.4)!important}
 .gnb a.hot:active,header nav a.hot:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(255,255,255,.6) inset,0 -2px 0 rgba(100,70,15,.3) inset,0 0 0 1px #8a6a28,0 0 0 #6e5524,0 3px 6px rgba(0,0,0,.4)!important}
-.mkh h2{text-shadow:0 1px 0 #fff,0 -1px 0 rgba(56,38,26,.18)}
+.mkh h2{text-shadow:0 1px 0 #fff,0 -1px 0 rgba(53,27,17,.18)}
 
 /* 밝은 헤더 (아이보리) */
 header.top{background:#f3eee2!important;border-bottom:1px solid #ddd3bd!important;box-shadow:none!important}
-header.top .brand{color:#38261a}
-.gnb button,.gnb .tablink{color:#452f21!important}
-.gnb button:hover,.gnb .tablink:hover{color:#2c1e15!important}
+header.top .brand{color:#351b11}
+.gnb button,.gnb .tablink{color:#422215!important}
+.gnb button:hover,.gnb .tablink:hover{color:#2a150d!important}
 .gnb button[aria-current=true]{color:#8a6a28!important;border-bottom:3px solid #c9a45c!important;background:rgba(255,255,255,.55)!important;box-shadow:none!important}
 .gnb a.hot,header nav a.hot{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 0 0 1px #8a6a28!important}
 .gnb .em{filter:none!important;opacity:.8!important}
 .gnb .sep::before{background:#d5cbb4!important}
-.tier{color:#8a6a28!important}.tier.free{color:#6b788e!important}.tier.pro{color:#aa7450!important;background:#38261a;padding:6px 12px;border-radius:20px}
-.acc>button{background:transparent!important;color:#38261a!important;border:1px solid #cdbf9f!important}
+.tier{color:#8a6a28!important}.tier.free{color:#6b788e!important}.tier.pro{color:#a25233!important;background:#351b11;padding:6px 12px;border-radius:20px}
+.acc>button{background:transparent!important;color:#351b11!important;border:1px solid #cdbf9f!important}
 
 /* 메뉴: 오른쪽 정렬, 직거래 장터가 맨 앞 */
 @media (min-width:761px){nav.gnb,header.top nav{justify-content:flex-end}}
 .gnb a.hot,header nav a.hot{order:-1}
-.acc>button.jn{background:#c9a45c!important;color:#38261a!important;border-color:#8a6a28!important;margin-right:8px;font-weight:800}
+.acc>button.jn{background:#c9a45c!important;color:#351b11!important;border-color:#8a6a28!important;margin-right:8px;font-weight:800}
 @media (max-width:760px){header.top .gnb{display:none!important}header.top .wrap{gap:8px!important;flex-wrap:nowrap!important}.acc{margin-left:auto}.acc>button.jn{margin-right:6px;padding-left:12px;padding-right:12px;white-space:nowrap}.acc>button.jn.pay{display:inline-flex!important;align-items:center}}
 /* 큼직하게(헤더) */
 .gnb button,.gnb .tablink{font-size:17.5px!important;min-height:54px!important}
@@ -75,8 +75,8 @@ nav.gnb,header.top nav{gap:6px!important;align-items:center}
 .tier{margin-left:12px!important}
 }
 /* 메뉴 통일: 네 항목 모두 같은 모양, 별도 디자인 없음 */
-.gnb a.hot,header nav a.hot,.gnb .tablink{background:none!important;box-shadow:none!important;border:0!important;border-radius:6px!important;color:#452f21!important;font-weight:500!important;font-size:17.5px!important;min-height:48px!important;padding:0 20px!important;margin:0!important;animation:none!important;background-image:none!important}
-.gnb .tablink:hover,header nav a:hover{color:#38261a!important;background:rgba(56,38,26,.06)!important}
+.gnb a.hot,header nav a.hot,.gnb .tablink{background:none!important;box-shadow:none!important;border:0!important;border-radius:6px!important;color:#422215!important;font-weight:500!important;font-size:17.5px!important;min-height:48px!important;padding:0 20px!important;margin:0!important;animation:none!important;background-image:none!important}
+.gnb .tablink:hover,header nav a:hover{color:#351b11!important;background:rgba(53,27,17,.06)!important}
 @media (min-width:761px){
 .gnb button:nth-of-type(2){margin-right:auto!important}
 header nav a:nth-child(2){margin-right:auto!important}
@@ -118,9 +118,9 @@ header.top .wrap .acc{min-width:0}
 .gnb .em,header nav .em{display:none!important}
 }
 /* 직거래장터 등 .gnb 안의 링크도 다른 페이지와 같은 색으로 */
-.gnb a,.gnb button{color:#452f21!important;font-weight:500!important}.gnb a:hover,.gnb button:hover{color:#2c1e15!important}.gnb a[aria-current=true],.gnb button[aria-current=true]{color:#6f4f0e!important;border-bottom:3px solid #b8913f!important;background:rgba(255,255,255,.55)!important}
+.gnb a,.gnb button{color:#422215!important;font-weight:500!important}.gnb a:hover,.gnb button:hover{color:#2a150d!important}.gnb a[aria-current=true],.gnb button[aria-current=true]{color:#6f4f0e!important;border-bottom:3px solid #b8913f!important;background:rgba(255,255,255,.55)!important}
 /* 모든 페이지의 메뉴 글씨가 같은 진하기로 보이게 */
-header.top nav a,header.top nav button{color:#452f21!important}header.top nav a:hover,header.top nav button:hover{color:#2c1e15!important}header.top nav a[aria-current=page],header.top nav a[aria-current=true],header.top nav button[aria-current=true]{color:#6f4f0e!important}
+header.top nav a,header.top nav button{color:#422215!important}header.top nav a:hover,header.top nav button:hover{color:#2a150d!important}header.top nav a[aria-current=page],header.top nav a[aria-current=true],header.top nav button[aria-current=true]{color:#6f4f0e!important}
 button.star:not([aria-pressed=true]){color:#8b97ab}button.star:not([aria-pressed=true]):hover{color:#c9a45c}
 /* 직거래장터 상단 배너: '물건 올리기'와 '견적 요청 올리기' 버튼 크기·위치 동일, 배너 높이 고정 */
 .corner{min-height:156px}
@@ -142,7 +142,7 @@ header.top nav>a.tablink,.gnb>a.tablink,.gnb>.tablink{font-size:17px!important;f
 header.top .gnb>a.tablink,header.top nav.gnb>a{border:0!important;border-bottom:3px solid transparent!important}
 header.top .gnb>*[aria-current=true]{border-bottom-color:#c9a45c!important}
 /* 관심업체 개수 표시: 모든 페이지 동일 */
-header.top nav .cnt,.gnb .cnt{font-style:normal;margin-left:6px;min-width:18px;padding:0 5px;border-radius:9px;background:#c9a45c;color:#38261a;font-size:12px;font-weight:700;line-height:18px;text-align:center;display:inline-block}
+header.top nav .cnt,.gnb .cnt{font-style:normal;margin-left:6px;min-width:18px;padding:0 5px;border-radius:9px;background:#c9a45c;color:#351b11;font-size:12px;font-weight:700;line-height:18px;text-align:center;display:inline-block}
 /* 메뉴 5개를 같은 폭으로 넓게(고객센터는 더 오른쪽), 폭은 화면 너비로만 정해짐 */
 @media (min-width:761px){
 .gnb>*,header.top nav>*{flex:0 0 clamp(110px,12.4vw,190px)!important;width:clamp(110px,12.4vw,190px)!important}
@@ -223,13 +223,13 @@ form.search{margin-top:18px!important}
 .mkg.q3 .mkc b{font-size:22px!important;line-height:1.3}.mkg.q3 .mkc p{font-size:16px!important;min-height:3.3em}
 @media (max-width:860px){.mkg.q3{grid-template-columns:minmax(0,1fr)}}
 /* v74: 투박한 두꺼운 테두리·밑그림자·사선 무늬를 걷어내고, 둥근 모서리와 부드러운 그림자로 입체감만 남김 */
-.go,.btn,.btn.go,.btn.ghost,.ab-pay,.pbtn,.corner button,.fcta button,.more button,.pt button,.go.sub,.ab-hero .s2 .go,.mkc i,.pv .tk,.gnb a.hot,header nav a.hot{border-radius:12px!important;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 6px 16px rgba(44,29,20,.22)!important;transition:transform .15s,box-shadow .15s,filter .15s}
+.go,.btn,.btn.go,.btn.ghost,.ab-pay,.pbtn,.corner button,.fcta button,.more button,.pt button,.go.sub,.ab-hero .s2 .go,.mkc i,.pv .tk,.gnb a.hot,header nav a.hot{border-radius:12px!important;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 6px 16px rgba(41,21,13,.22)!important;transition:transform .15s,box-shadow .15s,filter .15s}
 .go:hover,.btn:hover,.ab-pay:hover,.pbtn:hover,.fcta button:hover,.more button:hover,.mkc:hover i{filter:brightness(1.06);transform:translateY(-1px)}
-.go:active,.btn:active,.ab-pay:active,.pbtn:active,.fcta button:active,.more button:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 2px 6px rgba(40,27,19,.2)!important;filter:none}
-.mkc,.mkc.sell{border-radius:20px!important;background-image:linear-gradient(160deg,#654530,#38261a 70%)!important;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 14px 30px rgba(33,23,16,.22)!important}
+.go:active,.btn:active,.ab-pay:active,.pbtn:active,.fcta button:active,.more button:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 2px 6px rgba(38,19,12,.2)!important;filter:none}
+.mkc,.mkc.sell{border-radius:20px!important;background-image:linear-gradient(160deg,#60311e,#351b11 70%)!important;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 14px 30px rgba(32,16,10,.22)!important}
 .mkc.sell{background-image:linear-gradient(160deg,#f1d995,#c9a45c 75%)!important}
 .mkc:hover{transform:translateY(-3px)!important}.mkc:active{transform:translateY(1px)!important}
-.mkc .mki{box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 4px 10px rgba(40,27,19,.25)!important}
+.mkc .mki{box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 4px 10px rgba(38,19,12,.25)!important}
 .ab-nums>div{border-radius:18px!important}
 /* 큰 숫자는 고정폭 숫자(1에 받침이 붙는 모양)를 끄고 깔끔한 숫자로 */
 .ab-nums b,#mkn,#bnn,.ab-ln b,.qt b,.hstat b{font-variant-numeric:normal!important;font-feature-settings:"tnum" 0!important}
@@ -237,12 +237,12 @@ form.search{margin-top:18px!important}
 /* v76: 회사소개 철학 */
 .ab-phil{padding-top:64px}.ab-phil h2{margin:0 0 26px}
 .ab-pg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.ab-pg>div{padding:26px 28px;border-radius:20px;background:#fff;border:1px solid #e3e7ed;box-shadow:0 12px 28px rgba(33,23,16,.08)}
-.ab-pg b{display:block;font-size:22px;line-height:1.35;color:#38261a;letter-spacing:-.02em;padding-left:14px;border-left:4px solid #c9a45c}
-.ab-pg p{margin:14px 0 0;font-size:17px;line-height:1.75;color:#573c29;word-break:keep-all;text-wrap:pretty}
+.ab-pg>div{padding:26px 28px;border-radius:20px;background:#fff;border:1px solid #e3e7ed;box-shadow:0 12px 28px rgba(32,16,10,.08)}
+.ab-pg b{display:block;font-size:22px;line-height:1.35;color:#351b11;letter-spacing:-.02em;padding-left:14px;border-left:4px solid #c9a45c}
+.ab-pg p{margin:14px 0 0;font-size:17px;line-height:1.75;color:#532a1a;word-break:keep-all;text-wrap:pretty}
 @media (max-width:860px){.ab-pg{grid-template-columns:minmax(0,1fr)}.ab-pg>div{padding:22px 20px}.ab-pg b{font-size:20px}.ab-pg p{font-size:16px}}
 
-.ab-who{margin-top:18px;padding:30px 34px;border-radius:20px;background:linear-gradient(160deg,#654530,#38261a 70%);color:#fff;box-shadow:0 14px 30px rgba(33,23,16,.22)}
+.ab-who{margin-top:18px;padding:30px 34px;border-radius:20px;background:linear-gradient(160deg,#60311e,#351b11 70%);color:#fff;box-shadow:0 14px 30px rgba(32,16,10,.22)}
 .ab-who b{display:block;font-size:24px;line-height:1.35;color:#e6c883;letter-spacing:-.02em}
 .ab-who p{margin:12px 0 0;max-width:860px;font-size:18px;line-height:1.8;color:#fff;word-break:keep-all;text-wrap:pretty}
 .ab-who small{display:block;margin-top:14px;font-size:14.5px;line-height:1.6;color:#b7c4da}
@@ -254,23 +254,23 @@ form.search{margin-top:18px!important}
 /* v80 home: 이번 주 마감 입찰공고 (산군 '질문+미리보기' 구조를 실제 데이터로) */
 .ab-bd .ab-bds{margin:-12px 0 24px;font-size:18px;color:#5b6577}
 .ab-bdg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.ab-bdc{display:flex;flex-direction:column;gap:10px;padding:24px 22px;border-radius:20px;background:#fff;color:#38261a;text-decoration:none;box-shadow:0 10px 26px rgba(56,38,26,.12);transition:transform .2s,box-shadow .2s}
-.ab-bdc:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(56,38,26,.18)}
-.ab-bdc .dd{align-self:flex-start;padding:6px 14px;border-radius:30px;background:#efe9da;color:#38261a;font-size:16px;font-weight:800;white-space:nowrap}
+.ab-bdc{display:flex;flex-direction:column;gap:10px;padding:24px 22px;border-radius:20px;background:#fff;color:#351b11;text-decoration:none;box-shadow:0 10px 26px rgba(53,27,17,.12);transition:transform .2s,box-shadow .2s}
+.ab-bdc:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(53,27,17,.18)}
+.ab-bdc .dd{align-self:flex-start;padding:6px 14px;border-radius:30px;background:#efe9da;color:#351b11;font-size:16px;font-weight:800;white-space:nowrap}
 .ab-bdc .dd.hot{background:#c4381f;color:#fff}
 .ab-bdc b{font-size:20px;line-height:1.4;font-weight:800;letter-spacing:-.03em;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
 .ab-bdc small{font-size:16px;color:#5b6577;line-height:1.4}
 .ab-bdc em{margin-top:auto;font-style:normal;font-size:26px;font-weight:900;color:#9a7421;letter-spacing:-.03em}
-.ab-bdm{display:inline-block;margin-top:22px;padding:15px 30px;border-radius:12px;background:#38261a;color:#fff;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 6px 16px rgba(40,27,19,.22)}
+.ab-bdm{display:inline-block;margin-top:22px;padding:15px 30px;border-radius:12px;background:#351b11;color:#fff;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 6px 16px rgba(38,19,12,.22)}
 @media (max-width:1000px){.ab-bdg{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.ab-bdg{grid-template-columns:minmax(0,1fr)}.ab-bdc b{min-height:0}}
 @media (max-width:560px){.ab-bdc:nth-child(n+3){display:none}}
 /* v82 세련·가독성: 밝은 아이보리 바탕, 절제된 선, 진한 금색 글자(흰 바탕), 큰 둥근 히어로 */
-:root{--bg:#faf7f0!important;--ink:#38261a;--ink2:#674630;--gold-d:#7a5710;--line:#e6dcc2}
+:root{--bg:#faf7f0!important;--ink:#351b11;--ink2:#62321f;--gold-d:#7a5710;--line:#e6dcc2}
 body{background:#faf7f0!important;-webkit-font-smoothing:antialiased}
 header.top{background:#faf7f0!important;border-bottom:1px solid #e6dcc2!important;box-shadow:none!important}
 header.top .gnb>a,header.top .gnb>button{color:var(--ink)!important;font-weight:600}
-header.top .acc>button.jn{background:#38261a!important;color:#e6c883!important;border:0!important;box-shadow:none!important;border-radius:10px!important}
+header.top .acc>button.jn{background:#351b11!important;color:#e6c883!important;border:0!important;box-shadow:none!important;border-radius:10px!important}
 header.top .acc>button:not(.jn){background:transparent!important;border:1px solid #e3d9bf!important;box-shadow:none!important;border-radius:10px!important}
 .ab-hero{margin:14px 18px 0!important;border-radius:30px!important;overflow:hidden!important}
 .ab-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,16,36,.62) 0%,rgba(7,16,36,.28) 55%,rgba(7,16,36,0) 100%);pointer-events:none}
@@ -288,10 +288,10 @@ header.top .acc>button:not(.jn){background:transparent!important;border:1px soli
 .ab-card{background:#fff!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:none!important}
 .ab-card small{color:#55607a!important;font-size:14.5px!important}.ab-card b{color:var(--ink)!important}.ab-card span{color:#55607a!important}.ab-card u,.ab-card span u{color:var(--gold-d)!important;font-weight:800;text-decoration:none}
 .qwrap{padding-top:44px!important}
-.mkc{background:#fff!important;border:0!important;border-radius:26px!important;padding:34px 30px 30px!important;box-shadow:0 1px 0 #eadfc4,0 18px 40px rgba(56,38,26,.06)!important;color:var(--ink)!important}
+.mkc{background:#fff!important;border:0!important;border-radius:26px!important;padding:34px 30px 30px!important;box-shadow:0 1px 0 #eadfc4,0 18px 40px rgba(53,27,17,.06)!important;color:var(--ink)!important}
 .mkc b{color:var(--ink)!important;font-size:24px!important;letter-spacing:-.04em!important;font-weight:800!important}
 .mkc p{color:var(--ink2)!important;font-size:17px!important}
-.mkc .mki{background:#38261a!important;box-shadow:none!important}.mkc .mki svg{stroke:#e6c883!important}
+.mkc .mki{background:#351b11!important;box-shadow:none!important}.mkc .mki svg{stroke:#e6c883!important}
 .mkc i{background:transparent!important;color:var(--ink)!important;box-shadow:none!important;border-bottom:2px solid #c9a45c!important;border-radius:0!important;padding:0 0 3px!important}
 .pv .tk{border-radius:30px!important}
 .tier.pro{color:#e6c883!important}
@@ -326,25 +326,25 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable}
 /* v91 메뉴 완전 고정: 현재 위치 표시 항목도 굵기·크기가 같아 어떤 페이지에서도 항목 폭·위치가 1px도 변하지 않음 */
 html header.top .gnb>*,html header.top .gnb>*[aria-current],html header.top .gnb>a,html header.top .gnb>button{font-weight:700!important;letter-spacing:-.01em!important}
 /* v94 낙찰정보 상단: 볼륨감(색·빛·그림자만, 크기·위치는 그대로) */
-html .hero{background:radial-gradient(900px 420px at 88% -10%,rgba(201,164,92,.20),transparent 60%),radial-gradient(760px 480px at 6% 30%,rgba(154,105,72,.34),transparent 62%),linear-gradient(180deg,#412c1e 0,#2a1d14 100%)!important}
+html .hero{background:radial-gradient(900px 420px at 88% -10%,rgba(201,164,92,.20),transparent 60%),radial-gradient(760px 480px at 6% 30%,rgba(146,74,46,.34),transparent 62%),linear-gradient(180deg,#3d1f13 0,#28140d 100%)!important}
 html .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(255,255,255,.028) 0 1px,transparent 1px 22px);-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
 html .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(230,200,131,.55),transparent)}
 html .hero .wrap{position:relative;z-index:1}
 html .hero h1{text-shadow:0 2px 24px rgba(0,0,0,.35)}
-html .hero h1 .gr{background:linear-gradient(180deg,#5ff0b8,#996948);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(40,220,160,.35))}
+html .hero h1 .gr{background:linear-gradient(180deg,#5ff0b8,#914a2e);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(40,220,160,.35))}
 html .hero .pill{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04))!important;border:1px solid rgba(230,200,131,.35)!important;box-shadow:0 4px 14px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18)}
-html .hstat{background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.03) 55%,rgba(33,23,16,.35))!important;border:1px solid rgba(255,255,255,.14)!important;border-top:2px solid #c9a45c!important;border-radius:14px!important;box-shadow:0 22px 48px rgba(18,12,8,.55),0 2px 0 rgba(255,255,255,.06) inset,0 0 0 1px rgba(0,0,0,.2)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-html form.search{background:linear-gradient(180deg,#553a28,#3c291c)!important;border:1px solid rgba(230,200,131,.28)!important;border-radius:16px!important;box-shadow:0 26px 54px rgba(18,12,8,.5),0 1px 0 rgba(255,255,255,.14) inset,0 -1px 0 rgba(0,0,0,.3) inset!important}
-html form.search .fld{background:linear-gradient(180deg,#302117,#3a281b)!important;border-radius:11px!important;box-shadow:0 2px 6px rgba(0,0,0,.35) inset,0 1px 0 rgba(255,255,255,.07)!important}
-html form.search .go.sub{background:linear-gradient(180deg,#f0d99b,#d2a94f 55%,#b98a3a)!important;color:#38261a!important;border:0!important;border-radius:11px!important;box-shadow:0 8px 18px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.55) inset,0 -2px 0 rgba(0,0,0,.18) inset!important;font-weight:800}
+html .hstat{background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.03) 55%,rgba(32,16,10,.35))!important;border:1px solid rgba(255,255,255,.14)!important;border-top:2px solid #c9a45c!important;border-radius:14px!important;box-shadow:0 22px 48px rgba(17,9,5,.55),0 2px 0 rgba(255,255,255,.06) inset,0 0 0 1px rgba(0,0,0,.2)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+html form.search{background:linear-gradient(180deg,#512919,#391d12)!important;border:1px solid rgba(230,200,131,.28)!important;border-radius:16px!important;box-shadow:0 26px 54px rgba(17,9,5,.5),0 1px 0 rgba(255,255,255,.14) inset,0 -1px 0 rgba(0,0,0,.3) inset!important}
+html form.search .fld{background:linear-gradient(180deg,#2e170e,#371c11)!important;border-radius:11px!important;box-shadow:0 2px 6px rgba(0,0,0,.35) inset,0 1px 0 rgba(255,255,255,.07)!important}
+html form.search .go.sub{background:linear-gradient(180deg,#f0d99b,#d2a94f 55%,#b98a3a)!important;color:#351b11!important;border:0!important;border-radius:11px!important;box-shadow:0 8px 18px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.55) inset,0 -2px 0 rgba(0,0,0,.18) inset!important;font-weight:800}
 html form.search .go.sub:active{transform:translateY(1px);box-shadow:0 3px 8px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.4) inset!important}
 /* v95 목록 페이지(공고·지역·발주처·업체) 상단 띠: 낙찰정보·결제·매입의 신과 같은 입체 남색 */
-.pgband{position:relative;margin:10px 0 20px;padding:26px 28px 24px;border-radius:20px;color:#fff;background:radial-gradient(120% 80% at 88% -10%,rgba(201,164,92,.34),transparent 55%),radial-gradient(90% 70% at -8% 115%,rgba(171,116,80,.30),transparent 60%),linear-gradient(165deg,#4c3424,#2e1f16 72%);box-shadow:0 22px 48px rgba(46,31,22,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)}
+.pgband{position:relative;margin:10px 0 20px;padding:26px 28px 24px;border-radius:20px;color:#fff;background:radial-gradient(120% 80% at 88% -10%,rgba(201,164,92,.34),transparent 55%),radial-gradient(90% 70% at -8% 115%,rgba(162,83,51,.30),transparent 60%),linear-gradient(165deg,#482517,#2c160e 72%);box-shadow:0 22px 48px rgba(44,22,14,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)}
 .pgband h1{margin:0 0 8px!important;color:#fff!important;text-shadow:0 2px 18px rgba(0,0,0,.3)}
 .pgband .sum{margin:0!important;color:#c9d4e8!important}.pgband .sum b{color:#f0d99b!important}
-html .card.hero.drop{box-shadow:0 22px 48px rgba(46,31,22,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)!important}
+html .card.hero.drop{box-shadow:0 22px 48px rgba(44,22,14,.30),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)!important}
 /* v96 상단 메뉴 아래 줄: 모든 페이지에서 같은 굵기·색·그림자 (남색 영역 위에서도 사라지지 않게 안쪽 흰 선을 한 겹 더) */
-html header.top{border-bottom:1px solid #d6c79f!important;box-shadow:0 4px 12px rgba(56,38,26,.08),0 1px 0 rgba(255,255,255,.7) inset!important}
+html header.top{border-bottom:1px solid #d6c79f!important;box-shadow:0 4px 12px rgba(53,27,17,.08),0 1px 0 rgba(255,255,255,.7) inset!important}
 /* v97 계정 버튼 글씨꼴 통일: 정적 페이지에서 Arial·보통 굵기로 나오던 것을 index와 같게 */
 html header.top .acc>button{font-family:"Noto Sans KR",system-ui,sans-serif!important;font-size:16px!important;letter-spacing:-.01em!important}
 html header.top .acc>button:not(.jn){font-weight:600!important}
@@ -358,7 +358,7 @@ html .ab-hero .ab-ask .go{height:52px!important;padding:0 28px!important;font-si
 html .ab-hero .ab-pay{font-size:clamp(18px,1.2vw,22px)!important;font-weight:700!important;padding:14px clamp(24px,1.8vw,34px)!important;gap:14px;background:#e6c883!important;box-shadow:0 8px 22px rgba(0,0,0,.28)!important;border-radius:12px!important}
 html .ab-hero .ab-pay b{font-size:inherit!important;font-weight:700!important;padding-left:14px!important}
 html .ab-hero .ab-pay:hover{background:#efd493!important}
-html .ab-pl{width:clamp(440px,28vw,560px)!important;border-radius:14px!important;background:rgba(39,27,18,.78)!important;border:1px solid rgba(230,200,131,.35)!important;backdrop-filter:blur(6px);box-shadow:0 20px 44px rgba(0,0,0,.4)!important}
+html .ab-pl{width:clamp(440px,28vw,560px)!important;border-radius:14px!important;background:rgba(37,19,12,.78)!important;border:1px solid rgba(230,200,131,.35)!important;backdrop-filter:blur(6px);box-shadow:0 20px 44px rgba(0,0,0,.4)!important}
 html .ab-pl li{grid-template-columns:clamp(104px,7vw,140px) 1fr!important;padding:clamp(16px,1.2vw,22px) clamp(20px,1.5vw,28px)!important}
 html .ab-pl .f{font-size:clamp(24px,1.7vw,32px)!important;font-weight:700!important}
 html .ab-pl em{font-size:clamp(13.5px,.95vw,16px)!important;font-weight:600!important}
@@ -367,11 +367,11 @@ html .ab-pl small{font-size:clamp(14px,.95vw,17px)!important}
 @media (max-width:860px){html .ab-hero .ab2h,html .ab-hero .ab-ht h1{font-size:clamp(34px,9vw,46px)!important}html .ab-pl{width:100%!important}}
 
 /* 결제하기 버튼: 샴페인 골드 + 가격 칩 + 화살표 */
-html .ab-hero .ab-pay{position:relative;gap:16px!important;padding:12px 14px 12px clamp(26px,2vw,36px)!important;border-radius:999px!important;background:linear-gradient(180deg,#f6e3ab 0%,#e4c176 52%,#cfa24f 100%)!important;color:#3d291c!important;font-weight:800!important;letter-spacing:-.02em;box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 -2px 0 rgba(120,84,20,.28) inset,0 10px 26px rgba(201,164,92,.38),0 2px 6px rgba(0,0,0,.3)!important;overflow:hidden}
+html .ab-hero .ab-pay{position:relative;gap:16px!important;padding:12px 14px 12px clamp(26px,2vw,36px)!important;border-radius:999px!important;background:linear-gradient(180deg,#f6e3ab 0%,#e4c176 52%,#cfa24f 100%)!important;color:#391d12!important;font-weight:800!important;letter-spacing:-.02em;box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 -2px 0 rgba(120,84,20,.28) inset,0 10px 26px rgba(201,164,92,.38),0 2px 6px rgba(0,0,0,.3)!important;overflow:hidden}
 html .ab-hero .ab-pay::before{content:"";position:absolute;inset:0 auto 0 -60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:abshine 4.8s ease-in-out 1.2s infinite;pointer-events:none}
 @keyframes abshine{0%,70%{left:-60%}100%{left:130%}}
-html .ab-hero .ab-pay b{padding:7px 16px!important;border:0!important;border-radius:999px;background:#3d291c;color:#f0d99b!important;font-size:.88em!important;font-weight:800!important;box-shadow:0 1px 0 rgba(255,255,255,.12) inset}
-html .ab-hero .ab-pay::after{content:"";flex:none;width:.5em;height:.5em;margin:0 6px 0 -4px;border-top:2.5px solid #3d291c;border-right:2.5px solid #3d291c;transform:rotate(45deg);transition:transform .18s}
+html .ab-hero .ab-pay b{padding:7px 16px!important;border:0!important;border-radius:999px;background:#391d12;color:#f0d99b!important;font-size:.88em!important;font-weight:800!important;box-shadow:0 1px 0 rgba(255,255,255,.12) inset}
+html .ab-hero .ab-pay::after{content:"";flex:none;width:.5em;height:.5em;margin:0 6px 0 -4px;border-top:2.5px solid #391d12;border-right:2.5px solid #391d12;transform:rotate(45deg);transition:transform .18s}
 html .ab-hero .ab-pay:hover{background:linear-gradient(180deg,#fbeab8 0%,#ebca82 52%,#d7ab57 100%)!important;transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 -2px 0 rgba(120,84,20,.28) inset,0 14px 32px rgba(201,164,92,.5),0 2px 6px rgba(0,0,0,.3)!important}
 html .ab-hero .ab-pay:hover::after{transform:translateX(3px) rotate(45deg)}
 @media (prefers-reduced-motion:reduce){html .ab-hero .ab-pay::before{animation:none;display:none}}
@@ -386,18 +386,18 @@ html .pk .kp{font-size:clamp(26px,1.9vw,34px);font-weight:800;letter-spacing:-.0
 html .pk .kp small{font-size:.5em;margin-left:2px;font-weight:700}
 html .pk s{font-size:clamp(13px,.9vw,15px);color:rgba(255,255,255,.6);min-height:1.2em}
 html .pk .km{margin-top:3px;font-size:clamp(13.5px,.95vw,15.5px);color:rgba(255,255,255,.9);font-weight:600}
-html .pk.rec{background:linear-gradient(145deg,#f6e3ab 0%,#e2be6e 55%,#c99a45 100%);color:#281b13;border:0;transform:scale(1.04);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 20px 40px rgba(201,164,92,.5),0 4px 10px rgba(0,0,0,.35)}
+html .pk.rec{background:linear-gradient(145deg,#f6e3ab 0%,#e2be6e 55%,#c99a45 100%);color:#26130c;border:0;transform:scale(1.04);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 20px 40px rgba(201,164,92,.5),0 4px 10px rgba(0,0,0,.35)}
 html .pk.rec:hover{transform:scale(1.04) translateY(-4px)}
 html .pk.rec .kd{color:#6b4d12}
-html .pk.rec s{color:rgba(40,27,19,.6)}
-html .pk.rec .km{color:#281b13;font-weight:700}
-html .pk .kb{position:absolute;top:-13px;right:14px;font-style:normal;padding:5px 14px;border-radius:999px;background:#281b13;color:#f0d99b;font-size:14px;font-weight:800;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+html .pk.rec s{color:rgba(38,19,12,.6)}
+html .pk.rec .km{color:#26130c;font-weight:700}
+html .pk .kb{position:absolute;top:-13px;right:14px;font-style:normal;padding:5px 14px;border-radius:999px;background:#26130c;color:#f0d99b;font-size:14px;font-weight:800;box-shadow:0 4px 10px rgba(0,0,0,.35)}
 html .ab-pc .kn{grid-column:1/-1;margin:4px 0 0;padding:10px 14px;border-radius:10px;background:rgba(13,14,16,.82);font-size:clamp(13.5px,.95vw,15.5px);color:rgba(255,255,255,.92);line-height:1.5;text-align:center}
 @media (max-width:860px){html .ab-pc{width:100%;transform:none}html .ab-pc:hover{transform:none}}
 @media (prefers-reduced-motion:reduce){html .ab-pc,html .pk{transition:none}}
 html .pk .kt{display:flex;align-items:center;justify-content:space-between;gap:8px}
 html .pk .kr{font-style:normal;padding:3px 9px;border-radius:999px;background:rgba(230,200,131,.18);color:#f0d99b;font-size:clamp(12.5px,.85vw,14px);font-weight:800;white-space:nowrap}
-html .pk.rec .kr{background:#281b13;color:#f0d99b}
+html .pk.rec .kr{background:#26130c;color:#f0d99b}
 html .pk .km{white-space:nowrap}
 html .pk .kb{left:16px;right:auto}
 /* 쿠폰형 요금 카드 (비스듬한 티켓, 오른쪽 홈) */
@@ -412,7 +412,7 @@ html .pk::before{content:"";position:absolute;right:20px;top:14px;bottom:14px;bo
 html .pk .kp{font-size:clamp(28px,2.1vw,38px);margin-top:2px}
 html .pk .kt{padding-right:6px}
 html .pk.rec{transform:none;background:linear-gradient(135deg,rgba(255,255,255,.35) 0 28%,transparent 28% 58%,rgba(255,255,255,.18) 58% 76%,transparent 76%),linear-gradient(120deg,#f6e3ab 0%,#e2be6e 55%,#c99a45 100%);box-shadow:none}
-html .pk.rec::before{border-left-color:rgba(40,27,19,.3)}
+html .pk.rec::before{border-left-color:rgba(38,19,12,.3)}
 html .pk.rec:hover{transform:translateY(-4px) rotate(1.5deg)}
 html .pk .kb{top:9px;left:14px;border-radius:999px;padding:3px 11px;font-size:13px;z-index:2}
 html .pk.rec{padding-top:38px}
