@@ -417,3 +417,16 @@ html .pk.rec:hover{transform:translateY(-4px) rotate(1.5deg)}
 html .pk .kb{top:9px;left:14px;border-radius:999px;padding:3px 11px;font-size:13px;z-index:2}
 html .pk.rec{padding-top:38px}
 @media (max-width:860px){html .ab-pc{transform:none;filter:none}html .pk:nth-child(even){transform:none}}
+/* 요금 쿠폰: 한 줄씩 세로로 길쭉하게 */
+html .ab-pc{width:clamp(360px,25vw,450px);grid-template-columns:1fr;gap:16px;transform:rotate(-4deg)}
+html .pk,html .pk:nth-child(even){transform:none;display:grid;grid-template-columns:92px 1fr auto;grid-template-rows:auto auto;column-gap:14px;align-items:center;padding:14px 34px 14px 20px;min-height:84px}
+html .pk .kt{grid-column:1;grid-row:1/3;flex-direction:column;align-items:flex-start;gap:6px;padding:0}
+html .pk .kd{font-size:clamp(16px,1.1vw,19px)}
+html .pk .kp{grid-column:2;grid-row:1;margin:0;font-size:clamp(26px,1.9vw,34px)}
+html .pk s{grid-column:2;grid-row:2;min-height:0}
+html .pk .km{grid-column:3;grid-row:1/3;margin:0;text-align:right;font-size:clamp(13px,.9vw,15px)}
+html .pk.rec,html .pk.rec:nth-child(even){padding-top:30px;min-height:96px}
+html .pk .kb{top:7px;left:16px}
+html .pk:hover,html .pk:nth-child(even):hover,html .pk.rec:hover{transform:translateX(-6px)}
+@media (max-width:860px){html .ab-pc{width:100%;transform:none}html .pk{grid-template-columns:84px 1fr auto}}
+html .pk s.kz{text-decoration:none;color:rgba(255,255,255,.55)}
