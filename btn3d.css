@@ -472,3 +472,16 @@ html .pk:not(.rec) .kr{background:rgba(255,255,255,.18);color:#e9fbf2}
 html .pk:not(.rec) s{color:rgba(255,255,255,.6)}
 html .pk:not(.rec) .km{color:#c9f2de}
 html .pk.rec{margin-left:2px}
+/* 모바일(앱) 요금 쿠폰: 2×2 맞춤, 기울임 없음 */
+@media (max-width:860px){
+html .ab-pc{width:100%;max-width:100%;transform:none;filter:drop-shadow(0 10px 12px rgba(0,0,0,.45));grid-template-columns:1fr 1fr;gap:14px 12px;align-items:stretch;margin:0}
+html .pk,html .pk:nth-child(even),html .pk.rec,html .pk.rec:nth-child(even){min-height:222px;padding:16px 10px 0 14px;gap:5px;border-radius:14px}
+html .pk.rec,html .pk.rec:nth-child(even){min-height:222px;padding-top:40px;margin-left:0}
+html .pk .kd{font-size:16px}
+html .pk .kr{font-size:12.5px;padding:3px 8px}
+html .pk .kp{font-size:clamp(22px,6.4vw,27px);margin-top:8px}
+html .pk s{font-size:12.5px}
+html .pk .km{font-size:13.5px;height:24%}
+html .pk .kb{top:10px;left:12px;font-size:12.5px;padding:4px 10px}
+html .pk:hover,html .pk:nth-child(even):hover,html .pk.rec:hover{transform:none}
+}
