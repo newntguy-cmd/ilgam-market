@@ -4,16 +4,16 @@
   function css() {
     var st = document.createElement('style');
     st.textContent = '#igguide{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(27,18,13,.68);font-family:inherit}#igguide[hidden]{display:none}'
-    + '#igguide .p{width:min(720px,100%);max-height:92vh;overflow:auto;background:#fffdf8;color:#3f2b1e;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.5);border-top:5px solid #c9a45c}'
+    + '#igguide .p{width:min(720px,100%);max-height:92vh;overflow:auto;background:#fffdf8;color:#402719;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.5);border-top:5px solid #c9a45c}'
     + '#igguide .h{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:20px 28px 14px;background:#fffdf8;border-bottom:1px solid #eadfc6}'
-    + '#igguide h2{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em}#igguide .x{width:44px;height:44px;border:0;border-radius:50%;background:#efe9da;color:#3f2b1e;font-size:24px;cursor:pointer}'
-    + '#igguide .b{padding:8px 28px 30px}#igguide h3{margin:28px 0 10px;font-size:21px;font-weight:800;letter-spacing:-.02em;color:#3f2b1e}'
-    + '#igguide p{margin:0 0 8px;font-size:18px;line-height:1.75;color:#6e4b34}#igguide .k{color:#8a6a28;font-weight:800}'
-    + '#igguide ul{margin:0;padding:0;list-style:none}#igguide li{padding:11px 0;border-bottom:1px dashed #e6dcc4;font-size:18px;line-height:1.6;color:#6e4b34}#igguide li b{color:#3f2b1e}'
-    + '#igguide ol{margin:0;padding:0;list-style:none;counter-reset:s}#igguide ol li{counter-increment:s;position:relative;padding-left:46px}#igguide ol li::before{content:counter(s);position:absolute;left:0;top:9px;width:30px;height:30px;border-radius:50%;background:#3f2b1e;color:#e6c883;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}'
-    + '#igguide .gift{margin:18px 0 0;padding:20px 22px;border-radius:12px;background:#3f2b1e;color:#fff}#igguide .gift b{display:block;font-size:22px;color:#e6c883;margin-bottom:6px}#igguide .gift span{font-size:17px;line-height:1.65;color:#dbe4f3}'
+    + '#igguide h2{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em}#igguide .x{width:44px;height:44px;border:0;border-radius:50%;background:#efe9da;color:#402719;font-size:24px;cursor:pointer}'
+    + '#igguide .b{padding:8px 28px 30px}#igguide h3{margin:28px 0 10px;font-size:21px;font-weight:800;letter-spacing:-.02em;color:#402719}'
+    + '#igguide p{margin:0 0 8px;font-size:18px;line-height:1.75;color:#70432c}#igguide .k{color:#8a6a28;font-weight:800}'
+    + '#igguide ul{margin:0;padding:0;list-style:none}#igguide li{padding:11px 0;border-bottom:1px dashed #e6dcc4;font-size:18px;line-height:1.6;color:#70432c}#igguide li b{color:#402719}'
+    + '#igguide ol{margin:0;padding:0;list-style:none;counter-reset:s}#igguide ol li{counter-increment:s;position:relative;padding-left:46px}#igguide ol li::before{content:counter(s);position:absolute;left:0;top:9px;width:30px;height:30px;border-radius:50%;background:#402719;color:#e6c883;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}'
+    + '#igguide .gift{margin:18px 0 0;padding:20px 22px;border-radius:12px;background:#402719;color:#fff}#igguide .gift b{display:block;font-size:22px;color:#e6c883;margin-bottom:6px}#igguide .gift span{font-size:17px;line-height:1.65;color:#dbe4f3}'
     + '#igguide .cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}#igguide .cta button{height:56px;padding:0 30px;border:0;border-radius:6px;font-size:18px;font-weight:800;font-family:inherit;cursor:pointer}'
-    + '#igguide .cta .j{color:#3f2b1e;background:linear-gradient(180deg,#f1d795,#c9a45c 60%,#b08c44);box-shadow:0 4px 0 #8a6a28}#igguide .cta .c{background:#efe9da;color:#3f2b1e}'
+    + '#igguide .cta .j{color:#402719;background:linear-gradient(180deg,#f1d795,#c9a45c 60%,#b08c44);box-shadow:0 4px 0 #8a6a28}#igguide .cta .c{background:#efe9da;color:#402719}'
     + '#igguide .n{margin:22px 0 0;font-size:14.5px;line-height:1.65;color:#977e64}';
     document.head.appendChild(st);
   }
