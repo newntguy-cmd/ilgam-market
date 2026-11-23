@@ -273,7 +273,7 @@ header.top .gnb>a,header.top .gnb>button{color:var(--ink)!important;font-weight:
 header.top .acc>button.jn{background:#38261a!important;color:#e6c883!important;border:0!important;box-shadow:none!important;border-radius:10px!important}
 header.top .acc>button:not(.jn){background:transparent!important;border:1px solid #e3d9bf!important;box-shadow:none!important;border-radius:10px!important}
 .ab-hero{margin:14px 18px 0!important;border-radius:30px!important;overflow:hidden!important}
-.ab-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(33,22,15,.62) 0%,rgba(33,22,15,.28) 55%,rgba(33,22,15,0) 100%);pointer-events:none}
+.ab-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,16,36,.62) 0%,rgba(7,16,36,.28) 55%,rgba(7,16,36,0) 100%);pointer-events:none}
 .ab-hero h1,.ab-hero p{text-shadow:0 2px 18px rgba(0,0,0,.45)}
 .ab-ln span{color:#f0d79b!important;border-bottom-color:#f0d79b!important;text-shadow:none!important}
 .ab-data{background:#faf7f0!important;color:var(--ink)!important;border:0!important;padding-top:64px!important}
@@ -302,10 +302,10 @@ header.top .acc>button:not(.jn){background:transparent!important;border:1px soli
 @media (min-width:761px) and (max-width:1040px){.gnb>*,header.top nav>*,.gnb>a.tablink,header.top nav>a.tablink,.gnb button,.gnb .tablink{padding-left:9px!important;padding-right:9px!important;font-size:16.5px!important}}
 /* v85 hero photo: 남색 막을 걷고 노을빛을 살림. 글씨는 왼쪽 은은한 스크림 + 그림자로 또렷하게 */
 html .ab-ph{filter:saturate(1.18) contrast(1.04) brightness(1.02)!important;opacity:1!important}
-html .ab-hero.has-photo::before{background-image:linear-gradient(90deg,rgba(35,23,16,.58) 0%,rgba(35,23,16,.34) 34%,rgba(35,23,16,.08) 62%,rgba(35,23,16,0) 100%)!important}
-html .ab-ph::after{background:linear-gradient(180deg,rgba(35,23,16,.0) 0%,rgba(35,23,16,0) 70%,rgba(35,23,16,.30) 100%)!important}
-html .ab-hero .ab-ht h1,html .ab-hero .ab-ht h1 em,html .ab-hero .ab-ht p{text-shadow:0 2px 18px rgba(27,18,12,.55),0 1px 3px rgba(27,18,12,.5)}
-@media (max-width:760px){html .ab-hero.has-photo::before{background-image:linear-gradient(180deg,rgba(35,23,16,.58) 0%,rgba(35,23,16,.40) 45%,rgba(35,23,16,.12) 80%,rgba(35,23,16,0) 100%)!important}}
+html .ab-hero.has-photo::before{background-image:linear-gradient(90deg,rgba(8,18,38,.58) 0%,rgba(8,18,38,.34) 34%,rgba(8,18,38,.08) 62%,rgba(8,18,38,0) 100%)!important}
+html .ab-ph::after{background:linear-gradient(180deg,rgba(8,18,38,.0) 0%,rgba(8,18,38,0) 70%,rgba(8,18,38,.30) 100%)!important}
+html .ab-hero .ab-ht h1,html .ab-hero .ab-ht h1 em,html .ab-hero .ab-ht p{text-shadow:0 2px 18px rgba(6,14,30,.55),0 1px 3px rgba(6,14,30,.5)}
+@media (max-width:760px){html .ab-hero.has-photo::before{background-image:linear-gradient(180deg,rgba(8,18,38,.58) 0%,rgba(8,18,38,.40) 45%,rgba(8,18,38,.12) 80%,rgba(8,18,38,0) 100%)!important}}
 /* v86 hero 꽉 채우기: 큰 화면에서 컨텐츠 폭을 넓히고 글씨·카드를 화면 크기에 맞춰 키움 */
 @media (min-width:1200px){
 html .ab-hero .wrap{max-width:none!important;padding-left:clamp(48px,5.5vw,150px)!important;padding-right:clamp(48px,5.5vw,150px)!important}
@@ -433,3 +433,34 @@ html .pk s.kz{text-decoration:none;color:rgba(255,255,255,.55)}
 /* 요금 쿠폰은 차콜 유지 (사이트 포인트는 브라운) */
 html .pk:not(.rec){background:linear-gradient(135deg,rgba(255,255,255,.07) 0 28%,transparent 28% 58%,rgba(255,255,255,.05) 58% 76%,transparent 76%),linear-gradient(120deg,#343a43 0%,#1a1d22 70%)}
 html .pk .kb{background:#1b1c1e}
+/* 요금 쿠폰: 세로로 길쭉한 티켓 4장을 한 줄로 */
+html .ab-pc{width:clamp(500px,36vw,620px);grid-template-columns:repeat(4,1fr);gap:12px;align-items:end;transform:rotate(-4deg)}
+html .pk,html .pk:nth-child(even),html .pk.rec,html .pk.rec:nth-child(even){display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;min-height:230px;padding:18px 12px 0 14px;
+ -webkit-mask:radial-gradient(circle 11px at 0 74%,transparent 96%,#000 100%),radial-gradient(circle 11px at 100% 74%,transparent 96%,#000 100%);-webkit-mask-composite:source-in;
+ mask:radial-gradient(circle 11px at 0 74%,transparent 96%,#000 100%),radial-gradient(circle 11px at 100% 74%,transparent 96%,#000 100%);mask-composite:intersect}
+html .pk.rec,html .pk.rec:nth-child(even){min-height:262px;padding-top:36px}
+html .pk::before,html .pk.rec::before{left:14px;right:14px;top:74%;bottom:auto;border-left:0;border-top:2px dashed rgba(255,255,255,.25)}
+html .pk.rec::before{border-top-color:rgba(27,28,30,.3)}
+html .pk .kt{grid-column:auto;grid-row:auto;flex-direction:column;align-items:flex-start;gap:7px;padding:0}
+html .pk .kd{font-size:clamp(15px,1.05vw,18px)}
+html .pk .kp{grid-column:auto;grid-row:auto;margin-top:8px;font-size:clamp(20px,1.55vw,27px);white-space:nowrap}
+html .pk .kp small{font-size:.55em}
+html .pk s{grid-column:auto;grid-row:auto;font-size:clamp(12px,.8vw,14px)}
+html .pk .km{grid-column:auto;grid-row:auto;position:absolute;left:14px;right:10px;bottom:0;height:26%;display:flex;align-items:center;margin:0;text-align:left;white-space:normal;font-size:clamp(12.5px,.88vw,14.5px);line-height:1.25}
+html .pk .kb{top:9px;left:12px}
+html .pk:hover,html .pk:nth-child(even):hover,html .pk.rec:hover{transform:translateY(-8px)}
+@media (max-width:860px){html .ab-pc{width:100%;transform:none;grid-template-columns:repeat(2,1fr)}html .pk,html .pk.rec{min-height:210px}}
+/* 세로 티켓 크게·예쁘게 */
+html .ab-pc{width:clamp(560px,42vw,700px);gap:16px;transform:rotate(-5deg)}
+html .pk,html .pk:nth-child(even),html .pk.rec,html .pk.rec:nth-child(even){min-height:clamp(290px,22vw,340px);padding:24px 14px 0 18px;gap:8px;border-radius:16px;box-shadow:none}
+html .pk.rec,html .pk.rec:nth-child(even){min-height:clamp(326px,25vw,380px);padding-top:50px}
+html .pk .kd{font-size:clamp(18px,1.3vw,23px);letter-spacing:-.02em}
+html .pk .kr{font-size:clamp(13px,.9vw,15px);padding:4px 10px}
+html .pk .kp{margin-top:14px;font-size:clamp(25px,1.95vw,34px);letter-spacing:-.045em;line-height:1.05}
+html .pk .kp small{display:inline;margin:0 0 0 2px;font-size:.5em;font-weight:700}
+html .pk s{font-size:clamp(13px,.9vw,15.5px)}
+html .pk .km{font-size:clamp(14px,1vw,16.5px);font-weight:800;color:#f0d99b}
+html .pk.rec .km{color:#1b1c1e}
+html .pk .kb{top:14px;left:16px;font-size:clamp(13px,.9vw,15px);padding:5px 12px}
+html .pk::after{content:"";position:absolute;left:0;right:0;top:0;height:42%;border-radius:16px 16px 0 0;background:linear-gradient(180deg,rgba(255,255,255,.1),transparent);pointer-events:none}
+html .pk.rec::after{background:linear-gradient(180deg,rgba(255,255,255,.45),transparent)}
