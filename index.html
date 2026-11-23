@@ -660,6 +660,66 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 </section>
 
 
+<style id="rdrcss">
+.rdr{background:#faf7f0;padding:46px 0 50px;border-top:1px solid #e6dcc2}
+.rdr h2{margin:0;font-size:clamp(24px,2.4vw,34px);font-weight:700;letter-spacing:-.04em;color:#0f2342;line-height:1.3}
+.rsub{margin:8px 0 22px;font-size:17px;color:#4a5a73}
+.rbox{display:grid;grid-template-columns:minmax(300px,520px) 1fr;gap:28px;align-items:start}
+.rmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.rt{position:relative;aspect-ratio:1/1;border:0;border-radius:14px;cursor:pointer;font-family:inherit;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--c,#1a3358);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 6px 14px rgba(15,35,66,.18);opacity:0;transform:scale(.8);animation:rtin .5s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0s);transition:box-shadow .15s}
+.rt b{font-size:clamp(15px,1.3vw,18px);font-weight:700;letter-spacing:-.03em}
+.rt span{font-size:clamp(14px,1.1vw,16px);font-weight:600;opacity:.92;font-variant-numeric:tabular-nums}
+.rt.lo{color:#0f2342}
+.rt:hover{box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 10px 20px rgba(15,35,66,.28)}
+.rt[aria-pressed="true"]{outline:3px solid #c9a45c;outline-offset:2px}
+.rt:focus-visible{outline:3px solid #0f2342;outline-offset:2px}
+@keyframes rtin{to{opacity:1;transform:none}}
+.rpn{min-height:330px;border:1px solid #e6dcc2;border-radius:14px;background:#fff;padding:22px 24px;box-shadow:0 8px 24px rgba(15,35,66,.07)}
+.rph{color:#6b788e;font-size:18px;padding:90px 0;text-align:center}
+.rpn h3{margin:0;font-size:clamp(22px,2vw,28px);letter-spacing:-.04em;color:#0f2342}
+.rpn h3 em{font-style:normal;color:#9a7428}
+.rks{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.rks span{padding:5px 12px;border-radius:999px;background:#fbf5e6;border:1px solid #e6d6a8;font-size:15px;font-weight:600;color:#33425b}
+.rls{list-style:none;margin:10px 0 16px;padding:0}
+.rls li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #eef0f4;font-size:16px;color:#1d2b45}
+.rls li i{font-style:normal;font-weight:700;white-space:nowrap}
+.rpn .rgo{height:48px;padding:0 24px;border:0;border-radius:12px;font:700 17px inherit;font-family:inherit;cursor:pointer}
+@media (max-width:860px){.rbox{grid-template-columns:1fr}.rpn{min-height:300px}}
+@media (prefers-reduced-motion:reduce){.rt{animation:none;opacity:1;transform:none}}
+</style>
+<section class="rdr" id="rdr" aria-label="이번 주 지역별 낙찰 레이더"><div class="wrap">
+<h2>이번 주, 어느 지역에서 낙찰이 터졌을까</h2>
+<p class="rsub" id="rSub">지역을 누르면 그 지역 낙찰이 바로 보여요</p>
+<div class="rbox"><div class="rmap" id="rMap" role="list"></div>
+<div class="rpn" id="rPn" aria-live="polite"><div class="rph">지역을 눌러 보세요</div></div></div>
+</div></section>
+<script>(function(){
+var POS={'서울':[1,0],'강원':[3,0],'인천':[0,1],'경기':[1,1],'충북':[2,1],'충남':[1,2],'세종':[2,2],'경북':[3,2],'전북':[1,3],'대전':[2,3],'대구':[3,3],'울산':[4,3],'광주·전남':[1,4],'경남':[2,4],'부산':[3,4],'제주':[1,5]};
+var map=document.getElementById('rMap'),pn=document.getElementById('rPn');if(!map||!pn)return;
+function won(n){return n>=1e8?(n/1e8).toFixed(1).replace(/\.0$/,'')+'억':Math.round(n/1e4).toLocaleString('ko-KR')+'만'}
+fetch('data/recent.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){
+ var it=(d.items||[]).filter(function(x){return x.s==='낙찰'&&x.rg&&POS[x.rg]});if(!it.length)return;
+ var mx=it.reduce(function(m,x){return x.d>m?x.d:m},'');var dt=new Date(mx);dt.setDate(dt.getDate()-6);var lo=dt.toISOString().slice(0,10);
+ it=it.filter(function(x){return x.d>=lo});
+ var by={};it.forEach(function(x){(by[x.rg]=by[x.rg]||[]).push(x)});
+ var max=0;Object.keys(by).forEach(function(k){if(by[k].length>max)max=by[k].length});
+ document.getElementById('rSub').textContent=lo.slice(5).replace('-','.')+'~'+mx.slice(5).replace('-','.')+' 낙찰 '+it.length.toLocaleString('ko-KR')+'건 · 지역을 누르면 그 지역 낙찰이 바로 보여요';
+ var order=Object.keys(POS).sort(function(a,b){return POS[a][1]-POS[b][1]||POS[a][0]-POS[b][0]});
+ var sel=null;
+ order.forEach(function(k,i){var n=(by[k]||[]).length,t=n/max;var b=document.createElement('button');b.type='button';b.className='rt'+(t<.22?' lo':'');b.setAttribute('role','listitem');b.setAttribute('aria-pressed','false');
+  b.style.gridColumn=POS[k][0]+1;b.style.gridRow=POS[k][1]+1;b.style.setProperty('--d',(i*0.045)+'s');
+  var c=t<.22?'#e9eef7':t<.5?'#3d5f94':t<.8?'#1f3e72':'#0f2342';if(t>=.8)b.style.boxShadow='0 0 0 2px #c9a45c inset,0 6px 14px rgba(15,35,66,.25)';b.style.setProperty('--c',c);
+  var nm=document.createElement('b');nm.textContent=k;var ct=document.createElement('span');ct.textContent=n.toLocaleString('ko-KR')+'건';b.appendChild(nm);b.appendChild(ct);
+  b.addEventListener('click',function(){if(sel)sel.setAttribute('aria-pressed','false');sel=b;b.setAttribute('aria-pressed','true');show(k)});map.appendChild(b)});
+ function show(k){var L=(by[k]||[]).slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:b.amt-a.amt});var tot=L.reduce(function(s,x){return s+(x.amt||0)},0);
+  var kc={};L.forEach(function(x){var q=x.kind||'';if(q)kc[q]=(kc[q]||0)+1});var ks=Object.keys(kc).sort(function(a,b){return kc[b]-kc[a]}).slice(0,3);
+  pn.textContent='';var h=document.createElement('h3');h.appendChild(document.createTextNode(k+' 이번 주 낙찰 '));var em=document.createElement('em');em.textContent=L.length.toLocaleString('ko-KR')+'건';h.appendChild(em);h.appendChild(document.createTextNode(' · '+won(tot)));pn.appendChild(h);
+  if(ks.length){var w=document.createElement('div');w.className='rks';ks.forEach(function(q){var sp=document.createElement('span');sp.textContent=q.replace(/공사업$/,'')+' '+kc[q]+'건';w.appendChild(sp)});pn.appendChild(w)}
+  var ul=document.createElement('ul');ul.className='rls';L.slice(0,4).forEach(function(x){var li=document.createElement('li');var a=document.createElement('span');a.textContent=x.nm.length>34?x.nm.slice(0,33)+'…':x.nm;var m=document.createElement('i');m.textContent=won(x.amt||0);li.appendChild(a);li.appendChild(m);ul.appendChild(li)});pn.appendChild(ul);
+  var g=document.createElement('button');g.type='button';g.className='go rgo';g.setAttribute('data-act','join');g.textContent=k+' 낙찰, 아침마다 받기';pn.appendChild(g)}
+ var top=order.slice().sort(function(a,b){return (by[b]||[]).length-(by[a]||[]).length})[0];var tb=map.children;for(var i=0;i<tb.length;i++){if(tb[i].firstChild.textContent===top){tb[i].click();break}}
+}).catch(function(){var r=document.getElementById('rdr');if(r)r.hidden=true});
+})();</script>
 <section class="ab-sec ab-bd" id="bdsec" hidden><div class="wrap"><h2>놓치면 안 될 공고, 뭐가 있지?</h2>
 <p class="ab-bds" id="bdsub"></p>
 <div class="ab-bdg" id="bdg"></div>
