@@ -52,6 +52,8 @@ def build(d, out, site, linked):
         rg = next((r["rg"] for r in rows if r.get("rg") and r["rg"] != "미분류"), "")
         total = sum(r["amt"] for r in rows)
         cos = len({r.get("co") for r in rows if r.get("co")})
+        rt = sorted(float(r["rate"]) for r in rows if r.get("rate") and 50 <= float(r["rate"]) <= 100.5)
+        rtx = (f' · 낙찰률 <b>{rt[0]:.1f}~{rt[-1]:.1f}%</b> (가운데 {rt[len(rt)//2]:.1f}%)' if len(rt) >= 5 else "")
         title = f"{name} 낙찰 현장·업체 {len(rows):,}건 | 일감마켓"
         desc = f"{name}에서 낸 공사 중 최근 낙찰된 {len(rows):,}건과 낙찰 업체 {cos:,}곳, 합계 {money(total)}. {md(lo)}~{md(hi)} 조달청 나라장터 공공데이터를 매일 갱신합니다."
         trs = ""
@@ -66,7 +68,7 @@ def build(d, out, site, linked):
         crumb = '<a href="/">일감마켓</a>' + (f' › <a href="/a/{quote(re.sub(r"[·ㆍ\s/]+", "-", rg))}/">{e(rg)} 낙찰</a>' if rg else "")
         body = f'''<main class="wrap"><p class="crumb">{crumb}</p>
 <h1>{e(name)} 낙찰 현장</h1>
-<p class="sum">최근 낙찰 <b>{len(rows):,}건</b> · 낙찰 업체 <b>{cos:,}곳</b> · 합계 <b>{money(total)}</b> · {md(lo)}~{md(hi)} 기준</p>
+<p class="sum">최근 낙찰 <b>{len(rows):,}건</b> · 낙찰 업체 <b>{cos:,}곳</b> · 합계 <b>{money(total)}</b>{rtx} · {md(lo)}~{md(hi)} 기준</p>
 {('<section class="card cta"><h2>' + e(rg) + '에 새 낙찰이 나면, 아침마다 메일로</h2><p>매일 아침 7:30, ' + e(rg) + '의 새 낙찰 현장과 업체를 보내드려요.</p><a class="btn" href="/?join=1&amp;rg=' + quote(rg) + '">알림 받아보기</a></section>') if rg else ''}
 <section class="card"><h2>최근 낙찰</h2><table><tbody>{trs}</tbody></table>{'<p class="note">최근 ' + str(ROWS) + '건만 보여 드려요. 전체 목록은 일감마켓에서 확인할 수 있어요.</p>' if len(rows) > ROWS else ''}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 전체 낙찰 보기</a></p>
