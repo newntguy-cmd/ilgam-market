@@ -37,16 +37,16 @@ def build(rows, total=None, first=False, corp=None):
     cards = ""
     for r in rows:
         cards += (f'<tr><td style="padding:14px 20px;border-bottom:1px solid #e3e7ed">'
-                  f'<div style="font-size:16px;font-weight:700;color:#0f2342">{html.escape(r["co"])}</div>'
-                  f'<div style="font-size:14px;color:#46556d;margin-top:4px">{html.escape(r["nm"])}</div>'
+                  f'<div style="font-size:16px;font-weight:700;color:#26282b">{html.escape(r["co"])}</div>'
+                  f'<div style="font-size:14px;color:#55595e;margin-top:4px">{html.escape(r["nm"])}</div>'
                   f'<div style="font-size:13px;color:#6b788e;margin-top:4px">{html.escape(r.get("rg") or "")} · {html.escape(r.get("d") or "")} · '
-                  f'<b style="color:#0f2342">{money(r.get("amt"))}</b></div>{tel_line(r, corp)}</td></tr>')
+                  f'<b style="color:#26282b">{money(r.get("amt"))}</b></div>{tel_line(r, corp)}</td></tr>')
     return f"""<div style="background:#eef0f3;padding:24px 12px;font-family:'Malgun Gothic',Apple SD Gothic Neo,sans-serif">
 <table role="presentation" width="100%" style="max-width:560px;margin:0 auto;background:#fff;border-radius:4px;overflow:hidden;border-collapse:collapse">
-<tr><td style="background:#0f2342;padding:18px 20px;border-bottom:3px solid #c9a45c;color:#fff;font-size:18px;font-weight:700">일감마켓 <span style="font-weight:400;font-size:13px;color:#aebbd1">새 낙찰 알림</span></td></tr>
-<tr><td style="padding:18px 20px 6px;font-size:15px;color:#0f2342">{'알림이 켜졌어요. 담아 두신 업체와 지역의 <b>최근 낙찰 '+str(total)+'건</b>을 먼저 보여 드려요. 다음부터는 새 낙찰이 나올 때만 보내요.' if first else '담아 두신 업체와 지역에 새 낙찰 <b>'+str(total)+'건</b>이 있어요.'}{f' 금액이 큰 순서로 {len(rows)}건만 보여 드려요.' if total > len(rows) else ''}</td></tr>
+<tr><td style="background:#26282b;padding:18px 20px;border-bottom:3px solid #c9a45c;color:#fff;font-size:18px;font-weight:700">일감마켓 <span style="font-weight:400;font-size:13px;color:#aebbd1">새 낙찰 알림</span></td></tr>
+<tr><td style="padding:18px 20px 6px;font-size:15px;color:#26282b">{'알림이 켜졌어요. 담아 두신 업체와 지역의 <b>최근 낙찰 '+str(total)+'건</b>을 먼저 보여 드려요. 다음부터는 새 낙찰이 나올 때만 보내요.' if first else '담아 두신 업체와 지역에 새 낙찰 <b>'+str(total)+'건</b>이 있어요.'}{f' 금액이 큰 순서로 {len(rows)}건만 보여 드려요.' if total > len(rows) else ''}</td></tr>
 {cards}
-<tr><td style="padding:20px;text-align:center"><a href="{SITE}/#wl" style="display:inline-block;padding:12px 22px;background:#c9a45c;color:#0f2342;font-weight:700;text-decoration:none;border-radius:4px">일감마켓에서 보기</a></td></tr>
+<tr><td style="padding:20px;text-align:center"><a href="{SITE}/#wl" style="display:inline-block;padding:12px 22px;background:#c9a45c;color:#26282b;font-weight:700;text-decoration:none;border-radius:4px">일감마켓에서 보기</a></td></tr>
 <tr><td style="padding:16px 20px;background:#f8f9fb;font-size:12px;color:#6b788e;line-height:1.6">이 메일은 일감마켓에서 알림을 켜 두셔서 보내드렸어요. 받고 싶지 않으시면 {SITE}/#wl 에서 로그인 후 알림을 끄시거나 {FROM} 으로 알려 주세요.<br>겟잇타운 · 통신판매업 신고 완료</td></tr>
 </table></div>"""
 
@@ -59,7 +59,7 @@ def tel_line(r, corp):
     t = (c.get("t") or "").strip()
     if not t or "*" in t: return ""
     num = "".join(ch for ch in t if ch.isdigit())
-    return (f'<div style="margin-top:8px"><a href="tel:{num}" style="display:inline-block;padding:7px 12px;background:#0f2342;color:#f0d99b;'
+    return (f'<div style="margin-top:8px"><a href="tel:{num}" style="display:inline-block;padding:7px 12px;background:#26282b;color:#f0d99b;'
             f'font-size:15px;font-weight:700;border-radius:6px;text-decoration:none">대표 전화 {html.escape(t)}</a></div>')
 
 def pro_emails():
