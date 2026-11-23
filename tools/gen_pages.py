@@ -57,7 +57,7 @@ for r in d["items"]:
     if r.get("b"):
         by.setdefault(r["b"], []).append(r)
 
-STYLE = "/page.css?v=2"
+STYLE = "/page.css?v=3"
 made = {}
 for biz, rows in by.items():
     rows.sort(key=lambda r: (r["d"], r["amt"]), reverse=True)
