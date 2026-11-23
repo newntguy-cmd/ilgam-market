@@ -400,3 +400,20 @@ html .pk .kr{font-style:normal;padding:3px 9px;border-radius:999px;background:rg
 html .pk.rec .kr{background:#1b1c1e;color:#f0d99b}
 html .pk .km{white-space:nowrap}
 html .pk .kb{left:16px;right:auto}
+/* 쿠폰형 요금 카드 (비스듬한 티켓, 오른쪽 홈) */
+html .ab-pc{gap:16px 14px;transform:rotate(-5deg);filter:drop-shadow(0 14px 16px rgba(0,0,0,.5))}
+html .ab-pc:hover{transform:rotate(-3deg)}
+html .pk{padding:18px 30px 16px 18px;border:0;border-radius:12px;box-shadow:none;overflow:visible;
+ background:linear-gradient(135deg,rgba(255,255,255,.07) 0 28%,transparent 28% 58%,rgba(255,255,255,.05) 58% 76%,transparent 76%),linear-gradient(120deg,#343a43 0%,#1a1d22 70%);
+ -webkit-mask:radial-gradient(circle 15px at 100% 50%,transparent 96%,#000 100%);mask:radial-gradient(circle 15px at 100% 50%,transparent 96%,#000 100%)}
+html .pk:nth-child(even){transform:translateY(8px)}
+html .pk:hover,html .pk:nth-child(even):hover{transform:translateY(-4px) rotate(1.5deg);box-shadow:none}
+html .pk::before{content:"";position:absolute;right:20px;top:14px;bottom:14px;border-left:2px dashed rgba(255,255,255,.22)}
+html .pk .kp{font-size:clamp(28px,2.1vw,38px);margin-top:2px}
+html .pk .kt{padding-right:6px}
+html .pk.rec{transform:none;background:linear-gradient(135deg,rgba(255,255,255,.35) 0 28%,transparent 28% 58%,rgba(255,255,255,.18) 58% 76%,transparent 76%),linear-gradient(120deg,#f6e3ab 0%,#e2be6e 55%,#c99a45 100%);box-shadow:none}
+html .pk.rec::before{border-left-color:rgba(27,28,30,.3)}
+html .pk.rec:hover{transform:translateY(-4px) rotate(1.5deg)}
+html .pk .kb{top:9px;left:14px;border-radius:999px;padding:3px 11px;font-size:13px;z-index:2}
+html .pk.rec{padding-top:38px}
+@media (max-width:860px){html .ab-pc{transform:none;filter:none}html .pk:nth-child(even){transform:none}}
