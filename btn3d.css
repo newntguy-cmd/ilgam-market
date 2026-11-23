@@ -375,3 +375,24 @@ html .ab-hero .ab-pay::after{content:"";flex:none;width:.5em;height:.5em;margin:
 html .ab-hero .ab-pay:hover{background:linear-gradient(180deg,#fbeab8 0%,#ebca82 52%,#d7ab57 100%)!important;transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 -2px 0 rgba(120,84,20,.28) inset,0 14px 32px rgba(201,164,92,.5),0 2px 6px rgba(0,0,0,.3)!important}
 html .ab-hero .ab-pay:hover::after{transform:translateX(3px) rotate(45deg)}
 @media (prefers-reduced-motion:reduce){html .ab-hero .ab-pay::before{animation:none;display:none}}
+
+/* 요금 카드: 비스듬히 놓인 4장, 12개월이 추천 */
+html .ab-pc{width:clamp(460px,31vw,600px);display:grid;grid-template-columns:1fr 1fr;gap:14px;transform:perspective(1200px) rotateY(-9deg) rotateZ(-3deg);transform-origin:center;transition:transform .35s ease}
+html .ab-pc:hover{transform:perspective(1200px) rotateY(-3deg) rotateZ(-1deg)}
+html .pc{position:relative;display:flex;flex-direction:column;gap:3px;padding:18px 20px 16px;border-radius:16px;text-decoration:none;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04)) ,rgba(9,22,47,.74);border:1px solid rgba(230,200,131,.32);backdrop-filter:blur(6px);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 18px 34px rgba(0,0,0,.38);transition:transform .2s,box-shadow .2s}
+html .pc:hover{transform:translateY(-5px);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 24px 40px rgba(0,0,0,.45)}
+html .pc .pd{font-size:clamp(15px,1.05vw,18px);font-weight:700;color:#e6c883}
+html .pc .pp{font-size:clamp(28px,2.1vw,38px);font-weight:800;letter-spacing:-.04em;line-height:1.1;font-variant-numeric:tabular-nums}
+html .pc .pp small{font-size:.5em;margin-left:2px;font-weight:700}
+html .pc s{font-size:clamp(13px,.9vw,15px);color:rgba(255,255,255,.55)}
+html .pc .pm{margin-top:4px;font-size:clamp(13.5px,.95vw,16px);color:rgba(255,255,255,.86);font-weight:600}
+html .pc.rec{grid-column:1/-1;transform:scale(1.03);background:linear-gradient(135deg,#f6e3ab 0%,#e0bb6a 55%,#c99a45 100%);color:#0f2342;border:0;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 22px 44px rgba(201,164,92,.45),0 4px 10px rgba(0,0,0,.35);flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding:20px 24px}
+html .pc.rec:hover{transform:scale(1.03) translateY(-5px)}
+html .pc.rec .pd{color:#6b4d12;font-size:clamp(17px,1.2vw,21px)}
+html .pc.rec .pp{font-size:clamp(34px,2.6vw,46px)}
+html .pc.rec s{color:rgba(15,35,66,.55)}
+html .pc.rec .pm{flex-basis:100%;margin-top:0;color:#0f2342;font-weight:700}
+html .pc .pb{position:absolute;top:-13px;right:18px;font-style:normal;padding:5px 14px;border-radius:999px;background:#0f2342;color:#f0d99b;font-size:14px;font-weight:800;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+html .ab-pc .pn{grid-column:1/-1;margin:2px 4px 0;font-size:clamp(13.5px,.95vw,15.5px);color:rgba(255,255,255,.8);line-height:1.5}
+@media (max-width:860px){html .ab-pc{width:100%;transform:none}html .ab-pc:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){html .ab-pc,html .pc{transition:none}}
