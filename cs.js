@@ -51,7 +51,7 @@
     + '#igcs details{border-bottom:1px solid #e6dcc4}#igcs summary{padding:15px 2px;font-size:18px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}#igcs summary::-webkit-details-marker{display:none}'
     + '#igcs summary::after{content:"+";color:#8a6a28;font-size:22px;line-height:1}#igcs details[open] summary::after{content:"−"}'
     + '#igcs details p{margin:0 0 16px;font-size:17px;line-height:1.7;color:#6e4b34}#igcs details a{color:#8a6a28;font-weight:700}'
-    + '#igcs .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6b7690}';
+    + '#igcs .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#977e64}';
     document.head.appendChild(st);
   }
   function pgcss() {
@@ -109,7 +109,7 @@
     + '#igbuy .er{margin:12px 0 0;color:#b3261e;font-size:15px;line-height:1.5}#igbuy .ok{padding:26px 6px 8px;text-align:center}#igbuy .ok b{display:block;font-size:22px;margin-bottom:8px}#igbuy .ok p{margin:0;font-size:17px;line-height:1.6;color:#6e4b34}'
     + '#igbuy .ph{display:flex;flex-wrap:wrap;gap:10px}#igbuy .addp{display:block;margin:0}#igbuy .addp span{display:flex;align-items:center;justify-content:center;width:96px;height:96px;border:1.5px dashed #c9b88e;border-radius:10px;background:#fff;color:#8a6a28;font-size:15px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}'
     + '#igbuy .th{position:relative;width:96px;height:96px;border-radius:10px;overflow:hidden;border:1px solid #d8cdb0;background:#fff}#igbuy .th img{width:100%;height:100%;object-fit:cover;display:block}#igbuy .th button{position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(63,43,30,.82);color:#fff;font-size:16px;line-height:1;cursor:pointer}'
-    + '#igbuy .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6b7690}#igbuy .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
+    + '#igbuy .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#977e64}#igbuy .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
     document.head.appendChild(st);
   }
   function bfill(kind) {
@@ -124,7 +124,7 @@
       + '<div><label for="ib_bn">성함 <i>필수</i></label><input id="ib_bn" type="text" maxlength="30" autocomplete="name"></div></div>'
       + '<label for="ib_bt">연락받을 전화번호 <i>필수</i></label><input id="ib_bt" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000">'
       + '<label for="ib_bm">전하실 말씀</label><textarea id="ib_bm" maxlength="600" placeholder="' + c.memo + '"></textarea>'
-      + '<label>사진 <small style="font-weight:400;color:#6b7690">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
+      + '<label>사진 <small style="font-weight:400;color:#977e64">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
       + '<div class="hp" aria-hidden="true"><input id="ib_bw" type="text" tabindex="-1" autocomplete="off"></div>'
       + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함⁠·⁠전화번호·문의 내용⁠·⁠사진을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
       + '<p class="er" id="ib_ber" role="alert" hidden></p><button class="go" id="ib_bgo" type="submit">' + c.send + '</button></form>'

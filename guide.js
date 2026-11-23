@@ -14,7 +14,7 @@
     + '#igguide .gift{margin:18px 0 0;padding:20px 22px;border-radius:12px;background:#3f2b1e;color:#fff}#igguide .gift b{display:block;font-size:22px;color:#e6c883;margin-bottom:6px}#igguide .gift span{font-size:17px;line-height:1.65;color:#dbe4f3}'
     + '#igguide .cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}#igguide .cta button{height:56px;padding:0 30px;border:0;border-radius:6px;font-size:18px;font-weight:800;font-family:inherit;cursor:pointer}'
     + '#igguide .cta .j{color:#3f2b1e;background:linear-gradient(180deg,#f1d795,#c9a45c 60%,#b08c44);box-shadow:0 4px 0 #8a6a28}#igguide .cta .c{background:#efe9da;color:#3f2b1e}'
-    + '#igguide .n{margin:22px 0 0;font-size:14.5px;line-height:1.65;color:#6b7690}';
+    + '#igguide .n{margin:22px 0 0;font-size:14.5px;line-height:1.65;color:#977e64}';
     document.head.appendChild(st);
   }
   function build() {
