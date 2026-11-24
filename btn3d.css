@@ -677,3 +677,10 @@ html .ab-data,html .rdr,html .hm,html main{background:transparent!important}
 html .rdr{border-top:1px solid #ddd2ba!important}
 html header.top{background:#faf7f0!important;border-bottom:1px solid #ddd2ba!important}
 html .ab-data .tick,html .ab-data .ticker,html .ab-data hr{border-color:#ddd2ba!important}
+/* v167 요금 쿠폰: 위아래로 늘씬하게, 줄 사이 간격 넓힘 */
+@media (min-width:861px){
+html .pk,html .pk:nth-child(even),html .pk.rec,html .pk.rec:nth-child(even){min-height:50cqw!important;padding-top:8cqw!important}
+html .pk .kp{margin-top:5.2cqw!important}
+html .pk s{margin-top:2cqw!important;min-height:2.8cqw!important}
+html .pk .km{top:calc(74% + 4.6cqw)!important}
+}
