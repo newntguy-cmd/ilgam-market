@@ -3,7 +3,7 @@
   var box, last;
   function css() {
     var st = document.createElement('style');
-    st.textContent = '#igguide{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(28,17,14,.68);font-family:inherit}#igguide[hidden]{display:none}'
+    st.textContent = '#igguide{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,22,44,.62);font-family:inherit}#igguide[hidden]{display:none}'
     + '#igguide .p{width:min(720px,100%);max-height:92vh;overflow:auto;background:#fffdf8;color:#402e24;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.5);border-top:5px solid #c9a45c}'
     + '#igguide .h{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:20px 28px 14px;background:#fffdf8;border-bottom:1px solid #eadfc6}'
     + '#igguide h2{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em}#igguide .x{width:44px;height:44px;border:0;border-radius:50%;background:#efe9da;color:#402e24;font-size:24px;cursor:pointer}'

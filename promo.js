@@ -10,7 +10,7 @@
   }
   function css() {
     var st = document.createElement('style');
-    st.textContent = '#ighold{position:fixed;inset:0;z-index:2147483001;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(28,17,14,.7);font-family:inherit}#ighold[hidden]{display:none}'
+    st.textContent = '#ighold{position:fixed;inset:0;z-index:2147483001;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,22,44,.62);font-family:inherit}#ighold[hidden]{display:none}'
     + '#ighold .p{position:relative;width:min(520px,100%);padding:34px 28px 24px;border-radius:16px;text-align:center;color:#402e24;background:linear-gradient(180deg,#fff7dc,#f6e3a8);box-shadow:0 26px 60px rgba(0,0,0,.5)}'
     + '#ighold .x{position:absolute;right:12px;top:12px;width:42px;height:42px;border:0;border-radius:8px;background:#714930;color:#fff;font-size:20px;cursor:pointer}'
     + '#ighold h2{margin:0 0 4px;font-size:34px;font-weight:800;letter-spacing:-.03em}#ighold h2+p{margin:0 0 18px;font-size:24px;font-weight:800;letter-spacing:-.02em}#ighold h2+p em{font-style:normal;background:linear-gradient(transparent 58%,rgba(201,164,92,.6) 58%)}'
