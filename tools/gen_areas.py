@@ -154,8 +154,8 @@ def build(d, out, site, linked):
     if os.path.isdir(adir):
         shutil.rmtree(adir)
     urls = []
-    css = ('.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0}.chip{display:inline-block;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid #e8ded2;color:#3e271f;text-decoration:none;font-weight:600}'
-           '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.cta p{margin:6px 0 14px}td.co{white-space:nowrap}@media(max-width:640px){.card table,.card tbody{display:block}.card tr{display:grid;grid-template-columns:46px minmax(0,1fr) auto;grid-template-areas:"d n a" "d c c";column-gap:10px;row-gap:2px;padding:11px 0;border-bottom:1px solid #ece7da}.card td{display:block;padding:0;border:0;min-width:0}td.dt{grid-area:d;white-space:nowrap}.card td:nth-child(2){grid-area:n}td.co{grid-area:c;white-space:normal;font-size:13px;color:#905b47}td.amt{grid-area:a;text-align:right;white-space:nowrap}}.tg{display:inline-block;margin-left:6px;padding:0 8px;border-radius:999px;background:#f1ece0;color:#6f4f0e;font-size:12px}')
+    css = ('.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0}.chip{display:inline-block;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid #e8ded2;color:#57301d;text-decoration:none;font-weight:600}'
+           '.chip i{font-style:normal;color:#8a6a28;margin-left:4px}.chip:hover{border-color:#b8913f}.cta p{margin:6px 0 14px}td.co{white-space:nowrap}@media(max-width:640px){.card table,.card tbody{display:block}.card tr{display:grid;grid-template-columns:46px minmax(0,1fr) auto;grid-template-areas:"d n a" "d c c";column-gap:10px;row-gap:2px;padding:11px 0;border-bottom:1px solid #ece7da}.card td{display:block;padding:0;border:0;min-width:0}td.dt{grid-area:d;white-space:nowrap}.card td:nth-child(2){grid-area:n}td.co{grid-area:c;white-space:normal;font-size:13px;color:#bf6a40}td.amt{grid-area:a;text-align:right;white-space:nowrap}}.tg{display:inline-block;margin-left:6px;padding:0 8px;border-radius:999px;background:#f1ece0;color:#6f4f0e;font-size:12px}')
     for path, (title, desc, body, n) in pages.items():
         url = f"{site}/a/" + (quote(path) + "/" if path else "")
         ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url}
@@ -166,7 +166,7 @@ def build(d, out, site, linked):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#3e271f"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=105"><style>{css}</style>
+<meta name="theme-color" content="#57301d"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=105"><style>{css}</style>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {band(body)}
