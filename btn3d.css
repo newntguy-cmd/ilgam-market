@@ -655,3 +655,12 @@ html .pv .tr b,html .pv .tr span,html .pv .tr i{color:#0f2342!important;text-sha
 @media (min-width:861px){
 html .pk .km{top:calc(74% + 3cqw)!important;bottom:auto!important;height:auto!important;align-items:flex-start!important}
 }
+/* v162 지역·업체 페이지 목록 글씨 키움 */
+html .card h2{font-size:22px!important;margin:18px 0 8px!important}
+html td{padding:14px 10px 14px 0!important;font-size:17px!important;line-height:1.45!important}
+html td b{font-size:18.5px!important;font-weight:700!important;color:#1f2124!important}
+html td small{font-size:15.5px!important;color:#3d4146!important}
+html td small .tg{font-size:14px!important;padding:2px 9px!important}
+html td.dt{width:64px!important;font-size:16.5px!important;color:#3d4146!important}
+html td.co,html td.co a{font-size:17px!important;font-weight:600!important}
+html td.amt{font-size:19px!important;font-weight:800!important;color:#1f2124!important}
