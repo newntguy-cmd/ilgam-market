@@ -670,3 +670,10 @@ html header.top{min-height:92px!important}
 html header.top .wrap{min-height:92px!important;height:92px!important;align-items:center!important}
 html header.top nav>*,html .gnb>*,html .gnb>a.tablink,html header.top nav>a.tablink,html .gnb button,html .gnb .tablink{height:60px!important;min-height:60px!important}
 }
+/* v166 아이보리 통일: 메뉴=밝은 아이보리, 본문=한 톤만 더 짙게, 구분선 한 가지 */
+:root{--bg:#f2ecde!important;--line:#ddd2ba!important}
+html body{background:#f2ecde!important}
+html .ab-data,html .rdr,html .hm,html main{background:transparent!important}
+html .rdr{border-top:1px solid #ddd2ba!important}
+html header.top{background:#faf7f0!important;border-bottom:1px solid #ddd2ba!important}
+html .ab-data .tick,html .ab-data .ticker,html .ab-data hr{border-color:#ddd2ba!important}
