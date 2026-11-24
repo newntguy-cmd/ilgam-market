@@ -49,7 +49,7 @@ header.top .brand{color:#402e24}
 .gnb a.hot,header nav a.hot{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 0 0 1px #8a6a28!important}
 .gnb .em{filter:none!important;opacity:.8!important}
 .gnb .sep::before{background:#d5cbb4!important}
-.tier{color:#8a6a28!important}.tier.free{color:#957d64!important}.tier.pro{color:#ad7652!important;background:#714930;padding:6px 12px;border-radius:20px}
+.tier{color:#8a6a28!important}.tier.free{color:#6a5443!important}.tier.pro{color:#ad7652!important;background:#714930;padding:6px 12px;border-radius:20px}
 .acc>button{background:transparent!important;color:#402e24!important;border:1px solid #cdbf9f!important}
 
 /* 메뉴: 오른쪽 정렬, 직거래 장터가 맨 앞 */
@@ -493,6 +493,28 @@ html .ab-hero .ab-ask .go{height:46px!important;padding:0 16px!important;font-si
 html .ab-hero .ab-pay{padding-left:20px!important;gap:10px!important;font-size:16px!important}
 }
 /* 가죽 패널: 그라데이션은 아주 살짝, 위쪽 빛과 가는 금 테두리만 */
-html .ab-who,html .pc.hot,html .hero2,html .pr,html .pgband,html .corner,html .pv .tk,html #bn .pn{
+html .ab-who,html .pc.hot,html .hero2,html .pgband,html .corner,html .pv .tk,html #bn .pn{
  background:linear-gradient(168deg,#724931 0%,#5a3724 100%)!important;
  box-shadow:inset 0 1px 0 rgba(255,238,205,.28),inset 0 0 0 1px rgba(233,200,131,.22),0 14px 28px -14px rgba(62,40,28,.55)!important}
+
+/* ── 가독성·색 분리 (v138) ── */
+html .hero .lead,html .hero .hl,html .hero small,html .hero .c,html .hero .sm span{color:#f6ecdb!important}
+html .hero .lead{font-size:17.5px!important;line-height:1.7!important;text-shadow:0 1px 2px rgba(40,22,12,.35)}
+html .hero .hl{font-size:14.5px!important;font-weight:700!important}
+html .hero .c{font-size:13.5px!important}
+html .hero .a{color:#ffd98a!important;font-weight:800!important}
+html .hero h1 .gr{background:linear-gradient(180deg,#fff1c4,#f2cf78)!important;-webkit-background-clip:text!important;background-clip:text!important}
+html .hero .pill{color:#ffe3a0!important;font-size:14px!important;font-weight:700!important}
+/* 검색 칸: 갈색 패널과 겹치지 않게 밝은 크림 */
+html form.search .fld{background:#fbf4e6!important;border:1px solid #ead9b4!important;box-shadow:inset 0 1px 0 #fff,0 2px 6px rgba(40,22,12,.25)!important}
+html form.search .fld label{color:#7a5230!important;font-size:13px!important;font-weight:700!important}
+html form.search .fld select,html form.search .fld input{color:#2a1b12!important;font-weight:700!important;color-scheme:light!important}
+html form.search .fld input::placeholder{color:#8c735c!important;opacity:1}
+html form.search .fld select option{background:#fff!important;color:#2a1b12!important}
+/* 상단 메뉴 펼침 */
+html #igsub a small{color:#f1e4cd!important;font-size:14px!important}
+html #igsub .c h4{color:#ffd98a!important}
+/* 흐린 보조 글씨 */
+html .pk s,html .pk .kz{color:#f3e7d3!important;opacity:1!important}
+html .pk.rec s,html .pk.rec .kz{color:#4a3510!important}
+html footer,html footer p,html footer span,html footer a{color:#eadcc6}

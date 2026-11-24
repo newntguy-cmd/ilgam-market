@@ -41,11 +41,11 @@
     + '#igmore .hd{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:60px;background:#fff;border-bottom:1px solid #e3e7ed;font-size:19px;font-weight:800;color:#402e24}'
     + '#igmore .x{all:unset;box-sizing:border-box;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#f1f3f7;cursor:pointer}#igmore .x svg{width:22px;height:22px;stroke:#402e24;stroke-width:2.2;fill:none;stroke-linecap:round}'
     + '#igmore .bd{padding:16px 16px calc(150px + env(safe-area-inset-bottom))}'
-    + '#igmore h4{margin:22px 4px 10px;font-size:13.5px;font-weight:700;color:#957d64}'
+    + '#igmore h4{margin:22px 4px 10px;font-size:13.5px;font-weight:700;color:#6a5443}'
     + '#igmore .tl{display:grid;grid-template-columns:1fr 1fr;gap:10px}#igmore .tl a{display:flex;align-items:center;gap:10px;min-height:56px;padding:0 14px;border-radius:14px;background:#f1f3f7;color:#402e24;font-size:16.5px;font-weight:700;text-decoration:none}'
     + '#igmore .tl svg{width:24px;height:24px;flex:none;fill:none;stroke:#a8791f;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}'
     + '#igmore .rg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}#igmore .rg a{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:12px;border:1px solid #e3e7ed;color:#402e24;font-size:15px;font-weight:600;text-decoration:none;text-align:center;line-height:1.2}'
-    + '#igmore .ls a{display:block;padding:17px 4px;border-bottom:1px solid #e3e7ed;color:#402e24;font-size:17px;font-weight:600;text-decoration:none}#igmore .ls a small{display:block;margin-top:3px;font-size:13.5px;font-weight:400;color:#957d64}'
+    + '#igmore .ls a{display:block;padding:17px 4px;border-bottom:1px solid #e3e7ed;color:#402e24;font-size:17px;font-weight:600;text-decoration:none}#igmore .ls a small{display:block;margin-top:3px;font-size:13.5px;font-weight:400;color:#6a5443}'
     + '#igmore .ft{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e3e7ed}#igmore .ft a{flex:1;display:flex;align-items:center;justify-content:center;height:52px;border-radius:14px;font-size:17px;font-weight:800;text-decoration:none;border:1px solid #402e24;color:#402e24;background:#fff}#igmore .ft a.p{background:#c9a45c;border-color:#8a6a28}';
   document.head.appendChild(s);
   var nav = document.createElement('nav'); nav.id = 'igtab'; nav.setAttribute('aria-label', '하단 메뉴');
