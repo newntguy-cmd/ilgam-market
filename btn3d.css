@@ -727,3 +727,7 @@ html .brow .btn{font-size:15.5px;letter-spacing:-.2px}
 /* v170 상세창(embed) 안: 메뉴·하단바·다른 창 열기 없이 내용만 */
 html.embed header.top,html.embed #igtab,html.embed #igsub,html.embed .tb,html.embed #igmore{display:none!important}
 html.embed body{padding-bottom:0!important}
+/* v171 첫 방문 팝업: 하단 메뉴 위로 올리고, 화면보다 길면 안에서 스크롤 */
+html #bn{z-index:2147483002!important;padding:12px!important;align-items:center}
+html #bn .pn{max-height:calc(100dvh - 24px)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+@media (max-width:560px){html #bn .bnL{padding:24px 20px 20px}html #bn .bnL h2{font-size:30px!important}}
