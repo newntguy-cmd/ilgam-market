@@ -684,3 +684,46 @@ html .pk .kp{margin-top:5.2cqw!important}
 html .pk s{margin-top:2cqw!important;min-height:2.8cqw!important}
 html .pk .km{top:calc(74% + 4.6cqw)!important}
 }
+/* v168 모바일 보정: 가장 추천 리본, 하단 탭바 여백, 엑셀 샘플 표 */
+@media (max-width:860px){
+html .pk .kb{top:12px!important;left:12px!important;font-size:12.5px!important;padding:4px 10px!important}
+html .pk.rec,html .pk.rec:nth-child(even){padding-top:46px!important}
+html body{padding-bottom:calc(84px + env(safe-area-inset-bottom))!important}
+html .xw{overflow:visible}
+html .xw table,html .xw thead,html .xw tbody{display:block;width:100%}
+html .xw thead{display:none}
+html .xw tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px 16px;border-bottom:1px solid #e8e1d0}
+html .xw td{display:block;padding:0!important;border:0!important;font-size:16px;line-height:1.45;white-space:normal}
+html .xw td:nth-child(1){font-weight:800;font-size:17.5px}
+html .xw td:nth-child(2){text-align:right;color:#6b6f73;font-size:15px}
+html .xw td:nth-child(3){grid-column:1/3;color:#25272a}
+html .xw td:nth-child(4){grid-column:1/3;font-weight:800;text-align:left!important}
+html .xw td:nth-child(5),html .xw td:nth-child(6){grid-column:1/3;color:#8a8f94;font-size:14.5px}
+html .xw td:nth-child(5)::before{content:"대표 전화  "}
+html .xw td:nth-child(6)::before{content:"주소  "}
+}
+@media (max-width:860px){
+html .xw table{table-layout:auto}
+html .xw tr{grid-template-columns:minmax(0,1fr) auto!important}
+html .xw td,html .xw td.nm,html .xw td.am,html .xw td.lk{min-width:0!important;width:auto!important;white-space:normal!important;word-break:keep-all;text-align:left;letter-spacing:0}
+html .xw td:nth-child(2){text-align:right!important}
+html .xw td:nth-child(5),html .xw td:nth-child(6){display:block!important}
+html .brow{flex-direction:column;flex-wrap:nowrap;gap:10px}
+html .brow .btn{width:100%;box-sizing:border-box;margin:0;font-size:16.5px;padding:15px 10px;text-align:center}
+html .frow .chips{flex-wrap:wrap!important;overflow:visible!important;margin:0!important;padding:0 0 4px!important}
+}
+/* v169 모바일: 상세창 열리면 하단 메뉴 숨김, 표 최소폭 해제, 쿠폰 칸 폭 고정 */
+@media (max-width:860px){
+html body:has(dialog[open]) #igtab{display:none!important}
+html .xs table{min-width:0!important}
+html .xs td.nm{min-width:0!important}
+html .ab-pc{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html .pk{min-width:0;overflow:hidden}
+html .pk,html .pk:nth-child(even),html .pk.rec,html .pk.rec:nth-child(even){min-height:244px!important}
+html .pk .kp{font-size:clamp(20px,6vw,26px)!important;white-space:nowrap}
+html .pk .kd{white-space:nowrap}
+html .brow .btn{font-size:15.5px;letter-spacing:-.2px}
+}
+/* v170 상세창(embed) 안: 메뉴·하단바·다른 창 열기 없이 내용만 */
+html.embed header.top,html.embed #igtab,html.embed #igsub,html.embed .tb,html.embed #igmore{display:none!important}
+html.embed body{padding-bottom:0!important}

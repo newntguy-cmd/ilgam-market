@@ -2,6 +2,7 @@
 (function () {
   if (!window.matchMedia || !matchMedia('(max-width:760px)').matches) return;
   if (document.getElementById('igtab')) return;
+  if (/[?&]embed=1/.test(location.search) || window.parent !== window) return; // 상세창(팝업) 안에서는 하단 메뉴를 만들지 않습니다
   var P = location.pathname, H = location.hash;
   var IDX = P === '/' || P === '/index.html';
   var IC = {
