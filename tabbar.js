@@ -32,7 +32,7 @@
   var s = document.createElement('style');
   s.textContent = 'header.top .gnb{display:none!important}'
     + 'body{padding-bottom:calc(64px + env(safe-area-inset-bottom))!important}'
-    + '#igtab{position:fixed;left:0;right:0;bottom:0;z-index:2147481000;height:calc(60px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);display:grid;grid-template-columns:repeat(5,1fr);background:#8a654a;border-top:2px solid #c9a45c;box-shadow:0 -6px 20px rgba(28,17,14,.35)}'
+    + '#igtab{position:fixed;left:0;right:0;bottom:0;z-index:2147481000;height:calc(60px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);display:grid;grid-template-columns:repeat(5,1fr);background:#714930;border-top:2px solid #c9a45c;box-shadow:0 -6px 20px rgba(28,17,14,.35)}'
     + '#igtab a,#igtab button{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:60px;color:#d8c8b9;font-size:12.5px;font-weight:600;line-height:1.1;font-family:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap}'
     + '#igtab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}'
     + '#igtab [aria-current=true]{color:#e6c883}#igtab [aria-current=true] svg{stroke:#e6c883}'
