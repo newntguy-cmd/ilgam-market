@@ -592,3 +592,15 @@ html .pk.rec s{color:#4a3508!important}
 html .was{color:#565b61!important;opacity:1!important}
 html button.go,html a.go{text-shadow:none}
 html .go{color:#25272a!important}
+/* 필터 칩 글씨·숫자 키움 v155 */
+html .fpan .chip{font-size:16.5px!important;font-weight:700!important;color:#1f2124!important;border-color:#cdbfa8!important;padding:9px 15px!important;min-height:42px}
+html .fpan .chip .n{font-size:15.5px!important;font-weight:800!important;color:#3d4248!important;margin-left:6px}
+html .fpan .chip[aria-pressed="true"],html .fpan .chip.on{color:#fff!important}
+html .fpan .chip[aria-pressed="true"] .n,html .fpan .chip.on .n{color:#ffe08f!important}
+html .fpan .frow>label,html .fpan .frow>b,html .fpan .frow>span:first-child{font-size:16.5px!important;font-weight:800!important;color:#1f2124!important}
+html .fpan .chips{gap:10px!important}
+html .fpan .frow{padding:14px 0!important}
+html .fpan .chip .n{opacity:1!important;font-size:17px!important;font-weight:800!important;color:#262a2f!important}
+html .fpan .chip{font-size:17px!important}
+html .fpan .chip[aria-pressed="true"] .n,html .fpan .chip.on .n{opacity:1!important;color:#ffe08f!important}
+html .fpan .frow>span:first-child,html .fpan .frow>label{font-size:17px!important}
