@@ -518,3 +518,14 @@ html #igsub .c h4{color:#ffd98a!important}
 html .pk s,html .pk .kz{color:#f3e7d3!important;opacity:1!important}
 html .pk.rec s,html .pk.rec .kz{color:#4a3510!important}
 html footer,html footer p,html footer span,html footer a{color:#eadcc6}
+
+/* 첫 방문 팝업 v144 */
+#bn .tg{background:linear-gradient(180deg,#f1d795,#c9a45c);color:#3b2a22!important;border:0!important;border-radius:999px!important;padding:6px 16px!important;font-size:13px!important;font-weight:800;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 4px 10px rgba(0,0,0,.25)}
+#bn h2{font-size:36px!important}
+#bn .bpv{margin:0 auto 18px;max-width:430px;text-align:left;display:grid;gap:8px}#bn .bpv[hidden]{display:none}
+#bn .bpv div{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 0 0 1px rgba(233,200,131,.28),0 6px 14px -8px rgba(0,0,0,.6);position:relative;overflow:hidden}
+#bn .bpv div::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#f1d795,#c9a45c)}
+#bn .bpv i{flex:none;font-style:normal;font-size:12.5px;font-weight:800;color:#3b2a22;background:#e9cf94;border-radius:999px;padding:3px 10px}
+#bn .bpv span{flex:1;min-width:0;font-size:15px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em}
+#bn .bpv em{flex:none;font-style:normal;font-size:15px;font-weight:800;color:#ffd98a;letter-spacing:.04em}
+@media (max-width:480px){#bn h2{font-size:28px!important}#bn .bpv span{font-size:13.5px}}
