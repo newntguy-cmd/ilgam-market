@@ -326,7 +326,7 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable}
 /* v91 메뉴 완전 고정: 현재 위치 표시 항목도 굵기·크기가 같아 어떤 페이지에서도 항목 폭·위치가 1px도 변하지 않음 */
 html header.top .gnb>*,html header.top .gnb>*[aria-current],html header.top .gnb>a,html header.top .gnb>button{font-weight:700!important;letter-spacing:-.01em!important}
 /* v94 낙찰정보 상단: 볼륨감(색·빛·그림자만, 크기·위치는 그대로) */
-html .hero{background:radial-gradient(900px 420px at 88% -10%,rgba(201,164,92,.20),transparent 60%),radial-gradient(760px 480px at 6% 30%,rgba(54,96,168,.34),transparent 62%),linear-gradient(180deg,#10284d 0,#0a1a33 100%)!important}
+html .hero{background:radial-gradient(900px 420px at 88% -10%,rgba(201,164,92,.20),transparent 60%),radial-gradient(760px 480px at 6% 30%,rgba(191,106,64,.34),transparent 62%),linear-gradient(180deg,#774d33 0,#64412b 100%)!important}
 html .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(255,255,255,.028) 0 1px,transparent 1px 22px);-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
 html .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(230,200,131,.55),transparent)}
 html .hero .wrap{position:relative;z-index:1}
