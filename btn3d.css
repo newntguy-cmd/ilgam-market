@@ -664,3 +664,9 @@ html td small .tg{font-size:14px!important;padding:2px 9px!important}
 html td.dt{width:64px!important;font-size:16.5px!important;color:#3d4146!important}
 html td.co,html td.co a{font-size:17px!important;font-weight:600!important}
 html td.amt{font-size:19px!important;font-weight:800!important;color:#1f2124!important}
+/* v163 상단 메뉴: 폭을 넓게 (넓은 화면에서만) */
+@media (min-width:1200px){
+html header.top .wrap{max-width:1600px!important}
+html header.top nav>*,html .gnb>*,html .gnb>a.tablink,html header.top nav>a.tablink,html .gnb button,html .gnb .tablink{font-size:20px!important;padding-left:30px!important;padding-right:30px!important}
+html header.top{min-height:76px}
+}
