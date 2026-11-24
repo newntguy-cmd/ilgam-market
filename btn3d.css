@@ -512,8 +512,8 @@ html form.search .fld select,html form.search .fld input{color:#222427!important
 html form.search .fld input::placeholder{color:#535960!important;opacity:1}
 html form.search .fld select option{background:#fff!important;color:#222427!important}
 /* 상단 메뉴 펼침 */
-html #igsub a small{color:#f1e4cd!important;font-size:14px!important}
-html #igsub .c h4{color:#ffd98a!important}
+html #igsub a small{color:#5b5f64!important;font-size:14px!important}
+html #igsub .c h4{color:#8a6a28!important}
 /* 흐린 보조 글씨 */
 html .pk s,html .pk .kz{color:#f3e7d3!important;opacity:1!important}
 html .pk.rec s,html .pk.rec .kz{color:#4a3510!important}
@@ -604,3 +604,31 @@ html .fpan .chip .n{opacity:1!important;font-size:17px!important;font-weight:800
 html .fpan .chip{font-size:17px!important}
 html .fpan .chip[aria-pressed="true"] .n,html .fpan .chip.on .n{opacity:1!important;color:#ffe08f!important}
 html .fpan .frow>span:first-child,html .fpan .frow>label{font-size:17px!important}
+/* v157 footer light */
+html footer{background:#efe8d8!important;color:#3a3d41!important}
+html footer,html footer p,html footer span{color:#3a3d41!important}
+html footer a{color:#25272a!important}
+html footer b,html footer strong,html footer h3,html footer h4{color:#1f2124!important}
+html footer a:hover{color:#8a6a28!important}
+html footer .fcta{background:#fffdf7!important;border-color:#cdb98a!important}
+html footer .fcta *{color:#25272a!important}
+html footer .fcta b,html footer .fcta strong,html footer .fcta em{color:#8a6a28!important}
+html footer .fcta button{color:#2d3134!important}
+html footer hr,html footer .bz{border-color:rgba(0,0,0,.12)!important}
+html footer .fsay,html footer .fbrand,html footer .fcols b,html footer .biz .bh{color:#1f2124!important}
+html footer .fsub,html footer .fcols .d,html footer .copy,html footer .biz .bi,html footer .disc,html footer .biz .bi span,html footer .fbot span{color:#4a4e53!important}
+html footer .fcols .src,html footer .fcols .src span,html footer .fcols .src b{color:#2d3134!important}
+html footer .fcols,html footer .fbot{border-color:rgba(0,0,0,.12)!important}
+html footer .biz .bi a,html footer .fbot a{color:#25272a!important}
+/* v157 coupons: aligned rows, 할인 badge beside label, emerald/gold accents */
+html .pv .tk{background:radial-gradient(circle at 12% -20%,#37a58c 0,#16705c 52%,#0b4237 100%)!important}
+html .pk .kt{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;min-height:36px!important;padding:0!important}
+html .pk .kd{font-size:20px!important;font-weight:800!important;white-space:nowrap}
+html .pk .kr{position:static!important;display:inline-block!important;margin:0!important;padding:4px 10px!important;border-radius:20px!important;font-size:14px!important;font-weight:800!important;font-style:normal!important;background:#ffe08f!important;color:#3d2c08!important;white-space:nowrap}
+html .pk.rec .kr{background:#0b4237!important;color:#ffe08f!important}
+html .pk .kb{background:linear-gradient(180deg,#ecd08c,#c9a45c)!important;color:#3d2c08!important;font-weight:800!important;top:-14px!important;left:14px!important;padding:5px 12px!important;border-radius:20px!important;font-size:13.5px!important;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+html .pk,html .pk.rec{padding-top:18px!important}
+html .pk .kp{display:block;min-height:50px;line-height:50px!important;margin-top:12px!important;font-size:clamp(34px,2.6vw,44px)!important;font-weight:900!important;letter-spacing:-.03em}
+html .pk .kp small{font-size:.5em!important;font-weight:700!important;margin-left:2px}
+html .pk s{display:block;min-height:22px;line-height:22px!important;margin-top:4px!important;font-size:15px!important}
+html .pk .km{display:block;min-height:24px;line-height:24px!important;margin-top:8px!important;font-size:16px!important;font-weight:700!important}

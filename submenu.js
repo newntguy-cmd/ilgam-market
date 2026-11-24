@@ -18,12 +18,12 @@
   var box, cur, tm;
   function css() {
     var s = document.createElement('style');
-    s.textContent = '#igsub{position:fixed;border-radius:0 0 16px 16px;border:1px solid rgba(201,164,92,.5);border-top:0;z-index:2147482000;display:none;background:#3f4349;border-top:1px solid rgba(201,164,92,.5);border-bottom:3px solid #c9a45c;box-shadow:0 22px 40px rgba(29,31,33,.45)}'
-      + '#igsub .in{padding:22px 28px 26px;display:flex;gap:44px;width:max-content;max-width:calc(100vw - 32px)}#igsub .c h4{margin:0 0 10px;font-size:15px;font-weight:700;color:#e6c883;letter-spacing:-.01em}'
+    s.textContent = '#igsub{position:fixed;border-radius:0 0 16px 16px;border:1px solid rgba(201,164,92,.5);border-top:0;z-index:2147482000;display:none;background:#fffdf7;border-top:1px solid rgba(201,164,92,.5);border-bottom:3px solid #c9a45c;box-shadow:0 22px 40px rgba(29,31,33,.45)}'
+      + '#igsub .in{padding:22px 28px 26px;display:flex;gap:44px;width:max-content;max-width:calc(100vw - 32px)}#igsub .c h4{margin:0 0 10px;font-size:15px;font-weight:800;color:#8a6a28;letter-spacing:-.01em}'
       + '#igsub .c ul{margin:0;padding:0;list-style:none}#igsub .g ul{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,auto);grid-template-columns:repeat(4,104px);column-gap:14px}'
-      + '#igsub a{display:block;padding:7px 0;color:#fff;font-size:17px;font-weight:600;text-decoration:none;white-space:nowrap}#igsub a small{display:block;margin-top:2px;font-size:13.5px;font-weight:400;color:#f1e4cd}'
+      + '#igsub a{display:block;padding:7px 0;color:#25272a;font-size:17px;font-weight:600;text-decoration:none;white-space:nowrap}#igsub a small{display:block;margin-top:2px;font-size:13.5px;font-weight:500;color:#5b5f64}'
       + '.gnb .igh{color:#2d3134!important;background:#fff!important;box-shadow:inset 0 -3px 0 #c9a45c!important}.igopen [aria-current=true]:not(.igh),.igopen [aria-current=page]:not(.igh){background:transparent!important;box-shadow:none!important}'
-      + '#igsub a:hover,#igsub a:focus-visible{color:#e6c883;outline:0}';
+      + '#igsub a:hover,#igsub a:focus-visible{color:#8a6a28;outline:0}';
     document.head.appendChild(s);
   }
   function build() {
