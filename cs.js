@@ -43,15 +43,15 @@
   function css() {
     var st = document.createElement('style');
     st.textContent = '#igcs{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,22,44,.62);font-family:inherit}#igcs[hidden]{display:none}'
-    + '#igcs .p{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fffdf8;color:#402e24;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.45);border-top:4px solid #c9a45c}'
+    + '#igcs .p{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fffdf8;color:#2d3134;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.45);border-top:4px solid #c9a45c}'
     + '#igcs .h{display:flex;align-items:center;justify-content:space-between;padding:22px 26px 6px}#igcs h2{margin:0;font-size:24px;font-weight:800;letter-spacing:-.02em}'
-    + '#igcs .x{width:40px;height:40px;border:0;border-radius:50%;background:#efe9da;color:#402e24;font-size:22px;cursor:pointer}'
-    + '#igcs .b{padding:8px 26px 26px}#igcs .ct{margin:10px 0 18px;padding:18px 20px;border-radius:14px;background:radial-gradient(120% 90% at 90% -20%,rgba(201,164,92,.34),transparent 55%),linear-gradient(165deg,#825438,#68432c 72%);color:#fff;box-shadow:0 14px 30px rgba(56,41,32,.28),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)}'
+    + '#igcs .x{width:40px;height:40px;border:0;border-radius:50%;background:#efe9da;color:#2d3134;font-size:22px;cursor:pointer}'
+    + '#igcs .b{padding:8px 26px 26px}#igcs .ct{margin:10px 0 18px;padding:18px 20px;border-radius:14px;background:radial-gradient(120% 90% at 90% -20%,rgba(201,164,92,.34),transparent 55%),linear-gradient(165deg,#464b51,#3b3f44 72%);color:#fff;box-shadow:0 14px 30px rgba(42,45,48,.28),inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(201,164,92,.25)}'
     + '#igcs .ct b{display:block;font-size:15px;color:#e6c883;margin-bottom:8px}#igcs .ct a{display:block;color:#fff;font-size:20px;font-weight:800;text-decoration:none;margin-top:4px;word-break:break-all}'
     + '#igcs details{border-bottom:1px solid #e6dcc4}#igcs summary{padding:15px 2px;font-size:18px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}#igcs summary::-webkit-details-marker{display:none}'
     + '#igcs summary::after{content:"+";color:#8a6a28;font-size:22px;line-height:1}#igcs details[open] summary::after{content:"−"}'
-    + '#igcs details p{margin:0 0 16px;font-size:17px;line-height:1.7;color:#5f4435}#igcs details a{color:#8a6a28;font-weight:700}'
-    + '#igcs .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6a5443}';
+    + '#igcs details p{margin:0 0 16px;font-size:17px;line-height:1.7;color:#3b3f44}#igcs details a{color:#8a6a28;font-weight:700}'
+    + '#igcs .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#42474c}';
     document.head.appendChild(st);
   }
   function pgcss() {
@@ -94,22 +94,22 @@
   function bcss() {
     var st = document.createElement('style');
     st.textContent = '#igbuy{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,22,44,.62);font-family:inherit}#igbuy[hidden]{display:none}'
-    + '#igbuy .p{width:min(560px,100%);max-height:92vh;overflow:auto;background:#fffdf8;color:#402e24;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.45);border-top:4px solid #c9a45c}'
+    + '#igbuy .p{width:min(560px,100%);max-height:92vh;overflow:auto;background:#fffdf8;color:#2d3134;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.45);border-top:4px solid #c9a45c}'
     + '#igbuy .h{display:flex;align-items:center;justify-content:space-between;padding:22px 26px 0}#igbuy h2{margin:0;font-size:24px;font-weight:800;letter-spacing:-.02em}'
-    + '#igbuy .x{width:40px;height:40px;border:0;border-radius:50%;background:#efe9da;color:#402e24;font-size:22px;cursor:pointer}'
-    + '#igbuy .b{padding:6px 26px 26px}#igbuy .lead{margin:0 0 16px;font-size:17px;line-height:1.6;color:#5f4435;word-break:keep-all}'
+    + '#igbuy .x{width:40px;height:40px;border:0;border-radius:50%;background:#efe9da;color:#2d3134;font-size:22px;cursor:pointer}'
+    + '#igbuy .b{padding:6px 26px 26px}#igbuy .lead{margin:0 0 16px;font-size:17px;line-height:1.6;color:#3b3f44;word-break:keep-all}'
     + '#igbuy label{display:block;margin:14px 0 6px;font-size:16px;font-weight:700}#igbuy label i{font-style:normal;color:#8a6a28}'
-    + '#igbuy input[type=text],#igbuy input[type=tel],#igbuy textarea{width:100%;box-sizing:border-box;padding:13px 14px;border:1.5px solid #d8cdb0;border-radius:8px;background:#fff;font:inherit;font-size:17px;color:#402e24}'
+    + '#igbuy input[type=text],#igbuy input[type=tel],#igbuy textarea{width:100%;box-sizing:border-box;padding:13px 14px;border:1.5px solid #d8cdb0;border-radius:8px;background:#fff;font:inherit;font-size:17px;color:#2d3134}'
     + '#igbuy textarea{min-height:92px;resize:vertical}#igbuy input:focus,#igbuy textarea:focus{outline:2px solid #c9a45c;border-color:#c9a45c}'
     + '#igbuy .cats{display:flex;gap:8px;flex-wrap:wrap}#igbuy .cats label{display:block;margin:0;font-weight:700}#igbuy .cats input{position:absolute;opacity:0;pointer-events:none}'
-    + '#igbuy .cats span{display:block;padding:11px 18px;border:1.5px solid #d8cdb0;border-radius:999px;background:#fff;font-size:17px;cursor:pointer}#igbuy .cats input:checked+span{background:#714930;color:#fff;border-color:#402e24}#igbuy .cats input:focus-visible+span{outline:2px solid #c9a45c;outline-offset:2px}'
+    + '#igbuy .cats span{display:block;padding:11px 18px;border:1.5px solid #d8cdb0;border-radius:999px;background:#fff;font-size:17px;cursor:pointer}#igbuy .cats input:checked+span{background:#3f4349;color:#fff;border-color:#2d3134}#igbuy .cats input:focus-visible+span{outline:2px solid #c9a45c;outline-offset:2px}'
     + '#igbuy .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;align-items:end}@media(max-width:480px){#igbuy .two{grid-template-columns:1fr}}'
-    + '#igbuy .ag{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;font-size:14.5px;line-height:1.55;color:#8f4420;font-weight:400}#igbuy .ag input{margin-top:3px;width:20px;height:20px;flex:none}'
-    + '#igbuy .go{width:100%;margin-top:18px;padding:16px;border:0;border-radius:10px;background:#714930;color:#fff;font:inherit;font-size:19px;font-weight:800;cursor:pointer}#igbuy .go[disabled]{opacity:.55;cursor:default}'
-    + '#igbuy .er{margin:12px 0 0;color:#b3261e;font-size:15px;line-height:1.5}#igbuy .ok{padding:26px 6px 8px;text-align:center}#igbuy .ok b{display:block;font-size:22px;margin-bottom:8px}#igbuy .ok p{margin:0;font-size:17px;line-height:1.6;color:#5f4435}'
+    + '#igbuy .ag{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;font-size:14.5px;line-height:1.55;color:#43484d;font-weight:400}#igbuy .ag input{margin-top:3px;width:20px;height:20px;flex:none}'
+    + '#igbuy .go{width:100%;margin-top:18px;padding:16px;border:0;border-radius:10px;background:#3f4349;color:#fff;font:inherit;font-size:19px;font-weight:800;cursor:pointer}#igbuy .go[disabled]{opacity:.55;cursor:default}'
+    + '#igbuy .er{margin:12px 0 0;color:#b3261e;font-size:15px;line-height:1.5}#igbuy .ok{padding:26px 6px 8px;text-align:center}#igbuy .ok b{display:block;font-size:22px;margin-bottom:8px}#igbuy .ok p{margin:0;font-size:17px;line-height:1.6;color:#3b3f44}'
     + '#igbuy .ph{display:flex;flex-wrap:wrap;gap:10px}#igbuy .addp{display:block;margin:0}#igbuy .addp span{display:flex;align-items:center;justify-content:center;width:96px;height:96px;border:1.5px dashed #c9b88e;border-radius:10px;background:#fff;color:#8a6a28;font-size:15px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}'
-    + '#igbuy .th{position:relative;width:96px;height:96px;border-radius:10px;overflow:hidden;border:1px solid #d8cdb0;background:#fff}#igbuy .th img{width:100%;height:100%;object-fit:cover;display:block}#igbuy .th button{position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(138,101,74,.82);color:#fff;font-size:16px;line-height:1;cursor:pointer}'
-    + '#igbuy .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#6a5443}#igbuy .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
+    + '#igbuy .th{position:relative;width:96px;height:96px;border-radius:10px;overflow:hidden;border:1px solid #d8cdb0;background:#fff}#igbuy .th img{width:100%;height:100%;object-fit:cover;display:block}#igbuy .th button{position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(78,83,89,.82);color:#fff;font-size:16px;line-height:1;cursor:pointer}'
+    + '#igbuy .n{margin:16px 0 0;font-size:14px;line-height:1.6;color:#42474c}#igbuy .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
     document.head.appendChild(st);
   }
   function bfill(kind) {
@@ -124,7 +124,7 @@
       + '<div><label for="ib_bn">성함 <i>필수</i></label><input id="ib_bn" type="text" maxlength="30" autocomplete="name"></div></div>'
       + '<label for="ib_bt">연락받을 전화번호 <i>필수</i></label><input id="ib_bt" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000">'
       + '<label for="ib_bm">전하실 말씀</label><textarea id="ib_bm" maxlength="600" placeholder="' + c.memo + '"></textarea>'
-      + '<label>사진 <small style="font-weight:400;color:#6a5443">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
+      + '<label>사진 <small style="font-weight:400;color:#42474c">선택 · 최대 3장</small></label><div class="ph" id="ib_ph"><label class="addp" for="ib_bf"><span>＋ 사진 추가</span></label><input id="ib_bf" type="file" accept="image/*" multiple hidden></div>'
       + '<div class="hp" aria-hidden="true"><input id="ib_bw" type="text" tabindex="-1" autocomplete="off"></div>'
       + '<label class="ag" for="ib_bg"><input id="ib_bg" type="checkbox"><span>' + c.agree + ' 연락을 위해 성함⁠·⁠전화번호·문의 내용⁠·⁠사진을 수집하며, 상담이 끝난 뒤 6개월 동안 보관하고 삭제합니다. 동의하지 않으셔도 일감마켓의 다른 서비스는 그대로 이용하실 수 있습니다.</span></label>'
       + '<p class="er" id="ib_ber" role="alert" hidden></p><button class="go" id="ib_bgo" type="submit">' + c.send + '</button></form>'
