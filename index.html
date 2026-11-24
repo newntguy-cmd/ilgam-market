@@ -665,7 +665,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 .rdr h2{margin:0;font-size:clamp(24px,2.4vw,34px);font-weight:700;letter-spacing:-.04em;color:#402e24;line-height:1.3}
 .rsub{margin:8px 0 22px;font-size:17px;color:#8f4420}
 .rbox{display:grid;grid-template-columns:minmax(300px,520px) 1fr;gap:28px;align-items:start}
-.rmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.rmap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.rmap .rt{min-width:0;overflow:hidden}
 .rt{position:relative;aspect-ratio:1/1;border:0;border-radius:14px;cursor:pointer;font-family:inherit;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--c,#845639);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 6px 14px rgba(64,46,36,.18);opacity:0;transform:scale(.8);animation:rtin .5s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0s);transition:box-shadow .15s}
 .rt b{font-size:clamp(15px,1.3vw,18px);font-weight:700;letter-spacing:-.03em}
 .rt span{font-size:clamp(14px,1.1vw,16px);font-weight:600;opacity:.92;font-variant-numeric:tabular-nums}
