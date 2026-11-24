@@ -651,3 +651,7 @@ html .pv .tk h2 em{color:#ffe08f!important}
 html .pv .tk .go{background:#ffe08f!important;background-image:none!important;color:#0f2342!important;box-shadow:none!important}
 html .pv .tr{background:#ffe08f!important;background-image:none!important;border-left:2px dashed rgba(15,35,66,.45)!important}
 html .pv .tr b,html .pv .tr span,html .pv .tr i{color:#0f2342!important;text-shadow:none!important}
+/* v161 점선 아래 글씨: 점선에서 띄워 4장 동일 위치 */
+@media (min-width:861px){
+html .pk .km{top:calc(74% + 3cqw)!important;bottom:auto!important;height:auto!important;align-items:flex-start!important}
+}
