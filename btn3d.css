@@ -747,3 +747,12 @@ html .acc .menu[hidden]{display:none!important}
 html .acc .menu .em{padding:10px 12px;font-size:13px;color:#5b5f64;border-bottom:1px solid #ddd2ba;overflow-wrap:anywhere}
 html .acc .menu button{display:block;width:100%;height:auto;min-height:0;padding:11px 12px!important;border:0!important;background:none!important;text-align:left;font-size:15px!important;color:#25272a!important;cursor:pointer;border-radius:4px;margin:0;white-space:normal}
 html .acc .menu button:hover{background:#f7f3e9!important}
+/* v174 상단 버튼(가입하기·결제하기·로그인·내 계정): 올려다 본 느낌 → 누르면 눌리는 느낌 */
+html header.top .acc>button{cursor:pointer;transition:background-color .12s ease,border-color .12s ease,box-shadow .12s ease,transform .08s ease}
+html header.top .acc>button.jn:hover{background:#4d545c!important;box-shadow:0 5px 14px rgba(45,49,52,.34)!important;transform:translateY(-1px)}
+html header.top .acc>button.jn:active{background:#2b2f34!important;box-shadow:inset 0 3px 6px rgba(0,0,0,.45)!important;transform:translateY(1px)}
+html header.top .acc>button:not(.jn):hover{background:#fffdf7!important;border-color:#b79a55!important;box-shadow:0 5px 14px rgba(45,49,52,.18)!important;transform:translateY(-1px)}
+html header.top .acc>button:not(.jn):active,html header.top .acc>button[aria-expanded=true]{background:#ece3cd!important;border-color:#8a6a28!important;box-shadow:inset 0 2px 5px rgba(45,49,52,.22)!important;transform:translateY(1px)}
+html header.top .acc>button:focus-visible{outline:2px solid #8a6a28;outline-offset:2px}
+html header.top .acc .menu button:active{background:#ece3cd!important}
+@media (prefers-reduced-motion:reduce){html header.top .acc>button{transition:none}html header.top .acc>button:hover,html header.top .acc>button:active{transform:none}}

@@ -260,14 +260,14 @@
     m.appendChild(w); m.appendChild(pr);
     if (ME && ME.admin) { var ad = el('button', null, '관리자 통계'); ad.type = 'button'; ad.addEventListener('click', function () { location.href = 'admin.html'; }); m.appendChild(ad); }
     m.appendChild(o);
-    b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
+    b2.setAttribute('aria-expanded', 'false'); b2.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; b2.setAttribute('aria-expanded', m.hidden ? 'false' : 'true'); });
     var tk = ME ? ME.tier : null; if (!tk) { try { tk = (JSON.parse(localStorage.getItem('ig_me')) || {}).tier || null; } catch (e) {} }
     if (!tk && MEDONE) tk = 'free'; // 등급 확인이 끝났는데 알 수 없으면 결제 전 손님으로 봅니다
     if (tk && tk !== 'pro') box.appendChild(payBtn()); // 등급을 알기 전에는 결제하기를 띄웠다 지우지 않습니다
     box.appendChild(b2); box.appendChild(m);
   }
   try { renderAcc(); } catch (e) {} // 로그인 확인 전에도 자리를 먼저 채워 둬서, 나중에 나타나며 깜빡이지 않게 함
-  document.addEventListener('click', function (e) { var m = document.querySelector('#acc .menu'); if (m && !m.contains(e.target)) m.hidden = true; });
+  document.addEventListener('click', function (e) { var m = document.querySelector('#acc .menu'); if (m && !m.contains(e.target)) { m.hidden = true; var tb = document.querySelector('#acc>button[aria-expanded]'); if (tb) tb.setAttribute('aria-expanded', 'false'); } });
   function accountCard() {
     var A = window.IGAUTH, box = el('div', 'acct');
     if (!A || !A.user) {

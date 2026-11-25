@@ -33,7 +33,8 @@
     var o = el('button', null, '로그아웃'); o.type = 'button';
     o.addEventListener('click', function () { m.hidden = true; try { localStorage.removeItem('ig_me'); } catch (e) {} window.IGAUTH.logout().then(function () { location.reload(); }, function () { location.reload(); }); });
     m.appendChild(o);
-    b.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; });
+    b.setAttribute('aria-expanded', 'false');
+    b.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; b.setAttribute('aria-expanded', m.hidden ? 'false' : 'true'); });
     box.appendChild(b); box.appendChild(m);
     menu = m; built = true;
   }
@@ -44,7 +45,7 @@
     if (built) return;
     if (cached()) { e.stopPropagation(); e.preventDefault(); }
   }, true);
-  document.addEventListener('click', function (e) { if (menu && !menu.contains(e.target) && e.target.id !== 'tme') menu.hidden = true; });
+  document.addEventListener('click', function (e) { if (menu && !menu.contains(e.target) && e.target.id !== 'tme') { menu.hidden = true; var t = document.getElementById('tme'); if (t) t.setAttribute('aria-expanded', 'false'); } });
 
   function refresh() {
     var A = window.IGAUTH;
@@ -56,7 +57,7 @@
     }).then(function (r) {
       if (!r || !r.ok) return;
       ME = r; try { localStorage.setItem('ig_me', JSON.stringify(r)); } catch (e) {}
-      var open = menu && !menu.hidden; build(A.user); if (open && menu) menu.hidden = false;
+      var open = menu && !menu.hidden; build(A.user); if (open && menu) { menu.hidden = false; var t2 = document.getElementById('tme'); if (t2) t2.setAttribute('aria-expanded', 'true'); }
     }, function () {});
   }
 
