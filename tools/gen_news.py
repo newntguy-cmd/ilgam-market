@@ -8,6 +8,7 @@ import html
 import json
 import os
 import re
+import http.cookiejar
 import urllib.request
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
@@ -27,7 +28,8 @@ SITE = "https://ilgammarket.co.kr"
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (ilgammarket news; +https://ilgammarket.co.kr)"})
-    raw = urllib.request.urlopen(req, timeout=25).read()
+    op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))  # 쿠키를 받아야 307 반복이 풀립니다
+    raw = op.open(req, timeout=25).read()
     out = []
     for it in ET.fromstring(raw).iter("item"):
         t = (it.findtext("title") or "").strip()
