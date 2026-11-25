@@ -799,3 +799,15 @@ html footer .biz .bi{margin:3px 0!important;font-size:12px!important;line-height
 html footer .biz .disc{margin:4px 0 0!important;font-size:11.5px!important;line-height:1.55!important;max-width:none!important}
 html footer .fbot{margin-top:10px!important;padding-top:10px!important}
 @media (max-width:760px){html footer .fcols{grid-template-columns:1fr!important;gap:10px!important}}
+/* v178 남색 → 사이트 녹색(배너 녹색) 통일, 그라데이션 없이 단색 */
+html footer{background:#0e4f40!important;color:#d6efe5!important}
+html footer,html footer p,html footer span{color:#d6efe5!important}
+html footer .fsay,html footer .fbrand,html footer .fcols b,html footer .biz .bh{color:#fff!important}
+html footer .fsub,html footer .fcols .d,html footer .copy,html footer .biz .bi,html footer .disc,html footer .biz .bi span,html footer .fbot span{color:#b5d6ca!important}
+html footer .fcols,html footer .fbot{border-color:rgba(255,255,255,.16)!important}
+html footer .fcta{background:#126352!important;border:1px solid #2a8a74!important}
+html footer .fcta button,html .pv .tk .go{color:#0b4237!important}
+html .pv .tk{background:#126352!important;border:1px solid #2a8a74!important}
+html .pv .tr{border-left-color:rgba(11,66,55,.5)!important}
+html .pv .tr b,html .pv .tr span,html .pv .tr i{color:#0b4237!important}
+html .pgband{background:#126352!important;background-image:none!important;border:1px solid #2a8a74!important}
