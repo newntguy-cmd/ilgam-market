@@ -768,3 +768,19 @@ html .ab-hl .pt .r b i{font-size:26px!important}
 html .ab-hl .pt .r span{color:#d6efe5!important;font-weight:700;letter-spacing:-.01em}
 @media (max-width:860px){html .ab-hl .pt{grid-template-columns:minmax(0,1fr) 104px!important}html .ab-hl .pt .r b{font-size:46px!important}html .ab-hl .pt .r b i{font-size:20px!important}html .pt .ln2{white-space:normal}}
 html .pt .nw{white-space:nowrap}
+/* v176 팝업 통일: 녹색 배너 + 고급 녹색(깊은 3단 그라데이션·금빛 헤어라인) */
+:root{--gr-pro:radial-gradient(120% 140% at 50% -20%,#3fae94 0,#1a7762 36%,#0e4f40 70%,#082f27 100%)}
+html #bn .bnL{background:var(--gr-pro)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(230,200,131,.45)!important}
+html dialog#lg,html dialog#sh,html #rgask{border-radius:16px!important;background:#faf7f0!important;box-shadow:0 0 0 1px rgba(201,164,92,.55),0 40px 90px rgba(0,0,0,.55)!important;overflow:hidden}
+html dialog#lg::backdrop,html dialog#sh::backdrop,html #rgask::backdrop{background:rgba(6,20,17,.66)}
+html #lg .lh,html #sh .lh{background:var(--gr-pro)!important;color:#fff;border-bottom:1px solid rgba(230,200,131,.6)!important;padding:20px 24px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.26)}
+html #lg .lh h3,html #sh .lh h3{font-size:20px;font-weight:800;letter-spacing:-.02em;color:#fff}
+html #lg .lh button,html #sh .lh .x{color:#fff}
+html #sh .lh .cp{border-color:#e6c883;color:#ffe08f}
+html #lg .pitch{background:#fff;border:1px solid #eadfc9;border-radius:12px}
+html #lg .go{background:linear-gradient(180deg,#1f8470,#0e4f40)!important;color:#ffe08f!important;border:0!important;border-radius:10px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 1px 0 rgba(230,200,131,.5)}
+html #rgask{padding:0 24px 22px!important}
+html #rgask h3{margin:0 -24px 16px!important;padding:22px 24px!important;background:var(--gr-pro);color:#fff!important;font-weight:800;border-bottom:1px solid rgba(230,200,131,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.26)}
+html #rgask .rgo button:hover,html #rgask .rgg{background:linear-gradient(180deg,#1f8470,#0e4f40)!important;color:#ffe08f!important}
+html #toast{background:var(--gr-pro)!important;border-radius:12px!important;box-shadow:0 0 0 1px rgba(230,200,131,.55),0 14px 34px rgba(0,0,0,.4)!important}
+html #toast button{background:linear-gradient(180deg,#f6e3ab,#d9b266)!important;color:#2b2e32!important;font-weight:800}
