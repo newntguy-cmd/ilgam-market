@@ -20,11 +20,12 @@
     ['wl', '관심업체', '/#wl', '관심업체'],
     ['buy', '매입의 신', '/buy.html', '매입의 신']
   ];
-  var MORE = [['회사소개', '/#home'], ['일감 마스터 이용권', '/pro.html'], ['고객센터·자주 묻는 질문', '/help.html'], ['약관·환불규정', '/market/policy.html']];
+  var MORE = [['건설뉴스', '/news/'], ['회사소개', '/#home'], ['일감 마스터 이용권', '/pro.html'], ['고객센터·자주 묻는 질문', '/help.html'], ['약관·환불규정', '/market/policy.html']];
   function activeKey() {
     if (P.indexOf('/market/policy') === 0) return 'more';
     if (P.indexOf('/market') === 0) return 'mk';
     if (P.indexOf('/buy') === 0) return 'buy';
+    if (P.indexOf('/news') === 0) return 'more';
     if (P.indexOf('/pro') === 0 || P.indexOf('/help') === 0) return 'more';
     if (P.indexOf('/c/') === 0 || P.indexOf('/a/') === 0) return 'win';
     if (IDX) { var h = (location.hash || '#home').slice(1); return h === 'wl' ? 'wl' : h === 'home' ? '' : 'win'; }

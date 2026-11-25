@@ -127,7 +127,10 @@ import gen_bids
 _bp = os.path.join(ROOT, "data", "bids.json")
 BID_URLS = gen_bids.build(json.load(open(_bp, encoding="utf-8")), OUT, SITE, ORG_OK, gen_orgs.oslug) if os.path.exists(_bp) else []
 print(f"입찰공고 페이지 {len(BID_URLS)}개")
-core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"]
+import gen_news
+NEWS_URLS = gen_news.build(OUT, SITE)
+print("건설 뉴스 페이지 완료")
+core = [f"  <url><loc>{SITE}/</loc></url>", f"  <url><loc>{SITE}/pro.html</loc></url>", f"  <url><loc>{SITE}/buy.html</loc></url>", f"  <url><loc>{SITE}/help.html</loc></url>"] + NEWS_URLS
 comp = [f"  <url><loc>{SITE}/c/{b}/</loc><lastmod>{made[b][1]}</lastmod></url>" for b in sorted(made)]
 urls = core + list(AREA_URLS) + list(ORG_URLS) + list(BID_URLS) + comp  # 핵심 페이지와 지역 페이지가 첫 파일에 오도록
 # 사이트맵 인덱스: 파일 하나에 3,000개씩 나눕니다(네이버⁠·⁠구글 모두 대량 URL은 인덱스를 권장)
