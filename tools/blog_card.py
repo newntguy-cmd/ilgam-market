@@ -49,13 +49,28 @@ def top6(name, big):
             f"<div class='s'>{name} · {md(f)} ~ {md(t)} 낙찰</div>{rows_}"
             f"<div class='ft'><b>일감마켓</b> · ilgammarket.co.kr<div>출처: 조달청 나라장터 공공데이터 · 일감마켓은 거래 당사자가 아니에요</div></div></body></html>")
 posts = []; cards = {}
+def ro(w):
+    c = ord(w[-1]) - 0xAC00
+    return "로" if not (0 <= c < 11172) or c % 28 in (0, 8) else "으로"
+def facts(name, rs):
+    cats = Counter(cat_of(r)[0] for r in rs if cat_of(r)).most_common(3)
+    sm = sum(1 for r in rs if r["amt"] < 1e8)
+    dm = Counter(r.get("dm") for r in rs if r.get("dm")).most_common(1)
+    amt = sum(r["amt"] for r in rs)
+    L = [f"이번 주 {name} 낙찰 합계는 약 {eok(amt)}이에요.",
+         "공종별로는 " + ", ".join(f"{k} {v}건" for k, v in cats) + " 순으로 많았어요.",
+         f"1억 원 미만 현장이 {sm:,}건({round(sm * 100 / len(rs))}%)이었어요."]
+    if dm and dm[0][1] >= 3:
+        L.append(f"가장 많이 낙찰을 낸 발주처는 {dm[0][0]}{ro(dm[0][0])} {dm[0][1]}건이에요.")
+    return L
 def build(name, rs):
     big = sorted(rs, key=lambda r: -r["amt"])[:6]
     title = f"이번 주 {name} 공공공사 낙찰 현황 ({md(f)}~{md(t)}) | 최대 {int(big[0]['amt'] // 1e8):,}억"
     where = "전국에서" if name == "전국" else f"{name}에서"
     n6 = {1: "한", 2: "두", 3: "세", 4: "네", 5: "다섯", 6: "여섯"}[len(big)]
     body = [f"이번 주 {where} 낙찰된 공공공사는 {len(rs):,}건이에요.", f"그중 금액이 큰 현장 {n6} 곳을 모았어요.", "",
-            "[사진 1] 카드_%s_표지.png" % name, "[사진 2] 카드_%s_TOP6.png" % name, "",
+            f"[사진 1장] 카드_{name}.png", "",
+            *facts(name, rs), "",
             f"{name} 전체 낙찰 현장과 지역별·분야별 현황은 일감마켓에서 매일 아침 갱신돼요.", "https://ilgammarket.co.kr"]
     posts.append(f"■ 카테고리: 최신 낙찰 현장\n■ 제목: {title}\n■ 분홍 밑줄 강조: 낙찰된 공공공사는 {len(rs):,}건 / 일감마켓에서 매일 아침 갱신\n\n" + "\n".join(body))
     cards[f"카드_{name}_표지"] = card(name, len(rs), big[0]["amt"])
@@ -84,8 +99,12 @@ if bs:
           f"<div class='s'>공사 입찰공고 · {dl} 마감</div>{rws}"
           f"<div class='ft'><b>일감마켓</b> · ilgammarket.co.kr<div>출처: 조달청 나라장터 공공데이터 · 일감마켓은 거래 당사자가 아니에요</div></div></body></html>")
     cards[f"카드_{dl.replace('/', '-')}마감_표지"] = cov; cards[f"카드_{dl.replace('/', '-')}마감_TOP6"] = t6
-    posts.append(f"■ 카테고리: 마감 임박 공고\n■ 제목: {dl} 마감 공사 입찰공고 {len(bsa):,}건 | 최대 {eok(big[0]['pr'])}\n■ 분홍 밑줄 강조: 입찰공고는 {len(bsa):,}건 / 일감마켓에서 매일 아침 갱신\n\n"
-                 f"{dl}에 마감하는 공사 입찰공고는 {len(bsa):,}건이에요.\n그중 금액이 큰 공고 여섯 곳을 모았어요.\n\n[사진 1] 카드_{dl.replace('/', '-')}마감_표지.png\n[사진 2] 카드_{dl.replace('/', '-')}마감_TOP6.png\n\n입찰공고 전체 목록은 일감마켓에서 매일 아침 갱신돼요.\nhttps://ilgammarket.co.kr/b/")
+    rgc = Counter(r.get("rg") for r in bsa if r.get("rg")).most_common(3)
+    big1 = sum(1 for r in bs if r["pr"] >= 1e8); morn = sum(1 for r in bsa if (r["cl"] or "")[11:13] < "12")
+    bfacts = (f"지역별로는 " + ", ".join(f"{k} {v}건" for k, v in rgc) + " 순으로 많아요.\n"
+              f"추정가격 1억 원 이상 공고는 {big1:,}건이고, 오전에 마감하는 공고는 {morn:,}건이에요.")
+    posts.append(f"■ 카테고리: 나라장터 입찰공고\n■ 제목: {dl} 마감 공사 입찰공고 {len(bsa):,}건 | 최대 {int(big[0]['pr'] // 1e8):,}억\n■ 분홍 밑줄 강조: 입찰공고는 {len(bsa):,}건 / 일감마켓에서 매일 아침 갱신\n\n"
+                 f"{dl}에 마감하는 공사 입찰공고는 {len(bsa):,}건이에요.\n그중 금액이 큰 공고 여섯 곳을 모았어요.\n\n[사진 1장] 카드_{dl.replace('/', '-')}마감.png\n\n{bfacts}\n\n입찰공고 전체 목록은 일감마켓에서 매일 아침 갱신돼요.\nhttps://ilgammarket.co.kr/b/")
 open(os.path.join(OUT, "블로그글.txt"), "w", encoding="utf-8").write(("\n\n" + "=" * 40 + "\n\n").join(posts) + "\n")
 from playwright.sync_api import sync_playwright
 with sync_playwright() as p:
