@@ -731,3 +731,12 @@ html.embed body{padding-bottom:0!important}
 html #bn{z-index:2147483002!important;padding:12px!important;align-items:center}
 html #bn .pn{max-height:calc(100dvh - 24px)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 @media (max-width:560px){html #bn .bnL{padding:24px 20px 20px}html #bn .bnL h2{font-size:30px!important}}
+/* v172 엑셀 샘플 표(PC): 칸 안쪽 여백 복원, 금액 머리글은 숫자와 같이 오른쪽 */
+@media (min-width:861px){
+html .xs td{padding:12px 14px!important}
+html .xs th{padding:12px 14px!important}
+html .xs th:nth-child(4),html .xs td.am{text-align:right}
+html .xs td:last-child,html .xs th:last-child{padding-right:20px!important}
+html .xs td:first-child,html .xs th:first-child{padding-left:20px!important}
+}
+@media (min-width:861px) and (max-width:1000px){html .xs td,html .xs th{padding-left:9px!important;padding-right:9px!important}html .xs td:first-child,html .xs th:first-child{padding-left:14px!important}html .xs td:last-child,html .xs th:last-child{padding-right:14px!important}}
