@@ -784,6 +784,18 @@ html #rgask h3{margin:0 -24px 16px!important;padding:22px 24px!important;backgro
 html #rgask .rgo button:hover,html #rgask .rgg{background:linear-gradient(180deg,#1f8470,#0e4f40)!important;color:#ffe08f!important}
 html #toast{background:var(--gr-pro)!important;border-radius:12px!important;box-shadow:0 0 0 1px rgba(230,200,131,.55),0 14px 34px rgba(0,0,0,.4)!important}
 html #toast button{background:linear-gradient(180deg,#f6e3ab,#d9b266)!important;color:#2b2e32!important;font-weight:800}
+/* v181 푸터 공통 기본 스타일(전 페이지 동일) */
+footer{background:var(--navy);padding:28px 0 44px;font-size:13px;color:#eadcc6;line-height:1.7}
+footer a{color:var(--on);text-decoration:none}footer a:hover{color:#fff;text-decoration:underline}
+.fcols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px;padding-bottom:22px;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.fcols b{display:block;color:#fff;font-weight:500;margin-bottom:6px}.fcols a,.fcols .src{display:block;margin-top:12px;font-size:12.5px}.fcols .src span{display:block;padding:0}.fcols .d{display:block;padding:2px 0}.fcols p{margin:6px 0 0}.fbrand{color:#fff;font-size:17px;font-weight:700}
+.fcols .d{font-size:12px;color:#e2d3bd;margin-top:4px}
+.fcols .src b{display:inline;margin:0;font-weight:600}.fsay{margin:10px 0 2px;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.01em;word-break:keep-all}.fsub{margin:0 0 12px;color:#a1a7ad;font-size:14px;word-break:keep-all}
+.fcta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 26px;padding:16px 20px;border:1px solid rgba(201,164,92,.5);border-radius:6px;background:rgba(201,164,92,.08);color:#fff;font-size:16px;word-break:keep-all}.fcta b{color:var(--brass)}.fcta button{height:42px;padding:0 22px;border:0;border-radius:4px;background:var(--brass);color:var(--navy);font-size:15px;font-weight:700;cursor:pointer}
+.biz{margin:0 0 6px}.biz .bh{display:block;color:#f3e7d3;font-size:13px;margin-bottom:6px}.biz .bi{margin:0;color:#eadcc6;font-size:13px;line-height:1.8}.biz .bi span{display:inline-block;margin-right:14px}.biz .bi a{color:#f3e7d3}
+.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}.fbot .copy{margin:0}.fl{display:flex;gap:18px}
+@media (max-width:760px){.fcols{grid-template-columns:1fr;gap:20px}}
+html footer .fcta{display:none!important}
 /* v177 푸터 슬림: 바로가기 열 제거(상단 메뉴와 중복), 여백·글자 축소 */
 html footer{padding:16px 0 18px!important;line-height:1.55!important}
 html footer #fgo{display:none!important}
@@ -818,3 +830,6 @@ html footer .fsub,html footer .fcols .d,html footer .copy,html footer .biz .bi,h
 html footer .fcols,html footer .fbot{border-color:rgba(255,255,255,.14)!important}
 html footer .fcta{background:#16315c!important;border:1px solid #2c4a7c!important}
 html footer .fcta button{color:#0f2342!important}
+/* v183 푸터 .disc 규칙 정정(모든 페이지 동일) */
+html footer .disc{margin:4px 0 0!important;max-width:none!important;font-size:11.5px!important;line-height:1.55!important}
+html footer #upd{display:none!important}
