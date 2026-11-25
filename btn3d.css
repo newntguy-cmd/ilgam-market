@@ -811,3 +811,11 @@ html .pv .tk{background:#126352!important;border:1px solid #2a8a74!important}
 html .pv .tr{border-left-color:rgba(11,66,55,.5)!important}
 html .pv .tr b,html .pv .tr span,html .pv .tr i{color:#0b4237!important}
 html .pgband{background:#126352!important;background-image:none!important;border:1px solid #2a8a74!important}
+/* v179 푸터는 기존 남색 유지(슬림만 적용) */
+html footer{background:#0f2342!important;color:#d9e0ec!important}
+html footer,html footer p,html footer span{color:#cbd4e3!important}
+html footer .fsay,html footer .fbrand,html footer .fcols b,html footer .biz .bh{color:#fff!important}
+html footer .fsub,html footer .fcols .d,html footer .copy,html footer .biz .bi,html footer .disc,html footer .biz .bi span,html footer .fbot span{color:#aebbd1!important}
+html footer .fcols,html footer .fbot{border-color:rgba(255,255,255,.14)!important}
+html footer .fcta{background:#16315c!important;border:1px solid #2c4a7c!important}
+html footer .fcta button{color:#0f2342!important}
