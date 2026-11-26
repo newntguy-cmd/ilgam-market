@@ -70,8 +70,11 @@ def build(bids, out, site, org_ok=None, oslug=None):
 
     pages = {}
 
+    JSB = "<script>(function(){var B=window.BDS||[],n=Date.now(),rm=0,k=new Date(n+324e5).toISOString().slice(0,10);document.querySelectorAll('#bl tbody tr').forEach(function(tr){var b=tr.querySelector('.bdo');var d=b&&B[b.getAttribute('data-i')];if(!d||!d.cl)return;var t=Date.parse(d.cl.replace(' ','T')+':00+09:00');if(t<n){tr.remove();rm++;return}var x=Math.round((Date.parse(d.cl.slice(0,10))-Date.parse(k))/864e5),s=tr.querySelector('.dd');if(s){s.textContent=x<=0?'D-day':'D-'+x;s.className='dd'+(x<=2?' hot':'')}});var bs=document.querySelector('#bs b');if(rm&&bs){var v=parseInt(bs.textContent.replace(/,/g,''),10);if(v)bs.textContent=Math.max(v-rm,0).toLocaleString()+'건'}})()</script>"
+
     def add(path, label, rows, chips, crumb):
-        rows = sorted(rows, key=lambda r: (r["cl"], r["id"]))
+        nowk = dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).strftime("%Y-%m-%d %H:%M")
+        rows = sorted([r for r in rows if r["cl"][:16].replace("T", " ") >= nowk], key=lambda r: (r["cl"], r["id"]))  # 이미 마감 시각이 지난 공고는 뺍니다
         total = len(rows)
         trs = ""
         det = []
@@ -96,7 +99,7 @@ def build(bids, out, site, org_ok=None, oslug=None):
 <h1 id="bh">{e(label)} 입찰공고</h1>
 <p class="sum" id="bs">입찰 중인 공사 <b>{total:,}건</b> · 마감이 가까운 순 · {md(upd)} 기준</p>
 {('<section class="card"><h2>지역별로 보기</h2><p class="chips">' + chip + '</p></section>') if chip else ''}
-<section class="card" id="bl"><h2>마감 임박</h2><table><tbody>{trs}</tbody></table><script>window.BDS={json.dumps(det, ensure_ascii=False).replace('</','<\\/')};</script>{'<p class="note">마감이 가까운 ' + str(ROWS) + '건만 보여 드려요. 공고 제목을 누르면 자세한 내용이 열려요.</p>' if total > ROWS else '<p class="note">공고 제목을 누르면 자세한 내용이 열려요.</p>'}</section>
+<section class="card" id="bl"><h2>마감 임박</h2><table><tbody>{trs}</tbody></table><script>window.BDS={json.dumps(det, ensure_ascii=False).replace('</','<\\/')};</script>{JSB}{'<p class="note">마감이 가까운 ' + str(ROWS) + '건만 보여 드려요. 공고 제목을 누르면 자세한 내용이 열려요.</p>' if total > ROWS else '<p class="note">공고 제목을 누르면 자세한 내용이 열려요.</p>'}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 낙찰 현장 보기</a></p>
 {JSX if chip else ''}
 <p class="note">※ 조달청 나라장터 공공데이터를 가공한 정보이며, 일감마켓은 입찰을 주관⁠·⁠대행하지 않는 정보서비스입니다. 입찰 참가 전 나라장터의 공고문을 꼭 확인하세요. 정확성과 완전성을 보장하지 않습니다.</p></main>'''
