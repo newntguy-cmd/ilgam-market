@@ -1,6 +1,14 @@
 // 업체 이름을 누르면 페이지를 옮기지 않고 업체 정보를 떠 있는 창으로 보여 줍니다. 헤더를 끌어 옮길 수 있고, 뒤 화면은 그대로 보며 쓸 수 있습니다.
 (function () {
-  if (location.search.indexOf('embed') > -1) return;
+  if (location.search.indexOf('embed') > -1) {
+    // 팝업 안에서 다른 업체·발주처를 눌러도 팝업 안에서 바뀌게(전체 화면으로 안 바뀌게)
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="/o/"],a[href^="/c/"]');
+      if (!a || e.defaultPrevented) return;
+      e.preventDefault(); location.href = a.getAttribute('href') + '?embed=1';
+    });
+    return;
+  }
   var d, f, nm;
   function build() {
     if (d) return;
@@ -38,11 +46,11 @@
     });
   }
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="/c/"]');
+    var a = e.target.closest && e.target.closest('a[href^="/c/"],a[href^="/o/"]');
     if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
-    var m = a.getAttribute('href').match(/^\/c\/(\d+)\/?$/); if (!m || !d && !document.body) return;
+    var m = a.getAttribute('href').match(/^\/([co])\/([^/?#]+)\/?$/); if (!m || !d && !document.body) return;
     e.preventDefault(); build();
-    nm.textContent = a.textContent.trim(); f.src = '/c/' + m[1] + '/?embed=1';
+    nm.textContent = a.textContent.trim(); f.src = '/' + m[1] + '/' + m[2] + '/?embed=1';
     if (!d.open) d.show();
   });
 })();
