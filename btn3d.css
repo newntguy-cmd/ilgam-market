@@ -841,3 +841,13 @@ html #bdp .bhd b{font-size:17px;font-weight:800}
 html #bdp .bhd .x{position:static!important;background:none!important;color:#fff!important;width:44px;height:44px;font-size:26px}
 html #bdc{padding:20px 22px 22px}
 @media (max-width:640px){html #bdp .bx{left:8px;right:8px;width:auto;transform:none}}
+/* v186 입찰공고 팝업 본문: 한 줄 요약 + 핵심 4개 + 버튼 1개 */
+html #bdc .lead{margin:10px 0 14px;font-size:17px;line-height:1.65;color:#2d3134;word-break:keep-all}
+html #bdc .lead b{color:#126352}
+html #bdc .mo{margin:6px 0 14px;font-size:14px;color:#5b6166}html #bdc .mo summary{cursor:pointer;padding:6px 0;font-weight:700}
+html #bdc .ac{display:flex;flex-direction:column;gap:8px;margin:14px 0 12px}
+html #bdc .ac a.g{display:block;text-align:center;padding:15px 16px;border-radius:12px;background:linear-gradient(180deg,#1f8470,#0e4f40);color:#ffe08f;font-weight:800;font-size:17px;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+html #bdc .ac .t{display:block;text-align:center;padding:10px;border:0;background:none;color:#126352;font-weight:700;font-size:15px;text-decoration:underline;cursor:pointer}
+html #bdc .ac .t{border:0!important;box-shadow:none!important;min-height:0!important;width:auto!important}
+html #bdc .nx{margin:0 0 14px;padding:11px 14px;border-radius:10px;background:#f0e9d8;color:#42474c;font-size:15px;line-height:1.55}
+html #bdc .gs{display:block;margin-top:-2px;text-align:center;color:#5b6166;font-size:13.5px}
