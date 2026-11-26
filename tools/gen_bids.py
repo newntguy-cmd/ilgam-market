@@ -16,17 +16,20 @@ from gen_areas import money
 
 e = html.escape
 ROWS = 150
-POP = '''<div id="bdp" role="dialog" aria-modal="true" aria-label="입찰공고 상세"><div class="bx"><button type="button" class="x" aria-label="닫기">×</button><div id="bdc"></div></div></div>
+POP = '''<div id="bdp" role="dialog" aria-modal="false" aria-label="입찰공고 상세"><div class="bx"><div class="bhd"><b>입찰공고</b><button type="button" class="x" aria-label="닫기">×</button></div><div id="bdc"></div></div></div>
 <script>(function(){var P=document.getElementById('bdp'),C=document.getElementById('bdc');function E(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function R(k,v){return v?'<dt>'+k+'</dt><dd>'+E(v)+'</dd>':''}
 function open(i){var d=(window.BDS||[])[i];if(!d)return;C.innerHTML=(d.dd?'<span class="dd'+(/^D-(0|1|2)$|D-day/.test(d.dd)?' hot':'')+'">'+E(d.dd)+'</span>':'')+'<h3>'+E(d.nm)+'</h3><dl>'+R('발주처',d.dm||d.og)+R('공고기관',d.og&&d.og!==d.dm?d.og:'')+R('업종',d.kind)+R('지역',d.ar||d.rg)+R('추정가격',d.pr)+R('입찰 마감',d.cl.replace('T',' '))+R('개찰',d.op)+R('입찰 방식',d.m)+R('공고 게시',d.pd)+'</dl><div class="ac">'+(d.ol?'<a href="'+E(d.ol)+'">이 발주처 지난 낙찰 현장 보기</a>':(d.al?'<a href="'+E(d.al)+'">'+E(d.rg)+' 지난 낙찰 현장 보기</a>':''))+'<a class="g" href="/#win">가입하고 낙찰 현장 보기</a><button type="button" class="sh" data-i="'+i+'">이 공고 공유하기</button></div><small>입찰 참가 전 나라장터의 공고문을 꼭 확인하세요. 일감마켓은 입찰을 주관·대행하지 않는 정보서비스입니다.</small>';P.classList.add('on');P.querySelector('.x').focus()}
 function close(){P.classList.remove('on')}
 document.addEventListener('click',function(e){var sb=e.target.closest&&e.target.closest('#bdp .sh');if(sb){var d=(window.BDS||[])[+sb.getAttribute('data-i')];if(d){var t=d.nm+' · 마감 '+String(d.cl||'').replace('T',' ')+(d.pr?' · '+d.pr:'')+'\\nhttps://ilgammarket.co.kr/b/';if(navigator.share){navigator.share({title:d.nm,text:t}).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){sb.textContent='복사했어요'})}}return}var b=e.target.closest&&e.target.closest('.bdo');if(b){open(+b.getAttribute('data-i'));return}if(e.target===P||(e.target.closest&&e.target.closest('#bdp .x')))close()});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})()</script>
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+var H=P.querySelector('.bhd'),X=P.querySelector('.bx'),sx,sy,ox,oy,mv=false;H.addEventListener('pointerdown',function(e){if(e.target.closest('button'))return;var r=X.getBoundingClientRect();X.style.transform='none';X.style.left=r.left+'px';X.style.top=r.top+'px';sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;mv=true;H.setPointerCapture(e.pointerId)});
+H.addEventListener('pointermove',function(e){if(!mv)return;X.style.left=Math.min(Math.max(ox+e.clientX-sx,60-X.offsetWidth),innerWidth-60)+'px';X.style.top=Math.min(Math.max(oy+e.clientY-sy,0),innerHeight-56)+'px'});
+H.addEventListener('pointerup',function(){mv=false})})()</script>
 '''
 
 
-JSX = r'''<script>(function(){var C=document.querySelector('.chips');if(!C)return;var cache={};function put(h,html,push){var d=new DOMParser().parseFromString(html,'text/html');var L=d.getElementById('bl'),H=d.getElementById('bh'),S=d.getElementById('bs');if(!L)return false;var m=/window\.BDS=(\[[\s\S]*?\]);/.exec(html);document.getElementById('bl').innerHTML=L.innerHTML;document.getElementById('bh').textContent=H.textContent;document.getElementById('bs').innerHTML=S.innerHTML;document.title=d.title;try{window.BDS=m?JSON.parse(m[1]):[]}catch(x){window.BDS=[]}C.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.getAttribute('href')===h)});if(push){try{history.pushState({h:h},'',h)}catch(x){}}return true}
+JSX = r'''<script>(function(){var C=document.querySelector('.chips');if(!C)return;var cache={};function put(h,html,push){var d=new DOMParser().parseFromString(html,'text/html');var L=d.getElementById('bl'),H=d.getElementById('bh'),S=d.getElementById('bs');if(!L)return false;var m=/window\.BDS=(\[[\s\S]*?\]);/.exec(html);document.getElementById('bl').innerHTML=L.innerHTML;document.getElementById('bh').textContent=H.textContent;document.getElementById('bs').innerHTML=S.innerHTML;document.title=d.title;try{window.BDS=m?JSON.parse(m[1]):[]}catch(x){window.BDS=[]}if(window.igLive)window.igLive();C.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.getAttribute('href')===h)});if(push){try{history.pushState({h:h},'',h)}catch(x){}}return true}
 function go(h,push){if(cache[h])return put(h,cache[h],push);fetch(h).then(function(r){return r.text()}).then(function(t){cache[h]=t;put(h,t,push)}).catch(function(){location.href=h})}
 C.addEventListener('click',function(e){var a=e.target.closest('a.chip');if(!a||e.metaKey||e.ctrlKey)return;e.preventDefault();go(a.getAttribute('href'),true)});
 window.addEventListener('popstate',function(){var p=location.pathname.replace(/%[0-9A-F]{2}/gi,function(x){return x});go(location.pathname,false)})})()</script>'''
@@ -70,7 +73,7 @@ def build(bids, out, site, org_ok=None, oslug=None):
 
     pages = {}
 
-    JSB = "<script>(function(){var B=window.BDS||[],n=Date.now(),rm=0,k=new Date(n+324e5).toISOString().slice(0,10);document.querySelectorAll('#bl tbody tr').forEach(function(tr){var b=tr.querySelector('.bdo');var d=b&&B[b.getAttribute('data-i')];if(!d||!d.cl)return;var t=Date.parse(d.cl.replace(' ','T')+':00+09:00');if(t<n){tr.remove();rm++;return}var x=Math.round((Date.parse(d.cl.slice(0,10))-Date.parse(k))/864e5),s=tr.querySelector('.dd');if(s){s.textContent=x<=0?'D-day':'D-'+x;s.className='dd'+(x<=2?' hot':'')}});var bs=document.querySelector('#bs b');if(rm&&bs){var v=parseInt(bs.textContent.replace(/,/g,''),10);if(v)bs.textContent=Math.max(v-rm,0).toLocaleString()+'건'}})()</script>"
+    JSB = "<script>window.igLive=function(){var B=window.BDS||[],n=Date.now(),rm=0,k=new Date(n+324e5).toISOString().slice(0,10);document.querySelectorAll('#bl tbody tr').forEach(function(tr){var b=tr.querySelector('.bdo');var d=b&&B[b.getAttribute('data-i')];if(!d||!d.cl)return;var t=Date.parse(d.cl.replace(' ','T')+':00+09:00');if(t<n){tr.remove();rm++;return}var x=Math.round((Date.parse(d.cl.slice(0,10))-Date.parse(k))/864e5),s=tr.querySelector('.dd');if(s){s.textContent=x<=0?'D-day':'D-'+x;s.className='dd'+(x<=2?' hot':'')}});var bs=document.querySelector('#bs b');if(rm&&bs){var v=parseInt(bs.textContent.replace(/,/g,''),10);if(v)bs.textContent=Math.max(v-rm,0).toLocaleString()+'건'}};window.igLive()</script>"
 
     def add(path, label, rows, chips, crumb):
         nowk = dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).strftime("%Y-%m-%d %H:%M")
@@ -122,7 +125,7 @@ def build(bids, out, site, org_ok=None, oslug=None):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=184"><style>{css}</style>
+<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=185"><style>{css}</style>
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {band(body)}
