@@ -851,3 +851,13 @@ html #bdc .ac .t{display:block;text-align:center;padding:10px;border:0;backgroun
 html #bdc .ac .t{border:0!important;box-shadow:none!important;min-height:0!important;width:auto!important}
 html #bdc .nx{margin:0 0 14px;padding:11px 14px;border-radius:10px;background:#f0e9d8;color:#42474c;font-size:15px;line-height:1.55}
 html #bdc .gs{display:block;margin-top:-2px;text-align:center;color:#5b6166;font-size:13.5px}
+/* v189 홈 '오늘' 띠 */
+html .td{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:0;margin:18px 0 6px;border-radius:14px;overflow:hidden;background:#126352;color:#fff;box-shadow:0 0 0 1px rgba(201,164,92,.5),0 10px 26px rgba(11,66,55,.28)}
+html .td[hidden]{display:none}
+html .tdc{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:18px 24px;border-right:1px solid rgba(230,200,131,.35)}
+html .tdc b{font-size:38px;line-height:1;font-weight:800;color:#ffe08f;letter-spacing:-.02em}
+html .tdc span{font-size:16px;font-weight:700;color:#e8f5ef;word-break:keep-all}
+html .tdk{flex-direction:row;align-items:center;justify-content:space-between;gap:14px;border-right:0}
+html .tdk button{flex:none;min-height:46px;padding:0 22px;border:0;border-radius:10px;background:linear-gradient(180deg,#f6e3ab,#d9b266);color:#2b2e32;font-size:16px;font-weight:800;cursor:pointer}
+@media (max-width:760px){html .td{grid-template-columns:1fr 1fr}html .tdc{padding:14px 16px}html .tdc b{font-size:30px}html .tdk{grid-column:1/-1;border-top:1px solid rgba(230,200,131,.35)}}
+html .td{margin:18px 20px 8px!important}@media (max-width:760px){html .td{margin:14px 16px 6px!important}}

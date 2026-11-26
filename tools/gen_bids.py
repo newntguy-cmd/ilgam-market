@@ -51,6 +51,14 @@ def build(bids, out, site, org_ok=None, oslug=None):
         return []
     upd = (bids.get("updated") or "")[:10]
     today = dt.date.fromisoformat(upd) if upd else dt.date.today()
+    # 홈 '오늘' 띠용 작은 자료: 앞으로 3일 안에 마감하는 공고의 마감 시각만
+    try:
+        lim = (today + dt.timedelta(days=3)).isoformat()
+        os.makedirs(os.path.join(out, "data"), exist_ok=True)
+        json.dump({"updated": bids.get("updated") or "", "t": __import__("collections").Counter(r["cl"][:16].replace("T", " ") for r in items if r.get("cl") and r["cl"][:10] <= lim)},
+                  open(os.path.join(out, "data", "today.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    except Exception as ex:
+        print("today.json 실패", ex)
     bdir = os.path.join(out, "b")
     if os.path.isdir(bdir):
         shutil.rmtree(bdir)
@@ -127,7 +135,7 @@ def build(bids, out, site, org_ok=None, oslug=None):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=188"><style>{css}</style>
+<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=189"><style>{css}</style>
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {band(body)}
