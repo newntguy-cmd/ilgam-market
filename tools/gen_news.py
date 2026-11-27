@@ -77,21 +77,63 @@ def build(out, site=SITE):
     if fails < len(FEEDS) or not os.path.exists(path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         json.dump({"updated": dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).strftime("%Y-%m-%d %H:%M"), "items": items}, open(path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    md = lambda x: x[5:10].replace("-", ".")
-    rows = "".join(f'<li><span class="nd">{md(r["d"])}</span><a href="{e(r["l"])}" target="_blank" rel="noopener nofollow">{e(r["t"])}</a><em>{e(r["s"])}</em></li>' for r in items)
+    kst = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
+    today_s, yest_s = kst.strftime("%Y-%m-%d"), (kst - dt.timedelta(days=1)).strftime("%Y-%m-%d")
+    wd = "월화수목금토일"
+    def dlabel(d):
+        x = dt.date.fromisoformat(d)
+        tag = "오늘 " if d == today_s else ("어제 " if d == yest_s else "")
+        return f"{tag}{x.month}월 {x.day}일 ({wd[x.weekday()]})"
+    nb = sum(1 for r in items if r["s"] == "입찰안내")
+    npr = len(items) - nb
+    ntd = sum(1 for r in items if r["d"] == today_s)
+    ICB = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>'
+    ICP = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H4zM17 8h3v9a2 2 0 0 1-2 2M7 9h7M7 13h7"/></svg>'
+    groups, order = {}, []
+    for r in items:
+        if r["d"] not in groups:
+            groups[r["d"]] = []
+            order.append(r["d"])
+        groups[r["d"]].append(r)
+    rows = ""
+    for d in order:
+        li = "".join(
+            f'<li data-k="{e(r["s"])}"><span class="nk {"nb" if r["s"] == "입찰안내" else "np"}">{ICB if r["s"] == "입찰안내" else ICP}{e(r["s"])}</span>'
+            f'<a href="{e(r["l"])}" target="_blank" rel="noopener nofollow">{e(r["t"])}</a></li>' for r in groups[d])
+        rows += f'<h3 class="gd">{dlabel(d)}<small>{len(groups[d])}건</small></h3><ul class="nl">{li}</ul>'
     if not rows:
-        rows = '<li class="empty">소식을 불러오는 중이에요. 잠시 뒤에 다시 와 주세요.</li>'
-    upd = dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).strftime("%m.%d")
-    css = ('.nl{list-style:none;margin:0;padding:0}.nl li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:15px 0;border-top:1px solid #e3e7ed}'
-           '.nl li:first-child{border-top:0}.nd{color:#8a6a28;font-weight:800;font-size:15px}.nl a{color:#2d3134;font-weight:700;font-size:17px;line-height:1.5;text-decoration:none;word-break:keep-all}'
-           '.nl a:hover{color:#8a6a28;text-decoration:underline}.nl a:focus-visible{outline:3px solid #c9a45c;outline-offset:2px}.nl em{font-style:normal;font-size:12.5px;color:#42474c;background:#f3e7d3;border-radius:20px;padding:3px 10px;white-space:nowrap}'
-           '.nl .empty{display:block;color:#42474c}@media(max-width:640px){.nl li{grid-template-columns:56px minmax(0,1fr);row-gap:6px}.nl em{grid-column:2;justify-self:start}}')
+        rows = '<p class="empty">소식을 불러오는 중이에요. 잠시 뒤에 다시 와 주세요.</p>'
+    upd = kst.strftime("%m.%d")
+    css = ('.nt{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 18px}.nt div{background:#fff;border:1px solid #e3e7ed;border-radius:14px;padding:16px 20px}'
+           '.nt b{display:block;font-size:34px;line-height:1.1;font-weight:800;color:#126352}.nt span{display:block;margin-top:4px;font-size:15px;font-weight:700;color:#42474c}'
+           '.nw{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}.nf{display:flex;gap:8px;margin:0 0 6px;flex-wrap:wrap}'
+           '.nf button{min-height:44px;padding:0 18px;border:1px solid #d8d2c4;border-radius:999px;background:#fff;color:#2d3134;font-size:16px;font-weight:700;cursor:pointer}'
+           '.nf button[aria-pressed=true]{background:#126352;border-color:#126352;color:#fff}.nf button:focus-visible{outline:3px solid #c9a45c;outline-offset:2px}'
+           '.gd{display:flex;align-items:baseline;gap:10px;margin:22px 0 4px;font-size:18px;font-weight:800;color:#2d3134}.gd small{font-size:14px;font-weight:700;color:#8a6a28}'
+           '.nl{list-style:none;margin:0;padding:0}.nl li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-top:1px solid #e3e7ed}.nl li[hidden]{display:none}'
+           '.nk{flex:none;display:inline-flex;align-items:center;gap:5px;min-width:92px;justify-content:center;padding:5px 10px;border-radius:8px;font-size:13.5px;font-weight:800}'
+           '.nb{background:#e3f1ec;color:#0b4237}.np{background:#ece9e2;color:#2d3134}'
+           '.nl a{color:#2d3134;font-weight:700;font-size:17px;line-height:1.5;text-decoration:none;word-break:keep-all}.nl a:hover{color:#126352;text-decoration:underline}.nl a:focus-visible{outline:3px solid #c9a45c;outline-offset:2px}'
+           '.side{position:sticky;top:104px;background:#126352;color:#fff;border-radius:16px;padding:20px;box-shadow:0 0 0 1px rgba(201,164,92,.5)}.side h2{margin:0 0 4px;font-size:19px;color:#fff}'
+           '.side p.s{margin:0 0 12px;font-size:14px;color:#cfe8df}.side ol{list-style:none;margin:0;padding:0}.side li{padding:12px 0;border-top:1px solid rgba(230,200,131,.35)}'
+           '.side li b{display:block;font-size:16px;line-height:1.45;font-weight:700;word-break:keep-all}.side li a{color:#ffe08f;font-weight:800;text-decoration:none;font-size:15px}.side li span{display:block;margin-top:2px;font-size:15px;color:#e8f5ef}'
+           '.side .go{display:block;margin-top:14px;text-align:center;padding:13px;border-radius:10px;background:linear-gradient(180deg,#f6e3ab,#d9b266);color:#2b2e32;font-weight:800;font-size:16px;text-decoration:none}'
+           '.empty{color:#42474c}@media(max-width:900px){.nw{grid-template-columns:1fr}.side{position:static}}@media(max-width:560px){.nt b{font-size:26px}.nt div{padding:12px 14px}.nl li{flex-direction:column;gap:6px}}')
+    js = ("<script>(function(){var bs=document.querySelectorAll('.nf button'),ls=document.querySelectorAll('.nl li'),gs=document.querySelectorAll('.gd');"
+          "function f(k){bs.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false')});ls.forEach(function(l){l.hidden=k!=='전체'&&l.dataset.k!==k});"
+          "gs.forEach(function(g){var u=g.nextElementSibling;g.hidden=!u.querySelector('li:not([hidden])');u.hidden=g.hidden})}bs.forEach(function(b){b.addEventListener('click',function(){f(b.dataset.k)})});"
+          "fetch('/data/recent.json').then(function(r){return r.json()}).then(function(j){var it=j.items||[],mx='';it.forEach(function(x){if(x.d>mx)mx=x.d});"
+          "var t=it.filter(function(x){return x.d===mx&&x.amt&&x.co}).sort(function(a,b){return b.amt-a.amt}).slice(0,3),o=document.getElementById('sd');if(!o||!t.length)return;"
+          "function E(s){return String(s).replace(/[&<>\"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]})}"
+          "o.innerHTML=t.map(function(x){return '<li><b>'+E(x.nm)+'</b><a href=\"/c/'+E(x.b)+'/\">'+E(x.co)+'</a><span>'+(x.amt/1e8).toFixed(1)+'억 · '+E(x.rg||'')+'</span></li>'}).join('');"
+          "document.getElementById('sdd').textContent=Number(mx.slice(5,7))+'월 '+Number(mx.slice(8,10))+'일 낙찰 중 금액이 큰 현장'}).catch(function(){})})()</script>")
     body = f'''<main class="wrap"><p class="crumb"><a href="/">일감마켓</a></p>
 <h1>건설 뉴스</h1>
-<p class="sum">국토교통부가 올린 보도자료와 입찰안내 중 건설과 관련된 소식 <b>{len(items):,}건</b> · {upd} 기준</p>
-<section class="card"><h2>최신 소식</h2><ul class="nl">{rows}</ul></section>
-<p class="more"><a class="btn" href="/#win">일감마켓에서 낙찰 현장 보기</a></p>
-<p class="note">※ 국토교통부가 공개한 보도자료·입찰안내의 제목과 원문 링크입니다. 내용과 저작권은 해당 기관에 있으며, 일감마켓은 내용을 수정하거나 보증하지 않는 정보서비스입니다. 링크를 누르면 새 창에서 원문이 열립니다.</p></main>'''
+<p class="sum">국토교통부가 올린 보도자료와 입찰안내 중 건설과 관련된 소식 · {upd} 기준</p>
+<div class="nt"><div><b>{ntd}건</b><span>오늘 올라온 소식</span></div><div><b>{nb}건</b><span>입찰안내</span></div><div><b>{npr}건</b><span>보도자료</span></div></div>
+<div class="nw"><section class="card"><div class="nf" role="group" aria-label="종류"><button type="button" data-k="전체" aria-pressed="true">전체</button><button type="button" data-k="입찰안내" aria-pressed="false">입찰안내</button><button type="button" data-k="보도자료" aria-pressed="false">보도자료</button></div>{rows}</section>
+<aside class="side"><h2>오늘의 큰 낙찰</h2><p class="s" id="sdd">금액이 큰 낙찰 현장</p><ol id="sd"><li><b>불러오는 중이에요</b></li></ol><a class="go" href="/#win">낙찰 현장 전체 보기</a></aside></div>
+<p class="note">※ 국토교통부가 공개한 보도자료·입찰안내의 제목과 원문 링크입니다. 내용과 저작권은 해당 기관에 있으며, 일감마켓은 내용을 수정하거나 보증하지 않는 정보서비스입니다. 링크를 누르면 새 창에서 원문이 열립니다.</p>{js}</main>'''
     title = "건설 뉴스 · 국토교통부 보도자료·입찰안내 | 일감마켓"
     desc = "국토교통부가 올린 보도자료와 입찰안내 중 건설·주택·인프라 관련 소식을 매일 모아 보여 드립니다. 제목을 누르면 원문이 열려요."
     url = f"{site}/news/"
