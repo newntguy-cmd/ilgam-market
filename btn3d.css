@@ -864,3 +864,19 @@ html .td{margin:18px 20px 8px!important}@media (max-width:760px){html .td{margin
 html footer .src{margin-bottom:0!important}
 html .bdo{max-width:100%;white-space:normal!important;overflow-wrap:anywhere}
 html h1.pgh{font-size:clamp(26px,5vw,40px)!important}
+/* v192 상단 고정 결제 안내 — 가입 전 방문자에게 모든 화면 동일 */
+html header.top .tcta{margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;background:radial-gradient(120% 140% at 50% -20%,#3fae94 0,#1a7762 36%,#0e4f40 70%,#082f27 100%);color:#fff;font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;box-shadow:0 2px 0 #082f27;transition:transform .12s,box-shadow .12s}
+html header.top .tcta b{color:#ffe08f;font-weight:800}
+html header.top .tcta:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(8,47,39,.35)}
+html header.top .tcta:active{transform:translateY(1px);box-shadow:inset 0 3px 6px rgba(0,0,0,.45)}
+html header.top .tcta+.acc{margin-left:8px!important}
+@media (max-width:760px){html header.top .tcta{margin-left:auto;height:36px;padding:0 10px;gap:5px;font-size:12.5px}html header.top .tcta .n{display:none}html header.top .tcta+.acc{margin-left:6px!important}}
+@media (max-width:760px){html header.top .wrap{flex-wrap:nowrap!important;gap:6px!important;padding-left:12px!important;padding-right:12px!important}html header.top .acc{flex:0 0 auto;gap:0}html header.top .acc>button{height:36px!important;padding:0 11px!important;font-size:13.5px!important}html header.top .acc>button.jn{margin-right:5px!important}html header.top .brand{flex:0 0 auto}}
+html header.top .wrap .tcta+.acc{margin-left:6px!important}html header.top .wrap .tcta{margin-left:auto!important}
+html header.top .tcta .m{display:none}
+@media (max-width:760px){html header.top .tcta .m{display:inline}html header.top .tcta{padding:0 9px!important;gap:4px!important;font-size:12.5px!important}html header.top .acc>button{padding:0 9px!important;font-size:13px!important}}
+@media (max-width:430px){html header.top .wrap{gap:4px!important;padding-left:10px!important;padding-right:10px!important}html header.top .tcta{padding:0 7px!important;font-size:12px!important;gap:3px!important}html header.top .acc>button{padding:0 7px!important;font-size:12px!important}html header.top .acc>button.jn{margin-right:3px!important}html header.top .brand{transform:scale(.9);transform-origin:left center;margin-right:-4px}}
+@media (max-width:340px){html header.top .tcta .m{display:none}}
+@media (max-width:380px){html header.top .wrap{padding-left:8px!important;padding-right:8px!important;gap:3px!important}html header.top .brand{transform:scale(.8);margin-right:-10px}html header.top .tcta{padding:0 6px!important;font-size:11.5px!important}html header.top .acc>button{padding:0 6px!important;font-size:11.5px!important}}
+@media (max-width:340px){html header.top .tcta .m{display:none}html header.top .acc>button.jn{margin-right:2px!important}}
+@media (max-width:340px){html header.top .tcta{padding:0 5px!important;font-size:11px!important}html header.top .acc>button{padding:0 5px!important;font-size:11px!important}}
