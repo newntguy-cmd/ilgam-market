@@ -861,3 +861,6 @@ html .tdk{flex-direction:row;align-items:center;justify-content:space-between;ga
 html .tdk button{flex:none;min-height:46px;padding:0 22px;border:0;border-radius:10px;background:linear-gradient(180deg,#f6e3ab,#d9b266);color:#2b2e32;font-size:16px;font-weight:800;cursor:pointer}
 @media (max-width:760px){html .td{grid-template-columns:1fr 1fr}html .tdc{padding:14px 16px}html .tdc b{font-size:30px}html .tdk{grid-column:1/-1;border-top:1px solid rgba(230,200,131,.35)}}
 html .td{margin:18px 20px 8px!important}@media (max-width:760px){html .td{margin:14px 16px 6px!important}}
+html footer .src{margin-bottom:0!important}
+html .bdo{max-width:100%;white-space:normal!important;overflow-wrap:anywhere}
+html h1.pgh{font-size:clamp(26px,5vw,40px)!important}
