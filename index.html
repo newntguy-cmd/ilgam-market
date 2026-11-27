@@ -615,7 +615,7 @@ body.ph .hero,body.ph #res{display:none}body:not(.ph) #home{display:none}
 @media (max-width:860px){.ab-hero .ab-ask{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;width:100%;box-sizing:border-box;justify-content:space-between;padding:8px 8px 8px 22px;gap:12px!important}.ab-hero .ab-ask b{font-size:18px!important}.ab-hero .ab-ask .go{width:auto!important;flex:0 0 auto;height:46px;padding:0 12px 0 16px!important;font-size:16px!important}}
 @media (max-width:640px){.ab-nums{grid-template-columns:minmax(0,1fr)!important;gap:10px}.ab-nums>div{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px!important}.ab-nums b{font-size:30px!important;line-height:1.1}.ab-nums span{margin:0!important;font-size:16px!important}}
 .srcln{margin-top:4px;font-size:14px;font-weight:600;color:#42464b}.srcln::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#2a8a74;margin-right:7px;vertical-align:1px}</style>
-<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=198"><style>#home{scroll-margin-top:240px}</style></head>
+<link rel="preload" as="image" href="/img/hero.jpg?v=2" fetchpriority="high"><link rel="stylesheet" href="/btn3d.css?v=199"><style>#home{scroll-margin-top:240px}</style></head>
 <body>
 <script>(function(){try{if(localStorage.getItem("ig_me"))document.documentElement.classList.add("ig-in")}catch(e){}try{if(sessionStorage.getItem("ig_intro"))document.documentElement.classList.add("ig-seen");else setTimeout(function(){if(document.body.classList.contains("ph"))try{sessionStorage.setItem("ig_intro","1")}catch(e){}},3500)}catch(e){}var h=(location.hash||"").slice(1);if(!h||h==="home"||h==="join"||h==="login")document.body.classList.add("ph");window.igKnown=function(){return !!(window.IGAUTH&&window.IGAUTH.ready)||!!window.__igT};setTimeout(function(){if(!window.igKnown()){window.__igT=1;try{window.dispatchEvent(new CustomEvent("ig-known"))}catch(e){}}},2500)})()</script>
 <header class="top"><div class="wrap">
@@ -753,6 +753,8 @@ fetch('data/recent.json',{cache:'no-cache'}).then(function(r){return r.json()}).
 </div>
 <div class="ab-who"><b>우리는 이런 곳입니다.</b><p><span>나라장터 낙찰정보, 건설현장 정보를</span> <span>한곳에 모아 편리하게 이용하실 수 있어요</span><br><span>직거래장터를 통해</span> <span>필요한 물건을 구하고 팔고 싶은 물건을 올려보세요</span><br><span>매입의 신 코너에 물건을 올려주시면</span> <span>검토 후 매입을 진행해요</span></p><small><span>거래는 이용자끼리 직접 진행</span> · <span>일감마켓은 거래 당사자가 아님</span> · <span>사이트 결제는 일감 마스터 이용권에 한함</span></small></div>
 </div></section>
+<section class="ab-sec ab-flow" id="flow"><div class="wrap"><h2>가입하면 이렇게 쓰여요</h2>
+<ol class="fl"><li><i>1</i><b>가입하세요</b><p>바로 낙찰 현장을 둘러볼 수 있어요</p></li><li><i>2</i><b>내 지역을 고르세요</b><p>일하는 지역 한 곳만 정하면 돼요</p></li><li><i>3</i><b>아침 7:30에 받아보세요</b><p>그 지역 새 낙찰이 메일로 와요</p></li></ol></div></section>
 <section class="ab-sec"><h2>얼마나 쓸 수 있나요?</h2>
 <div class="pl">
 <div class="pc"><span class="pt1">가입하면</span><h3>낙찰 현황</h3><p class="pb">현장⁠·⁠업체⁠·⁠금액 <b>확인</b></p><ul><li>낙찰 현장⁠·⁠업체⁠·⁠금액 확인</li><li>대표 전화⁠·⁠주소 10곳 열람</li><li>지역 알림 1곳</li><li>직거래장터 글 올리기와 보기</li></ul></div>
@@ -760,6 +762,8 @@ fetch('data/recent.json',{cache:'no-cache'}).then(function(r){return r.json()}).
 <div class="pc hot"><span class="pt1">더 필요하시면</span><h3>일감 마스터</h3><p class="pb">영업 리스트와 <b>알림까지</b></p><ul><li>대표 전화⁠·⁠주소 조회</li><li>영업 리스트 엑셀</li><li>여러 지역 알림</li><li>30일 49,900원(부가세 포함), 한 번 결제하며 자동으로 다시 결제되지 않아요</li></ul></div>
 </div>
 <p class="pn1">물건 거래는 이용자끼리 직접 하며, 일감마켓은 거래 당사자가 아닙니다.</p></section>
+<section class="ab-sec ab-end" id="endcta"><div class="wrap"><h2>내 지역 낙찰,<br>아직도 일일이 찾으세요?</h2><p>오늘 올라온 낙찰과 마감 임박 공고를 한곳에서 확인하세요.</p><div class="er"><button type="button" class="go" data-act="join">가입하기</button><a class="ep" href="pro.html#buy">일감 마스터 <b>49,900원</b></a></div></div></section>
+
 </div>
 
 
@@ -922,9 +926,9 @@ window.addEventListener('ig-auth',chk);window.addEventListener('ig-known',chk);c
 <script src="/promo.js?v=3" defer></script><script src="/cs.js?v=9zG" defer></script><script src="/ga.js" defer></script><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("#fgo a[data-m]");if(!a)return;e.preventDefault();var n=document.getElementById("gnb");var m=+a.getAttribute("data-m");if(m===0){var br=document.querySelector(".brand");if(br)br.click();return}var t=n&&n.children[m-1];if(t)t.click()});</script>
 <script src="/submenu.js?v=8" defer></script><script src="/tabbar.js?v=7" defer></script><script>(function(){function W(n){return n>=1e8?(Math.round(n/1e7)/10).toString().replace(/\.0$/,'')+'억 원':(Math.round(n/1e4)).toLocaleString()+'만 원'}
 fetch('data/bids.json?v='+Date.now().toString().slice(0,8)).then(function(r){return r.json()}).then(function(d){var now=new Date(),t0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-var a=(d.items||[]).filter(function(x){return x.cl&&x.pr}).map(function(x){var c=new Date(x.cl.replace(' ','T'));x._d=Math.round((new Date(c.getFullYear(),c.getMonth(),c.getDate())-t0)/864e5);x._c=c;return x}).filter(function(x){return x._c>now&&x._d<=7});
-a.sort(function(x,y){return x._d-y._d||y.pr-x.pr});a=a.slice(0,4);if(a.length<2)return;var g=document.getElementById('bdg');
-g.innerHTML=a.map(function(x){var h=x._d<=2;return '<a class="ab-bdc" href="/b/"><span class="dd'+(h?' hot':'')+'">'+(x._d===0?'오늘 마감':'D-'+x._d)+'</span><b>'+x.nm.replace(/</g,'&lt;')+'</b><small>'+(x.dm||x.og||'')+' · '+(x.rg||'전국')+'</small><em>'+W(x.pr)+'</em></a>'}).join('');
+var a=(d.items||[]).filter(function(x){return x.cl&&x.pr}).map(function(x){var c=new Date(x.cl.replace(' ','T'));x._d=Math.round((new Date(c.getFullYear(),c.getMonth(),c.getDate())-t0)/864e5);x._c=c;return x}).filter(function(x){return x._c-now>18e5&&x._d<=7&&!/취소/.test(x.nm)});
+a.sort(function(x,y){return x._d-y._d||(x._d===0&&x._c-y._c||y.pr-x.pr)});var sn={};a=a.filter(function(x){var k=x.nm.replace(/\(.*?\)/g,'').replace(/\s+/g,'');if(sn[k])return false;sn[k]=1;return true}).slice(0,4);if(a.length<2)return;var g=document.getElementById('bdg');
+g.innerHTML=a.map(function(x){var h=x._d<=2;var ms=x._c-now,hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4),lb=x._d===0?(hh>0?hh+'시간 '+(mm?mm+'분 ':'')+'남음':Math.max(mm,1)+'분 남음'):'D-'+x._d;return '<a class="ab-bdc" href="/b/"><span class="dd'+(h?' hot':'')+'">'+lb+'</span><b>'+x.nm.replace(/</g,'&lt;')+'</b><small>'+(x.dm||x.og||'')+' · '+(x.rg||'전국')+'</small><em>'+W(x.pr)+'</em></a>'}).join('');
 document.getElementById('bdsub').textContent='마감이 가까운 공사 입찰공고예요. 금액이 큰 순서로 보여 드려요.';document.getElementById('bdsec').hidden=false}).catch(function(){})})()</script>
 <script src="today.js?v=2" defer></script><script src="/topcta.js?v=2" defer></script></body>
 </html>

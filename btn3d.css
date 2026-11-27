@@ -880,3 +880,20 @@ html header.top .tcta .m{display:none}
 @media (max-width:380px){html header.top .wrap{padding-left:8px!important;padding-right:8px!important;gap:3px!important}html header.top .brand{transform:scale(.8);margin-right:-10px}html header.top .tcta{padding:0 6px!important;font-size:11.5px!important}html header.top .acc>button{padding:0 6px!important;font-size:11.5px!important}}
 @media (max-width:340px){html header.top .tcta .m{display:none}html header.top .acc>button.jn{margin-right:2px!important}}
 @media (max-width:340px){html header.top .tcta{padding:0 5px!important;font-size:11px!important}html header.top .acc>button{padding:0 5px!important;font-size:11px!important}}
+/* v199 홈: 가입 후 흐름 + 마무리 */
+.ab-flow .fl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ab-flow .fl li{position:relative;padding:26px 24px 24px;border-radius:14px;background:#fffdf7;border:1px solid #e2d9c6;box-shadow:0 2px 0 #e2d9c6}
+.ab-flow .fl i{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:radial-gradient(120% 140% at 50% -20%,#3fae94 0,#1a7762 36%,#0e4f40 70%,#082f27 100%);color:#ffe08f;font-style:normal;font-weight:800;font-size:19px;margin-bottom:14px}
+.ab-flow .fl b{display:block;font-size:21px;font-weight:800;color:#2d3134;letter-spacing:-.03em;margin-bottom:6px}
+.ab-flow .fl p{margin:0;font-size:17px;line-height:1.55;color:#4d5359}
+.ab-flow .fl li+li:before{content:"";position:absolute;left:-14px;top:46px;width:12px;height:12px;border-top:3px solid #c9a45c;border-right:3px solid #c9a45c;transform:rotate(45deg)}
+.ab-end{padding-bottom:72px!important}
+.ab-end .wrap{padding:44px 28px;border-radius:18px;text-align:center;background:radial-gradient(120% 140% at 50% -20%,#3fae94 0,#1a7762 36%,#0e4f40 70%,#082f27 100%)}
+.ab-end h2{margin:0 auto 12px!important;color:#fff!important;max-width:none!important}
+.ab-end p{margin:0 0 26px;font-size:18px;color:#d8efe7}
+.ab-end .er{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ab-end .go{height:54px;padding:0 34px;border:0;border-radius:12px;background:#c9a45c;color:#2d3134;font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 #8a6a28}
+.ab-end .go:active{transform:translateY(2px);box-shadow:none}
+.ab-end .ep{display:inline-flex;align-items:center;gap:8px;height:54px;padding:0 30px;border-radius:12px;border:2px solid #e6c883;color:#fff;font-size:18px;font-weight:700;text-decoration:none}
+.ab-end .ep b{color:#ffe08f}
+@media (max-width:760px){.ab-flow .fl{grid-template-columns:1fr}.ab-flow .fl li+li:before{display:none}.ab-end .wrap{padding:34px 18px}}
