@@ -878,7 +878,7 @@ html header.top .tcta .m{display:none}
 @media (max-width:430px){html header.top .wrap{gap:4px!important;padding-left:10px!important;padding-right:10px!important}html header.top .tcta{padding:0 7px!important;font-size:12px!important;gap:3px!important}html header.top .acc>button{padding:0 7px!important;font-size:12px!important}html header.top .acc>button.jn{margin-right:3px!important}html header.top .brand{transform:scale(.9);transform-origin:left center;margin-right:-4px}}
 @media (max-width:340px){html header.top .tcta .m{display:none}}
 @media (max-width:380px){html header.top .wrap{padding-left:8px!important;padding-right:8px!important;gap:3px!important}html header.top .brand{transform:scale(.8);margin-right:-10px}html header.top .tcta{padding:0 6px!important;font-size:11.5px!important}html header.top .acc>button{padding:0 6px!important;font-size:11.5px!important}}
-@media (max-width:340px){html header.top .tcta .m{display:none}html header.top .acc>button.jn{margin-right:2px!important}}
+@media (max-width:340px){html header.top .acc>button.jn{margin-right:2px!important}}
 @media (max-width:340px){html header.top .tcta{padding:0 5px!important;font-size:11px!important}html header.top .acc>button{padding:0 5px!important;font-size:11px!important}}
 /* v199 홈: 가입 후 흐름 + 마무리 */
 .ab-flow .fl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -897,3 +897,5 @@ html header.top .tcta .m{display:none}
 .ab-end .ep{display:inline-flex;align-items:center;gap:8px;height:54px;padding:0 30px;border-radius:12px;border:2px solid #e6c883;color:#fff;font-size:18px;font-weight:700;text-decoration:none}
 .ab-end .ep b{color:#ffe08f}
 @media (max-width:760px){.ab-flow .fl{grid-template-columns:1fr}.ab-flow .fl li+li:before{display:none}.ab-end .wrap{padding:34px 18px}}
+
+html header.top .tcta{padding:0 18px}

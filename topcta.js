@@ -7,6 +7,6 @@
   if (!acc || document.getElementById('tcta')) return;
   var a = document.createElement('a');
   a.id = 'tcta'; a.className = 'tcta'; a.href = '/pro.html#buy';
-  a.innerHTML = '<span class="n">일감 마스터</span><span class="m">결제</span><b>49,900원</b>';
+  a.innerHTML = '<span class="n">일감 마스터</span><span class="m">마스터</span>';
   acc.parentNode.insertBefore(a, acc);
 })();
