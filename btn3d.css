@@ -899,3 +899,5 @@ html header.top .tcta .m{display:none}
 @media (max-width:760px){.ab-flow .fl{grid-template-columns:1fr}.ab-flow .fl li+li:before{display:none}.ab-end .wrap{padding:34px 18px}}
 
 html header.top .tcta{padding:0 18px}
+/* v202 구매·로그인 입력칸: 세로로 쌓일 때 높이가 늘어나던 문제 */
+html .brow input{flex:0 0 auto!important;width:100%;box-sizing:border-box;min-height:52px;height:auto;font-size:16.5px}
