@@ -40,7 +40,7 @@
       var it = j.items || [], cnt = {}; it.forEach(function (x) { cnt[x.d] = (cnt[x.d] || 0) + 1; });
       var mx = '', n = 0; Object.keys(cnt).forEach(function (d) { if (cnt[d] >= 100 && d > mx) { mx = d; n = cnt[d]; } });
       if (!mx) return;
-      box.querySelector('h2').innerHTML = Number(mx.slice(5, 7)) + '월 ' + Number(mx.slice(8, 10)) + '일 낙찰된 공사 <em>' + n.toLocaleString('ko-KR') + '건</em>,<br>누가 땄는지 보고 가세요';
+      box.querySelector('h2').innerHTML = Number(mx.slice(5, 7)) + '월 ' + Number(mx.slice(8, 10)) + '일 낙찰 <em>' + n.toLocaleString('ko-KR') + '건</em>,<br>누가 땄는지 보고 가세요';
     }).catch(function () {});
   }
   function hide() { if (box) box.hidden = true; snooze(); }
