@@ -21,7 +21,9 @@ const $=id=>document.getElementById(id);
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
 const btn=(text,cls,fn)=>{const b=el('button',cls,text);b.type='button';if(fn)b.addEventListener('click',fn);return b;};
 const CATS=['자재','장비·공구','가설·임대','공사·서비스','기타'];
-const TYPE={need:'견적 요청',sell:'팝니다'};
+const TYPE={need:'견적 요청',sell:'팝니다',team:'같이 입찰'};
+const TCATS=['지역 업체 구해요','실적 업체 구해요','함께 입찰해요'];
+function dleft(d){if(!d)return '';const t=new Date(d+'T23:59:59+09:00').getTime()-Date.now();if(t<0)return '마감';const dd=Math.floor(t/864e5);return dd>0?dd+'일 남음':Math.max(1,Math.floor(t/36e5))+'시간 남음';}
 const S={user:null,profile:null,blocks:new Map(),posts:[],limit:40,more:false,type:'all',cat:'',q:'',closed:false,view:'feed',attach:null,loading:true,loadErr:false,signingUp:false,authMode:'login',wtype:'need',photos:[]};
 
 /* ---------- 공통 ---------- */
@@ -95,7 +97,7 @@ function go(v){
   ['feed','write','tool','me'].forEach(k=>{$('v-'+k).hidden=k!==v;});
   document.querySelectorAll('#nav button').forEach(b=>{if(b.dataset.v===(v==='tool'?'write':v))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('tback').hidden=v!=='tool';
-  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물품 견적받기':'내 물건 팔기'):v==='me'?'내 정보':'직거래장터');
+  $('ttl').textContent=v==='tool'?'공내역서에서 품목 불러오기':(v==='write'?(S.wtype==='need'?'필요한 물품 견적받기':S.wtype==='team'?'같이 입찰할 업체 찾기':'내 물건 팔기'):v==='me'?'내 정보':'직거래장터');
   $('who').hidden=v==='tool';
   scrollTo(0,0);
   if(v==='write')renderWrite();
@@ -135,6 +137,7 @@ function postCard(p){
   const tx=el('div','tx');
   const r=el('div','row');r.append(el('span','tag '+p.type,TYPE[p.type]||''));
   if(p.cat)r.append(el('span','tag cat',p.cat));
+  if(p.type==='team'&&p.deadline)r.append(el('span','tag end',dleft(p.deadline)));
   if(p.status==='closed')r.append(el('span','tag end','거래완료'));
   r.append(el('span','tm',ago(p.createdAt)));
   tx.append(r,el('h3',null,p.title||''));
@@ -146,15 +149,16 @@ function postCard(p){
   b.addEventListener('click',()=>openPost(p.id));
   return b;
 }
-const CORNER={sell:['팔고 싶은 물건이 있으신가요?','올려 두시면, 필요한 업체가 연락합니다.','팔아볼게요','<svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>'],need:['필요한 물품이 있으신가요?','올려 두시면, 파는 업체가 연락합니다.','견적 부탁드려요','<svg viewBox="0 0 24 24"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H17.5a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h4"/></svg>']};
+const CORNER={team:['같이 입찰할 업체를 찾으세요?','공고를 올려 두시면, 지역·실적이 맞는 업체가 연락합니다.','업체 찾아요','<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.6 6 5.5"/></svg>'],sell:['팔고 싶은 물건이 있으신가요?','올려 두시면, 필요한 업체가 연락합니다.','팔아볼게요','<svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>'],need:['필요한 물품이 있으신가요?','올려 두시면, 파는 업체가 연락합니다.','견적 부탁드려요','<svg viewBox="0 0 24 24"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H17.5a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h4"/></svg>']};
 function renderCorner(){const c=$('corner');if(!c)return;const k=CORNER[S.corner]||CORNER.sell;c.textContent='';const ic=el('span','ci');ic.innerHTML=k[3];ic.setAttribute('aria-hidden','true');const d=el('div','ct');d.append(el('h2',null,k[0]),el('p',null,k[1]));d.append(el('p','cn','이 코너의 거래에서는 결제가 발생하지 않으며 PG(결제대행)를 사용하지 않습니다. 거래는 이용자끼리 직접 하며, 일감마켓은 낙찰을 주관⁠·⁠시행하지 않는 정보서비스입니다.'));c.append(ic,d,btn(k[2],null,()=>{S.wtype=S.corner;go('write');}));}
 function renderFeed(){
   renderCorner();
+  $('fq').placeholder=S.type==='team'?'공고명·지역·업종으로 찾기':'찾는 물건을 검색하세요';
   const t=$('ftype');t.textContent='';
-  [['sell','내 물건 팔기'],['need','필요한 물품 견적받기']].forEach(([k,l])=>{
-    const b=btn(l,null,()=>{S.corner=k;S.type=k;S.wtype=k;try{history.replaceState(null,'','?c='+k)}catch(e){}renderFeed();});b.setAttribute('aria-pressed',String(S.corner===k));t.append(b);});
+  [['sell','내 물건 팔기'],['need','필요한 물품 견적받기'],['team','같이 입찰할 업체 찾기']].forEach(([k,l])=>{
+    const b=btn(l,null,()=>{S.corner=k;S.type=k;S.wtype=k;S.cat='';try{history.replaceState(null,'','?c='+k)}catch(e){}renderFeed();});b.setAttribute('aria-pressed',String(S.corner===k));t.append(b);});
   const c=$('fcat');c.textContent='';
-  ['',...CATS].forEach(k=>{const b=btn(k||'모든 분류',null,()=>{S.cat=k;renderFeed();});b.setAttribute('aria-pressed',String(S.cat===k));c.append(b);});
+  ['',...(S.type==='team'?TCATS:CATS)].forEach(k=>{const b=btn(k||'모든 분류',null,()=>{S.cat=k;renderFeed();});b.setAttribute('aria-pressed',String(S.cat===k));c.append(b);});
   const ls=$('flist');ls.textContent='';
   if(S.loading){for(let i=0;i<4;i++)ls.append(el('div','skel'));$('fcnt').textContent='불러오는 중…';$('fmore').hidden=true;$('fdone').hidden=true;return;}
   $('fdone').hidden=false;$('fdone').textContent=S.closed?'거래완료 글 숨기기':'거래완료 글도 보기';
@@ -196,7 +200,7 @@ function renderDetail(){
   const r=el('div','row');r.append(el('span','tag '+p.type,TYPE[p.type]||''));
   if(p.cat)r.append(el('span','tag cat',p.cat));
   if(p.status==='closed')r.append(el('span','tag end','거래완료'));
-  b.append(r,el('h2','dtitle',p.title||''),el('div','dby',(p.type==='need'?'찾는 분 ':'파는 분 ')+(p.authorName||'')+(mine?' (나)':'')+' · '+ago(p.createdAt)));
+  b.append(r,el('h2','dtitle',p.title||''),el('div','dby',(p.type==='need'?'찾는 분 ':p.type==='team'?'올린 분 ':'파는 분 ')+(p.authorName||'')+(mine?' (나)':'')+' · '+ago(p.createdAt)));
   if(p.body)b.append(el('div','dbody',p.body));
   if(p.items&&p.items.length){
     const c=el('div','card form');c.append(el('h3','h4','품목 '+p.items.length+'개'));
@@ -213,7 +217,7 @@ function renderDetail(){
   if(mine){
     hw.append(el('b',null,'문의는 연락처나 댓글로 옵니다'),el('p',null,(p.contact?'내 연락처: '+p.contact+'. ':'')+'거래가 끝나면 아래에서 거래완료로 바꿔 두세요. 목록에서 정리됩니다.'));
   }else{
-    hw.append(el('b',null,p.type==='need'?'이 물품을 가지고 계신가요?':'관심 있으신가요?'));
+    hw.append(el('b',null,p.type==='need'?'이 물품을 가지고 계신가요?':p.type==='team'?'함께 들어갈 수 있으신가요?':'관심 있으신가요?'));
     if(p.contact){
       if(S.user){
         const isM=p.contact.indexOf('@')>0,cn=el('div','cn');cn.append(el('span',null,'연락받을 곳'),el('strong',null,p.contact));
@@ -390,7 +394,7 @@ function renderWrite(){
   const keep={title:($('wt')||{}).value,body:($('wb')||{}).value,cat:($('wc')||{}).value};
   if(S.pre){keep.title=S.pre.title;keep.body=S.pre.body;S.pre=null;}
   f.textContent='';
-  f.append(el('h2',null,S.wtype==='need'?'필요한 물품 견적받기':'내 물건 팔기'));
+  f.append(el('h2',null,S.wtype==='need'?'필요한 물품 견적받기':S.wtype==='team'?'같이 입찰할 업체 찾기':'내 물건 팔기'));
   const pl=el('div');pl.append(el('label',null,'사진 (선택, 최대 '+MAXP+'장)'));
   const ph=el('div','photos');
   const add=btn('','ph add',()=>inp.click());add.append(el('b',null,'+'),el('span',null,S.photos.length+'/'+MAXP));add.setAttribute('aria-label','사진 추가');
@@ -415,13 +419,14 @@ function renderWrite(){
     f.append(btn('공내역서 엑셀에서 품목 불러오기','big ghost',()=>go('tool')));
   }
   const g1=el('div');g1.append(el('label',null,'분류'));
-  const sel=el('select');sel.id='wc';CATS.forEach(c=>{const o=el('option',null,c);o.value=c;sel.append(o);});sel.value=keep.cat||CATS[0];g1.append(sel);
+  const sel=el('select');sel.id='wc';(S.wtype==='team'?TCATS:CATS).forEach(c=>{const o=el('option',null,c);o.value=c;sel.append(o);});sel.value=keep.cat||(S.wtype==='team'?TCATS:CATS)[0];g1.append(sel);
   const g2=el('div');g2.append(el('label',null,'제목'));
-  const ti=el('input');ti.id='wt';ti.maxLength=80;ti.placeholder=S.wtype==='need'?'예) 조립식 가설사무소 임대 구합니다':'예) 사용 안 한 H빔 10톤 팝니다';ti.value=keep.title||'';g2.append(ti);
+  const ti=el('input');ti.id='wt';ti.maxLength=80;ti.placeholder=S.wtype==='need'?'예) 조립식 가설사무소 임대 구합니다':S.wtype==='team'?'예) 경기 통신공사 51% 대표사 모십니다':'예) 사용 안 한 H빔 10톤 팝니다';ti.value=keep.title||'';g2.append(ti);
   const g3=el('div');g3.append(el('label',null,'내용'));
-  const bo=el('textarea');bo.id='wb';bo.maxLength=3000;bo.placeholder=S.wtype==='need'?'수량, 지역, 필요한 시기를 적어 주세요.':'상태, 수량, 가격, 지역을 적어 주세요.';bo.value=keep.body||'';g3.append(bo);
+  const bo=el('textarea');bo.id='wb';bo.maxLength=3000;bo.placeholder=S.wtype==='need'?'수량, 지역, 필요한 시기를 적어 주세요.':S.wtype==='team'?'공고명, 찾는 지역·업종, 내 지분(예: 51%), 하고 싶은 일을 적어 주세요.':'상태, 수량, 가격, 지역을 적어 주세요.';bo.value=keep.body||'';g3.append(bo);
   const g4=el('div');g4.append(el('label',null,'연락받을 곳 (휴대폰 번호 또는 이메일)'));
   const co=el('input');co.id='wk';co.maxLength=60;co.placeholder='예) 010-1234-5678 또는 abc@naver.com';co.autocomplete='off';co.value=keep.contact||'';g4.append(co);
+  let wd=null;if(S.wtype==='team'){const g5=el('div');g5.append(el('label',null,'협정 마감일 (선택)'));wd=el('input');wd.type='date';wd.id='wd';g5.append(wd);f.append(g5);}
   f.append(g1,g2,g3,g4,el('div','tip','연락받을 곳은 로그인한 회원에게만 보입니다. 문의는 댓글로도 받을 수 있습니다.'),el('div','tip legal','올리는 글은 올린 사람의 책임입니다. 일감마켓은 이용자끼리 거래할 수 있게 연결해 주는 곳입니다. 거래의 당사자가 아니며, 물건의 품질·대금·배송 등 거래와 관련한 분쟁과 책임은 거래 당사자에게 있습니다.'));
   const err=el('div','err');err.id='werr';
   const sub=btn('올리기','primary big',async()=>{
@@ -433,7 +438,7 @@ function renderWrite(){
     if(!/^[0-9][0-9\- ]{8,}$/.test(contact)&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)){err.textContent='연락받을 휴대폰 번호나 이메일을 정확히 적어 주세요.';co.focus();return;}
     sub.disabled=true;sub.textContent='올리는 중…';
     try{
-      const data={type:S.wtype,title,body,contact,cat:sel.value,authorId:S.user.uid,authorName:S.profile.nick,status:'open',createdAt:serverTimestamp()};
+      const data={type:S.wtype,title,body,contact,cat:sel.value,...(wd&&wd.value?{deadline:wd.value}:{}),authorId:S.user.uid,authorName:S.profile.nick,status:'open',createdAt:serverTimestamp()};
       if(S.attach&&S.attach.rows.length)data.items=S.attach.rows.slice(0,300);
       const pics=S.photos.slice();
       if(pics.length){data.thumb=pics[0].thumb;data.pc=pics.length;}
@@ -618,7 +623,7 @@ onAuthStateChanged(auth,async u=>{
 });
 
 /* 낙찰 사이트에서 넘어온 글쓰기: 제목과 내용만 채워 주고, 올리기 전에 직접 고치고 고릅니다 */
-const QP=new URLSearchParams(location.search);{const c=QP.get('c');S.corner=c==='need'?'need':'sell';S.type=S.corner;S.wtype=S.corner;}
+const QP=new URLSearchParams(location.search);{const c=QP.get('c');S.corner=c==='need'?'need':c==='team'?'team':'sell';S.type=S.corner;S.wtype=S.corner;}
 if(QP.get('title')||QP.get('body')){S.pre={title:(QP.get('title')||'').slice(0,80),body:(QP.get('body')||'').slice(0,3000)};if(QP.get('type')==='sell')S.wtype='sell';}
 go(S.pre?'write':'feed');
 loadFeed();
