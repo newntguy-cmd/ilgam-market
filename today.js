@@ -13,7 +13,8 @@
     var bx = document.getElementById('td'); if (bx) bx.hidden = false;
   }).catch(function () {});
   fetch('data/recent.json').then(function (r) { return r.json(); }).then(function (j) {
-    var it = j.items || [], mx = ''; it.forEach(function (x) { if (x.d > mx) mx = x.d; });
+    var it = j.items || [], cnt = {}, mx = ''; it.forEach(function (x) { cnt[x.d] = (cnt[x.d] || 0) + 1; });
+    Object.keys(cnt).forEach(function (d) { if (cnt[d] >= 100 && d > mx) mx = d; });  /* 아침 갱신 직후 일부만 모인 날은 건너뜁니다 */
     if (!mx) return;
     var n = 0, c = {}; it.forEach(function (x) { if (x.d === mx) { n++; if (x.co) c[x.co] = 1; } });
     $('tdB').textContent = num(n); $('tdBl').textContent = Number(mx.slice(5, 7)) + '월 ' + Number(mx.slice(8, 10)) + '일 낙찰 · 업체 ' + num(Object.keys(c).length) + '곳';

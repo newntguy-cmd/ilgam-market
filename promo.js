@@ -10,31 +10,38 @@
   }
   function css() {
     var st = document.createElement('style');
-    st.textContent = '#ighold{position:fixed;inset:0;z-index:2147483001;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,22,44,.62);font-family:inherit}#ighold[hidden]{display:none}'
-    + '#ighold .p{position:relative;width:min(520px,100%);padding:34px 28px 24px;border-radius:16px;text-align:center;color:#2d3134;background:linear-gradient(180deg,#fff7dc,#f6e3a8);box-shadow:0 26px 60px rgba(0,0,0,.5)}'
-    + '#ighold .x{position:absolute;right:12px;top:12px;width:42px;height:42px;border:0;border-radius:8px;background:#3f4349;color:#fff;font-size:20px;cursor:pointer}'
-    + '#ighold h2{margin:0 0 4px;font-size:34px;font-weight:800;letter-spacing:-.03em}#ighold h2+p{margin:0 0 18px;font-size:24px;font-weight:800;letter-spacing:-.02em}#ighold h2+p em{font-style:normal;background:linear-gradient(transparent 58%,rgba(201,164,92,.6) 58%)}'
-    + '#ighold .cmp{display:grid;grid-template-columns:.8fr 1.4fr;background:#fff;border-radius:10px;overflow:hidden;text-align:center;box-shadow:0 2px 0 rgba(0,0,0,.08)}'
-    + '#ighold .cmp>div{padding:20px 14px}#ighold .cmp .a{border-right:1px solid #e8dfc8;display:flex;flex-direction:column;align-items:center;justify-content:center}'
-    + '#ighold .cmp span.t{display:inline-block;padding:5px 14px;border-radius:20px;background:#ece7d8;font-weight:800;font-size:15px;margin-bottom:14px}#ighold .cmp .b span.t{background:#c9a45c;color:#2d3134}'
-    + '#ighold .cmp .a b{font-size:20px;color:#848b94}#ighold .cmp li{list-style:none;font-size:18px;line-height:1.5;padding:4px 0;font-weight:700}#ighold .cmp ul{margin:0;padding:0}#ighold .cmp li i{font-style:normal;color:#8a6a28;font-weight:800}'
-    + '#ighold .go{width:100%;height:60px;margin-top:18px;border:0;border-radius:8px;background:#3f4349;color:#fff;font-size:20px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 0 #1d1f21}'
-    + '#ighold .no{display:block;margin:14px auto 0;background:none;border:0;color:#4e5359;font-size:15px;text-decoration:underline;cursor:pointer;font-family:inherit}'
-    + '@media (max-width:480px){#ighold h2{font-size:28px}#ighold h2+p{font-size:20px}#ighold .cmp{grid-template-columns:.7fr 1.5fr}#ighold .cmp li{font-size:16px}}';
+    st.textContent = '#ighold{position:fixed;inset:0;z-index:2147483001;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(8,28,23,.55);font-family:inherit}#ighold[hidden]{display:none}'
+    + '#ighold .p{position:relative;width:min(460px,100%);padding:38px 30px 26px;border-radius:18px;text-align:left;color:#fff;background:radial-gradient(120% 140% at 50% -20%,#3fae94 0,#1a7762 36%,#0e4f40 70%,#082f27 100%);border-top:4px solid #c9a45c;box-shadow:0 28px 64px rgba(0,0,0,.5)}'
+    + '#ighold .x{position:absolute;right:12px;top:14px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:19px;cursor:pointer}#ighold .x:hover{background:rgba(255,255,255,.26)}'
+    + '#ighold h2{margin:0 36px 8px 0;font-size:28px;line-height:1.32;font-weight:800;letter-spacing:-.035em;word-break:keep-all}#ighold h2 em{font-style:normal;color:#ffe08f}'
+    + '#ighold .sub{margin:0 0 20px;font-size:17px;line-height:1.5;color:#d3ece4;word-break:keep-all}'
+    + '#ighold ul{margin:0 0 24px;padding:0;list-style:none;display:grid;gap:12px}#ighold li{position:relative;padding-left:34px;font-size:18px;line-height:1.45;font-weight:700;word-break:keep-all}'
+    + '#ighold li:before{content:"";position:absolute;left:0;top:1px;width:23px;height:23px;border-radius:50%;background:#c9a45c}#ighold li:after{content:"";position:absolute;left:8px;top:6px;width:6px;height:11px;border:solid #2d3134;border-width:0 3px 3px 0;transform:rotate(45deg)}'
+    + '#ighold .go{width:100%;height:58px;border:0;border-radius:12px;background:linear-gradient(180deg,#e6c883,#c9a45c);color:#2d3134;font-size:20px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 0 #8a6a28}#ighold .go:active{transform:translateY(3px);box-shadow:0 1px 0 #8a6a28}'
+    + '#ighold .no{display:block;margin:14px auto 0;background:none;border:0;color:#b9dccf;font-size:16px;cursor:pointer;font-family:inherit;padding:8px 14px}#ighold .no:hover{color:#fff}'
+    + '@media (max-width:480px){#ighold .p{padding:34px 22px 22px}#ighold h2{font-size:22px}#ighold li{font-size:17px}}';
     document.head.appendChild(st);
   }
   function build() {
     css();
     box = document.createElement('div'); box.id = 'ighold'; box.hidden = true;
-    box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="ighT"><button type="button" class="x" aria-label="닫기">✕</button><h2 id="ighT">잠시만요!</h2><p><em>낙찰 현장,</em> 업체와 금액도 확인해 보세요</p>'
-      + '<div class="cmp"><div class="a"><span class="t">가입 안 하면</span><b>둘러보기만</b></div><div class="b"><span class="t">가입하면</span><ul><li><i>현장·업체·금액</i> 확인</li><li><i>매일 아침</i> 새 낙찰 메일</li><li><i>직거래장터</i> 글 올리기</li><li><i>대표 전화·주소</i> 10곳 열람</li></ul></div></div>'
-      + '<button type="button" class="go" data-act="join">가입하기</button><button type="button" class="no">오늘은 그냥 볼게요</button></div>';
+    box.innerHTML = '<div class="p" role="dialog" aria-modal="true" aria-labelledby="ighT"><button type="button" class="x" aria-label="닫기">✕</button>'
+      + '<h2 id="ighT">낙찰된 공사,<br>누가 땄는지 보고 가세요</h2><p class="sub">가입하면 업체와 금액까지 바로 보여요.</p>'
+      + '<ul><li>내 지역 낙찰 소식을 매일 아침 7:30에 메일로</li><li>낙찰 현장별 업체와 금액</li><li>직거래장터에 내 글 올리기</li></ul>'
+      + '<button type="button" class="go" data-act="join">가입하기</button><button type="button" class="no">나중에 볼게요</button></div>';
     document.body.appendChild(box);
     box.addEventListener('click', function (e) {
       var t = e.target;
       if (t === box || t.className === 'x' || t.className === 'no') hide();
       else if (t.hasAttribute('data-act')) hide();
     });
+    // 가장 최근 낙찰일의 실제 건수를 제목에 넣습니다 (불러오지 못하면 기본 문구 그대로)
+    fetch('/data/recent.json').then(function (r) { return r.json(); }).then(function (j) {
+      var it = j.items || [], cnt = {}; it.forEach(function (x) { cnt[x.d] = (cnt[x.d] || 0) + 1; });
+      var mx = '', n = 0; Object.keys(cnt).forEach(function (d) { if (cnt[d] >= 100 && d > mx) { mx = d; n = cnt[d]; } });
+      if (!mx) return;
+      box.querySelector('h2').innerHTML = Number(mx.slice(5, 7)) + '월 ' + Number(mx.slice(8, 10)) + '일 낙찰된 공사 <em>' + n.toLocaleString('ko-KR') + '건</em>,<br>누가 땄는지 보고 가세요';
+    }).catch(function () {});
   }
   function hide() { if (box) box.hidden = true; snooze(); }
   function show() {
