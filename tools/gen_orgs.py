@@ -69,7 +69,7 @@ def build(d, out, site, linked):
         body = f'''<main class="wrap"><p class="crumb">{crumb}</p>
 <h1>{e(name)} 낙찰 현장</h1>
 <p class="sum">최근 낙찰 <b>{len(rows):,}건</b> · 낙찰 업체 <b>{cos:,}곳</b> · 합계 <b>{money(total)}</b>{rtx} · {md(lo)}~{md(hi)} 기준</p>
-<section class="card cta"><h2>{e(name)} 낙찰 업체 {cos:,}곳, 내 영업 리스트로</h2><ul class="cb"><li><b>대표 전화·주소 10곳</b><span>가입하면 바로 영업 리스트에 담겨요</span></li><li><b>아침 7:30 메일</b><span>{e(rg) if rg else "내 지역"}에 새 낙찰이 나면 그날 아침 받아요</span></li><li><b>낙찰률·낙찰 현황</b><span>이 페이지처럼 가입 전에도 그대로 볼 수 있어요</span></li></ul><a class="btn" href="/?join=1{('&amp;rg=' + quote(rg)) if rg else ''}">내 영업 리스트 만들기</a></section>
+<section class="card cta"><h2>{e(name)} 낙찰 업체 {cos:,}곳, 내 영업 리스트로</h2><ul class="cb"><li><b>현장별 업체와 금액</b><span>가입하면 낙찰 현장마다 바로 보여요</span></li><li><b>아침 7:30 메일</b><span>{e(rg) if rg else "내 지역"}에 새 낙찰이 나면 그날 아침 받아요</span></li><li><b>낙찰률·낙찰 현황</b><span>이 페이지처럼 가입 전에도 그대로 볼 수 있어요</span></li></ul><a class="btn" href="/?join=1{('&amp;rg=' + quote(rg)) if rg else ''}">내 영업 리스트 만들기</a></section>
 <section class="card"><h2>최근 낙찰</h2><table><tbody>{trs}</tbody></table>{'<p class="note">최근 ' + str(ROWS) + '건만 보여 드려요. 전체 목록은 일감마켓에서 확인할 수 있어요.</p>' if len(rows) > ROWS else ''}</section>
 <p class="more"><a class="btn" href="/#win">일감마켓에서 전체 낙찰 보기</a></p>
 <p class="note">※ 조달청 나라장터 공공데이터를 가공한 정보이며, 일감마켓은 낙찰을 주관⁠·⁠시행하지 않는 정보서비스입니다. 정확성과 완전성을 보장하지 않습니다.</p></main>'''
@@ -83,7 +83,7 @@ def build(d, out, site, linked):
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=202"><style>{css}</style>
+<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=203"><style>{css}</style>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {band(body)}
@@ -118,7 +118,7 @@ def build(d, out, site, linked):
 <link rel="canonical" href="{hurl}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="일감마켓"><meta property="og:title" content="{e(htitle)}"><meta property="og:description" content="{e(hdesc)}"><meta property="og:url" content="{hurl}"><meta property="og:image" content="https://ilgammarket.co.kr/og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/img/icon.svg">
-<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=202"><style>{css}</style>
+<meta name="theme-color" content="#2d3134"><link rel="stylesheet" href="/page.css"><link rel="stylesheet" href="/btn3d.css?v=203"><style>{css}</style>
 <link rel="preload" href="/fonts/NotoSansKR-sub.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="/font.css?v=1"></head>
 <body>{HEADER}
 {band(hbody)}

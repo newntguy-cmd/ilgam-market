@@ -17,6 +17,7 @@
     Object.keys(cnt).forEach(function (d) { if (cnt[d] >= 100 && d > mx) mx = d; });  /* 아침 갱신 직후 일부만 모인 날은 건너뜁니다 */
     if (!mx) return;
     var n = 0, c = {}; it.forEach(function (x) { if (x.d === mx) { n++; if (x.co) c[x.co] = 1; } });
+    window.__rs = { n: num(n), l: Number(mx.slice(5, 7)) + '월 ' + Number(mx.slice(8, 10)) + '일 낙찰' }; window.dispatchEvent(new Event('ig-rs'));
     $('tdB').textContent = num(n); $('tdBl').textContent = Number(mx.slice(5, 7)) + '월 ' + Number(mx.slice(8, 10)) + '일 낙찰 · 업체 ' + num(Object.keys(c).length) + '곳';
     var bx = document.getElementById('td'); if (bx) bx.hidden = false;
   }).catch(function () {});
